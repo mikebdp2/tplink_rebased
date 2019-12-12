@@ -1,0 +1,24 @@
+From 607c410071c161900c8edfab8cc25b8a029dd675 Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Tue, 10 Dec 2019 17:12:40 +0000
+Subject: [PATCH] Modify ./tools/mkimage.c according to WR841N(D)v9 u-boot
+
+---
+ tools/mkimage.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tools/mkimage.c b/tools/mkimage.c
+index 21251306ac..35359fb7d6 100644
+--- a/tools/mkimage.c
++++ b/tools/mkimage.c
+@@ -139,6 +139,7 @@ table_entry_t comp_name[] = {
+     {	IH_COMP_NONE,	"none",		"uncompressed",		},
+     {	IH_COMP_BZIP2,	"bzip2",	"bzip2 compressed",	},
+     {	IH_COMP_GZIP,	"gzip",		"gzip compressed",	},
++    {   IH_COMP_LZMA,   "lzma",         "lzma compressed",      }, /* cu570m */
+     {	-1,		"",		"",			},
+ };
+ 
+-- 
+2.24.0
+

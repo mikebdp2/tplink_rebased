@@ -1,0 +1,76 @@
+From e4213d13fc3dd1bc368a73c785541ba060939093 Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Tue, 10 Dec 2019 16:56:35 +0000
+Subject: [PATCH] Modify ./drivers/Makefile according to WR841N(D)v9 u-boot
+
+---
+ drivers/pci/Makefile |  4 ++++
+ drivers/rtc/Makefile | 24 ++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
+
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index fe45839466..70224dfbfb 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -25,12 +25,16 @@ include $(TOPDIR)/config.mk
+ 
+ LIB 	:= $(obj)libpci.a
+ 
++ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
++COBJS-y += pci.o
++else # old default path
+ COBJS-y += fsl_pci_init.o
+ COBJS-y += pci.o
+ COBJS-y += pci_auto.o
+ COBJS-y += pci_indirect.o
+ COBJS-y += tsi108_pci.o
+ COBJS-y += w83c553f.o
++endif # cu570m
+ 
+ COBJS	:= $(COBJS-y)
+ SRCS 	:= $(COBJS:.o=.c)
+diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
+index 800ab9934a..c820b73798 100644
+--- a/drivers/rtc/Makefile
++++ b/drivers/rtc/Makefile
+@@ -27,6 +27,29 @@ include $(TOPDIR)/config.mk
+ 
+ LIB	= $(obj)librtc.a
+ 
++ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
++COBJS-y += bfin_rtc.o
++COBJS-y += date.o
++COBJS-y += ds12887.o
++COBJS-y += ds1302.o
++COBJS-y += ds1306.o
++COBJS-y += ds1307.o
++COBJS-y += ds1337.o
++COBJS-y += ds1374.o
++COBJS-y += ds1556.o
++COBJS-y += ds164x.o
++COBJS-y += ds174x.o
++COBJS-y += m41t11.o
++COBJS-y += m48t35ax.o
++COBJS-y += max6900.o
++COBJS-y += mc146818.o
++COBJS-y += mk48t59.o
++COBJS-y += mpc5xxx.o
++COBJS-y += mpc8xx.o
++COBJS-y += pcf8563.o
++COBJS-y += rs5c372.o
++COBJS-y += s3c24x0_rtc.o
++else # old default path
+ COBJS-y += bfin_rtc.o
+ COBJS-y += date.o
+ COBJS-y += ds12887.o
+@@ -55,6 +78,7 @@ COBJS-y += rs5c372.o
+ COBJS-y += rx8025.o
+ COBJS-y += s3c24x0_rtc.o
+ COBJS-y += x1205.o
++endif # cu570m
+ 
+ COBJS	:= $(COBJS-y)
+ SRCS	:= $(COBJS:.o=.c)
+-- 
+2.24.0
+

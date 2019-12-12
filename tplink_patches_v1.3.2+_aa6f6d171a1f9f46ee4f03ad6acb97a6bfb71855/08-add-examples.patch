@@ -1,0 +1,600 @@
+From 92b6df24eeb9db2440191028b6a1cc68ecdefeab Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Tue, 10 Dec 2019 16:57:19 +0000
+Subject: [PATCH] Add ./examples/ Atheros files from WR841N(D)v9 u-boot
+
+---
+ examples/hello_world.bin  | Bin 0 -> 856 bytes
+ examples/hello_world.s    | 496 ++++++++++++++++++++++++++++++++++++++
+ examples/hello_world.srec |  57 +++++
+ 3 files changed, 553 insertions(+)
+ create mode 100755 examples/hello_world.bin
+ create mode 100644 examples/hello_world.s
+ create mode 100755 examples/hello_world.srec
+
+diff --git a/examples/hello_world.bin b/examples/hello_world.bin
+new file mode 100755
+index 0000000000000000000000000000000000000000..3a4ad787eff824ee09fe998d01b39849c957bc22
+GIT binary patch
+literal 856
+zcmZva&ubGw6vw~Wjdd*^_RvEQIlL{KCio*Lcu<Iv7AzHt=%J{H(2y)rT)QDzOM6>1
+zhn^g-0S`I$P+0BRqDTLP9((ZM*;7FwerMW%nK-aJ^ZCB-o450J>LsA^(G_=a5>$>x
+z$N5);`5`3#j8gsy^Z6I}YJd>ghX6wfTsggjVHPOr;RQIV50CL%S`Yiqp4Q1F<HMfu
+zp-~Mi-@frp=6=_jGwnT|X>d=*-p>GfA4j+!YcAeIVbMo%?i*az{-NH&3s;=ev)X|3
+z*uUa8M!%+OxiH!Q*T!D@{+w$!#@c`KN=9Rk6nmuDBgGy8e&C+Ks~n-Ko>9L8xB?Fx
+z=UlYdv-q;bzQuDE&s)rXPt+5OLyM~xvkw#b?7;-{|DLfvr#@HR+#CGV_eQ<rx%&{b
+z{i}WhMIArbU{^5u9kx&$=V<-#B2qp7J2HOl{hj9PP8><J(}`MXPnMP+$ad82Z6;e%
+zZqH(=mA+}lvVMIzNz$n(uo}g2B2SWTOfyHb`?4i>O{!jRKQFgmkQd6m1rx77Twhze
+y$Gpu{np?Z_D%zDaVR>?`RujF)tZ@Pv*O~BTjZ6xU`0X2+IJY@JC3pCc3&X#KeY+O`
+
+literal 0
+HcmV?d00001
+
+diff --git a/examples/hello_world.s b/examples/hello_world.s
+new file mode 100644
+index 0000000..3f7b99a
+--- /dev/null
++++ b/examples/hello_world.s
+@@ -0,0 +1,496 @@
++	.section .mdebug.abi32
++	.previous
++	.abicalls
++	.section	.debug_abbrev,"",@progbits
++$Ldebug_abbrev0:
++	.section	.debug_info,"",@progbits
++$Ldebug_info0:
++	.section	.debug_line,"",@progbits
++$Ldebug_line0:
++	.text
++$Ltext0:
++	.section	.rodata.str1.4,"aMS",@progbits,1
++	.align	2
++$LC0:
++	.ascii	"Example expects ABI version %d\n\000"
++	.align	2
++$LC1:
++	.ascii	"Actual U-Boot ABI version %d\n\000"
++	.align	2
++$LC2:
++	.ascii	"Hello World\n\000"
++	.align	2
++$LC3:
++	.ascii	"argc = %d\n\000"
++	.align	2
++$LC4:
++	.ascii	"argv[%d] = \"%s\"\n\000"
++	.align	2
++$LC5:
++	.ascii	"<NULL>\000"
++	.align	2
++$LC6:
++	.ascii	"Hit any key to exit ... \000"
++	.align	2
++$LC7:
++	.ascii	"\n\n\000"
++	.text
++	.align	2
++	.globl	hello_world
++	.ent	hello_world
++	.type	hello_world, @function
++hello_world:
++$LFB44:
++	.file 1 "hello_world.c"
++	.loc 1 28 0
++	.set	nomips16
++	.frame	$sp,40,$31		# vars= 0, regs= 4/0, args= 16, gp= 8
++	.mask	0x80070000,-4
++	.fmask	0x00000000,0
++	.set	noreorder
++	.cpload	$25
++	.set	nomacro
++
++	addiu	$sp,$sp,-40
++$LCFI0:
++	sw	$31,36($sp)
++$LCFI1:
++	sw	$18,32($sp)
++$LCFI2:
++	sw	$17,28($sp)
++$LCFI3:
++	sw	$16,24($sp)
++$LCFI4:
++	.cprestore	16
++	.loc 1 32 0
++	lw	$25,%call16(app_startup)($28)
++	.loc 1 28 0
++	move	$18,$4
++	.loc 1 32 0
++	move	$4,$5
++	.loc 1 28 0
++	.loc 1 32 0
++	jalr	$25
++	move	$16,$5
++
++	lw	$28,16($sp)
++	.loc 1 33 0
++	li	$5,2			# 0x2
++	lw	$4,%got($LC0)($28)
++	lw	$25,%call16(printf)($28)
++	jalr	$25
++	addiu	$4,$4,%lo($LC0)
++
++	lw	$28,16($sp)
++	.loc 1 34 0
++	lw	$25,%call16(get_version)($28)
++	.loc 1 40 0
++	.loc 1 34 0
++	jalr	$25
++	move	$17,$0
++
++	lw	$28,16($sp)
++	move	$5,$2
++	lw	$4,%got($LC1)($28)
++	lw	$25,%call16(printf)($28)
++	jalr	$25
++	addiu	$4,$4,%lo($LC1)
++
++	lw	$28,16($sp)
++	.loc 1 36 0
++	lw	$4,%got($LC2)($28)
++	lw	$25,%call16(printf)($28)
++	jalr	$25
++	addiu	$4,$4,%lo($LC2)
++
++	lw	$28,16($sp)
++	.loc 1 38 0
++	move	$5,$18
++	lw	$4,%got($LC3)($28)
++	lw	$25,%call16(printf)($28)
++	jalr	$25
++	addiu	$4,$4,%lo($LC3)
++
++	.loc 1 40 0
++	bltz	$18,$L11
++	lw	$28,16($sp)
++
++$L7:
++	.loc 1 41 0
++	lw	$6,0($16)
++	lw	$4,%got($LC4)($28)
++	move	$5,$17
++	lw	$25,%call16(printf)($28)
++	.loc 1 40 0
++	addiu	$17,$17,1
++	addiu	$16,$16,4
++	.loc 1 41 0
++	bne	$6,$0,$L6
++	addiu	$4,$4,%lo($LC4)
++
++	lw	$2,%got($LC5)($28)
++	addiu	$6,$2,%lo($LC5)
++$L6:
++	jalr	$25
++	nop
++
++	.loc 1 40 0
++	slt	$2,$18,$17
++	.loc 1 41 0
++	.loc 1 40 0
++	beq	$2,$0,$L7
++	lw	$28,16($sp)
++
++$L11:
++	.loc 1 46 0
++	lw	$4,%got($LC6)($28)
++	lw	$25,%call16(printf)($28)
++	jalr	$25
++	addiu	$4,$4,%lo($LC6)
++
++	lw	$28,16($sp)
++$L8:
++	.loc 1 47 0
++	lw	$25,%call16(tstc)($28)
++	jalr	$25
++	nop
++
++	beq	$2,$0,$L8
++	lw	$28,16($sp)
++
++	.loc 1 50 0
++	lw	$25,%call16(getc)($28)
++	jalr	$25
++	nop
++
++	lw	$28,16($sp)
++	.loc 1 52 0
++	lw	$4,%got($LC7)($28)
++	lw	$25,%call16(printf)($28)
++	jalr	$25
++	addiu	$4,$4,%lo($LC7)
++
++	lw	$28,16($sp)
++	.loc 1 54 0
++	lw	$31,36($sp)
++	lw	$18,32($sp)
++	lw	$17,28($sp)
++	lw	$16,24($sp)
++	move	$2,$0
++	j	$31
++	addiu	$sp,$sp,40
++
++	.set	macro
++	.set	reorder
++$LFE44:
++	.end	hello_world
++	.section	.debug_frame,"",@progbits
++$Lframe0:
++	.4byte	$LECIE0-$LSCIE0
++$LSCIE0:
++	.4byte	0xffffffff
++	.byte	0x1
++	.ascii	"\000"
++	.uleb128 0x1
++	.sleb128 4
++	.byte	0x1f
++	.byte	0xc
++	.uleb128 0x1d
++	.uleb128 0x0
++	.align	2
++$LECIE0:
++$LSFDE0:
++	.4byte	$LEFDE0-$LASFDE0
++$LASFDE0:
++	.4byte	$Lframe0
++	.4byte	$LFB44
++	.4byte	$LFE44-$LFB44
++	.byte	0x4
++	.4byte	$LCFI0-$LFB44
++	.byte	0xe
++	.uleb128 0x28
++	.byte	0x4
++	.4byte	$LCFI4-$LCFI0
++	.byte	0x11
++	.uleb128 0x10
++	.sleb128 -4
++	.byte	0x11
++	.uleb128 0x11
++	.sleb128 -3
++	.byte	0x11
++	.uleb128 0x12
++	.sleb128 -2
++	.byte	0x11
++	.uleb128 0x1f
++	.sleb128 -1
++	.align	2
++$LEFDE0:
++	.align	0
++	.text
++$Letext0:
++	.section	.debug_info
++	.4byte	0xc7
++	.2byte	0x2
++	.4byte	$Ldebug_abbrev0
++	.byte	0x4
++	.uleb128 0x1
++	.4byte	$Ldebug_line0
++	.4byte	$Letext0
++	.4byte	$Ltext0
++	.4byte	$LASF12
++	.byte	0x1
++	.4byte	$LASF13
++	.4byte	$LASF14
++	.uleb128 0x2
++	.4byte	$LASF0
++	.byte	0x1
++	.byte	0x8
++	.uleb128 0x2
++	.4byte	$LASF1
++	.byte	0x4
++	.byte	0x7
++	.uleb128 0x2
++	.4byte	$LASF2
++	.byte	0x2
++	.byte	0x7
++	.uleb128 0x2
++	.4byte	$LASF3
++	.byte	0x4
++	.byte	0x7
++	.uleb128 0x3
++	.ascii	"int\000"
++	.byte	0x4
++	.byte	0x5
++	.uleb128 0x2
++	.4byte	$LASF3
++	.byte	0x4
++	.byte	0x7
++	.uleb128 0x2
++	.4byte	$LASF4
++	.byte	0x4
++	.byte	0x5
++	.uleb128 0x4
++	.byte	0x4
++	.4byte	0x5c
++	.uleb128 0x2
++	.4byte	$LASF5
++	.byte	0x1
++	.byte	0x6
++	.uleb128 0x2
++	.4byte	$LASF6
++	.byte	0x8
++	.byte	0x5
++	.uleb128 0x2
++	.4byte	$LASF7
++	.byte	0x1
++	.byte	0x6
++	.uleb128 0x2
++	.4byte	$LASF8
++	.byte	0x2
++	.byte	0x5
++	.uleb128 0x2
++	.4byte	$LASF9
++	.byte	0x8
++	.byte	0x7
++	.uleb128 0x5
++	.4byte	0xc4
++	.byte	0x1
++	.4byte	$LASF15
++	.byte	0x1
++	.byte	0x1c
++	.byte	0x1
++	.4byte	0x41
++	.4byte	$LFB44
++	.4byte	$LFE44
++	.4byte	$LSFDE0
++	.byte	0x1
++	.byte	0x6d
++	.uleb128 0x6
++	.4byte	$LASF10
++	.byte	0x1
++	.byte	0x1b
++	.4byte	0x41
++	.byte	0x1
++	.byte	0x62
++	.uleb128 0x6
++	.4byte	$LASF11
++	.byte	0x1
++	.byte	0x1b
++	.4byte	0xc4
++	.byte	0x1
++	.byte	0x60
++	.uleb128 0x7
++	.ascii	"i\000"
++	.byte	0x1
++	.byte	0x1d
++	.4byte	0x41
++	.byte	0x1
++	.byte	0x61
++	.byte	0x0
++	.uleb128 0x4
++	.byte	0x4
++	.4byte	0x56
++	.byte	0x0
++	.section	.debug_abbrev
++	.uleb128 0x1
++	.uleb128 0x11
++	.byte	0x1
++	.uleb128 0x10
++	.uleb128 0x6
++	.uleb128 0x12
++	.uleb128 0x1
++	.uleb128 0x11
++	.uleb128 0x1
++	.uleb128 0x25
++	.uleb128 0xe
++	.uleb128 0x13
++	.uleb128 0xb
++	.uleb128 0x3
++	.uleb128 0xe
++	.uleb128 0x1b
++	.uleb128 0xe
++	.byte	0x0
++	.byte	0x0
++	.uleb128 0x2
++	.uleb128 0x24
++	.byte	0x0
++	.uleb128 0x3
++	.uleb128 0xe
++	.uleb128 0xb
++	.uleb128 0xb
++	.uleb128 0x3e
++	.uleb128 0xb
++	.byte	0x0
++	.byte	0x0
++	.uleb128 0x3
++	.uleb128 0x24
++	.byte	0x0
++	.uleb128 0x3
++	.uleb128 0x8
++	.uleb128 0xb
++	.uleb128 0xb
++	.uleb128 0x3e
++	.uleb128 0xb
++	.byte	0x0
++	.byte	0x0
++	.uleb128 0x4
++	.uleb128 0xf
++	.byte	0x0
++	.uleb128 0xb
++	.uleb128 0xb
++	.uleb128 0x49
++	.uleb128 0x13
++	.byte	0x0
++	.byte	0x0
++	.uleb128 0x5
++	.uleb128 0x2e
++	.byte	0x1
++	.uleb128 0x1
++	.uleb128 0x13
++	.uleb128 0x3f
++	.uleb128 0xc
++	.uleb128 0x3
++	.uleb128 0xe
++	.uleb128 0x3a
++	.uleb128 0xb
++	.uleb128 0x3b
++	.uleb128 0xb
++	.uleb128 0x27
++	.uleb128 0xc
++	.uleb128 0x49
++	.uleb128 0x13
++	.uleb128 0x11
++	.uleb128 0x1
++	.uleb128 0x12
++	.uleb128 0x1
++	.uleb128 0x2001
++	.uleb128 0x6
++	.uleb128 0x40
++	.uleb128 0xa
++	.byte	0x0
++	.byte	0x0
++	.uleb128 0x6
++	.uleb128 0x5
++	.byte	0x0
++	.uleb128 0x3
++	.uleb128 0xe
++	.uleb128 0x3a
++	.uleb128 0xb
++	.uleb128 0x3b
++	.uleb128 0xb
++	.uleb128 0x49
++	.uleb128 0x13
++	.uleb128 0x2
++	.uleb128 0xa
++	.byte	0x0
++	.byte	0x0
++	.uleb128 0x7
++	.uleb128 0x34
++	.byte	0x0
++	.uleb128 0x3
++	.uleb128 0x8
++	.uleb128 0x3a
++	.uleb128 0xb
++	.uleb128 0x3b
++	.uleb128 0xb
++	.uleb128 0x49
++	.uleb128 0x13
++	.uleb128 0x2
++	.uleb128 0xa
++	.byte	0x0
++	.byte	0x0
++	.byte	0x0
++	.section	.debug_pubnames,"",@progbits
++	.4byte	0x1e
++	.2byte	0x2
++	.4byte	$Ldebug_info0
++	.4byte	0xcb
++	.4byte	0x7f
++	.ascii	"hello_world\000"
++	.4byte	0x0
++	.section	.debug_aranges,"",@progbits
++	.4byte	0x1c
++	.2byte	0x2
++	.4byte	$Ldebug_info0
++	.byte	0x4
++	.byte	0x0
++	.2byte	0x0
++	.2byte	0x0
++	.4byte	$Ltext0
++	.4byte	$Letext0-$Ltext0
++	.4byte	0x0
++	.4byte	0x0
++	.section	.debug_str,"MS",@progbits,1
++$LASF14:
++	.ascii	"/root/uboot/u-boot-2006-04-06-1725/examples\000"
++$LASF9:
++	.ascii	"long long unsigned int\000"
++$LASF6:
++	.ascii	"long long int\000"
++$LASF7:
++	.ascii	"signed char\000"
++$LASF1:
++	.ascii	"long unsigned int\000"
++$LASF4:
++	.ascii	"long int\000"
++$LASF2:
++	.ascii	"short unsigned int\000"
++$LASF13:
++	.ascii	"hello_world.c\000"
++$LASF3:
++	.ascii	"unsigned int\000"
++$LASF8:
++	.ascii	"short int\000"
++$LASF5:
++	.ascii	"char\000"
++$LASF12:
++	.ascii	"GNU C 3.4.4 mipssde-6.03.01-20051114 -g\000"
++$LASF0:
++	.ascii	"unsigned char\000"
++$LASF11:
++	.ascii	"argv\000"
++$LASF15:
++	.ascii	"hello_world\000"
++$LASF10:
++	.ascii	"argc\000"
++	.ident	"GCC: (GNU) 3.4.4 mipssde-6.03.01-20051114"
+diff --git a/examples/hello_world.srec b/examples/hello_world.srec
+new file mode 100755
+index 0000000..51cf850
+--- /dev/null
++++ b/examples/hello_world.srec
+@@ -0,0 +1,57 @@
++S013000068656C6C6F5F776F726C642E7372656376
++S315802000003C1C0000279C03200399E02127BDFFD8B4
++S31580200010AFBF0024AFB20020AFB1001CAFB0001834
++S31580200020AFBC00108F9900240080902100A0202151
++S315802000300320F80900A080218FBC0010240500022F
++S315802000408F8400088F9900340320F809248402883D
++S315802000508FBC00108F99001C0320F809000088218E
++S315802000608FBC0010004028218F8400088F9900348F
++S315802000700320F809248402A88FBC00108F840008EE
++S315802000808F9900340320F809248402C88FBC00107D
++S31580200090024028218F8400088F9900340320F80994
++S315802000A0248402D8064000108FBC00108E060000E3
++S315802000B08F840008022028218F9900342631000160
++S315802000C02610000414C00003248402E48F820008D2
++S315802000D0244602F80320F809000000000251102A65
++S315802000E01040FFF28FBC00108F8400088F99003457
++S315802000F00320F809248403008FBC00108F99002CDC
++S315802001000320F809000000001040FFFC8FBC00107F
++S315802001108F9900300320F809000000008FBC001062
++S315802001208F8400088F9900340320F8092484031CC7
++S315802001308FBC00108FBF00248FB200208FB1001C8F
++S315802001408FB000180000102103E0000827BD00288A
++S315802001508F5900208F3900000320000800000000FE
++S315802001608F5900208F3900040320000800000000EA
++S315802001708F5900208F3900080320000800000000D6
++S315802001808F5900208F39000C0320000800000000C2
++S315802001908F5900208F3900100320000800000000AE
++S315802001A08F5900208F39001403200008000000009A
++S315802001B08F5900208F390018032000080000000086
++S315802001C08F5900208F39001C032000080000000072
++S315802001D08F5900208F39002003200008000000005E
++S315802001E08F5900208F39002403200008000000004A
++S315802001F08F5900208F390028032000080000000036
++S315802002008F5900208F39002C032000080000000021
++S315802002108F5900208F39003003200008000000000D
++S315802002208F5900208F3900340320000800000000F9
++S3158020023003E00008000000003C1C0000279C00E82A
++S315802002400399E0218F8300288F8400200064102B5F
++S315802002501040000400000000AC6000001000FFFB8E
++S315802002602463000403E00008000000000000000072
++S31580200270B2070074000000000000000000000000AB
++S30D8020028000000000802003200D
++S315802002884578616D706C65206578706563747320B8
++S315802002984142492076657273696F6E2025640A000B
++S315802002A841637475616C20552D426F6F742041426D
++S315802002B8492076657273696F6E2025640A0000006E
++S315802002C848656C6C6F20576F726C640A000000005A
++S315802002D861726763203D2025640A00006172677613
++S315802002E85B25645D203D20222573220A00000000BC
++S315802002F83C4E554C4C3E000048697420616E7920EE
++S315802003086B657920746F2065786974202E2E2E204F
++S30C80200318000000000A0A0024
++S315802003200000000080000000802000000000000007
++S315802003300000000000000000000000008020015026
++S31580200340802003608020023880200358802001701E
++S30D8020035080200160802001A0BD
++S705802000005A
+-- 
+2.24.0
+

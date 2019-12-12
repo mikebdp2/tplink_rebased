@@ -1,0 +1,304 @@
+From ac474ff9c35a67817fe6d4dc330428b380b40340 Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Tue, 10 Dec 2019 17:09:29 +0000
+Subject: [PATCH] Modify ./lib_mips/ according to WR841N(D)v9 u-boot
+
+---
+ lib_mips/board.c      | 56 ++++++++++++++++++++++++++++
+ lib_mips/mips_linux.c | 86 ++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 141 insertions(+), 1 deletion(-)
+
+diff --git a/lib_mips/board.c b/lib_mips/board.c
+index 1645f2c7e0..deb5f08215 100644
+--- a/lib_mips/board.c
++++ b/lib_mips/board.c
+@@ -45,13 +45,27 @@ extern int timer_init(void);
+ 
+ extern int incaip_set_cpuclk(void);
+ 
++/* cu570m start */
++#if defined(CONFIG_WASP_SUPPORT) || defined(CONFIG_MACH_QCA955x) || defined(CONFIG_MACH_QCA953x)
++void ath_set_tuning_caps(void);
++#else
++#define ath_set_tuning_caps()	/* nothing */
++#endif
++/* cu570m end */
++
+ extern ulong uboot_end_data;
+ extern ulong uboot_end;
+ 
+ ulong monitor_flash_len;
+ 
++/* cu570m condition branch */
++#ifdef BUILD_VERSION
++const char version_string[] =
++        U_BOOT_VERSION" (Build from LSDK-" BUILD_VERSION " at " __DATE__ " - " __TIME__ ")";
++#else /* old default path */
+ const char version_string[] =
+ 	U_BOOT_VERSION" (" __DATE__ " - " __TIME__ ")";
++#endif /* cu570m */
+ 
+ static char *failed = "*** failed ***\n";
+ 
+@@ -165,17 +179,23 @@ static int init_baudrate (void)
+ typedef int (init_fnc_t) (void);
+ 
+ init_fnc_t *init_sequence[] = {
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ 	timer_init,
++#endif /* cu570m */
+ 	env_init,		/* initialize environment */
+ #ifdef CONFIG_INCA_IP
+ 	incaip_set_cpuclk,	/* set cpu clock according to environment variable */
+ #endif
+ 	init_baudrate,		/* initialze baudrate settings */
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ 	serial_init,		/* serial communications setup */
++#endif /* cu570m */
+ 	console_init_f,
+ 	display_banner,		/* say that we are here */
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ 	checkboard,
+ 	init_func_ram,
++#endif /* cu570m */
+ 	NULL,
+ };
+ 
+@@ -187,6 +207,11 @@ void board_init_f(ulong bootflag)
+ 	init_fnc_t **init_fnc_ptr;
+ 	ulong addr, addr_sp, len = (ulong)&uboot_end - CFG_MONITOR_BASE;
+ 	ulong *s;
++/* cu570m start */
++#ifdef COMPRESSED_UBOOT
++    char board_string[50];
++#endif
++/* cu570m end */
+ #ifdef CONFIG_PURPLE
+ 	void copy_code (ulong);
+ #endif
+@@ -205,6 +230,16 @@ void board_init_f(ulong bootflag)
+ 		}
+ 	}
+ 
++/* cu570m start */
++#ifdef COMPRESSED_UBOOT
++    checkboard(board_string);
++    printf("%s\n\n",board_string);
++    gd->ram_size = bootflag;
++	puts ("DRAM:	");
++	print_size (gd->ram_size, "\n");
++#endif
++/* cu570m end */
++
+ 	/*
+ 	 * Now that we have DRAM mapped and working, we can
+ 	 * relocate the code and continue running from DRAM.
+@@ -309,6 +344,11 @@ void board_init_r (gd_t *id, ulong dest_addr)
+ #ifndef CFG_ENV_IS_NOWHERE
+ 	extern char * env_name_spec;
+ #endif
++/* cu570m start */
++#ifdef CONFIG_ATH_NAND_SUPPORT
++	extern ulong ath_nand_init(void);
++#endif
++/* cu570m end */
+ 	char *s, *e;
+ 	bd_t *bd;
+ 	int i;
+@@ -357,12 +397,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
+ 
+ 	bd = gd->bd;
+ 
++#ifndef CONFIG_ATH_NAND_BR /* cu570m */
+ #ifndef CFG_NO_FLASH
+ 	/* configure available FLASH banks */
+ 	size = flash_init();
+ 	display_flash_config (size);
+ 	bd->bi_flashsize = size;
+ #endif
++#endif /* cu570m */
+ 
+ 	bd->bi_flashstart = CFG_FLASH_BASE;
+ #if CFG_MONITOR_BASE == CFG_FLASH_BASE
+@@ -375,6 +417,12 @@ void board_init_r (gd_t *id, ulong dest_addr)
+ 	mem_malloc_init();
+ 	malloc_bin_reloc();
+ 
++/* cu570m start */
++#ifdef CONFIG_ATH_NAND_BR
++	ath_nand_init();
++#endif
++/* cu570m end */
++
+ 	/* relocate environment function pointers etc. */
+ 	env_relocate();
+ 
+@@ -428,6 +476,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
+ 	eth_initialize(gd->bd);
+ #endif
+ 
++/* cu570m start */
++#if defined(CONFIG_ATH_NAND_SUPPORT) && !defined(CONFIG_ATH_NAND_BR)
++	ath_nand_init();
++#endif
++
++        ath_set_tuning_caps(); /* Needed here not to mess with Ethernet clocks */
++/* cu570m end */
++
+ 	/* main_loop() can return to retry autoboot, if so just run it again. */
+ 	for (;;) {
+ 		main_loop ();
+diff --git a/lib_mips/mips_linux.c b/lib_mips/mips_linux.c
+index 556b1804e0..48b3cef942 100644
+--- a/lib_mips/mips_linux.c
++++ b/lib_mips/mips_linux.c
+@@ -28,6 +28,12 @@
+ #include <asm/byteorder.h>
+ #include <asm/addrspace.h>
+ 
++/* cu570m start */
++#ifdef CONFIG_AR7240
++#include <ar7240_soc.h>
++#endif
++/* cu570m end */
++
+ DECLARE_GLOBAL_DATA_PTR;
+ 
+ #define	LINUX_MAX_ENVS		256
+@@ -47,6 +53,20 @@ static int	linux_env_idx;
+ static void linux_params_init (ulong start, char * commandline);
+ static void linux_env_set (char * env_name, char * env_val);
+ 
++/* cu570m start */
++#ifdef CONFIG_WASP_SUPPORT
++void wasp_set_cca(void)
++{
++	/* set cache coherency attribute */
++	asm(	"mfc0	$t0,	$16\n"		/* CP0_CONFIG == 16 */
++		"li	$t1,	~7\n"
++		"and	$t0,	$t0,	$t1\n"
++		"ori	$t0,	3\n"		/* CONF_CM_CACHABLE_NONCOHERENT */
++		"mtc0	$t0,	$16\n"		/* CP0_CONFIG == 16 */
++		"nop\n": : );
++}
++#endif
++/* cu570m end */
+ 
+ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
+ 		     ulong addr, ulong * len_ptr, int verify)
+@@ -54,13 +74,25 @@ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
+ 	ulong len = 0, checksum;
+ 	ulong initrd_start, initrd_end;
+ 	ulong data;
++/* cu570m start */
++	ulong mem_size_to_kernel;
++#if defined(CONFIG_AR7100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS)
++	int flash_size_mbytes;
++	void (*theKernel) (int, char **, char **, int);
++#else /* old default branch */
+ 	void (*theKernel) (int, char **, char **, int *);
++#endif /* cu570m */
+ 	image_header_t *hdr = &header;
+ 	char *commandline = getenv ("bootargs");
+ 	char env_buf[12];
+-
++/* cu570m condition branch */
++#if defined(CONFIG_AR7100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS)
++	theKernel =
++		(void (*)(int, char **, char **, int)) ntohl (hdr->ih_ep);
++#else /* old default branch */
+ 	theKernel =
+ 		(void (*)(int, char **, char **, int *)) ntohl (hdr->ih_ep);
++#endif /* cu570m */
+ 
+ 	/*
+ 	 * Check if there is an initrd image
+@@ -206,12 +238,29 @@ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
+ 	/* we assume that the kernel is in place */
+ 	printf ("\nStarting kernel ...\n\n");
+ 
++/* cu570m condition branch */
++#if defined(CONFIG_AR7100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS)
++#ifdef CONFIG_WASP_SUPPORT
++	wasp_set_cca();
++#endif
++	/* Pass the flash size as expected by current Linux kernel for AR7100 */
++	flash_size_mbytes = gd->bd->bi_flashsize/(1024 * 1024);
++    /* as the same, we pass the Memsize to kernel
++     * uboot can auto search mem to set memsize,so this memsize is right
++     * ZJin, 2011.07.18
++     */
++    mem_size_to_kernel = gd->ram_size;
++	theKernel (linux_argc, linux_argv, mem_size_to_kernel, flash_size_mbytes);
++	/* theKernel (linux_argc, linux_argv, linux_env, flash_size_mbytes); */
++#else /* old default branch */
+ 	theKernel (linux_argc, linux_argv, linux_env, 0);
++#endif /* cu570m */
+ }
+ 
+ static void linux_params_init (ulong start, char *line)
+ {
+ 	char *next, *quote, *argp;
++	char memstr[32]; /* cu570m */
+ 
+ 	linux_argc = 1;
+ 	linux_argv = (char **) start;
+@@ -220,6 +269,14 @@ static void linux_params_init (ulong start, char *line)
+ 
+ 	next = line;
+ 
++/* cu570m start */
++	if (strstr(line, "mem=")) {
++		memstr[0] = 0;
++	} else {
++		memstr[0] = 1;
++	}
++/* cu570m end */
++
+ 	while (line && *line && linux_argc < LINUX_MAX_ARGS) {
+ 		quote = strchr (line, '"');
+ 		next = strchr (line, ' ');
+@@ -242,6 +299,20 @@ static void linux_params_init (ulong start, char *line)
+ 		linux_argv[linux_argc] = argp;
+ 		memcpy (argp, line, next - line);
+ 		argp[next - line] = 0;
++/* cu570m start */
++#if defined(CONFIG_AR7240)
++#define REVSTR	"REVISIONID"
++#define PYTHON	"python"
++#define VIRIAN	"virian"
++		if (strcmp(argp, REVSTR) == 0) {
++			if (is_ar7241() || is_ar7242()) {
++				strcpy(argp, VIRIAN);
++			} else {
++				strcpy(argp, PYTHON);
++			}
++		}
++#endif
++/* cu570m end */
+ 
+ 		argp += next - line + 1;
+ 		linux_argc++;
+@@ -252,6 +323,19 @@ static void linux_params_init (ulong start, char *line)
+ 		line = next;
+ 	}
+ 
++/* cu570m start */
++#if defined(CONFIG_AR9100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS)
++	/* Add mem size to command line */
++	if (memstr[0]) {
++		sprintf(memstr, "mem=%luM", gd->ram_size >> 20);
++		memcpy (argp, memstr, strlen(memstr)+1);
++		linux_argv[linux_argc] = argp;
++		linux_argc++;
++		argp += strlen(memstr) + 1;
++	}
++#endif
++/* cu570m end */
++
+ 	linux_env = (char **) (((ulong) argp + 15) & ~15);
+ 	linux_env[0] = 0;
+ 	linux_env_p = (char *) (linux_env + LINUX_MAX_ENVS);
+-- 
+2.24.0
+

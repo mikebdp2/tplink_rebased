@@ -1,0 +1,1425 @@
+From fc91f30e4e8dd2e359bb08a313b98c1827309dfd Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Tue, 10 Dec 2019 16:49:17 +0000
+Subject: [PATCH] Modify ./common/ files according to WR841N(D)v9 u-boot
+
+---
+ common/Makefile    |  65 +++++++++++
+ common/cmd_boot.c  |  23 +++-
+ common/cmd_bootm.c | 192 ++++++++++++++++++++++++++++++-
+ common/cmd_elf.c   |   8 ++
+ common/cmd_flash.c |  23 +++-
+ common/cmd_load.c  |   3 +-
+ common/cmd_mem.c   |  13 ++-
+ common/cmd_mii.c   | 276 +++++++++++++++++++++++++++++++++++++++++++++
+ common/cmd_nand.c  |  26 ++++-
+ common/cmd_net.c   |  33 +++++-
+ common/command.c   |   2 +
+ common/main.c      | 204 ++++++++++++++++++++++++++++++++-
+ 12 files changed, 855 insertions(+), 13 deletions(-)
+
+diff --git a/common/Makefile b/common/Makefile
+index 56176ca2af..c8f3a959fb 100644
+--- a/common/Makefile
++++ b/common/Makefile
+@@ -27,6 +27,49 @@ LIB	= $(obj)libcommon.a
+ 
+ AOBJS	=
+ 
++ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
++COBJS-y += main.o
++COBJS-y += circbuf.o
++COBJS-y += cmd_boot.o
++COBJS-y += cmd_bootm.o
++COBJS-$(CONFIG_CMD_CACHE) += cmd_cache.o
++COBJS-$(CONFIG_CMD_CONSOLE) += cmd_console.o
++COBJS-$(CONFIG_CMD_DATE) += cmd_date.o
++ifdef CONFIG_4xx
++COBJS-$(CONFIG_CMD_SETGETDCR) += cmd_dcr.o
++endif
++COBJS-$(CONFIG_CMD_DISPLAY) += cmd_display.o
++COBJS-$(CONFIG_CMD_DOC) += cmd_doc.o
++COBJS-y += cmd_eeprom.o
++COBJS-$(CONFIG_CMD_FLASH) += cmd_flash.o
++COBJS-$(CONFIG_CMD_IMMAP) += cmd_immap.o
++COBJS-$(CONFIG_CMD_ITEST) += cmd_itest.o
++COBJS-y += cmd_mem.o
++COBJS-$(CONFIG_CMD_MII) += cmd_mii.o
++COBJS-$(CONFIG_CMD_MISC) += cmd_misc.o
++COBJS-y += cmd_nand.o
++COBJS-$(CONFIG_CMD_NET) += cmd_net.o
++COBJS-y += cmd_nvedit.o
++COBJS-$(CONFIG_CMD_REGINFO) += cmd_reginfo.o
++COBJS-$(CONFIG_CMD_SPI) += cmd_spi.o
++COBJS-y += command.o
++COBJS-y += console.o
++COBJS-y += devices.o
++COBJS-y += dlmalloc.o
++COBJS-y += docecc.o
++COBJS-y += environment.o
++COBJS-y += env_common.o
++COBJS-y += env_nowhere.o
++COBJS-y += exports.o
++COBJS-y += hush.o
++COBJS-y += lcd.o
++COBJS-y += lists.o
++COBJS-y += memsize.o
++COBJS-y += miiphybb.o
++COBJS-y += miiphyutil.o
++COBJS-y += serial.o
++COBJS-y += crc16.o
++else # old default path
+ COBJS-y += main.o
+ COBJS-y += ACEX1K.o
+ COBJS-y += altera.o
+@@ -137,6 +180,21 @@ COBJS-y += crc16.o
+ COBJS-y += xyzModem.o
+ COBJS-y += cmd_mac.o
+ COBJS-$(CONFIG_CMD_MFSL) += cmd_mfsl.o
++endif # cu570m
++
++# cu570m start
++ifndef BOOT_FROM_NAND
++COBJS-y += flash.o
++endif
++
++ifeq ($(VXWORKS_UBOOT),1)
++COBJS-y += cmd_elf.o
++endif
++
++ifeq ($(TPWD_FOR_LINUX_CAL),1)
++COBJS-y += cmd_elf.o
++endif
++# cu570m end
+ 
+ COBJS	:= $(COBJS-y)
+ SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)
+@@ -144,6 +202,13 @@ OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
+ 
+ CPPFLAGS += -I..
+ 
++# cu570m start
++ifeq ($(DUAL_FIRMWAREIMAGE_SUPPORT),1)
++CFLAGS += -DCONFIG_DUALIMAGE_SUPPORT
++OBJS += cmd_bdr.o
++endif
++# cu570m end
++
+ all:	$(LIB) $(AOBJS)
+ 
+ $(LIB): $(obj).depend $(OBJS)
+diff --git a/common/cmd_boot.c b/common/cmd_boot.c
+index e68f16f9da..d843c6df22 100644
+--- a/common/cmd_boot.c
++++ b/common/cmd_boot.c
+@@ -28,10 +28,12 @@
+ #include <command.h>
+ #include <net.h>
+ 
+-#if defined(CONFIG_I386)
++#if defined(CONFIG_I386) || defined(CONFIG_MIPS) /* || defined(CONFIG_MIPS) - cu570m */
+ DECLARE_GLOBAL_DATA_PTR;
+ #endif
+ 
++#if (defined(TPWD_FOR_LINUX_CAL) || !defined(COMPRESSED_UBOOT)) /*  by huangwenzhong, 10May13 */ /* cu570m */
++
+ int do_go (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	ulong	addr, rc;
+@@ -42,6 +44,14 @@ int do_go (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 		return 1;
+ 	}
+ 
++	  /* cu570m start */
++	/*  by huangwenzhong, 10May13 */
++	/* from zhengyongfei, for boot from vxWorks */
++	disable_interrupts();
++	mips_cache_flush();
++	mips_icache_flush_ix();
++	  /* cu570m end */
++
+ 	addr = simple_strtoul(argv[1], NULL, 16);
+ 
+ 	printf ("## Starting application at 0x%08lX ...\n", addr);
+@@ -58,7 +68,14 @@ int do_go (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	argv[0] = (char *)gd;
+ #endif
+ #if !defined(CONFIG_NIOS)
+-	rc = ((ulong (*)(int, char *[]))addr) (--argc, &argv[1]);
++	/* cu570m condition branch */
++	if (argc > 2 && argv[2][0] == 'b') {
++		printf ("## Board info at 0x%08lX ...\n", gd->bd);
++		rc = ((ulong (*)(int, int, int, int))addr)(gd->bd, 0, 0, 0);
++	} else {
++		/* old default path */
++		rc = ((ulong (*)(int, char *[]))addr) (--argc, &argv[1]);
++	}
+ #else
+ 	/*
+ 	 * Nios function pointers are address >> 1
+@@ -80,6 +97,8 @@ U_BOOT_CMD(
+ 	"      passing 'arg' as arguments\n"
+ );
+ 
++#endif /* #ifndef COMPRESSED_UBOOT */ /*  by huangwenzhong, 10May13 */ /* cu570m */
++
+ extern int do_reset (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]);
+ 
+ U_BOOT_CMD(
+diff --git a/common/cmd_bootm.c b/common/cmd_bootm.c
+index 5a8572602c..2f6edbffc9 100644
+--- a/common/cmd_bootm.c
++++ b/common/cmd_bootm.c
+@@ -31,6 +31,7 @@
+ #include <malloc.h>
+ #include <zlib.h>
+ #include <bzlib.h>
++#include <LzmaWrapper.h> /* cu570m */
+ #include <environment.h>
+ #include <asm/byteorder.h>
+ 
+@@ -148,6 +149,15 @@ image_header_t header;
+ 
+ ulong load_addr = CFG_LOAD_ADDR;		/* Default Load Address */
+ 
++/* cu570m start */
++#ifdef FW_RECOVERY
++	ushort fw_recovery = 0;
++#endif
++
++#define CONFIG_LZMA 1
++
++#if 0 /* cu570m big start */
++/* cu570m end */
+ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	ulong	iflag;
+@@ -228,7 +238,7 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	len  = ntohl(hdr->ih_size);
+ 
+ 	if (verify) {
+-		puts ("   Verifying Checksum ... ");
++		printf("   Verifying Checksum at 0x%p ...", data); /* cu570m */
+ 		if (crc32 (0, (uchar *)data, len) != ntohl(hdr->ih_dcrc)) {
+ 			printf ("Bad Data CRC\n");
+ 			show_boot_progress (-3);
+@@ -316,6 +326,19 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	dcache_disable();
+ #endif
+ 
++/* cu570m start */
++#if defined(CONFIG_AR7100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS)
++	/*
++	 * Flush everything, restore caches for linux
++	 */
++	mips_cache_flush();
++	mips_icache_flush_ix();
++
++	/* XXX - this causes problems when booting from flash */
++	/* dcache_disable(); */
++#endif
++/* cu570m end */
++
+ 	switch (hdr->ih_comp) {
+ 	case IH_COMP_NONE:
+ 		if(ntohl(hdr->ih_load) == addr) {
+@@ -341,6 +364,8 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ #endif	/* CONFIG_HW_WATCHDOG || CONFIG_WATCHDOG */
+ 		}
+ 		break;
++
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ 	case IH_COMP_GZIP:
+ 		printf ("   Uncompressing %s ... ", name);
+ 		if (gunzip ((void *)ntohl(hdr->ih_load), unc_len,
+@@ -368,6 +393,21 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 		}
+ 		break;
+ #endif /* CONFIG_BZIP2 */
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
++
++#ifdef CONFIG_LZMA /* cu570m start */
++	case IH_COMP_LZMA:
++		printf ("   Uncompressing %s ... ", name);
++		i = lzma_inflate ((unsigned char *)data, len, (unsigned char*)ntohl(hdr->ih_load), &unc_len);
++		if (i != LZMA_RESULT_OK) {
++			printf ("LZMA ERROR %d - must RESET board to recover\n", i);
++			show_boot_progress (-6);
++			udelay(100000);
++			do_reset (cmdtp, flag, argc, argv);
++		}
++		break;
++#endif /* CONFIG_LZMA */ /* cu570m end */
++
+ 	default:
+ 		if (iflag)
+ 			enable_interrupts();
+@@ -460,6 +500,151 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	return 1;
+ }
+ 
++/* cu570m big else */
++#else
++
++/* changed by lqm, 18Jan08 */
++#include "tpLinuxTag.h"		/* support TP-LINK Linux Tag */
++
++// TODO: ??? MACRO ???
++LINUX_FLASH_STRUCT linuxFlash =
++						{
++							0x000000,	/* boot loader 	*/
++							0x01fc00,	/* mac address	*/
++							0x01fe00,	/* pin address	*/
++							0x020000,	/* kernel		*/
++							0x120000,	/* root fs		*/
++							0x3e0000,	/* config		*/
++							0x3f0000,	/* radio		*/
++						};
++
++/* added by lqm, 18Jan08, copy from fake_zimage_header() */
++image_header_t *fake_image_header(image_header_t *hdr, ulong kernelTextAddr, ulong entryPoint, int size)
++{
++	ulong checksum = 0;
++
++	memset(hdr, 0, sizeof(image_header_t));
++
++	/* Build new header */
++	hdr->ih_magic = htonl(IH_MAGIC);
++	hdr->ih_time  = 0;
++	hdr->ih_size  = htonl(size);
++	hdr->ih_load  = htonl(kernelTextAddr);
++	hdr->ih_ep    = htonl(entryPoint);
++	hdr->ih_dcrc  = htonl(checksum);
++	hdr->ih_os    = IH_OS_LINUX;
++	hdr->ih_arch  = IH_CPU_MIPS;
++	hdr->ih_type  = IH_TYPE_KERNEL;
++	hdr->ih_comp  = IH_COMP_GZIP;
++
++	strncpy((char *)hdr->ih_name, "(none)", IH_NMLEN);
++
++	hdr->ih_hcrc = htonl(checksum);
++
++	return hdr;
++}
++
++int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
++{
++	ulong	iflag;
++	ulong	addr;
++	ulong	data, len, checksum;
++	ulong	kernelTextAddr, kernelEntryPoint, kernelLen;
++	ulong  *len_ptr;
++	uint	unc_len = CFG_BOOTM_LEN;
++	int	i, verify = 0;
++	char	*name, *s;
++	int	(*appl)(int, char *[]);
++	image_header_t *hdr = &header;
++
++	if (argc < 2) {
++		addr = load_addr;
++	} else {
++		addr = simple_strtoul(argv[1], NULL, 16);
++	}
++
++	show_boot_progress (1);
++	printf ("## Booting image at %08lx ...\n", addr);
++
++    name = (char *) addr;
++
++	kernelTextAddr = *(ulong *)(name+116);
++	kernelEntryPoint = *(ulong *)(name+120);
++	kernelLen = *(ulong *)(name+132);
++
++	fake_image_header(hdr, kernelTextAddr, kernelEntryPoint, kernelLen);
++
++	data = addr + 512;
++	len  = ntohl(hdr->ih_size);
++
++	/* TODO ??? fileTag ??? magic number ??? checksum */
++	show_boot_progress (2);
++
++	name = "Kernel Image";
++	show_boot_progress (6);
++
++	/*
++	 * We have reached the point of no return: we are going to
++	 * overwrite all exception vector code, so we cannot easily
++	 * recover from any failures any more...
++	 */
++
++	iflag = disable_interrupts();
++
++#ifdef CONFIG_AMIGAONEG3SE
++	/*
++	 * We've possible left the caches enabled during
++	 * bios emulation, so turn them off again
++	 */
++	icache_disable();
++	invalidate_l1_instruction_cache();
++	flush_data_cache();
++	dcache_disable();
++#endif
++
++#if defined(CONFIG_AR7100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS)
++	/*
++	 * Flush everything, restore caches for linux
++	 */
++	mips_cache_flush();
++	mips_icache_flush_ix();
++
++	/* XXX - this causes problems when booting from flash */
++	/* dcache_disable(); */
++#endif
++
++#ifdef CONFIG_LZMA
++/*	case IH_COMP_LZMA:*/
++		printf ("   Uncompressing %s ... ", name);
++		i = lzma_inflate ((unsigned char *)data, len, (unsigned char*)ntohl(hdr->ih_load), &unc_len);
++		if (i != LZMA_RESULT_OK) {
++			printf ("LZMA ERROR %d - must RESET board to recover\n", i);
++			show_boot_progress (-6);
++			//udelay(100000);
++			do_reset (cmdtp, flag, argc, argv);
++		}
++/*		break;*/
++#endif /* CONFIG_LZMA */
++	puts ("OK\n");
++	show_boot_progress (7);
++
++/*	case IH_OS_LINUX: */
++#ifdef CONFIG_SILENT_CONSOLE
++	    fixup_silent_linux();
++#endif
++	    do_bootm_linux  (cmdtp, flag, argc, argv,
++			     addr, len_ptr, verify);
++
++	show_boot_progress (-9);
++#ifdef DEBUG
++	puts ("\n## Control returned to monitor - resetting...\n");
++	do_reset (cmdtp, flag, argc, argv);
++#endif
++	return 1;
++}
++
++#endif	/* 0 */ /* cu570m big end */
++
+ U_BOOT_CMD(
+  	bootm,	CFG_MAXARGS,	1,	do_bootm,
+  	"bootm   - boot application image from memory\n",
+@@ -1482,6 +1667,7 @@ print_type (image_header_t *hdr)
+ 	case IH_COMP_NONE:	comp = "uncompressed";		break;
+ 	case IH_COMP_GZIP:	comp = "gzip compressed";	break;
+ 	case IH_COMP_BZIP2:	comp = "bzip2 compressed";	break;
++	case IH_COMP_LZMA:	comp = "lzma compressed";	break; /* cu570m */
+ 	default:		comp = "unknown compression";	break;
+ 	}
+ 
+@@ -1515,6 +1701,8 @@ static void zfree(void *x, void *addr, unsigned nb)
+ 
+ #define DEFLATED	8
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
++
+ int gunzip(void *dst, int dstlen, unsigned char *src, unsigned long *lenp)
+ {
+ 	z_stream s;
+@@ -1577,6 +1765,8 @@ void bz_internal_error(int errcode)
+ }
+ #endif /* CONFIG_BZIP2 */
+ 
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
++
+ static void
+ do_bootm_rtems (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[],
+ 		ulong addr, ulong *len_ptr, int verify)
+diff --git a/common/cmd_elf.c b/common/cmd_elf.c
+index 2eb7453156..7bfff45012 100644
+--- a/common/cmd_elf.c
++++ b/common/cmd_elf.c
+@@ -211,6 +211,14 @@ int do_bootvx (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 			(char *) bootaddr);
+ 	printf ("## Starting vxWorks at 0x%08lx ...\n", addr);
+ 
++	  /* cu570m start */
++	/*  by huangwenzhong, 10May13 */
++	/* from zhengyongfei, for boot from vxWorks */
++	disable_interrupts();
++	mips_cache_flush();
++	mips_icache_flush_ix();
++	  /* cu570m end */
++
+ 	((void (*)(void)) addr) ();
+ 
+ 	puts ("## vxWorks terminated\n");
+diff --git a/common/cmd_flash.c b/common/cmd_flash.c
+index f56443e25e..22c34b547b 100644
+--- a/common/cmd_flash.c
++++ b/common/cmd_flash.c
+@@ -276,6 +276,7 @@ flash_fill_sect_ranges (ulong addr_first, ulong addr_last,
+ 	return rcode;
+ }
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_flinfo ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	ulong bank;
+@@ -303,6 +304,7 @@ int do_flinfo ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	flash_print_info (&flash_info[bank-1]);
+ 	return 0;
+ }
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+@@ -323,7 +325,9 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 
+ 	if (strcmp(argv[1], "all") == 0) {
+ 		for (bank=1; bank<=CFG_MAX_FLASH_BANKS; ++bank) {
++#ifdef FLASH_DEBUG /* cu570m */
+ 			printf ("Erase Flash Bank # %ld ", bank);
++#endif /* cu570m */
+ 			info = &flash_info[bank-1];
+ 			rcode = flash_erase (info, 0, info->sector_count-1);
+ 		}
+@@ -335,8 +339,10 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 			puts ("Bad sector specification\n");
+ 			return 1;
+ 		}
++#ifdef FLASH_DEBUG /* cu570m */
+ 		printf ("Erase Flash Sectors %d-%d in Bank # %d ",
+ 			sect_first, sect_last, (info-flash_info)+1);
++#endif /* cu570m */
+ 		rcode = flash_erase(info, sect_first, sect_last);
+ 		return rcode;
+ 	}
+@@ -351,12 +357,12 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 				info = &flash_info[bank];
+ 				addr_first = part->offset + info->start[0];
+ 				addr_last = addr_first + part->size - 1;
+-
++#ifdef FLASH_DEBUG /* cu570m */
+ 				printf ("Erase Flash Parition %s, "
+ 						"bank %d, 0x%08lx - 0x%08lx ",
+ 						argv[1], bank, addr_first,
+ 						addr_last);
+-
++#endif /* cu570m */
+ 				rcode = flash_sect_erase(addr_first, addr_last);
+ 				return rcode;
+ 			}
+@@ -379,7 +385,9 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 				CFG_MAX_FLASH_BANKS);
+ 			return 1;
+ 		}
++#ifdef FLASH_DEBUG /* cu570m */
+ 		printf ("Erase Flash Bank # %ld ", bank);
++#endif /* cu570m */
+ 		info = &flash_info[bank-1];
+ 		rcode = flash_erase (info, 0, info->sector_count-1);
+ 		return rcode;
+@@ -421,6 +429,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
+ 		     ++bank, ++info) {
+ 			if (s_first[bank]>=0) {
+ 				erased += s_last[bank] - s_first[bank] + 1;
++#ifdef FLASH_DEBUG /* cu570m */
+ 				debug ("Erase Flash from 0x%08lx to 0x%08lx "
+ 					"in Bank # %ld ",
+ 					info->start[s_first[bank]],
+@@ -428,6 +437,9 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
+ 						info->start[0] + info->size - 1:
+ 						info->start[s_last[bank]+1] - 1,
+ 					bank+1);
++#else /* cu570m */
++				printf( "Erasing flash... ");
++#endif /* cu570m */
+ 				rcode = flash_erase (info, s_first[bank], s_last[bank]);
+ 			}
+ 		}
+@@ -440,6 +452,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
+ 	return rcode;
+ }
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_protect (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	flash_info_t *info;
+@@ -667,7 +680,7 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
+ 	}
+ 	return rcode;
+ }
+-
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ /**************************************************/
+ #if defined(CONFIG_CMD_JFFS2) && defined(CONFIG_JFFS2_CMDLINE)
+@@ -680,12 +693,14 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
+ # define TMP_PROT_OFF	/* empty */
+ #endif
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ U_BOOT_CMD(
+ 	flinfo,    2,    1,    do_flinfo,
+ 	"flinfo  - print FLASH memory information\n",
+ 	"\n    - print information for all FLASH memory banks\n"
+ 	"flinfo N\n    - print information for FLASH memory bank # N\n"
+ );
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ U_BOOT_CMD(
+ 	erase,   3,   0,  do_flerase,
+@@ -701,6 +716,7 @@ U_BOOT_CMD(
+ 	"erase all\n    - erase all FLASH banks\n"
+ );
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ U_BOOT_CMD(
+ 	protect,  4,  0,   do_protect,
+ 	"protect - enable or disable FLASH write protection\n",
+@@ -725,6 +741,7 @@ U_BOOT_CMD(
+ 	TMP_PROT_OFF
+ 	"protect off all\n    - make all FLASH banks writable\n"
+ );
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ #undef	TMP_ERASE
+ #undef	TMP_PROT_ON
+diff --git a/common/cmd_load.c b/common/cmd_load.c
+index 204c3ebf19..baf89d82c9 100644
+--- a/common/cmd_load.c
++++ b/common/cmd_load.c
+@@ -436,6 +436,7 @@ int  his_pad_count;  /* number of pad chars he needs */
+ char his_pad_char;   /* pad chars he needs */
+ char his_quote;      /* quote chars he'll use */
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_load_serial_bin (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	ulong offset = 0;
+@@ -528,7 +529,7 @@ int do_load_serial_bin (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ #endif
+ 	return rcode;
+ }
+-
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ static ulong load_serial_bin (ulong offset)
+ {
+diff --git a/common/cmd_mem.c b/common/cmd_mem.c
+index 4262e26a61..ea1b9a125b 100644
+--- a/common/cmd_mem.c
++++ b/common/cmd_mem.c
+@@ -300,6 +300,7 @@ int do_mem_mwc ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ }
+ #endif /* CONFIG_MX_CYCLIC */
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_mem_cmp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	ulong	addr1, addr2, count, ngood;
+@@ -384,6 +385,7 @@ int do_mem_cmp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 		ngood == 1 ? "" : "s");
+ 	return rcode;
+ }
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+@@ -413,7 +415,8 @@ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 		return 1;
+ 	}
+ 
+-#ifndef CFG_NO_FLASH
++// #ifndef CFG_NO_FLASH /* cu570m */
++#if !defined(CFG_NO_FLASH) && !defined(CONFIG_ATH_NAND_BR) /* cu570m */
+ 	/* check if we are copying to Flash */
+ 	if ( (addr2info(dest) != NULL)
+ #ifdef CONFIG_HAS_DATAFLASH
+@@ -529,6 +532,7 @@ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	return 0;
+ }
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_mem_base (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	if (argc > 1) {
+@@ -686,6 +690,7 @@ int do_mem_loopw (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 	}
+ }
+ #endif /* CONFIG_LOOPW */
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ /*
+  * Perform a memory test. A more complete alternative test can be
+@@ -1100,6 +1105,7 @@ mod_mem(cmd_tbl_t *cmdtp, int incrflag, int flag, int argc, char *argv[])
+ 	return 0;
+ }
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ #ifndef CONFIG_CRC32_VERIFY
+ 
+ int do_mem_crc (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -1186,6 +1192,7 @@ int do_mem_crc (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ 
+ }
+ #endif	/* CONFIG_CRC32_VERIFY */
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ /**************************************************/
+ #if defined(CONFIG_CMD_MEMORY)
+@@ -1221,6 +1228,7 @@ U_BOOT_CMD(
+ 	"[.b, .w, .l] source target count\n    - copy memory\n"
+ );
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ U_BOOT_CMD(
+ 	cmp,    4,     1,     do_mem_cmp,
+ 	"cmp     - memory compare\n",
+@@ -1268,6 +1276,7 @@ U_BOOT_CMD(
+ 	"    - loop on a set of addresses\n"
+ );
+ #endif /* CONFIG_LOOPW */
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ U_BOOT_CMD(
+ 	mtest,    4,    1,     do_mem_mtest,
+@@ -1276,6 +1285,7 @@ U_BOOT_CMD(
+ 	"    - simple RAM read/write test\n"
+ );
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ #ifdef CONFIG_MX_CYCLIC
+ U_BOOT_CMD(
+ 	mdc,     4,     1,      do_mem_mdc,
+@@ -1289,6 +1299,7 @@ U_BOOT_CMD(
+ 	"[.b, .w, .l] address value delay(ms)\n    - memory write cyclic\n"
+ );
+ #endif /* CONFIG_MX_CYCLIC */
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ #endif
+ #endif
+diff --git a/common/cmd_mii.c b/common/cmd_mii.c
+index 31ac43db58..b958338f14 100644
+--- a/common/cmd_mii.c
++++ b/common/cmd_mii.c
+@@ -27,6 +27,15 @@
+ 
+ #include <common.h>
+ #include <command.h>
++
++/* cu570m start */
++#ifdef CONFIG_ATH_NAND_BR
++#include <nand.h>
++#endif
++
++#ifndef COMPRESSED_UBOOT
++/* cu570m end */
++
+ #include <miiphy.h>
+ 
+ typedef struct _MII_reg_desc_t {
+@@ -462,3 +471,270 @@ U_BOOT_CMD(
+ 	"mii dump   <addr> <reg>        - pretty-print <addr> <reg> (0-5 only)\n"
+ 	"Addr and/or reg may be ranges, e.g. 2-7.\n"
+ );
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
++
++/* cu570m start */
++#ifdef BOARDCAL
++extern flash_info_t flash_info[];	/* info for FLASH chips */
++
++/**********************************************************************************
++** do_mac_setting
++**
++** This is the executable portion of the progmac command.  This will process the
++** MAC address strings, and program them into the appropriate flash sector..
++**
++*/
++#ifdef CONFIG_ATH_NAND_BR
++
++#define ATH_NAND_NAND_PART              "ath-nand"
++
++
++unsigned long long
++ath_nand_get_cal_offset(const char *ba)
++{
++        char *mtdparts, ch, *pn, *end;
++        unsigned long long off = 0, size;
++
++        mtdparts = strstr(ba, ATH_NAND_NAND_PART);
++        if (!mtdparts) {
++                goto bad;
++        }
++        mtdparts = strstr(mtdparts, ":");
++        if (!mtdparts) {
++                goto bad;
++        }
++        end = strstr(mtdparts, " ");
++        if (!end) {
++                end = mtdparts + strlen(mtdparts);
++        }
++
++        for (;mtdparts && mtdparts < end;) {
++                mtdparts ++;
++                size = simple_strtoul(mtdparts, &mtdparts, 0);
++                ch = *mtdparts;
++                switch (ch) {
++                case 'g': case 'G': size = size * 1024;
++                case 'm': case 'M': size = size * 1024;
++                case 'k': case 'K': size = size * 1024;
++                }
++                pn = mtdparts + 2;
++                if (strncmp(pn, ATH_CAL_NAND_PARTITION,
++                        sizeof(ATH_CAL_NAND_PARTITION) - 1) == 0) {
++                        return off;
++                }
++                off += size;
++                mtdparts = strstr(mtdparts, ",");
++        }
++
++bad:
++        return ATH_CAL_OFF_INVAL;
++}
++
++/**********************************************************************************
++** do_mac_setting
++**
++** This is the executable portion of the progmac command.  This will process the
++** MAC address strings, and program them into the appropriate flash sector..
++**
++*/
++
++int do_mac (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[])
++{
++	char    sectorBuff[256*1024];
++	int     serno;
++	int     product_id;
++	int     ret;
++	ulong   off, size;
++	nand_info_t *nand;
++
++	/*
++	 * caldata partition is of 128k
++	 *
++	 */
++	nand = &nand_info[nand_curr_device];
++	size = nand->erasesize;
++	/*
++	 * Argv[1] contains the value string.  Convert to binary, and
++	 * program the values in flash
++	 */
++
++	serno = simple_strtoul(argv[1],0,10);
++
++	/*
++	 * If the serial number is less than 0, or greater than
++	 * 0x1fff, it's out of range
++	 */
++
++	if(serno < 0 || serno > 0x1fff) {
++		printf("Serno out of range\n",serno);
++		return 1;
++	}
++
++    if (argc > 2) {
++        product_id = simple_strtoul(argv[2], 0, 10);
++    } else {
++        product_id = ATHEROS_PRODUCT_ID;
++    }
++
++	if(product_id < 0 || product_id > 0x7ff) {
++		printf("product id out of range %d\n", product_id);
++		return 1;
++	}
++
++	/*
++	 * Create the 24 bit number that composes the lower 3 bytes of
++	 * the MAC address
++	 */
++
++	serno = 0xFFFFFF & ( (product_id << 13) | (serno & 0x1fff));
++
++	/*
++	 * Get the Offset of Caldata partition
++	 */
++	off = ath_nand_get_cal_offset(getenv("bootargs"));
++	if(off == ATH_CAL_OFF_INVAL) {
++		printf("Invalid CAL offset \n");
++		return 1;
++	}
++
++	/*
++	 * Get the values from flash, and program into the MAC address
++	 * registers
++	 */
++	ret = nand_read(nand, (loff_t)off, &size, (u_char *)sectorBuff);
++	printf(" %d bytes %s: %s\n", size,
++		       "read", ret ? "ERROR" : "OK");
++	if(ret != 0 ) {
++		return 1;
++	}
++
++	/*
++	 * Set the first and second values
++	 */
++
++	sectorBuff[0] = 0x00;
++	sectorBuff[1] = 0x03;
++	sectorBuff[2] = 0x7f;
++
++	sectorBuff[3] = 0xFF & (serno >> 16);
++	sectorBuff[4] = 0xFF & (serno >> 8);
++	sectorBuff[5] = 0xFF &  serno;
++
++	/*
++	 * Increment by 1 for the second MAC address
++	 */
++
++	serno++;
++	memcpy(&sectorBuff[6],&sectorBuff[0],3);
++	sectorBuff[9]  = 0xFF & (serno >> 16);
++	sectorBuff[10] = 0xFF & (serno >> 8);
++	sectorBuff[11] = 0xFF &  serno;
++
++	ret = nand_erase(nand,(loff_t)off, size);
++	printf(" %d bytes %s: %s\n", size,
++		       "erase", ret ? "ERROR" : "OK");
++
++	if(ret != 0 ) {
++		return 1;
++	}
++
++	ret = nand_write(nand, (loff_t)off, &size, (u_char *)sectorBuff);
++	printf(" %d bytes %s: %s\n", size,
++		       "write", ret ? "ERROR" : "OK");
++	if(ret != 0 ) {
++		return 1;
++	}
++
++	return 0;
++}
++#else /*CONFIG_ATH_NAND_BR */
++
++int do_mac (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[])
++{
++	uchar    sectorBuff[CFG_FLASH_SECTOR_SIZE];
++	int     serno;
++	int     product_id;
++
++	/*
++	 * Argv[1] contains the value string.  Convert to binary, and
++	 * program the values in flash
++	 */
++
++	serno = simple_strtoul(argv[1],0,10);
++
++	/*
++	 * If the serial number is less than 0, or greater than
++	 * 0x1fff, it's out of range
++	 */
++
++	if(serno < 0 || serno > 0x1fff) {
++		printf("Serno out of range\n",serno);
++		return 1;
++	}
++
++    if (argc > 2) {
++        product_id = simple_strtoul(argv[2], 0, 10);
++    } else {
++        product_id = ATHEROS_PRODUCT_ID;
++    }
++
++	if(product_id < 0 || product_id > 0x7ff) {
++		printf("product id out of range %d\n", product_id);
++		return 1;
++	}
++
++	/*
++	 * Create the 24 bit number that composes the lower 3 bytes of
++	 * the MAC address
++	 */
++
++	serno = 0xFFFFFF & ( (product_id << 13) | (serno & 0x1fff));
++
++	/*
++	 * Get the values from flash, and program into the MAC address
++	 * registers
++	 */
++
++	memcpy(sectorBuff,(void *)BOARDCAL, CFG_FLASH_SECTOR_SIZE);
++
++	/*
++	 * Set the first and second values
++	 */
++
++	sectorBuff[0] = 0x00;
++	sectorBuff[1] = 0x03;
++	sectorBuff[2] = 0x7f;
++
++	sectorBuff[3] = 0xFF & (serno >> 16);
++	sectorBuff[4] = 0xFF & (serno >> 8);
++	sectorBuff[5] = 0xFF &  serno;
++
++	/*
++	 * Increment by 1 for the second MAC address
++	 */
++
++	serno++;
++	memcpy(&sectorBuff[6],&sectorBuff[0],3);
++	sectorBuff[9]  = 0xFF & (serno >> 16);
++	sectorBuff[10] = 0xFF & (serno >> 8);
++	sectorBuff[11] = 0xFF &  serno;
++
++	flash_erase(flash_info,CAL_SECTOR,CAL_SECTOR);
++	write_buff(flash_info,sectorBuff, BOARDCAL, CFG_FLASH_SECTOR_SIZE);
++
++	return 0;
++}
++#endif /*CONFIG_ATH_NAND_BR */
++
++U_BOOT_CMD(
++    progmac, 3, 0, do_mac,
++    "progmac - Set ethernet MAC addresses\n",
++    "progmac <serno> [<product_id>] - Program the MAC addresses\n"
++    "                <serno> is the value of the last\n"
++    "                4 digits (decimal) of the serial number.\n"
++    "                Optional parameter <product_id> specifies\n"
++    "                the board's product ID (decimal)\n"
++);
++
++#endif /* BOARDCAL */
++/* cu570m end */
+diff --git a/common/cmd_nand.c b/common/cmd_nand.c
+index 8d6c959584..6044908aa3 100644
+--- a/common/cmd_nand.c
++++ b/common/cmd_nand.c
+@@ -39,12 +39,14 @@ int find_dev_and_part(const char *id, struct mtd_device **dev,
+ 
+ extern nand_info_t nand_info[];       /* info for NAND chips */
+ 
++/* cu570m start */ /*
+ static int nand_dump_oob(nand_info_t *nand, ulong off)
+ {
+ 	return 0;
+ }
++*/ /* cu570m end */
+ 
+-static int nand_dump(nand_info_t *nand, ulong off)
++static int nand_dump(nand_info_t *nand, ulong off) /* nand_dump -> nand_raw_dump - cu570m */
+ {
+ 	int i;
+ 	u_char *buf, *p;
+@@ -64,10 +66,12 @@ static int nand_dump(nand_info_t *nand, ulong off)
+ 	printf("Page %08x dump:\n", off);
+ 	i = nand->oobblock >> 4; p = buf;
+ 	while (i--) {
++		if (page) { /* cu570m */
+ 		printf( "\t%02x %02x %02x %02x %02x %02x %02x %02x"
+ 			"  %02x %02x %02x %02x %02x %02x %02x %02x\n",
+ 			p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7],
+ 			p[8], p[9], p[10], p[11], p[12], p[13], p[14], p[15]);
++		} /* cu570m */
+ 		p += 16;
+ 	}
+ 	puts("OOB:\n");
+@@ -82,6 +86,18 @@ static int nand_dump(nand_info_t *nand, ulong off)
+ 	return 0;
+ }
+ 
++/* cu570m start */
++static int nand_dump_oob(nand_info_t *nand, ulong off)
++{
++	return nand_raw_dump(nand, off, 0);
++}
++
++static int nand_dump(nand_info_t *nand, ulong off)
++{
++	return nand_raw_dump(nand, off, 1);
++}
++/* cu570m end */
++
+ /* ------------------------------------------------------------------------- */
+ 
+ static inline int str2long(char *p, ulong *num)
+@@ -287,7 +303,7 @@ int do_nand(cmd_tbl_t * cmdtp, int flag, int argc, char *argv[])
+ 			}
+ 		}
+ 		ret = nand_erase_opts(nand, &opts);
+-		printf("%s\n", ret ? "ERROR" : "OK");
++		printf("\n%s\n", ret ? "ERROR" : "OK"); /* sn -> nsn - cu570m */
+ 
+ 		return ret == 0 ? 0 : 1;
+ 	}
+@@ -547,19 +563,25 @@ static int nand_load_image(cmd_tbl_t *cmdtp, nand_info_t *nand,
+ 
+ 	load_addr = addr;
+ 
++#ifndef CONFIG_ATH_NAND_SUPPORT /* cu570m */
+ 	/* Check if we should attempt an auto-start */
+ 	if (((ep = getenv("autostart")) != NULL) && (strcmp(ep, "yes") == 0)) {
++#endif /* cu570m */
+ 		char *local_args[2];
+ 		extern int do_bootm(cmd_tbl_t *, int, int, char *[]);
+ 
+ 		local_args[0] = cmd;
+ 		local_args[1] = NULL;
+ 
++#ifndef CONFIG_ATH_NAND_SUPPORT /* cu570m */
+ 		printf("Automatic boot of image at addr 0x%08lx ...\n", addr);
++#endif /* cu570m */
+ 
+ 		do_bootm(cmdtp, 0, 1, local_args);
+ 		return 1;
++#ifndef CONFIG_ATH_NAND_SUPPORT /* cu570m */
+ 	}
++#endif /* cu570m */
+ 	return 0;
+ }
+ 
+diff --git a/common/cmd_net.c b/common/cmd_net.c
+index dbf6b861b1..f3dd90db76 100644
+--- a/common/cmd_net.c
++++ b/common/cmd_net.c
+@@ -29,9 +29,15 @@
+ #include <net.h>
+ 
+ extern int do_bootm (cmd_tbl_t *, int, int, char *[]);
++/* cu570m start */
++#ifdef FW_RECOVERY
++extern ushort fw_recovery;
++#endif
++/* cu570m end */
+ 
+ static int netboot_common (proto_t, cmd_tbl_t *, int , char *[]);
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_bootp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	return netboot_common (BOOTP, cmdtp, argc, argv);
+@@ -42,6 +48,7 @@ U_BOOT_CMD(
+ 	"bootp\t- boot image via network using BootP/TFTP protocol\n",
+ 	"[loadAddress] [bootfilename]\n"
+ );
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ int do_tftpb (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+@@ -54,6 +61,7 @@ U_BOOT_CMD(
+ 	"[loadAddress] [[hostIPaddr:]bootfilename]\n"
+ );
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ int do_rarpb (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+ {
+ 	return netboot_common (RARP, cmdtp, argc, argv);
+@@ -64,6 +72,7 @@ U_BOOT_CMD(
+ 	"rarpboot- boot image via network using RARP/TFTP protocol\n",
+ 	"[loadAddress] [bootfilename]\n"
+ );
++#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ #if defined(CONFIG_CMD_DHCP)
+ int do_dhcp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -182,7 +191,7 @@ netboot_common (proto_t proto, cmd_tbl_t *cmdtp, int argc, char *argv[])
+ 
+ 		break;
+ 
+-	default: printf ("Usage:\n%s\n", cmdtp->usage);
++	default: printf ("Usage(%d):\n%s\n", argc, cmdtp->usage); /* d, argc - cu570m */
+ 		show_boot_progress (-80);
+ 		return 1;
+ 	}
+@@ -259,6 +268,28 @@ U_BOOT_CMD(
+ 	"ping\t- send ICMP ECHO_REQUEST to network host\n",
+ 	"pingAddress\n"
+ );
++
++/* cu570m start */
++#ifdef TPWD_FOR_LINUX_CAL
++int pingTest(char* ip)
++{
++	NetPingIP = string_to_ip(ip);
++	if (NetPingIP == 0)
++		{
++			printf("ping parameter ERROR. --debug by HouXB\n");
++			return -1;
++		}
++	if (NetLoop(PING) < 0)
++	{
++		printf("host %s is NOT alive. --debug by HouXB\n", ip);
++		return 1;
++	}
++	printf("host %s is alive. --debug by HouXB\n", ip);
++	return 0;
++}
++#endif
++/* cu570m end */
++
+ #endif
+ 
+ #if defined(CONFIG_CMD_CDP)
+diff --git a/common/command.c b/common/command.c
+index af2f8cbf7b..3839e4a2d6 100644
+--- a/common/command.c
++++ b/common/command.c
+@@ -78,6 +78,7 @@ U_BOOT_CMD(
+ 
+ #endif
+ 
++#ifndef COMPRESSED_UBOOT /* cu570m */
+ #ifdef CFG_HUSH_PARSER
+ 
+ int
+@@ -230,6 +231,7 @@ U_BOOT_CMD(
+ 
+ 
+ #endif
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ 
+ /*
+  * Use puts() instead of printf() to avoid printf buffer overflow
+diff --git a/common/main.c b/common/main.c
+index 21e7afab61..647165c3de 100644
+--- a/common/main.c
++++ b/common/main.c
+@@ -38,12 +38,24 @@
+ #include <hush.h>
+ #endif
+ 
++/* cu570m start */
++#ifdef FW_RECOVERY/*  by huangwenzhong, 03May13 */
++#include "../board/atheros/common/ath_flash.h"
++#endif
++/* cu570m end */
++
+ #include <post.h>
+ 
+ #if defined(CONFIG_SILENT_CONSOLE) || defined(CONFIG_POST)
+ DECLARE_GLOBAL_DATA_PTR;
+ #endif
+ 
++/* cu570m start */
++#ifdef CONFIG_DUALIMAGE_SUPPORT
++extern unsigned findbdr(unsigned int flashaddr);
++#endif
++/* cu570m end */
++
+ /*
+  * Board-specific Platform code can reimplement show_boot_progress () if needed
+  */
+@@ -269,6 +281,18 @@ static __inline__ int abortboot(int bootdelay)
+ 
+ /****************************************************************************/
+ 
++/* cu570m start */
++#ifdef TPWD_FOR_LINUX_CAL
++int is_dev_calibrate()
++{
++	u16 *addr = (u16*)0x9f3f1000;
++
++	return (*addr != 0xFFFF);
++
++}
++#endif
++/* cu570m end */
++
+ void main_loop (void)
+ {
+ #ifndef CFG_HUSH_PARSER
+@@ -363,7 +387,7 @@ void main_loop (void)
+ 	s = getenv ("bootdelay");
+ 	bootdelay = s ? (int)simple_strtol(s, NULL, 10) : CONFIG_BOOTDELAY;
+ 
+-	debug ("### main_loop entered: bootdelay=%d\n\n", bootdelay);
++/*	debug ("### main_loop entered: bootdelay=%d\n\n", bootdelay); */ /* cu570m */
+ 
+ # ifdef CONFIG_BOOT_RETRY_TIME
+ 	init_cmd_timeout ();
+@@ -385,7 +409,183 @@ void main_loop (void)
+ #endif /* CONFIG_BOOTCOUNT_LIMIT */
+ 		s = getenv ("bootcmd");
+ 
+-	debug ("### main_loop: bootcmd=\"%s\"\n", s ? s : "<UNDEFINED>");
++/* cu570m start */
++       if (!s) {
++#ifdef CONFIG_ROOTFS_FLASH
++           /* XXX if rootfs is in flash, expect uImage to be in flash */
++#ifdef CONFIG_AR7100
++           setenv ("bootcmd", "bootm 0xbf200000");
++#else
++           setenv ("bootcmd", "bootm 0xbf450000");
++#endif /* CONFIG_AR7100 */
++#else
++           setenv ("bootcmd", "tftpboot 0x8022c090 uImage; bootm 0x8022c090");
++#endif
++       }
++
++#ifdef CONFIG_DUALIMAGE_SUPPORT
++		findbdr(0);
++#endif
++
++/* Download vxWorks.bin ,then waiting for calculating */
++#ifdef TPWD_FOR_LINUX_CAL
++
++#define SERVER_IP1	"192.168.1.100"
++#define SERVER_IP2	"192.168.1.110"
++
++	if (!is_dev_calibrate())
++	{
++		/* wait for ethernet configure done */
++		udelay(2000*1000);
++
++		/* detect tftp server IP address */
++		if (pingTest(SERVER_IP1) == 0)
++		{
++			setenv("serverip", SERVER_IP1);
++		}
++		else if (pingTest(SERVER_IP2) == 0)
++		{
++			setenv("serverip", SERVER_IP2);
++		}
++		else
++		{
++			printf("tftp server ip should be 192.168.1.100 or 192.168.1.110\n");
++		}
++		/* load vxWork.bin */
++		setenv("bootcmd", "tftpboot 80001000 vxWorks.bin; go 80001000");
++	}
++#endif
++
++#ifdef FW_RECOVERY/*  by huangwenzhong, 03May13 */
++
++#define ORG_FILE_BASE 			0x9F01F000
++#define ORG_PRODUCT_ID_POS 		(ORG_FILE_BASE + 0xD00)
++#define ORG_PRODUCT_VER_POS 	(ORG_FILE_BASE + 0xD04)
++
++#define UP_FILE_BASE 			0x80800000
++#define UP_PRODUCT_ID_POS 		(UP_FILE_BASE + 0x40)
++#define UP_PRODUCT_VER_POS 		(UP_FILE_BASE + 0x44)
++
++#define PRODUCT_ID_VER_LEN 		4
++#define FW_IMAGE_NAME			"_tp_recovery.bin"
++#define FW_IMAGE_UPLOAD_CMD		"tftp 0x80800000 "
++
++			int is_auto_upload_firmware;
++			unsigned int original_product_id;
++			unsigned int original_product_ver;
++			unsigned int recovery_product_id;
++			unsigned int recovery_product_ver;
++			unsigned long file_size = 0;
++			extern ushort fw_recovery;
++
++
++			udelay(10 * 1000);
++			ath_auf_gpio_init();
++
++			is_auto_upload_firmware = ath_is_rst_btn_pressed();
++			printf("is_auto_upload_firmware=%d\n", is_auto_upload_firmware);
++
++			if (is_auto_upload_firmware)
++			{
++				char image_name[32] = {0};
++				char upload_cmd[64] = {0};
++
++				strcpy(upload_cmd, FW_IMAGE_UPLOAD_CMD);
++				strcpy(image_name, FW_RECOVERY_DEV);
++				strcat(image_name, FW_IMAGE_NAME);
++				strcat(upload_cmd, image_name);
++
++				ath_fw_led_on();
++
++				/* wait for ethernet config done. by HouXB, 28Apr11 */
++
++				udelay(2000*1000);
++
++				fw_recovery = 1;
++
++				run_command("setenv serverip 192.168.0.66", 0);
++				run_command("setenv ipaddr 192.168.0.86", 0);
++
++				run_command(upload_cmd, 0);
++
++				memcpy(&original_product_id, ORG_PRODUCT_ID_POS, PRODUCT_ID_VER_LEN);
++				memcpy(&original_product_ver, ORG_PRODUCT_VER_POS, PRODUCT_ID_VER_LEN);
++
++				memcpy(&recovery_product_id, UP_PRODUCT_ID_POS, PRODUCT_ID_VER_LEN);
++				memcpy(&recovery_product_ver, UP_PRODUCT_VER_POS, PRODUCT_ID_VER_LEN);
++
++				if ((original_product_id == recovery_product_id)
++					 && (original_product_ver== recovery_product_ver))
++				{
++					s = getenv("filesize");
++
++					if (s)
++					{
++						file_size = simple_strtoul(s, NULL, 16);
++					}
++					printf("Firmware recovery: product id verify sucess!\n");
++					printf("Firmware recovery: filesize = 0x%x.\n", file_size);
++					if (FLASH_SIZE == 4)
++					{
++						if (file_size == 0x3c0000)
++						{
++							run_command("erase 0x9f020000 +3c0000; cp.b 0x80800000 0x9f020000 3c0000", 0);
++						}
++						else if (file_size == 0x3e0200)
++						{
++							run_command("erase 0x9f020000 +3c0000; cp.b 0x80820200 0x9f020000 3c0000", 0);
++						}
++					}
++					else if (FLASH_SIZE == 8)
++					{
++						if (file_size == 0x7c0000)
++						{
++							run_command("erase 0x9f020000 +7c0000; cp.b 0x80800000 0x9f020000 7c0000", 0);
++						}
++						else if (file_size == 0x7e0200)
++						{
++							run_command("erase 0x9f020000 +7c0000; cp.b 0x80820200 0x9f020000 7c0000", 0);
++						}
++					}
++					else if (FLASH_SIZE == 16)
++					{
++						if (file_size == 0xfc0000)
++						{
++							run_command("erase 0x9f020000 +fc0000; cp.b 0x80800000 0x9f020000 fc0000", 0);
++						}
++						else if (file_size == 0xfe0200)
++						{
++							run_command("erase 0x9f020000 +fc0000; cp.b 0x80820200 0x9f020000 fc0000", 0);
++						}
++					}
++					do_reset (NULL, 0, 0, NULL);
++				}
++				else
++				{
++					printf("auto update firmware: product id verify fail!\n");
++					ath_fw_led_off();
++				}
++			}
++			else
++			{
++				ath_fw_led_off();
++			}
++
++#undef ORG_FILE_BASE
++#undef ORG_PRODUCT_ID_POS
++#undef ORG_PRODUCT_VER_POS
++#undef UP_FILE_BASE
++#undef UP_PRODUCT_ID_POS
++#undef UP_PRODUCT_VER_POS
++#undef PRODUCT_ID_VER_LEN
++#undef FW_IMAGE_NAME
++#undef FW_IMAGE_UPLOAD_CMD
++#endif
++/* cu570m end */
++
++	s = getenv ("bootcmd");
++
++	/* debug ("### main_loop: bootcmd=\"%s\"\n", s ? s : "<UNDEFINED>"); */ /* cu570m */
+ 
+ 	if (bootdelay >= 0 && s && !abortboot (bootdelay)) {
+ # ifdef CONFIG_AUTOBOOT_KEYED
+-- 
+2.24.0
+

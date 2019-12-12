@@ -1,0 +1,216 @@
+From bf999024a8cae8b75148d21f001ca7d0a585c2e8 Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Tue, 10 Dec 2019 17:02:37 +0000
+Subject: [PATCH] Modify ./include/ files according to WR841N(D)v9 u-boot
+
+---
+ include/common.h             |  9 +++++++++
+ include/config_cmd_all.h     |  2 ++
+ include/config_cmd_default.h | 25 ++++++++++++++++---------
+ include/flash.h              |  2 ++
+ include/image.h              |  1 +
+ include/net.h                |  8 ++++++++
+ include/pci.h                |  6 ++++--
+ include/version.h            |  1 +
+ 8 files changed, 43 insertions(+), 11 deletions(-)
+
+diff --git a/include/common.h b/include/common.h
+index 673afdd150..d5d2006e10 100644
+--- a/include/common.h
++++ b/include/common.h
+@@ -208,7 +208,11 @@ void	reset_cmd_timeout(void);
+ /* lib_$(ARCH)/board.c */
+ void	board_init_f  (ulong) __attribute__ ((noreturn));
+ void	board_init_r  (gd_t *, ulong) __attribute__ ((noreturn));
++#ifdef COMPRESSED_UBOOT /* cu570m condition branch */
++int	checkboard    (char *);
++#else /* old default path */
+ int	checkboard    (void);
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ int	checkflash    (void);
+ int	checkdram     (void);
+ char *	strmhz(char *buf, long hz);
+@@ -258,7 +262,11 @@ int env_complete(char *var, int maxv, char *cmdv[], int maxsz, char *buf);
+ #endif
+ 
+ void	pci_init      (void);
++#ifdef  COMPRESSED_UBOOT /* cu570m condition branch */
++int	pci_init_board(void);
++#else /* old default path */
+ void	pci_init_board(void);
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ void	pciinfo	      (int, int);
+ 
+ #if defined(CONFIG_PCI) && (defined(CONFIG_4xx) && !defined(CONFIG_AP1000))
+@@ -394,6 +402,7 @@ int	dcache_status (void);
+ void	dcache_enable (void);
+ void	dcache_disable(void);
+ void	relocate_code (ulong, gd_t *, ulong) __attribute__ ((noreturn));
++void 	ar7240_ddr_tap_init(void); /* cu570m */
+ ulong	get_endaddr   (void);
+ void	trap_init     (ulong);
+ #if defined (CONFIG_4xx)	|| \
+diff --git a/include/config_cmd_all.h b/include/config_cmd_all.h
+index 69276a3894..12520b9e22 100644
+--- a/include/config_cmd_all.h
++++ b/include/config_cmd_all.h
+@@ -33,6 +33,7 @@
+ #define CONFIG_CMD_EEPROM	/* EEPROM read/write support	*/
+ #define CONFIG_CMD_ELF		/* ELF (VxWorks) load/boot cmd	*/
+ #define CONFIG_CMD_ENV		/* saveenv			*/
++#define CONFIG_CMD_ETHREG	/* S26 Reg RD/WR utility		*/ /* cu570m */
+ #define CONFIG_CMD_EXT2		/* EXT2 Support			*/
+ #define CONFIG_CMD_FAT		/* FAT support			*/
+ #define CONFIG_CMD_FDC		/* Floppy Disk Support		*/
+@@ -63,6 +64,7 @@
+ #define CONFIG_CMD_PCI		/* pciinfo			*/
+ #define CONFIG_CMD_PCMCIA	/* PCMCIA support		*/
+ #define CONFIG_CMD_PING		/* ping support			*/
++#define CONFIG_CMD_PLL		/* Change CPU clock speeds		*/ /* cu570m */
+ #define CONFIG_CMD_PORTIO	/* Port I/O			*/
+ #define CONFIG_CMD_REGINFO	/* Register dump		*/
+ #define CONFIG_CMD_REISER	/* Reiserfs support		*/
+diff --git a/include/config_cmd_default.h b/include/config_cmd_default.h
+index f61cfc9368..d8542fced6 100644
+--- a/include/config_cmd_default.h
++++ b/include/config_cmd_default.h
+@@ -16,25 +16,32 @@
+  * hardware, not fully tested, etc.).
+  */
+ 
+-#define CONFIG_CMD_AUTOSCRIPT	/* Autoscript Support		*/
++/* cu570m start */
++#ifndef COMPRESSED_UBOOT /* old default path */
+ #define CONFIG_CMD_BDI	       	/* bdinfo			*/
+-#define CONFIG_CMD_BOOTD	/* bootd			*/
+ #define CONFIG_CMD_CONSOLE	/* coninfo			*/
+ #define CONFIG_CMD_ECHO		/* echo arguments		*/
+ #define CONFIG_CMD_ENV		/* saveenv			*/
+-#define CONFIG_CMD_FLASH	/* flinfo, erase, protect	*/
++#define CONFIG_CMD_FLASH	/* flinfo, erase, protect	*/ /* cu570m remove ??? */
+ #define CONFIG_CMD_FPGA		/* FPGA configuration Support	*/
+ #define CONFIG_CMD_IMI		/* iminfo			*/
+-#define CONFIG_CMD_IMLS		/* List all found images	*/
++#define CONFIG_CMD_IMLS		/* List all found images	*/ /* cu570m remove ??? */
+ #define CONFIG_CMD_ITEST	/* Integer (and string) test	*/
+-#define CONFIG_CMD_LOADB	/* loadb			*/
+-#define CONFIG_CMD_LOADS	/* loads			*/
+-#define CONFIG_CMD_MEMORY	/* md mm nm mw cp cmp crc base loop mtest */
++#define CONFIG_CMD_LOADB	/* loadb			*/ /* cu570m remove ? */
++#define CONFIG_CMD_LOADS	/* loads			*/ /* cu570m remove ? */
+ #define CONFIG_CMD_MISC		/* Misc functions like sleep etc*/
+-#define CONFIG_CMD_NET		/* bootp, tftpboot, rarpboot	*/
+ #define CONFIG_CMD_NFS		/* NFS support			*/
+-#define CONFIG_CMD_RUN		/* run command in env variable	*/
+ #define CONFIG_CMD_SETGETDCR	/* DCR support on 4xx		*/
+ #define CONFIG_CMD_XIMG		/* Load part of Multi Image	*/
++#else /* cu570m condition branch */
++#define CONFIG_CMD_MII		/* MII support			*/
++#endif
++/* cu570m end */
++
++#define CONFIG_CMD_AUTOSCRIPT	/* Autoscript Support		*/
++#define CONFIG_CMD_BOOTD	/* bootd			*/
++#define CONFIG_CMD_MEMORY	/* md mm nm mw cp cmp crc base loop mtest */
++#define CONFIG_CMD_NET		/* bootp, tftpboot, rarpboot	*/
++#define CONFIG_CMD_RUN		/* run command in env variable	*/
+ 
+ #endif	/* _CONFIG_CMD_DEFAULT_H */
+diff --git a/include/flash.h b/include/flash.h
+index 2ed1e20fd2..cc7cd15e78 100644
+--- a/include/flash.h
++++ b/include/flash.h
+@@ -447,6 +447,8 @@ extern int jedec_flash_match(flash_info_t *info, ulong base);
+ #define FLASH_S29GL064M 0x00F0		/* Spansion S29GL064M-R6		*/
+ #define FLASH_S29GL128N 0x00F1		/* Spansion S29GL128N			*/
+ 
++#define FLASH_M25P64    0x00F2 /* cu570m */
++
+ #define FLASH_UNKNOWN	0xFFFF		/* unknown flash type			*/
+ 
+ 
+diff --git a/include/image.h b/include/image.h
+index 432fa22393..c3354e33b2 100644
+--- a/include/image.h
++++ b/include/image.h
+@@ -134,6 +134,7 @@
+ #define IH_COMP_NONE		0	/*  No	 Compression Used	*/
+ #define IH_COMP_GZIP		1	/* gzip	 Compression Used	*/
+ #define IH_COMP_BZIP2		2	/* bzip2 Compression Used	*/
++#define IH_COMP_LZMA		3	/* lzma  Compression Used	*/ /* cu570m */
+ 
+ #define IH_MAGIC	0x27051956	/* Image Magic Number		*/
+ #define IH_NMLEN		32	/* Image Name Length		*/
+diff --git a/include/net.h b/include/net.h
+index f6decdca88..34b1fa70d2 100644
+--- a/include/net.h
++++ b/include/net.h
+@@ -278,7 +278,11 @@ typedef struct icmphdr {
+  * maximum packet size =  1518
+  * maximum packet size and multiple of 32 bytes =  1536
+  */
++#ifdef CFG_ATHRHDR_EN /* cu570m condition branch */
++#define PKTSIZE			1520
++#else /* old default path */
+ #define PKTSIZE			1518
++#endif /* cu570m */
+ #define PKTSIZE_ALIGN		1536
+ /*#define PKTSIZE		608*/
+ 
+@@ -346,7 +350,11 @@ extern int		NetState;		/* Network loop state		*/
+ extern int		NetRestartWrap;		/* Tried all network devices	*/
+ #endif
+ 
++#if defined(CFG_ATHRS26_PHY) && defined(CFG_ATHRHDR_EN) /* cu570m condition branch */
++typedef enum { BOOTP, RARP, ARP, TFTP, DHCP, PING, DNS, NFS, CDP, NETCONS, SNTP, ATHRHDR } proto_t;
++#else /* old default path */
+ typedef enum { BOOTP, RARP, ARP, TFTP, DHCP, PING, DNS, NFS, CDP, NETCONS, SNTP } proto_t;
++#endif /* cu570m */
+ 
+ /* from net/net.c */
+ extern char	BootFile[128];			/* Boot File name		*/
+diff --git a/include/pci.h b/include/pci.h
+index 8e5dacc0df..18944ffaf7 100644
+--- a/include/pci.h
++++ b/include/pci.h
+@@ -24,6 +24,8 @@
+  * MA 02111-1307 USA
+  */
+ 
++/* extern -> static - cu570m */
++
+ #ifndef _PCI_H
+ #define _PCI_H
+ 
+@@ -329,7 +331,7 @@ struct pci_region {
+ #define PCI_REGION_MEMORY	0x00000100	/* System memory */
+ #define PCI_REGION_RO		0x00000200	/* Read-only memory */
+ 
+-extern __inline__ void pci_set_region(struct pci_region *reg,
++static __inline__ void pci_set_region(struct pci_region *reg,
+ 				      unsigned long bus_start,
+ 				      unsigned long phys_start,
+ 				      unsigned long size,
+@@ -409,7 +411,7 @@ struct pci_controller {
+ 	int current_busno;
+ };
+ 
+-extern __inline__ void pci_set_ops(struct pci_controller *hose,
++static __inline__ void pci_set_ops(struct pci_controller *hose,
+ 				   int (*read_byte)(struct pci_controller*,
+ 						    pci_dev_t, int where, u8 *),
+ 				   int (*read_word)(struct pci_controller*,
+diff --git a/include/version.h b/include/version.h
+index b56d2e9900..b332371b07 100644
+--- a/include/version.h
++++ b/include/version.h
+@@ -25,5 +25,6 @@
+ #define	__VERSION_H__
+ 
+ #include "version_autogenerated.h"
++#include "athversion.h" /* cu570m */
+ 
+ #endif	/* __VERSION_H__ */
+-- 
+2.24.0
+
