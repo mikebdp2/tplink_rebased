@@ -4,33 +4,30 @@ Date: Fri, 29 Nov 2019 17:50:26 +0000
 Subject: [PATCH] Modify ./drivers/Makefile according to WR841N(D)v9 u-boot
 
 ---
- drivers/Makefile | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/pci/Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/Makefile b/drivers/Makefile
-index 5a369df..fcaaa67 100755
---- a/drivers/Makefile
-+++ b/drivers/Makefile
-@@ -27,7 +27,8 @@ include $(TOPDIR)/config.mk
+diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
+index fe45839466..70224dfbfb 100644
+--- a/drivers/pci/Makefile
++++ b/drivers/pci/Makefile
+@@ -25,12 +25,16 @@ include $(TOPDIR)/config.mk
  
- LIB	= $(obj)libdrivers.a
+ LIB 	:= $(obj)libpci.a
  
--COBJS	= 3c589.o 5701rls.o ali512x.o at45.o ata_piix.o \
-+# cu570m start
-+#COBJS	= 3c589.o 5701rls.o ali512x.o at45.o ata_piix.o \
- 	  ati_radeon_fb.o atmel_usart.o \
- 	  bcm570x.o bcm570x_autoneg.o cfb_console.o cfi_flash.o \
- 	  cs8900.o ct69000.o dataflash.o dc2114x.o dm9000x.o \
-@@ -52,6 +53,9 @@ COBJS	= 3c589.o 5701rls.o ali512x.o atmel_usart.o \
- 	  usbdcore.o usbdcore_ep0.o usbdcore_mpc8xx.o usbdcore_omap1510.o \
- 	  usbtty.o \
- 	  videomodes.o w83c553f.o
-+# cu570m
-+COBJS	= pci.o
-+# cu570m end
++ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
++COBJS-y += pci.o
++else # old default path
+ COBJS-y += fsl_pci_init.o
+ COBJS-y += pci.o
+ COBJS-y += pci_auto.o
+ COBJS-y += pci_indirect.o
+ COBJS-y += tsi108_pci.o
+ COBJS-y += w83c553f.o
++endif # cu570m
  
- SRCS	:= $(COBJS:.o=.c)
- OBJS	:= $(addprefix $(obj),$(COBJS))
+ COBJS	:= $(COBJS-y)
+ SRCS 	:= $(COBJS:.o=.c)
 -- 
-2.17.1
+2.24.0
 

@@ -85,7 +85,7 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -190,60 +209,90 @@ endif
+@@ -189,68 +189,87 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
@@ -95,7 +95,6 @@ index a282342..63fe227 100644
 -	"board/$(VENDOR)/common/lib$(VENDOR).a"; fi)
 +# LIBS += $(shell if [ -f board/$(VENDOR)/common/Makefile ]; then echo \
 +# 	"board/$(VENDOR)/common/lib$(VENDOR).a"; fi)
-+LIBS += common/libcommon.a
  LIBS += board/$(BOARDDIR)/lib$(BOARD).a
  LIBS += cpu/$(CPU)/lib$(CPU).a
  ifdef SOC
@@ -110,33 +109,54 @@ index a282342..63fe227 100644
  LIBS += lib_$(ARCH)/lib$(ARCH).a
 -LIBS += fs/cramfs/libcramfs.a fs/fat/libfat.a fs/fdos/libfdos.a fs/jffs2/libjffs2.a \
 -	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
-+
-+# ifeq ($(KERNELVER),2.6.31)
-+LIBS += drivers/libdrivers.a
-+# endif
-+# ifeq ($(COMPRESSED_UBOOT),0)
-+
 +# LIBS += fs/cramfs/libcramfs.a fs/fat/libfat.a fs/fdos/libfdos.a fs/jffs2/libjffs2.a \
 +# 	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
  LIBS += net/libnet.a
 -LIBS += disk/libdisk.a
-+# LIBS += disk/libdisk.a
- LIBS += rtc/librtc.a
--LIBS += dtt/libdtt.a
--LIBS += drivers/libdrivers.a
 -LIBS += drivers/bios_emulator/libatibiosemu.a
--LIBS += drivers/nand/libnand.a
--LIBS += drivers/nand_legacy/libnand_legacy.a
--LIBS += drivers/onenand/libonenand.a
+-LIBS += drivers/block/libblock.a
+-LIBS += drivers/hwmon/libhwmon.a
+-LIBS += drivers/i2c/libi2c.a
+-LIBS += drivers/input/libinput.a
+-LIBS += drivers/misc/libmisc.a
+-LIBS += drivers/mtd/libmtd.a
+-LIBS += drivers/mtd/nand/libnand.a
+-LIBS += drivers/mtd/nand_legacy/libnand_legacy.a
+-LIBS += drivers/mtd/onenand/libonenand.a
 -LIBS += drivers/net/libnet.a
+-LIBS += drivers/net/sk98lin/libsk98lin.a
++# LIBS += disk/libdisk.a
++# LIBS += drivers/bios_emulator/libatibiosemu.a
++# LIBS += drivers/block/libblock.a
++# LIBS += drivers/hwmon/libhwmon.a
++# LIBS += drivers/i2c/libi2c.a
++# LIBS += drivers/input/libinput.a
++# LIBS += drivers/misc/libmisc.a
++# LIBS += drivers/mtd/libmtd.a
++# LIBS += drivers/mtd/nand/libnand.a
++# LIBS += drivers/mtd/nand_legacy/libnand_legacy.a
++# LIBS += drivers/mtd/onenand/libonenand.a
++# LIBS += drivers/net/libnet.a
++# LIBS += drivers/net/sk98lin/libsk98lin.a
+ LIBS += drivers/pci/libpci.a
+-LIBS += drivers/pcmcia/libpcmcia.a
 -ifeq ($(CPU),mpc83xx)
 -LIBS += drivers/qe/qe.a
 -endif
 -ifeq ($(CPU),mpc85xx)
 -LIBS += drivers/qe/qe.a
 -endif
++# LIBS += drivers/pcmcia/libpcmcia.a
++# ifeq ($(CPU),mpc83xx)
++# LIBS += drivers/qe/qe.a
++# endif
++# ifeq ($(CPU),mpc85xx)
++# LIBS += drivers/qe/qe.a
++# endif
+ LIBS += drivers/rtc/librtc.a
 -LIBS += drivers/serial/libserial.a
--LIBS += drivers/sk98lin/libsk98lin.a
+-LIBS += drivers/usb/libusb.a
+-LIBS += drivers/video/libvideo.a
 -LIBS += post/libpost.a post/drivers/libpostdrivers.a
 -LIBS += $(shell if [ -d post/lib_$(ARCH) ]; then echo \
 -	"post/lib_$(ARCH)/libpost$(ARCH).a"; fi)
@@ -146,27 +166,9 @@ index a282342..63fe227 100644
 -	"post/cpu/$(CPU)/libpost$(CPU).a"; fi)
 -LIBS += $(shell if [ -d post/board/$(BOARDDIR) ]; then echo \
 -	"post/board/$(BOARDDIR)/libpost$(BOARD).a"; fi)
--LIBS += common/libcommon.a
--LIBS += libfdt/libfdt.a
-+# LIBS += dtt/libdtt.a
-+
-+# ifneq ($(KERNELVER),2.6.31)
-+# LIBS += drivers/libdrivers.a
-+# endif
-+
-+# LIBS += drivers/bios_emulator/libatibiosemu.a
-+# LIBS += drivers/nand/libnand.a
-+# LIBS += drivers/nand_legacy/libnand_legacy.a
-+# LIBS += drivers/onenand/libonenand.a
-+# LIBS += drivers/net/libnet.a
-+# ifeq ($(CPU),mpc83xx)
-+# LIBS += drivers/qe/qe.a
-+# endif
-+# ifeq ($(CPU),mpc85xx)
-+# LIBS += drivers/qe/qe.a
-+# endif
 +# LIBS += drivers/serial/libserial.a
-+# LIBS += drivers/sk98lin/libsk98lin.a
++# LIBS += drivers/usb/libusb.a
++# LIBS += drivers/video/libvideo.a
 +# LIBS += post/libpost.a post/drivers/libpostdrivers.a
 +# LIBS += $(shell if [ -d post/lib_$(ARCH) ]; then echo \
 +# 	"post/lib_$(ARCH)/libpost$(ARCH).a"; fi)
@@ -176,7 +178,8 @@ index a282342..63fe227 100644
 +# 	"post/cpu/$(CPU)/libpost$(CPU).a"; fi)
 +# LIBS += $(shell if [ -d post/board/$(BOARDDIR) ]; then echo \
 +# 	"post/board/$(BOARDDIR)/libpost$(BOARD).a"; fi)
-+# LIBS += common/libcommon.a
+ LIBS += common/libcommon.a
+-LIBS += libfdt/libfdt.a
 +# LIBS += libfdt/libfdt.a
 +LIBS += $(BOARDLIBS)
 +# LIBS - cu570m end
@@ -205,9 +208,9 @@ index a282342..63fe227 100644
  
  # The "tools" are needed early, so put this first
  # Don't include stuff already done in $(LIBS)
-+# SUBDIRS tools,examples,... -> tools,... - cu570m
 -SUBDIRS	= tools \
 -	  examples
++# SUBDIRS tools,examples,... -> tools,... - cu570m
 +SUBDIRS	= tools
  
  .PHONY : $(SUBDIRS)

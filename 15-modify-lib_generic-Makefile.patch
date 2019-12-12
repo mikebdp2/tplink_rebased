@@ -4,35 +4,42 @@ Date: Fri, 29 Nov 2019 17:58:55 +0000
 Subject: [PATCH] Modify ./lib_generic/Makefile according to WR841N(D)v9 u-boot
 
 ---
- lib_generic/Makefile | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ lib_generic/Makefile | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/lib_generic/Makefile b/lib_generic/Makefile
-index f012cab..870d470 100644
+index 9713353ddf..506d6927f2 100644
 --- a/lib_generic/Makefile
 +++ b/lib_generic/Makefile
-@@ -25,10 +25,20 @@ include $(TOPDIR)/config.mk
+@@ -25,6 +25,14 @@ include $(TOPDIR)/config.mk
  
  LIB	= $(obj)libgeneric.a
  
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
-+COBJS    = crc32.o ctype.o display_options.o ldiv.o \
-+			string.o vsprintf.o LzmaWrapper.o LzmaDecode.o
++COBJS-y += crc32.o
++COBJS-y += ctype.o
++COBJS-y += display_options.o
++COBJS-y += ldiv.o
++COBJS-y += string.o
++COBJS-y += vsprintf.o
 +else # old default path
-+# LzmaDecode.o LzmaWrapper.o - cu570m
- COBJS	= bzlib.o bzlib_crctable.o bzlib_decompress.o \
- 	  bzlib_randtable.o bzlib_huffman.o \
- 	  crc32.o ctype.o display_options.o div64.o ldiv.o sha1.o \
--	  string.o vsprintf.o zlib.o
-+	  string.o vsprintf.o zlib.o \
-+	  LzmaDecode.o LzmaWrapper.o
+ COBJS-y += bzlib.o
+ COBJS-y += bzlib_crctable.o
+ COBJS-y += bzlib_decompress.o
+@@ -39,6 +47,13 @@ COBJS-y += sha1.o
+ COBJS-y += string.o
+ COBJS-y += vsprintf.o
+ COBJS-y += zlib.o
 +endif # cu570m
 +
-+# cu570m
++# cu570m start
++COBJS-y += LzmaDecode.o
++COBJS-y += LzmaWrapper.o
 +CFLAGS += -DCONFIG_LZMA=1
++# cu570m end
  
+ COBJS	:= $(COBJS-y)
  SRCS 	:= $(COBJS:.o=.c)
- OBJS	:= $(addprefix $(obj),$(COBJS))
 -- 
 2.17.1
 

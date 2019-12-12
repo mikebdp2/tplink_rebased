@@ -11,21 +11,30 @@ Subject: [PATCH] Modify ./net/ files according to WR841N(D)v9 u-boot
  4 files changed, 153 insertions(+), 6 deletions(-)
 
 diff --git a/net/Makefile b/net/Makefile
-index d18460c..ab29e80 100644
+index 0eee330cfe..cc715f6659 100644
 --- a/net/Makefile
 +++ b/net/Makefile
-@@ -27,7 +27,11 @@ include $(TOPDIR)/config.mk
+@@ -27,6 +27,12 @@ include $(TOPDIR)/config.mk
  
  LIB	= $(obj)libnet.a
  
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
-+COBJS	= net.o tftp.o rarp.o eth.o
++COBJS-y += net.o
++COBJS-y += tftp.o
++COBJS-y += rarp.o
++COBJS-y += eth.o
 +else # old default path
- COBJS	= net.o tftp.o bootp.o rarp.o eth.o nfs.o sntp.o
+ COBJS-y += net.o
+ COBJS-y += tftp.o
+ COBJS-y += bootp.o
+@@ -34,6 +40,7 @@ COBJS-y += rarp.o
+ COBJS-y += eth.o
+ COBJS-y += nfs.o
+ COBJS-y += sntp.o
 +endif # cu570m
  
+ COBJS	:= $(COBJS-y)
  SRCS	:= $(COBJS:.o=.c)
- OBJS	:= $(addprefix $(obj),$(COBJS))
 diff --git a/net/eth.c b/net/eth.c
 index e8ac251..36d9376 100644
 --- a/net/eth.c

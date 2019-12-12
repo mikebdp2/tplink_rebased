@@ -19,58 +19,91 @@ Subject: [PATCH] Modify ./common/ files according to WR841N(D)v9 u-boot
  12 files changed, 830 insertions(+), 13 deletions(-)
 
 diff --git a/common/Makefile b/common/Makefile
-index 07ddc95..0448522 100644
+index ace8cc7edc..b3f9bfb287 100644
 --- a/common/Makefile
 +++ b/common/Makefile
-@@ -27,6 +27,26 @@ LIB	= $(obj)libcommon.a
+@@ -27,6 +27,49 @@ LIB	= $(obj)libcommon.a
  
  AOBJS	=
  
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
-+COBJS	= main.o circbuf.o \
-+	  cmd_boot.o cmd_bootm.o \
-+	  cmd_cache.o cmd_console.o \
-+	  cmd_date.o cmd_dcr.o cmd_display.o cmd_doc.o \
-+	  cmd_eeprom.o \
-+	  cmd_flash.o \
-+	  cmd_immap.o cmd_itest.o \
-+	  cmd_mem.o \
-+	  cmd_mii.o cmd_misc.o \
-+	  cmd_nand.o cmd_net.o cmd_nvedit.o \
-+	  cmd_reginfo.o cmd_spi.o \
-+	  command.o console.o devices.o dlmalloc.o docecc.o \
-+	  environment.o env_common.o \
-+	  env_nowhere.o \
-+	  exports.o \
-+	  hush.o lcd.o lists.o \
-+	  memsize.o miiphybb.o miiphyutil.o \
-+	  serial.o crc16.o
++COBJS-y += main.o
++COBJS-y += circbuf.o
++COBJS-y += cmd_boot.o
++COBJS-y += cmd_bootm.o
++COBJS-$(CONFIG_CMD_CACHE) += cmd_cache.o
++COBJS-$(CONFIG_CMD_CONSOLE) += cmd_console.o
++COBJS-$(CONFIG_CMD_DATE) += cmd_date.o
++ifdef CONFIG_4xx
++COBJS-$(CONFIG_CMD_SETGETDCR) += cmd_dcr.o
++endif
++COBJS-$(CONFIG_CMD_DISPLAY) += cmd_display.o
++COBJS-$(CONFIG_CMD_DOC) += cmd_doc.o
++COBJS-y += cmd_eeprom.o
++COBJS-$(CONFIG_CMD_FLASH) += cmd_flash.o
++COBJS-$(CONFIG_CMD_IMMAP) += cmd_immap.o
++COBJS-$(CONFIG_CMD_ITEST) += cmd_itest.o
++COBJS-y += cmd_mem.o
++COBJS-$(CONFIG_CMD_MII) += cmd_mii.o
++COBJS-$(CONFIG_CMD_MISC) += cmd_misc.o
++COBJS-y += cmd_nand.o
++COBJS-$(CONFIG_CMD_NET) += cmd_net.o
++COBJS-y += cmd_nvedit.o
++COBJS-$(CONFIG_CMD_REGINFO) += cmd_reginfo.o
++COBJS-$(CONFIG_CMD_SPI) += cmd_spi.o
++COBJS-y += command.o
++COBJS-y += console.o
++COBJS-y += devices.o
++COBJS-y += dlmalloc.o
++COBJS-y += docecc.o
++COBJS-y += environment.o
++COBJS-y += env_common.o
++COBJS-y += env_nowhere.o
++COBJS-y += exports.o
++COBJS-y += hush.o
++COBJS-y += lcd.o
++COBJS-y += lists.o
++COBJS-y += memsize.o
++COBJS-y += miiphybb.o
++COBJS-y += miiphyutil.o
++COBJS-y += serial.o
++COBJS-y += crc16.o
 +else # old default path
- COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o cmd_autoscript.o \
- 	  cmd_bdinfo.o cmd_bedbug.o cmd_bmp.o cmd_boot.o cmd_bootm.o \
- 	  cmd_cache.o cmd_console.o \
-@@ -51,12 +71,34 @@ COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o \
- 	  s_record.o serial.o soft_i2c.o soft_spi.o spartan2.o spartan3.o \
- 	  usb.o usb_kbd.o usb_storage.o \
- 	  virtex2.o xilinx.o crc16.o xyzModem.o cmd_mac.o cmd_mfsl.o
+ COBJS-y += main.o
+ COBJS-y += ACEX1K.o
+ COBJS-y += altera.o
+@@ -41,6 +84,8 @@ COBJS-y += cmd_bootm.o
+ COBJS-$(CONFIG_CMD_CACHE) += cmd_cache.o
+ COBJS-$(CONFIG_CMD_CONSOLE) += cmd_console.o
+ COBJS-$(CONFIG_CMD_DATE) += cmd_date.o
++COBJS-$(CONFIG_CMD_IMMAP) += cmd_immap.o
++COBJS-$(CONFIG_CMD_ITEST) += cmd_itest.o
+ ifdef CONFIG_4xx
+ COBJS-$(CONFIG_CMD_SETGETDCR) += cmd_dcr.o
+ endif
+@@ -132,6 +177,21 @@ COBJS-y += crc16.o
+ COBJS-y += xyzModem.o
+ COBJS-y += cmd_mac.o
+ COBJS-$(CONFIG_CMD_MFSL) += cmd_mfsl.o
 +endif # cu570m
 +
 +# cu570m start
 +ifndef BOOT_FROM_NAND
-+COBJS	+= flash.o
++COBJS-y += flash.o
 +endif
 +
 +ifeq ($(VXWORKS_UBOOT),1)
-+COBJS	+=  cmd_elf.o
++COBJS-y += cmd_elf.o
 +endif
 +
 +ifeq ($(TPWD_FOR_LINUX_CAL),1)
-+COBJS	+=  cmd_elf.o
++COBJS-y += cmd_elf.o
 +endif
 +# cu570m end
  
+ COBJS	:= $(COBJS-y)
  SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)
- OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
+@@ -139,6 +199,13 @@ OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
  
  CPPFLAGS += -I..
  
@@ -678,10 +711,11 @@ diff --git a/common/cmd_mii.c b/common/cmd_mii.c
 index e659536..eef5b24 100644
 --- a/common/cmd_mii.c
 +++ b/common/cmd_mii.c
-@@ -28,6 +28,13 @@
+@@ -28,6 +28,15 @@
+ 
  #include <common.h>
  #include <command.h>
- 
++
 +/* cu570m start */
 +#ifdef CONFIG_ATH_NAND_BR
 +#include <nand.h>
@@ -689,13 +723,14 @@ index e659536..eef5b24 100644
 +
 +#ifndef COMPRESSED_UBOOT
 +/* cu570m end */
- #if defined(CONFIG_CMD_MII)
++
  #include <miiphy.h>
  
+ #ifdef CONFIG_TERSE_MII
 @@ -596,3 +603,270 @@ U_BOOT_CMD(
- #endif /* CONFIG_TERSE_MII */
+ );
  
- #endif
+ #endif /* CONFIG_TERSE_MII */
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
 +
 +/* cu570m start */
@@ -1055,7 +1090,7 @@ index 2cb2c5d..f6db97e 100644
 --- a/common/cmd_net.c
 +++ b/common/cmd_net.c
 @@ -32,9 +32,15 @@
- #if defined(CONFIG_CMD_NET)
+ #include <net.h>
  
  extern int do_bootm (cmd_tbl_t *, int, int, char *[]);
 +/* cu570m start */

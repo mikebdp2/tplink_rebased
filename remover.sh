@@ -75,12 +75,17 @@ rm -f ./cpu/mips/au1x00_usb_ohci.h
 rm -f ./cpu/mips/incaip_clock.c
 rm -f ./cpu/mips/incaip_wdt.S
 rm -rf ./disk/
-mv ./drivers/Makefile ./drivers_Makefile
-mv ./drivers/pci.c ./drivers_pci_c
+mv ./drivers/pci/ ./drivers_pci/
+mv ./drivers/rtc/ ./drivers_rtc/
 rm -rf ./drivers/
 mkdir ./drivers/
-mv ./drivers_Makefile ./drivers/Makefile
-mv ./drivers_pci_c ./drivers/pci.c
+mv ./drivers_pci/ ./drivers/pci/
+mv ./drivers_rtc/ ./drivers/rtc/
+rm -f ./drivers/pci/fsl_pci_init.c
+rm -f ./drivers/pci/pci_auto.c
+rm -f ./drivers/pci/pci_indirect.c
+rm -f ./drivers/pci/tsi108_pci.c
+rm -f ./drivers/pci/w83c553f.c
 rm -rf ./dtt/
 rm -rf ./fs/
 rm -f ./include/405_dimm.h
