@@ -46,11 +46,10 @@ diff --git a/cpu/mips/cache.S b/cpu/mips/cache.S
 index aad76e0..a3cab29 100644
 --- a/cpu/mips/cache.S
 +++ b/cpu/mips/cache.S
-@@ -30,11 +30,11 @@
+@@ -30,9 +30,10 @@
  #include <asm/addrspace.h>
  #include <asm/cacheops.h>
  
--
 -	/* 16KB is the maximum size of instruction and data caches on
 -	 * MIPS 4K.
 +/* 16KB, MIPS 4K, 0x4000 -> 16KB, MIPS 24K, 0x10000 - cu570m */
@@ -60,45 +59,44 @@ index aad76e0..a3cab29 100644
 -#define MIPS_MAX_CACHE_SIZE	0x4000
 +#define MIPS_MAX_CACHE_SIZE	0x10000
  
- 
  /*
 @@ -106,6 +106,41 @@
  #define icacheop(kva, n, cacheSize, cacheLineSize, op) \
     icacheopn(kva, n, cacheSize, cacheLineSize, 1, (op))
  
 +/* cu570m start */
-+.globl simple_mips_cache_reset
-+.ent   simple_mips_cache_reset
++.globl	simple_mips_cache_reset
++.ent	simple_mips_cache_reset
 +
 +simple_mips_cache_reset:
-+	li      t2, CFG_ICACHE_SIZE
-+	li      t3, CFG_DCACHE_SIZE
-+	li      t4, CFG_CACHELINE_SIZE
++	li	t2, CFG_ICACHE_SIZE
++	li	t3, CFG_DCACHE_SIZE
++	li	t4, CFG_CACHELINE_SIZE
 +
-+	mtc0    zero, CP0_TAGLO
++	mtc0	zero, CP0_TAGLO
 +#if defined(CONFIG_WASP_SUPPORT) || defined(CONFIG_MACH_QCA953x)
 +	mtc0	zero, $29	# C0_TagHi
 +	mtc0	zero, $28, 2	# C0_DTagLo
 +	mtc0	zero, $29, 2	# C0_DTagHi
 +#endif
 +
-+	li      t0, K0BASE
-+	add     t2, t2, t0
++	li	t0, K0BASE
++	add	t2, t2, t0
 +
 +_arai_icache_loop:
-+	cache   Index_Store_Tag_I, 0(t0)
-+	add     t0, t0, t4
-+	bne     t0, t2, _arai_icache_loop
++	cache	Index_Store_Tag_I, 0(t0)
++	add	t0, t0, t4
++	bne	t0, t2, _arai_icache_loop
 +
-+	li      t0, K0BASE
-+	add     t3, t3, t0
++	li	t0, K0BASE
++	add	t3, t3, t0
 +_arai_dcache_loop:
-+	cache   Index_Store_Tag_D, 0(t0)
-+	add     t0, t0, t4
-+	bne     t0, t3, _arai_dcache_loop
++	cache	Index_Store_Tag_D, 0(t0)
++	add	t0, t0, t4
++	bne	t0, t3, _arai_dcache_loop
 +
-+	j  ra
-+	.end  simple_mips_cache_reset
++	j	ra
++	.end	simple_mips_cache_reset
 +/* cu570m end */
 +
  /*******************************************************************************
@@ -116,12 +114,12 @@ index aad76e0..a3cab29 100644
 +#endif
 +/* cu570m end */
 +
-    /*
-     * The caches are probably in an indeterminate state,
-     * so we force good parity into them by doing an
+ 	/*
+ 	 * The caches are probably in an indeterminate state,
+ 	 * so we force good parity into them by doing an
 @@ -267,3 +310,134 @@ mips_cache_lock:
- 
  	j	ra
+ 
  	.end	mips_cache_lock
 +
 +/* cu570m start */
@@ -130,59 +128,59 @@ index aad76e0..a3cab29 100644
 + * a0 = start
 + * a1 = end
 + */
-+    .globl  dcache_flush_range
-+    .ent    dcache_flush_range
++	.globl	dcache_flush_range
++	.ent	dcache_flush_range
 +dcache_flush_range:
-+    move    t0, a0
-+    li      t1, CFG_CACHELINE_SIZE
-+    move    t2, a1
++	move	t0, a0
++	li	t1, CFG_CACHELINE_SIZE
++	move	t2, a1
 +cache_loop_d_flush_range:
-+    cache   Hit_Writeback_Inv_D, 0(t0)
-+    addu    t0, t1
-+    bne     t0, t2, cache_loop_d_flush_range
-+    nop
-+	j  ra
-+    .end    dcache_flush_range
++	cache	Hit_Writeback_Inv_D, 0(t0)
++	addu	t0, t1
++	bne	t0, t2, cache_loop_d_flush_range
++	nop
++	j	ra
++	.end	dcache_flush_range
 +
 +/****************************************************************************
 + *
 + * mips_cache_flush_all - flushes entire I and D caches.
 + */
 +
-+    .globl  mips_cache_flush
-+    .ent    mips_cache_flush
++	.globl	mips_cache_flush
++	.ent	mips_cache_flush
 +mips_cache_flush:
 +	/* Flush caches...
 +	 */
-+	li      t0, (CFG_DCACHE_SIZE)
-+    li      t1, CFG_CACHELINE_SIZE
-+    li      t2, KSEG0
-+    addu    t3, t0, t2
++	li	t0, (CFG_DCACHE_SIZE)
++	li	t1, CFG_CACHELINE_SIZE
++	li	t2, KSEG0
++	addu	t3, t0, t2
 +cache_loop_d_flush:
-+    cache   Index_Writeback_Inv_D, 0(t2)
++	cache	Index_Writeback_Inv_D, 0(t2)
 +	ehb
-+    addu    t2, t1
-+    bne     t2, t3, cache_loop_d_flush
-+    nop
++	addu	t2, t1
++	bne	t2, t3, cache_loop_d_flush
++	nop
 +
-+    li      t0, (CFG_ICACHE_SIZE)
-+    li      t1, CFG_CACHELINE_SIZE
-+    li      t2, KSEG0
-+    addu    t3, t0, t2
-+/*    mtc0    zero, CP0_TAGLO	*/
++	li	t0, (CFG_ICACHE_SIZE)
++	li	t1, CFG_CACHELINE_SIZE
++	li	t2, KSEG0
++	addu	t3, t0, t2
++/*    mtc0	zero, CP0_TAGLO	*/
 +#ifdef CONFIG_WASP_SUPPORT
 +	mtc0	zero, $29	# C0_TagHi
 +	mtc0	zero, $28, 2	# C0_DTagLo
 +	mtc0	zero, $29, 2	# C0_DTagHi
 +#endif
 +cache_loop_flush:
-+    cache   Index_Invalidate_I, 0(t2)
++	cache	Index_Invalidate_I, 0(t2)
 +	ehb
-+    addu    t2, t1
-+    bne     t2, t3, cache_loop_flush
-+    nop
-+	j  ra
-+	.end  mips_cache_flush
++	addu	t2, t1
++	bne	t2, t3, cache_loop_flush
++	nop
++	j	ra
++	.end	mips_cache_flush
 +
 +/*
 + * Invalidate the I-Cache.
@@ -219,15 +217,15 @@ index aad76e0..a3cab29 100644
 + * mips_cache_lock_24k
 + */
 +
-+    .globl  mips_cache_lock_24k
-+    .ent    mips_cache_lock_24k
++	.globl	mips_cache_lock_24k
++	.ent	mips_cache_lock_24k
 +
 +mips_cache_lock_24k:
-+    li      t0, 7936
-+    li      t1, CFG_CACHELINE_SIZE
-+    li      t2, KSEG0
-+    addu    t3, t0, t2
-+    mtc0    zero, CP0_TAGLO
++	li	t0, 7936
++	li	t1, CFG_CACHELINE_SIZE
++	li	t2, KSEG0
++	addu	t3, t0, t2
++	mtc0	zero, CP0_TAGLO
 +#ifdef CONFIG_WASP_SUPPORT
 +	mtc0	zero, $29	# C0_TagHi
 +	mtc0	zero, $28, 2	# C0_DTagLo
@@ -235,36 +233,35 @@ index aad76e0..a3cab29 100644
 +#endif
 +cache_loop_lock:
 +
-+    li      t5, 0xfffff000
-+    and     t4, t2, t5
-+    ori     t4, t4, (1 << 7)
-+    mtc0    t4, CP0_TAGLO
++	li	t5, 0xfffff000
++	and	t4, t2, t5
++	ori	t4, t4, (1 << 7)
++	mtc0	t4, CP0_TAGLO
 +#ifdef CONFIG_WASP_SUPPORT
 +	mtc0	zero, $29	# C0_TagHi
 +	mtc0	zero, $28, 2	# C0_DTagLo
 +	mtc0	zero, $29, 2	# C0_DTagHi
 +#endif
 +
-+    cache   Index_Load_Tag_D, 0(t2)
-+    cache   0x1d, 0(t2)
-+    addu    t2, t1
-+    bne     t2, t3, cache_loop_lock
-+    nop
-+	j  ra
-+    .end    mips_cache_lock_24k
++	cache	Index_Load_Tag_D, 0(t2)
++	cache	0x1d, 0(t2)
++	addu	t2, t1
++	bne	t2, t3, cache_loop_lock
++	nop
++	j	ra
++	.end	mips_cache_lock_24k
 +
 +/* cu570m end */
 diff --git a/cpu/mips/config.mk b/cpu/mips/config.mk
 index b29986e..81e8668 100644
 --- a/cpu/mips/config.mk
 +++ b/cpu/mips/config.mk
-@@ -20,9 +20,10 @@
+@@ -20,8 +20,9 @@
  # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  # MA 02111-1307 USA
  #
 +# MIPSFLAGS -> #MIPSFLAGS - cu570m
- v=$(shell \
- $(CROSS_COMPILE)as --version|grep "GNU assembler"|awk '{print $$3}'|awk -F . '{print $$2}')
+ v=$(shell $(AS) --version |grep "GNU assembler" |cut -d. -f2)
 -MIPSFLAGS=$(shell \
 +#MIPSFLAGS=$(shell \
  if [ "$v" -lt "14" ]; then \
@@ -280,18 +277,18 @@ index b29986e..81e8668 100644
 +#ENDIANNESS = -EB
  endif
  
--MIPSFLAGS += $(ENDIANNESS) -mabicalls
+-MIPSFLAGS += $(ENDIANNESS)
 +# cu570m
 +### R3B0RN $(R3B0RN_UBOOT_EXTRA_MIPSFLAGS) ###
-+# MIPSFLAGS += $(ENDIANNESS) -mabicalls
-+MIPSFLAGS += $(ENDIANNESS) -mabicalls -march=mips32r2 $(R3B0RN_UBOOT_EXTRA_MIPSFLAGS)
++# MIPSFLAGS += $(ENDIANNESS)
++MIPSFLAGS += $(ENDIANNESS) -march=mips32r2 $(R3B0RN_UBOOT_EXTRA_MIPSFLAGS)
  
  PLATFORM_CPPFLAGS += $(MIPSFLAGS)
 diff --git a/cpu/mips/cpu.c b/cpu/mips/cpu.c
 index f48675e..5c5ecca 100644
 --- a/cpu/mips/cpu.c
 +++ b/cpu/mips/cpu.c
-@@ -26,22 +26,87 @@
+@@ -26,21 +26,87 @@
  #include <asm/inca-ip.h>
  #include <asm/mipsregs.h>
  
@@ -365,7 +362,7 @@ index f48675e..5c5ecca 100644
  	return 0;
  }
  
- void flush_cache (ulong start_addr, ulong size)
+ void flush_cache(ulong start_addr, ulong size)
  {
 +/* cu570m start */
 +	u32 end, a;
@@ -374,21 +371,20 @@ index f48675e..5c5ecca 100644
 +	a = start_addr & ~(CFG_CACHELINE_SIZE - 1);
 +	size = (size + CFG_CACHELINE_SIZE - 1) & ~(CFG_CACHELINE_SIZE - 1);
 +	end = a + size;
- 
++
 +	dcache_flush_range(a, end);
 +/* cu570m end */
  }
  
- void write_one_tlb( int index, u32 pagemask, u32 hi, u32 low0, u32 low1 ){
+ void write_one_tlb(int index, u32 pagemask, u32 hi, u32 low0, u32 low1)
 diff --git a/cpu/mips/start.S b/cpu/mips/start.S
 index e91e213..e9deedd 100644
 --- a/cpu/mips/start.S
 +++ b/cpu/mips/start.S
-@@ -27,7 +27,15 @@
+@@ -27,6 +27,15 @@
  #include <version.h>
  #include <asm/regdef.h>
  #include <asm/mipsregs.h>
--
 +/* cu570m start */
 +#include <asm/addrspace.h>
 +#ifdef CONFIG_ATHEROS
@@ -407,7 +403,7 @@ index e91e213..e9deedd 100644
  	.set noreorder
 +/* cu570m start */
 +#ifdef COMPRESSED_UBOOT
-+	.align 4
++	.align	4
 +#endif
 +/* cu570m end */
  
@@ -549,11 +545,11 @@ index e91e213..e9deedd 100644
 +#endif /* CONFIG_ATH_NAND_BR */
 +/* cu570m end */
  
- 	/* Initialize GOT pointer.
- 	*/
+ 	/* Initialize $gp.
+ 	 */
 @@ -244,6 +370,60 @@ reset:
- 	lw      t1, 0(ra)
- 	move	gp, t1
+ 1:
+ 	lw	gp, 0(ra)
  
 +/* cu570m start */
 +#define DCACHE_16K	0
@@ -587,20 +583,20 @@ index e91e213..e9deedd 100644
 +
 +do_reset_normal:
 +
-+    li  t7, 0xbd000000
-+    lw  t8, 0(t7)            // t8 : value of 0xb8050024
-+    li  t9, 0x12345678
-+    sw  t9, 0(t7)
-+    bne t8, t9, do_reset      // if 0xb8050024 == 0x19 , go to do_cpld
-+    nop
-+    b normal_path
++	li	t7, 0xbd000000
++	lw	t8, 0(t7)		// t8 : value of 0xb8050024
++	li	t9, 0x12345678
++	sw	t9, 0(t7)
++	bne	t8, t9, do_reset	// if 0xb8050024 == 0x19 , go to do_cpld
++	nop
++	b	normal_path
 +
 +do_reset:
-+    li t7, 0xb806001c       // load reset register 0x1806001c
-+    lw t8, 0(t7)
-+    li t9, 0x1000000        // bit24, fullchip reset
-+    or t8, t8, t9         // t8:  set bit 18
-+    sw t8, 0(t7)
++	li	t7, 0xb806001c	// load reset register 0x1806001c
++	lw	t8, 0(t7)
++	li	t9, 0x1000000	// bit24, fullchip reset
++	or	t8, t8, t9	// t8:  set bit 18
++	sw	t8, 0(t7)
 +
 +normal_path:
 +#endif /* CONFIG_MACH_HORNET */
@@ -612,20 +608,20 @@ index e91e213..e9deedd 100644
  #ifdef CONFIG_INCA_IP
  	/* Disable INCA-IP Watchdog.
  	 */
-@@ -254,37 +434,111 @@ reset:
+@@ -254,35 +434,111 @@ reset:
  
  	/* Initialize any external memory.
  	 */
 +#if defined(CONFIG_AR7100) || defined(CONFIG_AR7240) || defined(CONFIG_ATHEROS) /* cu570m */
- 	la      t9, lowlevel_init
- 	jalr    t9
+ 	la	t9, lowlevel_init
+ 	jalr	t9
  	nop
 +	nop /* cu570m */
 +
 +/* cu570m start */
 +#if defined(CONFIG_MACH_HORNET)
-+	la      t9, hornet_ddr_init
-+	jalr    t9
++	la	t9, hornet_ddr_init
++	jalr	t9
 +	nop
 +	nop
 +#endif
@@ -667,9 +663,9 @@ index e91e213..e9deedd 100644
  
  	/* Initialize caches...
  	 */
--	la      t9, mips_cache_reset
-+	la      t9, simple_mips_cache_reset /* mips_cache_reset -> simple_mips_cache_reset - cu570m */
- 	jalr    t9
+-	la	t9, mips_cache_reset
++	la	t9, simple_mips_cache_reset /* mips_cache_reset -> simple_mips_cache_reset - cu570m */
+ 	jalr	t9
  	nop
  
  	/* ... and enable them.
@@ -692,14 +688,14 @@ index e91e213..e9deedd 100644
  
 +1:	li	t0, CONF_CM_CACHABLE_NONCOHERENT /* 1: - cu570m */
 +2:	mtc0	t0, CP0_CONFIG /* 2: - cu570m */
- 
++
 +#if !defined(CFG_INIT_STACK_IN_SRAM) /* cu570m */
 +#if !defined(CONFIG_AR7100) && !defined(CONFIG_AR7240) /* cu570m */
  	/* Set up temporary stack.
  	 */
  	li	a0, CFG_INIT_SP_OFFSET
- 	la      t9, mips_cache_lock
- 	jalr    t9
+ 	la	t9, mips_cache_lock
+ 	jalr	t9
  	nop
 +#endif /* cu570m */
 +
@@ -724,7 +720,6 @@ index e91e213..e9deedd 100644
  	j	t9
  	nop
  
--
  /*
   * void relocate_code (addr_sp, gd, addr_moni)
   *
@@ -733,22 +728,22 @@ index e91e213..e9deedd 100644
  	/* If caches were enabled, we would have to flush them here.
  	 */
 +/* cu570m start */
-+	bal mips_cache_flush
++	bal	mips_cache_flush
 +	nop
 +/* cu570m end */
  
  	/* Jump to where we've relocated ourselves.
  	 */
-@@ -380,11 +638,4481 @@ in_ram:
+@@ -380,10 +638,4481 @@ in_ram:
  
  	.end	relocate_code
  
 +/* cu570m huge start */
- 
++
 -	/* Exception handlers.
 -	 */
 -romReserved:
--	b romReserved
+-	b	romReserved
 +#if !defined(CONFIG_MACH_QCA955x) && !defined(CONFIG_MACH_QCA953x)
 +#if !defined(CONFIG_WASP_SUPPORT) && defined(CONFIG_AR7240)
 +/*
@@ -763,7 +758,7 @@ index e91e213..e9deedd 100644
 +	li	t0,0xffffffff
  
 -romExcHandle:
--	b romExcHandle
+-	b	romExcHandle
 +	sw	t0,0x0(t1)
 +	sw	t0,0x4(t1)
 +	sw	t0,0x8(t1)
@@ -773,17 +768,17 @@ index e91e213..e9deedd 100644
 +	nop
 +
 +ddr_pat_init:
-+	li 	t0, 0xa0002000
++	li	t0, 0xa0002000
 +
-+	li 	t1, 0x00000000
-+	sw 	t1, 0x0(t0)
++	li	t1, 0x00000000
++	sw	t1, 0x0(t0)
 +	nop
 +
-+	li 	t1, 0x00000000
-+	sw 	t1, 0x4(t0)
++	li	t1, 0x00000000
++	sw	t1, 0x4(t0)
 +	nop
 +
-+	li 	t1, 0x00000000
++	li	t1, 0x00000000
 +	sw	t1, 0x8(t0)
 +	nop
 +
@@ -4875,10 +4870,10 @@ index e91e213..e9deedd 100644
 +//###### ddr init over #########
 +
 +	li	a0, 0xa0002000
-+	li	a1, 0x80002000	     //### Start address of the pattern   200
-+	li	a2, 0x80003000	     //### End Address of the pattern     220
++	li	a1, 0x80002000	//### Start address of the pattern   200
++	li	a2, 0x80003000	//### End Address of the pattern     220
 +	li	t0, 0xb800001c	//## Tap settings addr
-+	lw	a3, 0x0(t0)		//## loading default tap value
++	lw	a3, 0x0(t0)	//## loading default tap value
 +	nop
 +	ori	t0, a3, 0x0
 +	nop
@@ -4932,22 +4927,22 @@ index e91e213..e9deedd 100644
 +	nop
 +
 +	bnez	t0, tap_decr	//# t0=0 implies tap=0 works
-+	nop		 //# so low limit=0, else decrement tap value
++	nop		//# so low limit=0, else decrement tap value
 +	nop
 +	li	t8, 0x80500000
 +	sw	t0, 0x0(t8)
-+	add	t9, t9, t0 //#adding lower limit to upper limit (used to calc mid value)
++	add	t9, t9, t0	//#adding lower limit to upper limit (used to calc mid value)
 +	nop
 +	nop
 +
-+	b tap_calc
++	b	tap_calc
 +	nop
 +	nop
 +
 +tap_decr:
 +	addiu	t0, t0 , -1
 +	nop
-+	b load_tap
++	b	load_tap
 +	nop
 +	nop
 +
@@ -4959,7 +4954,7 @@ index e91e213..e9deedd 100644
 +	bnez	v1, load_tap
 +	nop
 +	nop
-+	b up_limit
++	b	up_limit
 +	nop
 +	nop
 +
@@ -4978,27 +4973,27 @@ index e91e213..e9deedd 100644
 +	nop
 +	nop
 +
-+	b tap_calc
++	b	tap_calc
 +	nop
 +	nop
 +
 +up_limit:
 +	addiu	t0, t0, -1
-+	li	t1, 0x0	 //## changing to decreasing tap mode
-+	li	t8, 0x80500000 //## storing upper limit
++	li	t1, 0x0	//## changing to decreasing tap mode
++	li	t8, 0x80500000	//## storing upper limit
 +	sw	t0, 0x4(t8)
 +	ori	t9, t0, 0x0
 +	nop
 +	nop
 +	nop
 +
-+	ori	t0, a3, 0x0 	//# loading default tap value
++	ori	t0, a3, 0x0	//# loading default tap value
 +	nop
-+	b load_tap
++	b	load_tap
 +	nop
 +	nop
 +
-+tap_calc:  //## calculating mid value of the tap, storing DQS0, DQS1 in 0x80500008, 0x8050000c resp.
++tap_calc:	//## calculating mid value of the tap, storing DQS0, DQS1 in 0x80500008, 0x8050000c resp.
 +	li	t7, 0x2
 +	nop
 +	div	t9, t7
@@ -5015,12 +5010,12 @@ index e91e213..e9deedd 100644
 +	sw	t6, 0xc(t8)
 +	nop
 +	nop
-+        li      t8, 0xb8000000  //#### Loading Tap Setting
++	li	t8, 0xb8000000	//#### Loading Tap Setting
 +	nop
-+        sw      t5, 0x1c(t8)
-+        nop
-+        sw      t6, 0x20(t8)
-+        nop
++	sw	t5, 0x1c(t8)
++	nop
++	sw	t6, 0x20(t8)
++	nop
 +	nop
 +	nop
 +
@@ -5028,14 +5023,14 @@ index e91e213..e9deedd 100644
 +	nop
 +	nop
 +	nop
-+	jr 	ra
++	jr	ra
 +
 +	.end	ar7240_ddr_tap_init
 +/* } */
 +#else
 +
 +.globl	ath_ddr_tap_cal
-+.type   ath_ddr_tap_cal, @function
++.type	ath_ddr_tap_cal, @function
 +
 +ath_ddr_tap_cal:
 +
@@ -5219,10 +5214,10 @@ index e91e213..e9deedd 100644
 +	/* Exception handlers.
 +	 */
 +romReserved:
-+	b romReserved
++	b	romReserved
 +
 +romExcHandle:
-+	b romExcHandle
++	b	romExcHandle
 +
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +

@@ -262,10 +262,10 @@ index 1d1c98f..61f841a 100644
  #if defined(CONFIG_NET_MULTI)
  	printf ("Using %s device\n", eth_get_name());
  #endif	/* CONFIG_NET_MULTI */
--	NetSetTimeout (10 * CFG_HZ, PingTimeout);
+-	NetSetTimeout (10UL * CFG_HZ, PingTimeout);
 +
 +#ifndef TPWD_FOR_LINUX_CAL /* cu570m */
-+	NetSetTimeout (10 * CFG_HZ, PingTimeout); /* old default branch */
++	NetSetTimeout (10UL * CFG_HZ, PingTimeout); /* old default branch */
 +#else /* cu570m condition branch */
 +	/* shorten ping timeout.  by HouXB, 01Feb13 */
 +	NetSetTimeout (CFG_HZ, PingTimeout);
@@ -320,8 +320,8 @@ index f3a5471..e4f239c 100644
  #if defined(CONFIG_CMD_NET)
  
  #define WELL_KNOWN_PORT	69		/* Well known TFTP port #		*/
--#define TIMEOUT		5		/* Seconds to timeout for a lost pkt	*/
-+#define TIMEOUT		2		/* Seconds to timeout for a lost pkt	*/ /* 5 -> 2 - cu570m */
+-#define TIMEOUT		5UL		/* Seconds to timeout for a lost pkt	*/
++#define TIMEOUT		2UL		/* Seconds to timeout for a lost pkt	*/ /* 5 -> 2 - cu570m */
  #ifndef	CONFIG_NET_RETRY_COUNT
 -# define TIMEOUT_COUNT	10		/* # of timeouts before giving up  */
 +# define TIMEOUT_COUNT	3		/* # of timeouts before giving up  */ /* 10 -> 3 - cu570m */

@@ -28,6 +28,7 @@ rm -f ./common/cmd_log.c
 rm -f ./common/cmd_mac.c
 rm -f ./common/cmd_mfsl.c
 rm -f ./common/cmd_mmc.c
+rm -f ./common/cmd_onenand.c
 rm -f ./common/cmd_pci.c
 rm -f ./common/cmd_pcmcia.c
 rm -f ./common/cmd_portio.c
@@ -45,6 +46,7 @@ rm -f ./common/env_eeprom.c
 rm -f ./common/env_flash.c
 rm -f ./common/env_nand.c
 rm -f ./common/env_nvram.c
+rm -f ./common/env_onenand.c
 rm -f ./common/fdt_support.c
 rm -f ./common/fpga.c
 rm -f ./common/ft_build.c
@@ -180,6 +182,7 @@ rm -f ./include/ns9750_eth.h
 rm -f ./include/ns9750_mem.h
 rm -f ./include/ns9750_ser.h
 rm -f ./include/ns9750_sys.h
+rm -f ./include/onenand_uboot.h
 rm -f ./include/pc_keyb.h
 rm -f ./include/pcmcia.h
 rm -rf ./include/pcmcia/

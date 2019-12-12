@@ -27,7 +27,7 @@ index b8214b1..69f6675 100644
 +#define UNCACHED_SDRAM(a)   KSEG1ADDR((a))
 +#else	/* !CONFIG_AR7100 */ /* AU1X00 -> AR7100 - cu570m */
 +/* cu570m end */
- #define UNCACHED_SDRAM(a) PHYSADDR(a)
+ #define UNCACHED_SDRAM(a) KSEG1ADDR(a)
  #endif	/* CONFIG_AU1X00 */
  #endif	/* __ASSEMBLY__ */
 diff --git a/include/asm-mips/bitops.h b/include/asm-mips/bitops.h

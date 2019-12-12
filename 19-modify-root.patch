@@ -85,7 +85,7 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -190,59 +209,89 @@ endif
+@@ -190,60 +209,90 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
@@ -127,6 +127,7 @@ index a282342..63fe227 100644
 -LIBS += drivers/bios_emulator/libatibiosemu.a
 -LIBS += drivers/nand/libnand.a
 -LIBS += drivers/nand_legacy/libnand_legacy.a
+-LIBS += drivers/onenand/libonenand.a
 -LIBS += drivers/net/libnet.a
 -ifeq ($(CPU),mpc83xx)
 -LIBS += drivers/qe/qe.a
@@ -156,6 +157,7 @@ index a282342..63fe227 100644
 +# LIBS += drivers/bios_emulator/libatibiosemu.a
 +# LIBS += drivers/nand/libnand.a
 +# LIBS += drivers/nand_legacy/libnand_legacy.a
++# LIBS += drivers/onenand/libonenand.a
 +# LIBS += drivers/net/libnet.a
 +# ifeq ($(CPU),mpc83xx)
 +# LIBS += drivers/qe/qe.a
@@ -1998,7 +2000,7 @@ diff --git a/mips_config.mk b/mips_config.mk
 index d8aa5fa..9d7a109 100644
 --- a/mips_config.mk
 +++ b/mips_config.mk
-@@ -22,3 +22,9 @@
+@@ -22,6 +22,12 @@
  #
  
  PLATFORM_CPPFLAGS += -DCONFIG_MIPS -D__MIPS__
@@ -2008,6 +2010,9 @@ index d8aa5fa..9d7a109 100644
 +   PLATFORM_CPPFLAGS += -D$(FLASH_TYPE)
 +endif
 +# cu570m end
+ 
+ #
+ # From Linux arch/mips/Makefile
 -- 
 2.17.1
 
