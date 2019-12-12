@@ -40,8 +40,8 @@ index e8ac251..36d9376 100644
 --- a/net/eth.c
 +++ b/net/eth.c
 @@ -251,6 +251,17 @@ int eth_initialize(bd_t *bis)
- #if defined(CONFIG_MCFFEC)
- 	mcffec_initialize(bis);
+ #if defined(CONFIG_AT91CAP9)
+ 	at91cap9_eth_initialize(bis);
  #endif
 +/* cu570m start */
 +#if defined(CONFIG_AR7100)
@@ -81,7 +81,7 @@ index e8ac251..36d9376 100644
  		debug ("Trying %s\n", eth_current->name);
 +#endif /* cu570m */
  
- 		if (eth_current->init(eth_current, bis)) {
+ 		if (eth_current->init(eth_current,bis) >= 0) {
  			eth_current->state = ETH_STATE_ACTIVE;
 diff --git a/net/net.c b/net/net.c
 index 1d1c98f..61f841a 100644

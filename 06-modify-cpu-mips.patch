@@ -262,8 +262,8 @@ index b29986e..81e8668 100644
  #
 +# MIPSFLAGS -> #MIPSFLAGS - cu570m
  v=$(shell $(AS) --version |grep "GNU assembler" |cut -d. -f2)
--MIPSFLAGS=$(shell \
-+#MIPSFLAGS=$(shell \
+-MIPSFLAGS:=$(shell \
++#MIPSFLAGS:=$(shell \
  if [ "$v" -lt "14" ]; then \
  	echo "-mcpu=4kc"; \
  else \

@@ -72,15 +72,6 @@ index ace8cc7edc..b3f9bfb287 100644
  COBJS-y += main.o
  COBJS-y += ACEX1K.o
  COBJS-y += altera.o
-@@ -41,6 +84,8 @@ COBJS-y += cmd_bootm.o
- COBJS-$(CONFIG_CMD_CACHE) += cmd_cache.o
- COBJS-$(CONFIG_CMD_CONSOLE) += cmd_console.o
- COBJS-$(CONFIG_CMD_DATE) += cmd_date.o
-+COBJS-$(CONFIG_CMD_IMMAP) += cmd_immap.o
-+COBJS-$(CONFIG_CMD_ITEST) += cmd_itest.o
- ifdef CONFIG_4xx
- COBJS-$(CONFIG_CMD_SETGETDCR) += cmd_dcr.o
- endif
 @@ -132,6 +177,21 @@ COBJS-y += crc16.o
  COBJS-y += xyzModem.o
  COBJS-y += cmd_mac.o
@@ -726,11 +717,11 @@ index e659536..eef5b24 100644
 +
  #include <miiphy.h>
  
- #ifdef CONFIG_TERSE_MII
+ typedef struct _MII_reg_desc_t {
 @@ -596,3 +603,270 @@ U_BOOT_CMD(
+ 	"mii dump   <addr> <reg>        - pretty-print <addr> <reg> (0-5 only)\n"
+ 	"Addr and/or reg may be ranges, e.g. 2-7.\n"
  );
- 
- #endif /* CONFIG_TERSE_MII */
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
 +
 +/* cu570m start */
@@ -1114,7 +1105,7 @@ index 2cb2c5d..f6db97e 100644
  int do_tftpb (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
 @@ -57,6 +64,7 @@ U_BOOT_CMD(
- 	"[loadAddress] [bootfilename]\n"
+ 	"[loadAddress] [[hostIPaddr:]bootfilename]\n"
  );
  
 +#ifndef COMPRESSED_UBOOT /* cu570m */

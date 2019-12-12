@@ -2,6 +2,8 @@
 mv ./mips_config.mk ./mips_conf1g.mk
 rm -f ./*_config.mk
 mv ./mips_conf1g.mk ./mips_config.mk
+rm -rf ./api/
+rm -rf ./api_examples/
 rm -rf ./board/
 mkdir ./board/
 touch ./board/.keep
@@ -29,12 +31,15 @@ rm -f ./common/cmd_mac.c
 rm -f ./common/cmd_mfsl.c
 rm -f ./common/cmd_mmc.c
 rm -f ./common/cmd_onenand.c
+rm -f ./common/cmd_otp.c
 rm -f ./common/cmd_pci.c
 rm -f ./common/cmd_pcmcia.c
 rm -f ./common/cmd_portio.c
 rm -f ./common/cmd_reiser.c
 rm -f ./common/cmd_sata.c
 rm -f ./common/cmd_scsi.c
+rm -f ./common/cmd_strings.c
+rm -f ./common/cmd_terminal.c
 rm -f ./common/cmd_universe.c
 rm -f ./common/cmd_usb.c
 rm -f ./common/cmd_vfd.c
@@ -76,7 +81,30 @@ rm -f ./cpu/mips/incaip_clock.c
 rm -f ./cpu/mips/incaip_wdt.S
 rm -rf ./disk/
 mv ./drivers/pci/ ./drivers_pci/
-mv ./drivers/rtc/ ./drivers_rtc/
+mkdir ./drivers_rtc/
+mv ./drivers/rtc/Makefile ./drivers_rtc/Makefile
+mv ./drivers/rtc/date.c ./drivers_rtc/date.c
+mv ./drivers/rtc/bfin_rtc.c ./drivers_rtc/bfin_rtc.c
+mv ./drivers/rtc/ds12887.c ./drivers_rtc/ds12887.c
+mv ./drivers/rtc/ds1302.c ./drivers_rtc/ds1302.c
+mv ./drivers/rtc/ds1306.c ./drivers_rtc/ds1306.c
+mv ./drivers/rtc/ds1307.c ./drivers_rtc/ds1307.c
+mv ./drivers/rtc/ds1337.c ./drivers_rtc/ds1337.c
+mv ./drivers/rtc/ds1374.c ./drivers_rtc/ds1374.c
+mv ./drivers/rtc/ds1556.c ./drivers_rtc/ds1556.c
+mv ./drivers/rtc/ds164x.c ./drivers_rtc/ds164x.c
+mv ./drivers/rtc/ds174x.c ./drivers_rtc/ds174x.c
+mv ./drivers/rtc/m41t11.c ./drivers_rtc/m41t11.c
+mv ./drivers/rtc/m48t35ax.c ./drivers_rtc/m48t35ax.c
+mv ./drivers/rtc/max6900.c ./drivers_rtc/max6900.c
+mv ./drivers/rtc/mc146818.c ./drivers_rtc/mc146818.c
+mv ./drivers/rtc/mk48t59.c ./drivers_rtc/mk48t59.c
+mv ./drivers/rtc/mpc5xxx.c ./drivers_rtc/mpc5xxx.c
+mv ./drivers/rtc/mpc8xx.c ./drivers_rtc/mpc8xx.c
+mv ./drivers/rtc/pcf8563.c ./drivers_rtc/pcf8563.c
+mv ./drivers/rtc/rs5c372.c ./drivers_rtc/rs5c372.c
+mv ./drivers/rtc/s3c24x0_rtc.c ./drivers_rtc/s3c24x0_rtc.c
+rm -rf ./drivers/rtc/
 rm -rf ./drivers/
 mkdir ./drivers/
 mv ./drivers_pci/ ./drivers/pci/
@@ -98,6 +126,7 @@ rm -f ./include/74xx_7xx.h
 rm -f ./include/ACEX1K.h
 rm -f ./include/ahci.h
 rm -f ./include/altera.h
+rm -f ./include/api_public.h
 rm -f ./include/arm920t.h
 rm -f ./include/arm925t.h
 rm -f ./include/arm926ejs.h
@@ -111,6 +140,7 @@ rm -f ./include/at91rm9200_i2c.h
 rm -f ./include/at91rm9200_net.h
 rm -f ./include/at45.h
 rm -f ./include/ata.h
+rm -f ./include/bcd.h
 rm -f ./include/bcm5221.h
 rm -rf ./include/bedbug/
 rm -f ./include/bmp_layout.h
@@ -158,6 +188,10 @@ rm -f ./include/logbuff.h
 rm -f ./include/lpd7a400_cpld.h
 rm -f ./include/lxt971a.h
 rm -f ./include/lynxkdi.h
+rm -f ./include/mb862xx.h
+rm -f ./include/MCD_dma.h
+rm -f ./include/MCD_progCheck.h
+rm -f ./include/MCD_tasksInit.h
 rm -f ./include/mii_phy.h
 rm -f ./include/mmc.h
 rm -f ./include/mpc106.h
@@ -263,9 +297,8 @@ rm -rf ./libfdt/
 rm -rf ./nand_spl/
 rm -f ./net/sntp.c
 rm -f ./net/sntp.h
-rm -rf ./post/lib_ppc/
-rm -rf ./post/cpu/mpc8xx/
-rm -rf ./post/cpu/ppc4xx/
+rm -rf ./onenand_ipl/
+rm -rf ./post/
 rm -rf ./tools/bddb/
 rm -rf ./tools/easylogo/
 rm -rf ./tools/env/
@@ -274,5 +307,8 @@ rm -f ./tools/img2brec.sh
 rm -f ./tools/Makefile.win32
 rm -f ./tools/mpc86x_clk.c
 rm -f ./tools/ncb.c
+mv ./tools/scripts/define2mk.sed ./tools_scripts_define2mk.sed
 rm -rf ./tools/scripts/
+mkdir ./tools/scripts/
+mv ./tools_scripts_define2mk.sed ./tools/scripts/define2mk.sed
 rm -rf ./tools/updater/

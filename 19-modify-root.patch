@@ -31,10 +31,10 @@ index 1219fb373f..89d74a37e8 100755
  #########################################################################
  ## MIPS Systems		(little endian)
 diff --git a/Makefile b/Makefile
-index a282342..63fe227 100644
+index 90198f6583..0247898703 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -44,6 +44,14 @@ export	HOSTARCH HOSTOS
+@@ -45,6 +45,14 @@ export	HOSTARCH HOSTOS
  # Deal with colliding definitions from tcsh etc.
  VENDOR=
  
@@ -47,9 +47,9 @@ index a282342..63fe227 100644
 +# cu570m end
 +
  #########################################################################
- #
- # U-boot build supports producing a object files to the separate external
-@@ -83,7 +91,9 @@ BUILD_DIR := $(shell cd $(BUILD_DIR) && /bin/pwd)
+ # Allow for silent builds
+ ifeq (,$(findstring s,$(MAKEFLAGS)))
+@@ -92,7 +100,9 @@ BUILD_DIR := $(shell cd $(BUILD_DIR) && /bin/pwd)
  $(if $(BUILD_DIR),,$(error output directory "$(saved-output)" does not exist))
  endif # ifneq ($(BUILD_DIR),)
  
@@ -60,7 +60,7 @@ index a282342..63fe227 100644
  SRCTREE		:= $(CURDIR)
  TOPDIR		:= $(SRCTREE)
  LNDIR		:= $(OBJTREE)
-@@ -131,7 +141,9 @@ ifeq ($(ARCH),i386)
+@@ -143,7 +153,9 @@ ifeq ($(ARCH),i386)
  CROSS_COMPILE = i386-linux-
  endif
  ifeq ($(ARCH),mips)
@@ -71,7 +71,7 @@ index a282342..63fe227 100644
  endif
  ifeq ($(ARCH),nios)
  CROSS_COMPILE = nios-elf-
-@@ -163,6 +175,13 @@ include $(TOPDIR)/config.mk
+@@ -178,6 +190,13 @@ include $(TOPDIR)/config.mk
  # U-Boot objects....order is important (i.e. start must be first)
  
  OBJS  = cpu/$(CPU)/start.o
@@ -85,7 +85,7 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -189,68 +189,87 @@ endif
+@@ -191,72 +210,90 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
@@ -115,6 +115,7 @@ index a282342..63fe227 100644
 -LIBS += disk/libdisk.a
 -LIBS += drivers/bios_emulator/libatibiosemu.a
 -LIBS += drivers/block/libblock.a
+-LIBS += drivers/dma/libdma.a
 -LIBS += drivers/hwmon/libhwmon.a
 -LIBS += drivers/i2c/libi2c.a
 -LIBS += drivers/input/libinput.a
@@ -128,6 +129,7 @@ index a282342..63fe227 100644
 +# LIBS += disk/libdisk.a
 +# LIBS += drivers/bios_emulator/libatibiosemu.a
 +# LIBS += drivers/block/libblock.a
++# LIBS += drivers/dma/libdma.a
 +# LIBS += drivers/hwmon/libhwmon.a
 +# LIBS += drivers/i2c/libi2c.a
 +# LIBS += drivers/input/libinput.a
@@ -140,6 +142,7 @@ index a282342..63fe227 100644
 +# LIBS += drivers/net/sk98lin/libsk98lin.a
  LIBS += drivers/pci/libpci.a
 -LIBS += drivers/pcmcia/libpcmcia.a
+-LIBS += drivers/spi/libspi.a
 -ifeq ($(CPU),mpc83xx)
 -LIBS += drivers/qe/qe.a
 -endif
@@ -147,6 +150,7 @@ index a282342..63fe227 100644
 -LIBS += drivers/qe/qe.a
 -endif
 +# LIBS += drivers/pcmcia/libpcmcia.a
++# LIBS += drivers/spi/libspi.a
 +# ifeq ($(CPU),mpc83xx)
 +# LIBS += drivers/qe/qe.a
 +# endif
@@ -180,12 +184,14 @@ index a282342..63fe227 100644
 +# 	"post/board/$(BOARDDIR)/libpost$(BOARD).a"; fi)
  LIBS += common/libcommon.a
 -LIBS += libfdt/libfdt.a
+-LIBS += api/libapi.a
 +# LIBS += libfdt/libfdt.a
++# LIBS += api/libapi.a
 +LIBS += $(BOARDLIBS)
 +# LIBS - cu570m end
  
  LIBS := $(addprefix $(obj),$(LIBS))
- .PHONY : $(LIBS)
+ .PHONY : $(LIBS) $(VERSION_FILE)
  
 +# cu570m start
 +ifeq ($(COMPRESSED_UBOOT),1)
@@ -209,15 +215,16 @@ index a282342..63fe227 100644
  # The "tools" are needed early, so put this first
  # Don't include stuff already done in $(LIBS)
 -SUBDIRS	= tools \
--	  examples
-+# SUBDIRS tools,examples,... -> tools,... - cu570m
+-	  examples \
+-	  api_examples
++# SUBDIRS tools,examples,api_examples,... -> tools,... - cu570m
 +SUBDIRS	= tools
  
  .PHONY : $(SUBDIRS)
  
-@@ -250,7 +269,11 @@ __LIBS := $(subst $(obj),,$(LIBS))
- 
- ALL += $(obj)u-boot.srec $(obj)u-boot.bin $(obj)System.map $(U_BOOT_NAND)
+@@ -281,7 +318,11 @@ ifeq ($(ARCH),blackfin)
+ ALL += $(obj)u-boot.ldr
+ endif
  
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
 +all:		$(ALL) $(obj)tuboot.bin
@@ -227,21 +234,21 @@ index a282342..63fe227 100644
  
  $(obj)u-boot.hex:	$(obj)u-boot
  		$(OBJCOPY) ${OBJCFLAGS} -O ihex $< $@
-@@ -271,9 +294,10 @@ $(obj)u-boot.img:	$(obj)u-boot.bin
+@@ -314,9 +355,10 @@ $(obj)u-boot.sha1:	$(obj)u-boot.bin
  $(obj)u-boot.dis:	$(obj)u-boot
  		$(OBJDUMP) -d $< > $@
  
 +# $(BOARD_EXTRA_OBJS) - cu570m
- $(obj)u-boot:		depend version $(SUBDIRS) $(OBJS) $(LIBS) $(LDSCRIPT)
- 		UNDEF_SYM=`$(OBJDUMP) -x $(LIBS) |sed  -n -e 's/.*\(__u_boot_cmd_.*\)/-u\1/p'|sort|uniq`;\
+ $(obj)u-boot:		depend $(SUBDIRS) $(OBJS) $(LIBS) $(LDSCRIPT)
+ 		UNDEF_SYM=`$(OBJDUMP) -x $(LIBS) |sed  -n -e 's/.*\($(SYM_PREFIX)__u_boot_cmd_.*\)/-u\1/p'|sort|uniq`;\
 -		cd $(LNDIR) && $(LD) $(LDFLAGS) $$UNDEF_SYM $(__OBJS) \
 +		cd $(LNDIR) && $(LD) $(LDFLAGS) $$UNDEF_SYM $(__OBJS) $(BOARD_EXTRA_OBJS) \
  			--start-group $(__LIBS) --end-group $(PLATFORM_LIBS) \
  			-Map u-boot.map -o u-boot
  
-@@ -292,6 +316,38 @@ $(NAND_SPL):	version
- $(U_BOOT_NAND):	$(NAND_SPL) $(obj)u-boot.bin
- 		cat $(obj)nand_spl/u-boot-spl-16k.bin $(obj)u-boot.bin > $(obj)u-boot-nand.bin
+@@ -344,6 +386,38 @@ $(ONENAND_IPL):	$(VERSION_FILE)	$(obj)include/autoconf.mk
+ $(U_BOOT_ONENAND):	$(ONENAND_IPL) $(obj)u-boot.bin $(obj)include/autoconf.mk
+ 		cat $(obj)onenand_ipl/onenand-ipl-2k.bin $(obj)u-boot.bin > $(obj)u-boot-onenand.bin
  
 +# cu570m start
 +ifeq ($(COMPRESSED_UBOOT),1)
@@ -264,7 +271,7 @@ index a282342..63fe227 100644
 +$(obj)bootstrap.bin:	bootstrap
 +		$(OBJCOPY) ${OBJCFLAGS} -O binary $< $@
 +
-+bootstrap:	depend version $(SUBDIRS) $(OBJS_BOOTSTRAP) $(LIBS_BOOTSTRAP) $(LDSCRIPT_BOOTSTRAP)
++bootstrap:	depend $(VERSION_FILE) $(SUBDIRS) $(OBJS_BOOTSTRAP) $(LIBS_BOOTSTRAP) $(LDSCRIPT_BOOTSTRAP)
 +		UNDEF_SYM=`$(OBJDUMP) -x $(LIBS_BOOTSTRAP) |sed  -n -e 's/.*\(__u_boot_cmd_.*\)/-u\1/p'|sort|uniq`;\
 +		$(LD) $(LDFLAGS_BOOTSTRAP) $$UNDEF_SYM $(OBJS_BOOTSTRAP) \
 +			--start-group $(LIBS_BOOTSTRAP) --end-group $(PLATFORM_LIBS) \
@@ -275,10 +282,10 @@ index a282342..63fe227 100644
 +endif
 +# cu570m end
 +
- version:
- 		@echo -n "#define U_BOOT_VERSION \"U-Boot " > $(VERSION_FILE); \
- 		echo -n "$(U_BOOT_VERSION)" >> $(VERSION_FILE); \
-@@ -2279,6 +2335,1459 @@ pb1000_config		:	unconfig
+ $(VERSION_FILE):
+ 		@( echo -n "#define U_BOOT_VERSION \"U-Boot " ; \
+ 		echo -n "$(U_BOOT_VERSION)" ; \
+@@ -2674,6 +2748,1459 @@ qemu_mips_config: unconfig
  purple_config :		unconfig
  	@$(MKCONFIG) $(@:_config=) mips mips purple
  
@@ -1738,84 +1745,32 @@ index a282342..63fe227 100644
  #========================================================================
  # Nios
  #========================================================================
-@@ -2418,44 +3927,53 @@ atstk1002_config	:	unconfig
+@@ -2839,7 +4366,9 @@ ms7722se_config :	unconfig
  #########################################################################
  #########################################################################
  
-+# @ - cu570m start
++# Making $@ - cu570m
  clean:
--	find $(OBJTREE) -type f \
 +	@echo Making $@
-+	@find $(OBJTREE) -type f \
+ 	@rm -f $(obj)examples/82559_eeprom $(obj)examples/eepro100_eeprom \
+ 	       $(obj)examples/hello_world  $(obj)examples/interrupt	  \
+ 	       $(obj)examples/mem_to_mem_idma2intr			  \
+@@ -2864,8 +4393,15 @@ clean:
  		\( -name 'core' -o -name '*.bak' -o -name '*~' \
- 		-o -name '*.o'  -o -name '*.a'  \) -print \
+ 		-o -name '*.o'	-o -name '*.a'	\) -print \
  		| xargs rm -f
--	rm -f $(obj)examples/hello_world $(obj)examples/timer \
-+	@rm -f $(obj)examples/hello_world $(obj)examples/timer \
- 	      $(obj)examples/eepro100_eeprom $(obj)examples/sched \
- 	      $(obj)examples/mem_to_mem_idma2intr $(obj)examples/82559_eeprom \
- 	      $(obj)examples/smc91111_eeprom $(obj)examples/interrupt \
- 	      $(obj)examples/test_burst
--	rm -f $(obj)tools/img2srec $(obj)tools/mkimage $(obj)tools/envcrc \
-+	@rm -f $(obj)tools/img2srec $(obj)tools/mkimage $(obj)tools/envcrc \
- 		$(obj)tools/gen_eth_addr $(obj)tools/ubsha1
--	rm -f $(obj)tools/mpc86x_clk $(obj)tools/ncb
--	rm -f $(obj)tools/easylogo/easylogo $(obj)tools/bmp_logo
--	rm -f $(obj)tools/gdb/astest $(obj)tools/gdb/gdbcont $(obj)tools/gdb/gdbsend
--	rm -f $(obj)tools/env/fw_printenv $(obj)tools/env/fw_setenv
--	rm -f $(obj)board/cray/L1/bootscript.c $(obj)board/cray/L1/bootscript.image
--	rm -f $(obj)board/netstar/eeprom $(obj)board/netstar/crcek $(obj)board/netstar/crcit
--	rm -f $(obj)board/netstar/*.srec $(obj)board/netstar/*.bin
--	rm -f $(obj)board/trab/trab_fkt $(obj)board/voiceblue/eeprom
--	rm -f $(obj)board/integratorap/u-boot.lds $(obj)board/integratorcp/u-boot.lds
--	rm -f $(obj)board/bf533-ezkit/u-boot.lds $(obj)board/bf533-stamp/u-boot.lds
--	rm -f $(obj)board/bf537-stamp/u-boot.lds $(obj)board/bf561-ezkit/u-boot.lds
--	rm -f $(obj)include/bmp_logo.h
--	rm -f $(obj)nand_spl/u-boot-spl $(obj)nand_spl/u-boot-spl.map
-+	@rm -f $(obj)tools/mpc86x_clk $(obj)tools/ncb
-+	@rm -f $(obj)tools/easylogo/easylogo $(obj)tools/bmp_logo
-+	@rm -f $(obj)tools/gdb/astest $(obj)tools/gdb/gdbcont $(obj)tools/gdb/gdbsend
-+	@rm -f $(obj)tools/env/fw_printenv $(obj)tools/env/fw_setenv
-+	@rm -f $(obj)board/cray/L1/bootscript.c $(obj)board/cray/L1/bootscript.image
-+	@rm -f $(obj)board/netstar/eeprom $(obj)board/netstar/crcek $(obj)board/netstar/crcit
-+	@rm -f $(obj)board/netstar/*.srec $(obj)board/netstar/*.bin
-+	@rm -f $(obj)board/trab/trab_fkt $(obj)board/voiceblue/eeprom
-+	@rm -f $(obj)board/integratorap/u-boot.lds $(obj)board/integratorcp/u-boot.lds
-+	@rm -f $(obj)board/bf533-ezkit/u-boot.lds $(obj)board/bf533-stamp/u-boot.lds
-+	@rm -f $(obj)board/bf537-stamp/u-boot.lds $(obj)board/bf561-ezkit/u-boot.lds
-+	@rm -f $(obj)include/bmp_logo.h
-+	@rm -f $(obj)nand_spl/u-boot-spl $(obj)nand_spl/u-boot-spl.map
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m start
 +	@rm -f lib_bootstrap/*.o
 +	@rm -f lib_bootstrap/*.a
 +	@rm -f bootstrap $(obj)bootstrap.bin $(obj)tuboot.bin $(obj)u-boot.lzimg
 +endif # cu570m end
  
++# Making $@ - cu570m
  clobber:	clean
--	find $(OBJTREE) -type f \( -name .depend \
 +	@echo Making $@
-+	@find $(OBJTREE) -type f \( -name .depend \
+ 	@find $(OBJTREE) -type f \( -name .depend \
  		-o -name '*.srec' -o -name '*.bin' -o -name u-boot.img \) \
  		-print0 \
- 		| xargs -0 rm -f
--	rm -f $(OBJS) $(obj)*.bak $(obj)ctags $(obj)etags $(obj)TAGS $(obj)include/version_autogenerated.h
--	rm -fr $(obj)*.*~
--	rm -f $(obj)u-boot $(obj)u-boot.map $(obj)u-boot.hex $(ALL)
--	rm -f $(obj)tools/crc32.c $(obj)tools/environment.c $(obj)tools/env/crc32.c $(obj)tools/sha1.c
--	rm -f $(obj)tools/inca-swap-bytes $(obj)cpu/mpc824x/bedbug_603e.c
--	rm -f $(obj)include/asm/proc $(obj)include/asm/arch $(obj)include/asm
--	[ ! -d $(OBJTREE)/nand_spl ] || find $(obj)nand_spl -lname "*" -print | xargs rm -f
-+	@rm -f $(OBJS) $(obj)*.bak $(obj)ctags $(obj)etags $(obj)TAGS $(obj)include/version_autogenerated.h
-+	@rm -fr $(obj)*.*~
-+	@rm -f $(obj)u-boot $(obj)u-boot.map $(obj)u-boot.hex $(ALL)
-+	@rm -f $(obj)tools/crc32.c $(obj)tools/environment.c $(obj)tools/env/crc32.c $(obj)tools/sha1.c
-+	@rm -f $(obj)tools/inca-swap-bytes $(obj)cpu/mpc824x/bedbug_603e.c
-+	@rm -f $(obj)include/asm/proc $(obj)include/asm/arch $(obj)include/asm
-+	@[ ! -d $(OBJTREE)/nand_spl ] || find $(obj)nand_spl -lname "*" -print | xargs rm -f
-+# @ - cu570m end
- 
- ifeq ($(OBJTREE),$(SRCTREE))
- mrproper \
 diff --git a/config.mk b/config.mk
 index 6e280bc..a37c983 100644
 --- a/config.mk
@@ -1908,7 +1863,7 @@ index 6e280bc..a37c983 100644
  # avoid trigraph warnings while parsing pci.h (produced by NIOS gcc-2.9)
  # this option have to be placed behind -Wall -- that's why it is here
  ifeq ($(ARCH),nios)
-@@ -186,8 +230,20 @@ endif
+@@ -186,11 +230,23 @@ endif
  
  AFLAGS := $(AFLAGS_DEBUG) -D__ASSEMBLY__ $(CPPFLAGS)
  
@@ -1918,7 +1873,10 @@ index 6e280bc..a37c983 100644
 +endif
 +# cu570m end
 +
- LDFLAGS += -Bstatic -T $(LDSCRIPT) -Ttext $(TEXT_BASE) $(PLATFORM_LDFLAGS)
+ LDFLAGS += -Bstatic -T $(LDSCRIPT) $(PLATFORM_LDFLAGS)
+ ifneq ($(TEXT_BASE),)
+ LDFLAGS += -Ttext $(TEXT_BASE)
+ endif
  
 +# cu570m start
 +ifeq ($(COMPRESSED_UBOOT), 1)

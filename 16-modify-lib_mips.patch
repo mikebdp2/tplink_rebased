@@ -105,18 +105,21 @@ index b7d3356..37c193a 100644
  	char *s, *e;
  	bd_t *bd;
  	int i;
-@@ -347,9 +387,11 @@ void board_init_r (gd_t *id, ulong dest_addr)
- 	env_name_spec += gd->reloc_off;
- #endif
+@@ -347,12 +387,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
+ 
+ 	bd = gd->bd;
  
 +#ifndef CONFIG_ATH_NAND_BR /* cu570m */
+ #ifndef CFG_NO_FLASH
  	/* configure available FLASH banks */
  	size = flash_init();
  	display_flash_config (size);
+ 	bd->bi_flashsize = size;
+ #endif
 +#endif /* cu570m */
  
- 	bd = gd->bd;
  	bd->bi_flashstart = CFG_FLASH_BASE;
+ #if CFG_MONITOR_BASE == CFG_FLASH_BASE
 @@ -364,6 +406,12 @@ void board_init_r (gd_t *id, ulong dest_addr)
  	mem_malloc_init();
  	malloc_bin_reloc();
