@@ -292,7 +292,7 @@ index 56d7225..8ba888c 100644
  
  /* Now for the ext2 filesystem bit operations and helper routines. */
 -
-+#if (CONFIG_COMMANDS & CFG_CMD_EXT2) /* cu570m */
++#if defined(CONFIG_CMD_EXT2) /* cu570m */
  #ifdef __MIPSEB__
 -extern __inline__ int ext2_set_bit(int nr, void * addr)
 +static __inline__ int ext2_set_bit(int nr, void * addr)
@@ -330,7 +330,7 @@ index 56d7225..8ba888c 100644
  #define minix_test_and_clear_bit(nr,addr) test_and_clear_bit(nr,addr)
  #define minix_test_bit(nr,addr) test_bit(nr,addr)
  #define minix_find_first_zero_bit(addr,size) find_first_zero_bit(addr,size)
-+#endif /* (CONFIG_COMMANDS & CFG_CMD_EXT2) */ /* cu570m */
++#endif /* (CONFIG_CMD_EXT2) */ /* cu570m */
  
  #endif /* _ASM_BITOPS_H */
 diff --git a/include/asm-mips/io.h b/include/asm-mips/io.h

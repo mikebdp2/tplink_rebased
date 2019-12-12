@@ -1,70 +1,70 @@
-From 281afc18b1bcec447bf10d9961a3c2496dbfea56 Mon Sep 17 00:00:00 2001
+From b8227f6f43a91c4c34f73534204f47c2f52e82a7 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:53:16 +0000
-Subject: [PATCH] Add ./include/configs/ Atheros files from WR841N(D)v9 u-boot
+Date: Thu, 5 Dec 2019 16:59:56 +0000
+Subject: [PATCH] test1
 
 ---
- include/configs/ap101-2.6.31.h   | 243 +++++++++++++++
- include/configs/ap101-small.h    | 243 +++++++++++++++
- include/configs/ap101.h          | 243 +++++++++++++++
- include/configs/ap111-2.6.31.h   | 244 +++++++++++++++
- include/configs/ap111.h          | 243 +++++++++++++++
- include/configs/ap120.h          | 476 +++++++++++++++++++++++++++++
- include/configs/ap121.h          | 335 +++++++++++++++++++++
- include/configs/ap123.h          | 474 +++++++++++++++++++++++++++++
- include/configs/ap81.h           | 191 ++++++++++++
- include/configs/ap83.h           | 190 ++++++++++++
- include/configs/ap91-2MB.h       | 214 +++++++++++++
- include/configs/ap91-2x8.h       | 214 +++++++++++++
- include/configs/ap91-router.h    | 195 ++++++++++++
- include/configs/ap91.h           | 240 +++++++++++++++
- include/configs/ap93-hgw.h       | 172 +++++++++++
- include/configs/ap93.h           | 166 +++++++++++
- include/configs/ap94.h           | 182 ++++++++++++
- include/configs/ap94min.h        | 167 +++++++++++
- include/configs/ap96.h           | 177 +++++++++++
- include/configs/ap98.h           | 278 +++++++++++++++++
- include/configs/ap99-2.6.31.h    | 259 ++++++++++++++++
- include/configs/ap99-hgw.h       | 274 +++++++++++++++++
- include/configs/ap99-ivi.h       | 272 +++++++++++++++++
- include/configs/ap99-small.h     | 247 +++++++++++++++
- include/configs/ap99.h           | 278 +++++++++++++++++
- include/configs/aph126.h         | 421 ++++++++++++++++++++++++++
- include/configs/aph128.h         | 421 ++++++++++++++++++++++++++
- include/configs/aph131.h         | 321 ++++++++++++++++++++
+ include/configs/ap101-2.6.31.h   | 257 ++++++++++++++++
+ include/configs/ap101-small.h    | 257 ++++++++++++++++
+ include/configs/ap101.h          | 257 ++++++++++++++++
+ include/configs/ap111-2.6.31.h   | 258 ++++++++++++++++
+ include/configs/ap111.h          | 257 ++++++++++++++++
+ include/configs/ap120.h          | 470 +++++++++++++++++++++++++++++
+ include/configs/ap121.h          | 353 ++++++++++++++++++++++
+ include/configs/ap123.h          | 468 +++++++++++++++++++++++++++++
+ include/configs/ap81.h           | 199 +++++++++++++
+ include/configs/ap83.h           | 198 +++++++++++++
+ include/configs/ap91-2MB.h       | 227 ++++++++++++++
+ include/configs/ap91-2x8.h       | 227 ++++++++++++++
+ include/configs/ap91-router.h    | 208 +++++++++++++
+ include/configs/ap91.h           | 253 ++++++++++++++++
+ include/configs/ap93-hgw.h       | 183 ++++++++++++
+ include/configs/ap93.h           | 177 +++++++++++
+ include/configs/ap94.h           | 191 ++++++++++++
+ include/configs/ap94min.h        | 176 +++++++++++
+ include/configs/ap96.h           | 186 ++++++++++++
+ include/configs/ap98.h           | 294 +++++++++++++++++++
+ include/configs/ap99-2.6.31.h    | 273 +++++++++++++++++
+ include/configs/ap99-hgw.h       | 290 ++++++++++++++++++
+ include/configs/ap99-ivi.h       | 288 ++++++++++++++++++
+ include/configs/ap99-small.h     | 261 +++++++++++++++++
+ include/configs/ap99.h           | 294 +++++++++++++++++++
+ include/configs/aph126.h         | 437 +++++++++++++++++++++++++++
+ include/configs/aph128.h         | 437 +++++++++++++++++++++++++++
+ include/configs/aph131.h         | 306 +++++++++++++++++++
  include/configs/ar7100.h         | 100 +++++++
  include/configs/ar7240.h         | 153 ++++++++++
- include/configs/ar7240_emu.h     | 177 +++++++++++
- include/configs/board953x.h      | 359 ++++++++++++++++++++++
- include/configs/board955x.h      | 310 +++++++++++++++++++
- include/configs/cus136.h         | 201 +++++++++++++
- include/configs/cus97.h          | 147 +++++++++
- include/configs/db12x-extender.h | 419 ++++++++++++++++++++++++++
- include/configs/db12x-hybrid.h   | 495 +++++++++++++++++++++++++++++++
- include/configs/db12x.h          | 484 ++++++++++++++++++++++++++++++
- include/configs/dhp1565.h        | 420 ++++++++++++++++++++++++++
- include/configs/hornet_emu.h     | 255 ++++++++++++++++
- include/configs/mi93.h           | 247 +++++++++++++++
- include/configs/pb42.h           | 115 +++++++
- include/configs/pb44.h           | 230 ++++++++++++++
- include/configs/pb45.h           | 162 ++++++++++
- include/configs/pb47.h           | 160 ++++++++++
- include/configs/pb90.h           | 167 +++++++++++
- include/configs/pb92.h           | 330 +++++++++++++++++++++
- include/configs/pb93.h           | 229 ++++++++++++++
- include/configs/pb9x-2.6.31.h    | 286 ++++++++++++++++++
- include/configs/pb9x-2x8.h       | 212 +++++++++++++
- include/configs/pb9x.h           | 282 ++++++++++++++++++
- include/configs/reh132.h         | 424 ++++++++++++++++++++++++++
- include/configs/scoemu.h         | 439 +++++++++++++++++++++++++++
- include/configs/tb225.h          |  84 ++++++
- include/configs/tb243.h          | 124 ++++++++
- include/configs/tb327.h          | 156 ++++++++++
- include/configs/tb6xx.h          | 342 +++++++++++++++++++++
- include/configs/wah132.h         | 422 ++++++++++++++++++++++++++
- include/configs/wasp_emu.h       | 179 +++++++++++
- include/configs/wrt54g.h         | 173 +++++++++++
- 60 files changed, 15663 insertions(+)
+ include/configs/ar7240_emu.h     | 185 ++++++++++++
+ include/configs/board953x.h      | 344 ++++++++++++++++++++++
+ include/configs/board955x.h      | 295 +++++++++++++++++++
+ include/configs/cus136.h         | 213 ++++++++++++++
+ include/configs/cus97.h          | 155 ++++++++++
+ include/configs/db12x-extender.h | 436 +++++++++++++++++++++++++++
+ include/configs/db12x-hybrid.h   | 489 +++++++++++++++++++++++++++++++
+ include/configs/db12x.h          | 469 +++++++++++++++++++++++++++++
+ include/configs/dhp1565.h        | 436 +++++++++++++++++++++++++++
+ include/configs/hornet_emu.h     | 270 +++++++++++++++++
+ include/configs/mi93.h           | 262 +++++++++++++++++
+ include/configs/pb42.h           | 123 ++++++++
+ include/configs/pb44.h           | 241 +++++++++++++++
+ include/configs/pb45.h           | 171 +++++++++++
+ include/configs/pb47.h           | 169 +++++++++++
+ include/configs/pb90.h           | 177 +++++++++++
+ include/configs/pb92.h           | 347 ++++++++++++++++++++++
+ include/configs/pb93.h           | 242 +++++++++++++++
+ include/configs/pb9x-2.6.31.h    | 301 +++++++++++++++++++
+ include/configs/pb9x-2x8.h       | 225 ++++++++++++++
+ include/configs/pb9x.h           | 297 +++++++++++++++++++
+ include/configs/reh132.h         | 440 +++++++++++++++++++++++++++
+ include/configs/scoemu.h         | 433 +++++++++++++++++++++++++++
+ include/configs/tb225.h          |  91 ++++++
+ include/configs/tb243.h          | 132 +++++++++
+ include/configs/tb327.h          | 166 +++++++++++
+ include/configs/tb6xx.h          | 336 +++++++++++++++++++++
+ include/configs/wah132.h         | 438 +++++++++++++++++++++++++++
+ include/configs/wasp_emu.h       | 187 ++++++++++++
+ include/configs/wrt54g.h         | 180 ++++++++++++
+ 60 files changed, 16185 insertions(+)
  create mode 100644 include/configs/ap101-2.6.31.h
  create mode 100644 include/configs/ap101-small.h
  create mode 100644 include/configs/ap101.h
@@ -128,10 +128,10 @@ Subject: [PATCH] Add ./include/configs/ Atheros files from WR841N(D)v9 u-boot
 
 diff --git a/include/configs/ap101-2.6.31.h b/include/configs/ap101-2.6.31.h
 new file mode 100644
-index 0000000..bdfb6dd
+index 0000000000..58cd138765
 --- /dev/null
 +++ b/include/configs/ap101-2.6.31.h
-@@ -0,0 +1,243 @@
+@@ -0,0 +1,257 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -158,9 +158,9 @@ index 0000000..bdfb6dd
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -172,7 +172,7 @@ index 0000000..bdfb6dd
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -180,8 +180,8 @@ index 0000000..bdfb6dd
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -206,7 +206,7 @@ index 0000000..bdfb6dd
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -281,7 +281,7 @@ index 0000000..bdfb6dd
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -321,7 +321,7 @@ index 0000000..bdfb6dd
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -336,9 +336,23 @@ index 0000000..bdfb6dd
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -347,7 +361,7 @@ index 0000000..bdfb6dd
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -372,15 +386,15 @@ index 0000000..bdfb6dd
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap101-small.h b/include/configs/ap101-small.h
 new file mode 100644
-index 0000000..a2e4e26
+index 0000000000..b01d63e7b4
 --- /dev/null
 +++ b/include/configs/ap101-small.h
-@@ -0,0 +1,243 @@
+@@ -0,0 +1,257 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -407,9 +421,9 @@ index 0000000..a2e4e26
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -421,7 +435,7 @@ index 0000000..a2e4e26
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -429,8 +443,8 @@ index 0000000..a2e4e26
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -455,7 +469,7 @@ index 0000000..a2e4e26
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -530,7 +544,7 @@ index 0000000..a2e4e26
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -570,7 +584,7 @@ index 0000000..a2e4e26
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -585,9 +599,23 @@ index 0000000..a2e4e26
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.2
@@ -596,7 +624,7 @@ index 0000000..a2e4e26
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -621,15 +649,15 @@ index 0000000..a2e4e26
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap101.h b/include/configs/ap101.h
 new file mode 100644
-index 0000000..a2e4e26
+index 0000000000..b01d63e7b4
 --- /dev/null
 +++ b/include/configs/ap101.h
-@@ -0,0 +1,243 @@
+@@ -0,0 +1,257 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -656,9 +684,9 @@ index 0000000..a2e4e26
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -670,7 +698,7 @@ index 0000000..a2e4e26
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -678,8 +706,8 @@ index 0000000..a2e4e26
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -704,7 +732,7 @@ index 0000000..a2e4e26
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -779,7 +807,7 @@ index 0000000..a2e4e26
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -819,7 +847,7 @@ index 0000000..a2e4e26
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -834,9 +862,23 @@ index 0000000..a2e4e26
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.2
@@ -845,7 +887,7 @@ index 0000000..a2e4e26
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -870,15 +912,15 @@ index 0000000..a2e4e26
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap111-2.6.31.h b/include/configs/ap111-2.6.31.h
 new file mode 100644
-index 0000000..b49d96b
+index 0000000000..3717d9d920
 --- /dev/null
 +++ b/include/configs/ap111-2.6.31.h
-@@ -0,0 +1,244 @@
+@@ -0,0 +1,258 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -905,9 +947,9 @@ index 0000000..b49d96b
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -919,7 +961,7 @@ index 0000000..b49d96b
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -927,8 +969,8 @@ index 0000000..b49d96b
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -953,7 +995,7 @@ index 0000000..b49d96b
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -1028,7 +1070,7 @@ index 0000000..b49d96b
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -1068,7 +1110,7 @@ index 0000000..b49d96b
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -1084,9 +1126,23 @@ index 0000000..b49d96b
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.2
@@ -1095,7 +1151,7 @@ index 0000000..b49d96b
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -1120,15 +1176,15 @@ index 0000000..b49d96b
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        3
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap111.h b/include/configs/ap111.h
 new file mode 100644
-index 0000000..6a27741
+index 0000000000..1c312a582b
 --- /dev/null
 +++ b/include/configs/ap111.h
-@@ -0,0 +1,243 @@
+@@ -0,0 +1,257 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -1155,9 +1211,9 @@ index 0000000..6a27741
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -1169,7 +1225,7 @@ index 0000000..6a27741
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -1177,8 +1233,8 @@ index 0000000..6a27741
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -1203,7 +1259,7 @@ index 0000000..6a27741
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -1278,7 +1334,7 @@ index 0000000..6a27741
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -1318,7 +1374,7 @@ index 0000000..6a27741
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -1333,9 +1389,23 @@ index 0000000..6a27741
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.2
@@ -1344,7 +1414,7 @@ index 0000000..6a27741
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -1369,15 +1439,15 @@ index 0000000..6a27741
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        3
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap120.h b/include/configs/ap120.h
 new file mode 100644
-index 0000000..b7ae77d
+index 0000000000..384339eba1
 --- /dev/null
 +++ b/include/configs/ap120.h
-@@ -0,0 +1,476 @@
+@@ -0,0 +1,469 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -1422,7 +1492,7 @@ index 0000000..b7ae77d
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -1446,7 +1516,7 @@ index 0000000..b7ae77d
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -1457,8 +1527,8 @@ index 0000000..b7ae77d
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -1550,7 +1620,7 @@ index 0000000..b7ae77d
 +#	define ATH_F_ADDR		0x9f050000
 +#	define ATH_K_FILE		vmlinux.lzma.uImage
 +#	define ATH_K_ADDR		0x9f680000
-+#if (FLASH_SIZE == 16) 
++#if (FLASH_SIZE == 16)
 +#	define MTDPARTS_DEFAULT		"mtdparts=ath-nor0:256k(u-boot),64k(u-boot-env),6336k(rootfs),1408k(uImage),64k(mib0),64k@0xff0000(ART)"
 +#else/* 8M */
 +#	define MTDPARTS_DEFAULT		"mtdparts=ath-nor0:256k(u-boot),64k(u-boot-env),6336k(rootfs),1408k(uImage),64k(mib0),64k(ART)"
@@ -1768,30 +1838,24 @@ index 0000000..b7ae77d
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define ATH_CFG_COMMANDS	(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -1799,16 +1863,17 @@ index 0000000..b7ae77d
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -1820,8 +1885,6 @@ index 0000000..b7ae77d
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -1851,15 +1914,15 @@ index 0000000..b7ae77d
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap121.h b/include/configs/ap121.h
 new file mode 100644
-index 0000000..1401e30
+index 0000000000..ed38a287d5
 --- /dev/null
 +++ b/include/configs/ap121.h
-@@ -0,0 +1,335 @@
+@@ -0,0 +1,353 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -1873,7 +1936,7 @@ index 0000000..1401e30
 + * FLASH and environment organization
 + *-----------------------------------------------------------------------
 + */
-+ 
++
 +#if (FLASH_SIZE == 4)
 +#define CFG_MAX_FLASH_BANKS     1	    /* max number of memory banks */
 +#define CFG_MAX_FLASH_SECT      64    /* max number of sectors on one chip */
@@ -1894,9 +1957,9 @@ index 0000000..1401e30
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -1921,8 +1984,8 @@ index 0000000..1401e30
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -1984,7 +2047,7 @@ index 0000000..1401e30
 +#	define CFG_HZ          (300000000/2)
 +    #if CONFIG_40MHZ_XTAL_SUPPORT
 +        #define CPU_PLL_CONFIG_VAL1 0x40813C00
-+        #define CPU_PLL_CONFIG_VAL2 0x00813C00    
++        #define CPU_PLL_CONFIG_VAL2 0x00813C00
 +    #else
 +        #define CPU_PLL_CONFIG_VAL1 0x40816000
 +        #define CPU_PLL_CONFIG_VAL2 0x00816000
@@ -1995,7 +2058,7 @@ index 0000000..1401e30
 +        #undef CPU_PLL_DITHER_FRAC_VAL
 +        #define CPU_PLL_DITHER_FRAC_VAL 0x001803E8
 +        #define CPU_PLL_CONFIG_VAL1 0x40814600
-+        #define CPU_PLL_CONFIG_VAL2 0x00814600    
++        #define CPU_PLL_CONFIG_VAL2 0x00814600
 +    #else
 +        #define CPU_PLL_CONFIG_VAL1 0x40817000
 +        #define CPU_PLL_CONFIG_VAL2 0x00817000
@@ -2010,7 +2073,7 @@ index 0000000..1401e30
 +#	define CFG_HZ          (400000000/2)
 +    #if CONFIG_40MHZ_XTAL_SUPPORT
 +        #define CPU_PLL_CONFIG_VAL1 0x40815000
-+        #define CPU_PLL_CONFIG_VAL2 0x00815000    
++        #define CPU_PLL_CONFIG_VAL2 0x00815000
 +    #else
 +        #define CPU_PLL_CONFIG_VAL1 0x40818000
 +        #define CPU_PLL_CONFIG_VAL2 0x00818000
@@ -2041,8 +2104,8 @@ index 0000000..1401e30
 +    #define CPU_PLL_SETTLE_TIME_VAL    0x00000352
 +#endif
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -2054,7 +2117,7 @@ index 0000000..1401e30
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -2137,13 +2200,31 @@ index 0000000..1401e30
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +#elif defined(VXWORKS_UBOOT)
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_MII | CFG_CMD_ELF))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_ELF
 +#else
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_MII))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_MII
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -2154,7 +2235,7 @@ index 0000000..1401e30
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +
 +#ifdef CONFIG_HORNET_EMU
 +#define CFG_AG7240_NMACS 1
@@ -2192,15 +2273,15 @@ index 0000000..1401e30
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap123.h b/include/configs/ap123.h
 new file mode 100644
-index 0000000..49d187f
+index 0000000000..478508e110
 --- /dev/null
 +++ b/include/configs/ap123.h
-@@ -0,0 +1,474 @@
+@@ -0,0 +1,467 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -2245,7 +2326,7 @@ index 0000000..49d187f
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -2269,7 +2350,7 @@ index 0000000..49d187f
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -2280,8 +2361,8 @@ index 0000000..49d187f
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -2588,30 +2669,24 @@ index 0000000..49d187f
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define ATH_CFG_COMMANDS	(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -2619,16 +2694,17 @@ index 0000000..49d187f
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -2640,8 +2716,6 @@ index 0000000..49d187f
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -2672,15 +2746,15 @@ index 0000000..49d187f
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap81.h b/include/configs/ap81.h
 new file mode 100644
-index 0000000..b0e1e2c
+index 0000000000..76c568bd9c
 --- /dev/null
 +++ b/include/configs/ap81.h
-@@ -0,0 +1,191 @@
+@@ -0,0 +1,199 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -2701,19 +2775,19 @@ index 0000000..b0e1e2c
 +#	define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +#ifdef CFG_HOWL_1_2
 +#define AR9100_FLASH_CONFIG  0xb80f0004
 +#endif
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -2782,8 +2856,8 @@ index 0000000..b0e1e2c
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -2794,7 +2868,7 @@ index 0000000..b0e1e2c
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -2836,10 +2910,18 @@ index 0000000..b0e1e2c
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -2857,7 +2939,7 @@ index 0000000..b0e1e2c
 +#define CFG_AG7100_GE0_RGMII    1
 +#define CFG_AG7100_GE1_RGMII    1
 +#else
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7100_NMACS 1
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -2869,15 +2951,15 @@ index 0000000..b0e1e2c
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap83.h b/include/configs/ap83.h
 new file mode 100644
-index 0000000..87fe4ff
+index 0000000000..3f90251449
 --- /dev/null
 +++ b/include/configs/ap83.h
-@@ -0,0 +1,190 @@
+@@ -0,0 +1,198 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -2896,8 +2978,8 @@ index 0000000..87fe4ff
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)  		
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
 +#define CFG_HOWL_1_2 1
@@ -2908,7 +2990,7 @@ index 0000000..87fe4ff
 +
 +
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
@@ -2940,8 +3022,8 @@ index 0000000..87fe4ff
 +
 +//#define CFG_FLASH_BASE		    0xbfc00000 /* Temp WAR as remap is not on by default */
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -2976,8 +3058,8 @@ index 0000000..87fe4ff
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -2988,7 +3070,7 @@ index 0000000..87fe4ff
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -3031,10 +3113,18 @@ index 0000000..87fe4ff
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR		192.168.1.10
@@ -3065,15 +3155,15 @@ index 0000000..87fe4ff
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91-2MB.h b/include/configs/ap91-2MB.h
 new file mode 100644
-index 0000000..c0e208c
+index 0000000000..49feaf2619
 --- /dev/null
 +++ b/include/configs/ap91-2MB.h
-@@ -0,0 +1,214 @@
+@@ -0,0 +1,227 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -3103,9 +3193,9 @@ index 0000000..c0e208c
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -3115,8 +3205,8 @@ index 0000000..c0e208c
 +#define BOOTSTRAP_CFG_MONITOR_BASE  BOOTSTRAP_TEXT_BASE
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -3175,8 +3265,8 @@ index 0000000..c0e208c
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -3188,7 +3278,7 @@ index 0000000..c0e208c
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -3202,7 +3292,7 @@ index 0000000..c0e208c
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f300000"
-+#else 
++#else
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f150000"
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
@@ -3243,11 +3333,24 @@ index 0000000..c0e208c
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -3258,7 +3361,7 @@ index 0000000..c0e208c
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -3285,15 +3388,15 @@ index 0000000..c0e208c
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91-2x8.h b/include/configs/ap91-2x8.h
 new file mode 100644
-index 0000000..0d48d38
+index 0000000000..222bb65124
 --- /dev/null
 +++ b/include/configs/ap91-2x8.h
-@@ -0,0 +1,214 @@
+@@ -0,0 +1,227 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -3323,9 +3426,9 @@ index 0000000..0d48d38
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -3335,8 +3438,8 @@ index 0000000..0d48d38
 +#define BOOTSTRAP_CFG_MONITOR_BASE  BOOTSTRAP_TEXT_BASE
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -3395,8 +3498,8 @@ index 0000000..0d48d38
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -3408,7 +3511,7 @@ index 0000000..0d48d38
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -3422,7 +3525,7 @@ index 0000000..0d48d38
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f300000"
-+#else 
++#else
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f120000"
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
@@ -3463,11 +3566,24 @@ index 0000000..0d48d38
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -3478,7 +3594,7 @@ index 0000000..0d48d38
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -3505,15 +3621,15 @@ index 0000000..0d48d38
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91-router.h b/include/configs/ap91-router.h
 new file mode 100644
-index 0000000..19a03ab
+index 0000000000..bd83308ba4
 --- /dev/null
 +++ b/include/configs/ap91-router.h
-@@ -0,0 +1,195 @@
+@@ -0,0 +1,208 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -3535,9 +3651,9 @@ index 0000000..19a03ab
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -3547,8 +3663,8 @@ index 0000000..19a03ab
 +#define BOOTSTRAP_CFG_MONITOR_BASE  BOOTSTRAP_TEXT_BASE
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -3603,8 +3719,8 @@ index 0000000..19a03ab
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -3616,7 +3732,7 @@ index 0000000..19a03ab
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -3630,7 +3746,7 @@ index 0000000..19a03ab
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f300000"
-+#else 
++#else
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f320000"
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
@@ -3664,11 +3780,24 @@ index 0000000..19a03ab
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -3679,7 +3808,7 @@ index 0000000..19a03ab
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -3706,15 +3835,15 @@ index 0000000..19a03ab
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91.h b/include/configs/ap91.h
 new file mode 100644
-index 0000000..1fb8fe6
+index 0000000000..60b1f2594f
 --- /dev/null
 +++ b/include/configs/ap91.h
-@@ -0,0 +1,240 @@
+@@ -0,0 +1,253 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -3746,9 +3875,9 @@ index 0000000..1fb8fe6
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -3765,7 +3894,7 @@ index 0000000..1fb8fe6
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -3773,8 +3902,8 @@ index 0000000..1fb8fe6
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -3834,8 +3963,8 @@ index 0000000..1fb8fe6
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -3847,7 +3976,7 @@ index 0000000..1fb8fe6
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -3861,7 +3990,7 @@ index 0000000..1fb8fe6
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f300000"
-+#else 
++#else
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f160000"
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
@@ -3891,7 +4020,7 @@ index 0000000..1fb8fe6
 +
 +/* DDR value from Flash */
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -3910,11 +4039,24 @@ index 0000000..1fb8fe6
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -3925,7 +4067,7 @@ index 0000000..1fb8fe6
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -3952,15 +4094,15 @@ index 0000000..1fb8fe6
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap93-hgw.h b/include/configs/ap93-hgw.h
 new file mode 100644
-index 0000000..147c6d3
+index 0000000000..404ab08a6e
 --- /dev/null
 +++ b/include/configs/ap93-hgw.h
-@@ -0,0 +1,172 @@
+@@ -0,0 +1,183 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -3989,15 +4131,15 @@ index 0000000..147c6d3
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -4047,8 +4189,8 @@ index 0000000..147c6d3
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -4059,7 +4201,7 @@ index 0000000..147c6d3
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -4092,9 +4234,20 @@ index 0000000..147c6d3
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +
 +#define CFG_ATHRS26_PHY  1
 +#define CONFIG_IPADDR   192.168.1.2
@@ -4103,7 +4256,7 @@ index 0000000..147c6d3
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -4130,15 +4283,15 @@ index 0000000..147c6d3
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap93.h b/include/configs/ap93.h
 new file mode 100644
-index 0000000..4cd295e
+index 0000000000..d09121f777
 --- /dev/null
 +++ b/include/configs/ap93.h
-@@ -0,0 +1,166 @@
+@@ -0,0 +1,177 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -4159,15 +4312,15 @@ index 0000000..4cd295e
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -4213,8 +4366,8 @@ index 0000000..4cd295e
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -4225,7 +4378,7 @@ index 0000000..4cd295e
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0x9f040000
@@ -4264,9 +4417,20 @@ index 0000000..4cd295e
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +
 +#define CFG_ATHRS26_PHY  1
 +#define CONFIG_IPADDR   192.168.1.2
@@ -4275,7 +4439,7 @@ index 0000000..4cd295e
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -4302,15 +4466,15 @@ index 0000000..4cd295e
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap94.h b/include/configs/ap94.h
 new file mode 100644
-index 0000000..610d4ff
+index 0000000000..2c759ad46a
 --- /dev/null
 +++ b/include/configs/ap94.h
-@@ -0,0 +1,182 @@
+@@ -0,0 +1,191 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -4328,11 +4492,11 @@ index 0000000..610d4ff
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)        
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE          0xbf000000
@@ -4357,8 +4521,8 @@ index 0000000..610d4ff
 +#define MTDPARTS_DEFAULT    "mtdparts=ar7100-nor0:192k(u-boot),64k(env),6144k(rootfs),1728k(uImage),64k(caldata)"
 +#define MTDIDS_DEFAULT      "nor0=ar7100-nor0"
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define CFG_MONITOR_BASE    TEXT_BASE
 +#define CFG_MONITOR_LEN     (192 << 10)
@@ -4377,8 +4541,8 @@ index 0000000..610d4ff
 +
 +#define CFG_HZ	(680000000/2)
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Write */
@@ -4389,7 +4553,7 @@ index 0000000..610d4ff
 +#define CFG_INIT_SP_OFFSET  0x1000
 +
 +#define CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector   */
 +#define CFG_ENV_ADDR        0xbf030000
@@ -4450,9 +4614,18 @@ index 0000000..610d4ff
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL        | CFG_CMD_MII   | CFG_CMD_PING  \
-+   | CFG_CMD_NET | CFG_CMD_PCI     | CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS \
-+   | CFG_CMD_RUN | CFG_CMD_LOADB   | CFG_CMD_ELF | CFG_CMD_BSP ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_BSP
 +
 +/*
 +** Ethernet Configuration
@@ -4490,15 +4663,15 @@ index 0000000..610d4ff
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/ap94min.h b/include/configs/ap94min.h
 new file mode 100644
-index 0000000..cafed2e
+index 0000000000..78a308cfd4
 --- /dev/null
 +++ b/include/configs/ap94min.h
-@@ -0,0 +1,167 @@
+@@ -0,0 +1,176 @@
 +/*
 + * This file contains the configuration parameters for a minimum
 + * configuration AP 94 image.  This assumes a 4 meg flash part
@@ -4517,11 +4690,11 @@ index 0000000..cafed2e
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00400000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)        
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE          0xbf000000
@@ -4546,8 +4719,8 @@ index 0000000..cafed2e
 +#define MTDPARTS_DEFAULT    "mtdparts=ar7100-nor0:256k(u-boot),2880k(rootfs),896k(uImage),64k(caldata)"
 +#define MTDIDS_DEFAULT      "nor0=ar7100-nor0"
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define CFG_MONITOR_BASE    TEXT_BASE
 +#define CFG_MONITOR_LEN     (192 << 10)
@@ -4566,8 +4739,8 @@ index 0000000..cafed2e
 +
 +#define CFG_HZ	(680000000/2)
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Write */
@@ -4578,7 +4751,7 @@ index 0000000..cafed2e
 +#define CFG_INIT_SP_OFFSET  0x1000
 +
 +#define CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector   */
 +#define CFG_ENV_ADDR        0xbf030000
@@ -4629,9 +4802,18 @@ index 0000000..cafed2e
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL        | CFG_CMD_MII   | CFG_CMD_PING  \
-+   | CFG_CMD_NET | CFG_CMD_PCI     | CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS \
-+   | CFG_CMD_RUN | CFG_CMD_LOADB   | CFG_CMD_ELF | CFG_CMD_BSP ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_BSP
 +
 +/*
 +** Ethernet Configuration
@@ -4663,15 +4845,15 @@ index 0000000..cafed2e
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/ap96.h b/include/configs/ap96.h
 new file mode 100644
-index 0000000..8e4e26a
+index 0000000000..bf373bb2b8
 --- /dev/null
 +++ b/include/configs/ap96.h
-@@ -0,0 +1,177 @@
+@@ -0,0 +1,186 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -4689,11 +4871,11 @@ index 0000000..8e4e26a
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)        
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE          0xbf000000
@@ -4718,8 +4900,8 @@ index 0000000..8e4e26a
 +#define MTDPARTS_DEFAULT    "mtdparts=ar7100-nor0:192k(u-boot),64k(env),6144k(rootfs),1728k(uImage),64k(caldata) mem=64M"
 +#define MTDIDS_DEFAULT      "nor0=ar7100-nor0"
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define CFG_MONITOR_BASE    TEXT_BASE
 +#define CFG_MONITOR_LEN     (192 << 10)
@@ -4738,8 +4920,8 @@ index 0000000..8e4e26a
 +
 +#define CFG_HZ	(680000000/2)
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Write */
@@ -4750,7 +4932,7 @@ index 0000000..8e4e26a
 +#define CFG_INIT_SP_OFFSET  0x1000
 +
 +#define CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector   */
 +#define CFG_ENV_ADDR        0xbf030000
@@ -4813,9 +4995,18 @@ index 0000000..8e4e26a
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL        | CFG_CMD_MII   | CFG_CMD_PING  \
-+   | CFG_CMD_NET | CFG_CMD_PCI     | CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS \
-+   | CFG_CMD_RUN | CFG_CMD_LOADB   | CFG_CMD_ELF | CFG_CMD_BSP ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_BSP
 +
 +/*
 +** Ethernet Configuration
@@ -4846,15 +5037,15 @@ index 0000000..8e4e26a
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/ap98.h b/include/configs/ap98.h
 new file mode 100644
-index 0000000..ade507c
+index 0000000000..8dee354615
 --- /dev/null
 +++ b/include/configs/ap98.h
-@@ -0,0 +1,278 @@
+@@ -0,0 +1,294 @@
 +/*
 + * This file contains the configuration parameters for the ap98 board.
 + */
@@ -4894,9 +5085,9 @@ index 0000000..ade507c
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -4913,7 +5104,7 @@ index 0000000..ade507c
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -4924,8 +5115,8 @@ index 0000000..ade507c
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -4950,7 +5141,7 @@ index 0000000..ade507c
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -5039,7 +5230,7 @@ index 0000000..ade507c
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -5075,7 +5266,7 @@ index 0000000..ade507c
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -5090,11 +5281,27 @@ index 0000000..ade507c
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -5105,7 +5312,7 @@ index 0000000..ade507c
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -5130,15 +5337,15 @@ index 0000000..ade507c
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +#define SUPPORT_PLC                     1
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-2.6.31.h b/include/configs/ap99-2.6.31.h
 new file mode 100644
-index 0000000..283aeeb
+index 0000000000..4530553d18
 --- /dev/null
 +++ b/include/configs/ap99-2.6.31.h
-@@ -0,0 +1,259 @@
+@@ -0,0 +1,273 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -5170,9 +5377,9 @@ index 0000000..283aeeb
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -5184,7 +5391,7 @@ index 0000000..283aeeb
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -5192,8 +5399,8 @@ index 0000000..283aeeb
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -5343,7 +5550,7 @@ index 0000000..283aeeb
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -5358,9 +5565,23 @@ index 0000000..283aeeb
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +#define CFG_ATHRS26_PHY  1
 +
@@ -5370,7 +5591,7 @@ index 0000000..283aeeb
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +#define CFG_ATHRS26_PHY 1
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -5395,15 +5616,15 @@ index 0000000..283aeeb
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-hgw.h b/include/configs/ap99-hgw.h
 new file mode 100644
-index 0000000..a0a7179
+index 0000000000..759afa201e
 --- /dev/null
 +++ b/include/configs/ap99-hgw.h
-@@ -0,0 +1,274 @@
+@@ -0,0 +1,290 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -5443,9 +5664,9 @@ index 0000000..a0a7179
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -5462,7 +5683,7 @@ index 0000000..a0a7179
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -5473,8 +5694,8 @@ index 0000000..a0a7179
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -5499,7 +5720,7 @@ index 0000000..a0a7179
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -5584,7 +5805,7 @@ index 0000000..a0a7179
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -5620,7 +5841,7 @@ index 0000000..a0a7179
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -5635,11 +5856,27 @@ index 0000000..a0a7179
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -5650,7 +5887,7 @@ index 0000000..a0a7179
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -5675,15 +5912,15 @@ index 0000000..a0a7179
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-ivi.h b/include/configs/ap99-ivi.h
 new file mode 100644
-index 0000000..92176ab
+index 0000000000..4f67ccb865
 --- /dev/null
 +++ b/include/configs/ap99-ivi.h
-@@ -0,0 +1,272 @@
+@@ -0,0 +1,288 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -5723,9 +5960,9 @@ index 0000000..92176ab
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -5742,7 +5979,7 @@ index 0000000..92176ab
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -5753,8 +5990,8 @@ index 0000000..92176ab
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -5779,7 +6016,7 @@ index 0000000..92176ab
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -5864,7 +6101,7 @@ index 0000000..92176ab
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -5900,7 +6137,7 @@ index 0000000..92176ab
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -5915,11 +6152,27 @@ index 0000000..92176ab
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -5928,7 +6181,7 @@ index 0000000..92176ab
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -5953,15 +6206,15 @@ index 0000000..92176ab
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-small.h b/include/configs/ap99-small.h
 new file mode 100644
-index 0000000..75c124e
+index 0000000000..1131c26e6b
 --- /dev/null
 +++ b/include/configs/ap99-small.h
-@@ -0,0 +1,247 @@
+@@ -0,0 +1,261 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -5993,9 +6246,9 @@ index 0000000..75c124e
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -6007,7 +6260,7 @@ index 0000000..75c124e
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -6015,8 +6268,8 @@ index 0000000..75c124e
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -6036,7 +6289,7 @@ index 0000000..75c124e
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -6115,7 +6368,7 @@ index 0000000..75c124e
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -6155,7 +6408,7 @@ index 0000000..75c124e
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -6170,9 +6423,23 @@ index 0000000..75c124e
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +#define CFG_ATHRS26_PHY  1
 +#define CONFIG_IPADDR   192.168.1.2
@@ -6181,7 +6448,7 @@ index 0000000..75c124e
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -6206,15 +6473,15 @@ index 0000000..75c124e
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99.h b/include/configs/ap99.h
 new file mode 100644
-index 0000000..7663336
+index 0000000000..9c2aeaa257
 --- /dev/null
 +++ b/include/configs/ap99.h
-@@ -0,0 +1,278 @@
+@@ -0,0 +1,294 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -6254,9 +6521,9 @@ index 0000000..7663336
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -6273,7 +6540,7 @@ index 0000000..7663336
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -6284,8 +6551,8 @@ index 0000000..7663336
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -6310,7 +6577,7 @@ index 0000000..7663336
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -6399,7 +6666,7 @@ index 0000000..7663336
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -6435,7 +6702,7 @@ index 0000000..7663336
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -6450,11 +6717,27 @@ index 0000000..7663336
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CFG_ATHRS26_PHY  1
@@ -6465,7 +6748,7 @@ index 0000000..7663336
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -6490,15 +6773,15 @@ index 0000000..7663336
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/aph126.h b/include/configs/aph126.h
 new file mode 100644
-index 0000000..e8382bb
+index 0000000000..09c90e67b3
 --- /dev/null
 +++ b/include/configs/aph126.h
-@@ -0,0 +1,421 @@
+@@ -0,0 +1,437 @@
 +/*
 + * This file contains the configuration parameters for the db120 board.
 + */
@@ -6543,7 +6826,7 @@ index 0000000..e8382bb
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -6574,7 +6857,7 @@ index 0000000..e8382bb
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -6585,8 +6868,8 @@ index 0000000..e8382bb
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -6880,11 +7163,27 @@ index 0000000..e8382bb
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -6893,7 +7192,7 @@ index 0000000..e8382bb
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
 +#define CFG_AG7100_GE0_RMII             1
@@ -6917,15 +7216,15 @@ index 0000000..e8382bb
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/aph128.h b/include/configs/aph128.h
 new file mode 100644
-index 0000000..e8382bb
+index 0000000000..09c90e67b3
 --- /dev/null
 +++ b/include/configs/aph128.h
-@@ -0,0 +1,421 @@
+@@ -0,0 +1,437 @@
 +/*
 + * This file contains the configuration parameters for the db120 board.
 + */
@@ -6970,7 +7269,7 @@ index 0000000..e8382bb
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -7001,7 +7300,7 @@ index 0000000..e8382bb
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -7012,8 +7311,8 @@ index 0000000..e8382bb
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -7307,11 +7606,27 @@ index 0000000..e8382bb
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -7320,7 +7635,7 @@ index 0000000..e8382bb
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
 +#define CFG_AG7100_GE0_RMII             1
@@ -7344,15 +7659,15 @@ index 0000000..e8382bb
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/aph131.h b/include/configs/aph131.h
 new file mode 100644
-index 0000000..347c422
+index 0000000000..8316a90865
 --- /dev/null
 +++ b/include/configs/aph131.h
-@@ -0,0 +1,321 @@
+@@ -0,0 +1,305 @@
 +#ifndef __BOARD_955X_H
 +#define __BOARD_955X_H
 +
@@ -7579,39 +7894,24 @@ index 0000000..347c422
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#	ifdef CONFIG_ATH_NAND_BR
-+#		define ATH_CFG_COMMANDS		((			\
-+						CONFIG_CMD_DFL	|	\
-+						CFG_CMD_PING	|	\
-+						CFG_CMD_NET) & ~(	\
-+						CFG_CMD_FLASH		\
-+						))
-+#	else
-+#		define ATH_CFG_COMMANDS		(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
-+#	endif
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -7619,16 +7919,17 @@ index 0000000..347c422
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -7640,8 +7941,6 @@ index 0000000..347c422
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -7671,12 +7970,12 @@ index 0000000..347c422
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define ATH_ART_PCICFG_OFFSET		12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __BOARD_955X_H */
 diff --git a/include/configs/ar7100.h b/include/configs/ar7100.h
 new file mode 100644
-index 0000000..8f472d0
+index 0000000000..8f472d0030
 --- /dev/null
 +++ b/include/configs/ar7100.h
 @@ -0,0 +1,100 @@
@@ -7782,7 +8081,7 @@ index 0000000..8f472d0
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ar7240.h b/include/configs/ar7240.h
 new file mode 100644
-index 0000000..d29cc33
+index 0000000000..d29cc33500
 --- /dev/null
 +++ b/include/configs/ar7240.h
 @@ -0,0 +1,153 @@
@@ -7797,7 +8096,7 @@ index 0000000..d29cc33
 +
 +#define CONFIG_BOOTDELAY	4	/* autoboot after 4 seconds	*/
 +
-+#define CONFIG_BAUDRATE		115200 
++#define CONFIG_BAUDRATE		115200
 +#define CFG_BAUDRATE_TABLE  { 	115200}
 +
 +#define	CONFIG_TIMESTAMP		/* Print image info with timestamp */
@@ -7941,10 +8240,10 @@ index 0000000..d29cc33
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ar7240_emu.h b/include/configs/ar7240_emu.h
 new file mode 100644
-index 0000000..e1fc2d9
+index 0000000000..6bb10cf221
 --- /dev/null
 +++ b/include/configs/ar7240_emu.h
-@@ -0,0 +1,177 @@
+@@ -0,0 +1,185 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -7967,15 +8266,15 @@ index 0000000..e1fc2d9
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -8023,8 +8322,8 @@ index 0000000..e1fc2d9
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -8035,7 +8334,7 @@ index 0000000..e1fc2d9
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -8078,15 +8377,23 @@ index 0000000..e1fc2d9
 +#define CFG_DDR_EXT_MODE_VAL    0x1
 +#define CFG_DDR_MODE_VAL        0x23
 +
-+#define CFG_DDR_CONFIG2_VAL     0x91d0e6a8	
++#define CFG_DDR_CONFIG2_VAL     0x91d0e6a8
 +#define CFG_DDR_RD_DATA_THIS_CYCLE_VAL  0x00ff
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -8095,7 +8402,7 @@ index 0000000..e1fc2d9
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -8119,15 +8426,15 @@ index 0000000..e1fc2d9
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/board953x.h b/include/configs/board953x.h
 new file mode 100755
-index 0000000..d12e48a
+index 0000000000..5e49bbc04e
 --- /dev/null
 +++ b/include/configs/board953x.h
-@@ -0,0 +1,359 @@
+@@ -0,0 +1,343 @@
 +#ifndef __BOARD_955X_H
 +#define __BOARD_955X_H
 +
@@ -8385,39 +8692,24 @@ index 0000000..d12e48a
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#	ifdef CONFIG_ATH_NAND_BR
-+#		define ATH_CFG_COMMANDS		((			\
-+						CONFIG_CMD_DFL	|	\
-+						CFG_CMD_PING	|	\
-+						CFG_CMD_NET) & ~(	\
-+						CFG_CMD_FLASH		\
-+						))
-+#	else
-+#		define ATH_CFG_COMMANDS		(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
-+#	endif
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -8425,16 +8717,17 @@ index 0000000..d12e48a
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -8446,8 +8739,6 @@ index 0000000..d12e48a
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -8484,15 +8775,15 @@ index 0000000..d12e48a
 +
 +#define CONFIG_LZMA 1
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __BOARD_955X_H */
 diff --git a/include/configs/board955x.h b/include/configs/board955x.h
 new file mode 100644
-index 0000000..3544185
+index 0000000000..1a541cfdea
 --- /dev/null
 +++ b/include/configs/board955x.h
-@@ -0,0 +1,310 @@
+@@ -0,0 +1,294 @@
 +#ifndef __BOARD_955X_H
 +#define __BOARD_955X_H
 +
@@ -8708,39 +8999,24 @@ index 0000000..3544185
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#	ifdef CONFIG_ATH_NAND_BR
-+#		define ATH_CFG_COMMANDS		((			\
-+						CONFIG_CMD_DFL	|	\
-+						CFG_CMD_PING	|	\
-+						CFG_CMD_NET) & ~(	\
-+						CFG_CMD_FLASH		\
-+						))
-+#	else
-+#		define ATH_CFG_COMMANDS		(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
-+#	endif
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -8748,16 +9024,17 @@ index 0000000..3544185
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -8769,8 +9046,6 @@ index 0000000..3544185
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -8800,15 +9075,15 @@ index 0000000..3544185
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define ATH_ART_PCICFG_OFFSET		12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __BOARD_955X_H */
 diff --git a/include/configs/cus136.h b/include/configs/cus136.h
 new file mode 100644
-index 0000000..82dae39
+index 0000000000..3286f762a0
 --- /dev/null
 +++ b/include/configs/cus136.h
-@@ -0,0 +1,201 @@
+@@ -0,0 +1,213 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -8837,9 +9112,9 @@ index 0000000..82dae39
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -8849,8 +9124,8 @@ index 0000000..82dae39
 +#define BOOTSTRAP_CFG_MONITOR_BASE  BOOTSTRAP_TEXT_BASE
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -8903,8 +9178,8 @@ index 0000000..82dae39
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -8916,7 +9191,7 @@ index 0000000..82dae39
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -8955,7 +9230,7 @@ index 0000000..82dae39
 +
 +/* DDR value from Flash */
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -8970,9 +9245,21 @@ index 0000000..82dae39
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
++
 +#define CFG_ATHRS26_PHY  1
 +#define CONFIG_IPADDR   192.168.1.1
 +#define CONFIG_SERVERIP 192.168.1.10
@@ -8980,7 +9267,7 @@ index 0000000..82dae39
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -9007,15 +9294,15 @@ index 0000000..82dae39
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/cus97.h b/include/configs/cus97.h
 new file mode 100644
-index 0000000..ad2404f
+index 0000000000..43aa858dcf
 --- /dev/null
 +++ b/include/configs/cus97.h
-@@ -0,0 +1,147 @@
+@@ -0,0 +1,155 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -9033,15 +9320,15 @@ index 0000000..ad2404f
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -9085,8 +9372,8 @@ index 0000000..ad2404f
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -9097,7 +9384,7 @@ index 0000000..ad2404f
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -9138,10 +9425,18 @@ index 0000000..ad2404f
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -9149,8 +9444,8 @@ index 0000000..ad2404f
 +#define CONFIG_ETHADDR 0x00:0xaa:0xbb:0xcc:0xdd:0xee
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
-+#define CFG_ATHRS26_PHY 
-+#define CFG_PHY_ADDR 0 
++#define CFG_ATHRS26_PHY
++#define CFG_PHY_ADDR 0
 +
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -9160,15 +9455,15 @@ index 0000000..ad2404f
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/db12x-extender.h b/include/configs/db12x-extender.h
 new file mode 100644
-index 0000000..7290b61
+index 0000000000..b2b275627f
 --- /dev/null
 +++ b/include/configs/db12x-extender.h
-@@ -0,0 +1,419 @@
+@@ -0,0 +1,436 @@
 +/*
 + * This file contains the configuration parameters for the db120 board.
 + */
@@ -9213,7 +9508,7 @@ index 0000000..7290b61
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -9244,7 +9539,7 @@ index 0000000..7290b61
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -9255,8 +9550,8 @@ index 0000000..7290b61
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -9548,11 +9843,28 @@ index 0000000..7290b61
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_JFFS2 | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_JFFS2
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -9561,7 +9873,7 @@ index 0000000..7290b61
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
 +#define CFG_AG7100_GE0_RMII             1
@@ -9585,15 +9897,15 @@ index 0000000..7290b61
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/db12x-hybrid.h b/include/configs/db12x-hybrid.h
 new file mode 100644
-index 0000000..b53aac3
+index 0000000000..38c7950cef
 --- /dev/null
 +++ b/include/configs/db12x-hybrid.h
-@@ -0,0 +1,495 @@
+@@ -0,0 +1,488 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -9638,7 +9950,7 @@ index 0000000..b53aac3
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -9662,7 +9974,7 @@ index 0000000..b53aac3
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -9673,8 +9985,8 @@ index 0000000..b53aac3
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -9998,30 +10310,24 @@ index 0000000..b53aac3
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define ATH_CFG_COMMANDS	(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -10032,17 +10338,18 @@ index 0000000..b53aac3
 +#               ifdef CONFIG_DB12X_HGW
 +#		        define CFG_ENV_OFFSET		0x80000u
 +#		        define CFG_ENV_SIZE		0x20000u
-+#               endif          
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#               endif
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -10054,8 +10361,6 @@ index 0000000..b53aac3
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -10086,15 +10391,15 @@ index 0000000..b53aac3
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/db12x.h b/include/configs/db12x.h
 new file mode 100644
-index 0000000..3c3de71
+index 0000000000..8ed1f4f2e6
 --- /dev/null
 +++ b/include/configs/db12x.h
-@@ -0,0 +1,484 @@
+@@ -0,0 +1,468 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -10483,39 +10788,24 @@ index 0000000..3c3de71
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#	ifdef CONFIG_ATH_NAND_BR
-+#		define ATH_CFG_COMMANDS		((			\
-+						CONFIG_CMD_DFL	|	\
-+						CFG_CMD_PING	|	\
-+						CFG_CMD_NET) & ~(	\
-+						CFG_CMD_FLASH		\
-+						))
-+#	else
-+#		define ATH_CFG_COMMANDS		(CONFIG_CMD_DFL	|	\
-+						CFG_CMD_PING	|	\
-+						CFG_CMD_NET)
-+#	endif
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -10523,16 +10813,17 @@ index 0000000..3c3de71
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -10544,8 +10835,6 @@ index 0000000..3c3de71
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -10576,15 +10865,15 @@ index 0000000..3c3de71
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/dhp1565.h b/include/configs/dhp1565.h
 new file mode 100644
-index 0000000..262ed07
+index 0000000000..bd332a9a92
 --- /dev/null
 +++ b/include/configs/dhp1565.h
-@@ -0,0 +1,420 @@
+@@ -0,0 +1,436 @@
 +/*
 + * This file contains the configuration parameters for the db120 board.
 + */
@@ -10629,7 +10918,7 @@ index 0000000..262ed07
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -10660,7 +10949,7 @@ index 0000000..262ed07
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -10671,8 +10960,8 @@ index 0000000..262ed07
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -10965,11 +11254,27 @@ index 0000000..262ed07
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -10978,7 +11283,7 @@ index 0000000..262ed07
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
 +#define CFG_AG7100_GE0_RMII             1
@@ -11002,15 +11307,15 @@ index 0000000..262ed07
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/hornet_emu.h b/include/configs/hornet_emu.h
 new file mode 100644
-index 0000000..5c43f45
+index 0000000000..3e560c480b
 --- /dev/null
 +++ b/include/configs/hornet_emu.h
-@@ -0,0 +1,255 @@
+@@ -0,0 +1,270 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -11157,7 +11462,7 @@ index 0000000..5c43f45
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -11171,7 +11476,7 @@ index 0000000..5c43f45
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f300000"
-+#else 
++#else
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f160000"
 +#endif
 +
@@ -11218,12 +11523,27 @@ index 0000000..5c43f45
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET) | CFG_CMD_MII)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_MII
 +
 +/*
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_JFFS2 | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_JFFS2
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +*/
 +
 +#define CONFIG_IPADDR   192.168.1.2
@@ -11263,15 +11583,15 @@ index 0000000..5c43f45
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/mi93.h b/include/configs/mi93.h
 new file mode 100644
-index 0000000..8ec1f2d
+index 0000000000..9f894906b8
 --- /dev/null
 +++ b/include/configs/mi93.h
-@@ -0,0 +1,247 @@
+@@ -0,0 +1,262 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -11303,9 +11623,9 @@ index 0000000..8ec1f2d
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -11317,7 +11637,7 @@ index 0000000..8ec1f2d
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -11325,8 +11645,8 @@ index 0000000..8ec1f2d
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -11346,7 +11666,7 @@ index 0000000..8ec1f2d
 +
 +#undef CFG_PLL_FREQ
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_400_200
 +//#define CFG_AR7241_PLL_FREQ	CFG_PLL_400_200_200
 +#endif
@@ -11425,7 +11745,7 @@ index 0000000..8ec1f2d
 +
 +/* DDR values to support AR7241 */
 +
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -11465,7 +11785,7 @@ index 0000000..8ec1f2d
 +
 +
 +#ifdef ENABLE_DYNAMIC_CONF
-+#define CFG_DDR_MAGIC           0xaabacada  
++#define CFG_DDR_MAGIC           0xaabacada
 +#define CFG_DDR_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x30)
 +#define CFG_DDR_CONFIG_VAL_F    *(volatile int *)(CFG_DDR_MAGIC_F + 4)
 +#define CFG_DDR_CONFIG2_VAL_F	*(volatile int *)(CFG_DDR_MAGIC_F + 8)
@@ -11480,9 +11800,24 @@ index 0000000..8ec1f2d
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_JFFS2 | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_JFFS2
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -11491,7 +11826,7 @@ index 0000000..8ec1f2d
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -11516,15 +11851,15 @@ index 0000000..8ec1f2d
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb42.h b/include/configs/pb42.h
 new file mode 100644
-index 0000000..c6f5d60
+index 0000000000..170024e4bf
 --- /dev/null
 +++ b/include/configs/pb42.h
-@@ -0,0 +1,115 @@
+@@ -0,0 +1,123 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -11542,13 +11877,13 @@ index 0000000..c6f5d60
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000    /* Flash size */
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -11571,8 +11906,8 @@ index 0000000..c6f5d60
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -11583,7 +11918,7 @@ index 0000000..c6f5d60
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -11606,10 +11941,18 @@ index 0000000..c6f5d60
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -11617,7 +11960,7 @@ index 0000000..c6f5d60
 +#define CONFIG_ETHADDR 0x00:0xaa:0xbb:0xcc:0xdd:0xee
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
-+#define CONFIG_ADMTEK_PHY 
++#define CONFIG_ADMTEK_PHY
 +#define CFG_PHY_ADDR 0x14  /* Port 4 */
 +
 +#define CFG_GMII     0
@@ -11627,7 +11970,7 @@ index 0000000..c6f5d60
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +/* Ported from
 + * redboot/ecos/packages/hal/mips/pb42/current/cdl/hal_mips_pb42.cdl
@@ -11642,10 +11985,10 @@ index 0000000..c6f5d60
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb44.h b/include/configs/pb44.h
 new file mode 100644
-index 0000000..43b2ecf
+index 0000000000..f0d5c38a13
 --- /dev/null
 +++ b/include/configs/pb44.h
-@@ -0,0 +1,230 @@
+@@ -0,0 +1,241 @@
 +/*
 + * Copyright (c) 2009, Atheros Communications Inc.
 + *
@@ -11660,7 +12003,7 @@ index 0000000..43b2ecf
 + * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 + * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 + * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-+ * 
++ *
 + */
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
@@ -11689,7 +12032,7 @@ index 0000000..43b2ecf
 +#define CFG_FLASH_SIZE          0x00800000  /* 0x00200000 Total flash size */
 +#endif  /* #ifndef COMPRESSED_UBOOT */
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#ifndef COMPRESSED_UBOOT
@@ -11726,8 +12069,8 @@ index 0000000..43b2ecf
 +"loadFiles=tftpboot 0x80010000 pb44-small-jffs2;erase 0xbf040000 +$filesize; cp.b $fileaddr 0xbf040000 $filesize\0" \
 +"loadAll=run loadUboot;run loadLinux;run loadFiles\0"
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define CFG_MONITOR_BASE    TEXT_BASE
 +#define CFG_MONITOR_LEN     (192 << 10)
@@ -11764,8 +12107,8 @@ index 0000000..43b2ecf
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Write */
@@ -11777,7 +12120,7 @@ index 0000000..43b2ecf
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -11835,11 +12178,22 @@ index 0000000..43b2ecf
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL        | CFG_CMD_MII   | CFG_CMD_PING  \
-+   | CFG_CMD_NET | CFG_CMD_PCI     | CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS \
-+   | CFG_CMD_RUN | CFG_CMD_LOADB   | CFG_CMD_ELF | CFG_CMD_BSP ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_BSP
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +
@@ -11860,7 +12214,7 @@ index 0000000..43b2ecf
 +//#define CFG_ATHRF1_PHY              1
 +#define CFG_AG7100_NMACS 			2
 +
-+#define CFG_PHY_ADDR				0 
++#define CFG_PHY_ADDR				0
 +#define CFG_AG7100_GE0_RGMII 1 /* XXX: on pb44, GE0 can be RGMII or GMII depending magpie's interface */
 +#define CFG_AG7100_GE1_RGMII 1
 +
@@ -11873,15 +12227,15 @@ index 0000000..43b2ecf
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/pb45.h b/include/configs/pb45.h
 new file mode 100644
-index 0000000..2a92495
+index 0000000000..8ebae9190f
 --- /dev/null
 +++ b/include/configs/pb45.h
-@@ -0,0 +1,162 @@
+@@ -0,0 +1,171 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -11899,11 +12253,11 @@ index 0000000..2a92495
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)        
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE          0xbf000000
@@ -11928,8 +12282,8 @@ index 0000000..2a92495
 +#define MTDPARTS_DEFAULT    "mtdparts=ar7100-nor0:256k(u-boot),128k(env),6144k(rootfs),64k(mac),1600k(uImage)"
 +#define MTDIDS_DEFAULT      "nor0=ar7100-nor0"
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define CFG_MONITOR_BASE    TEXT_BASE
 +#define CFG_MONITOR_LEN     (192 << 10)
@@ -11948,8 +12302,8 @@ index 0000000..2a92495
 +
 +#define CFG_HZ	(680000000/2)
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Write */
@@ -11960,7 +12314,7 @@ index 0000000..2a92495
 +#define CFG_INIT_SP_OFFSET  0x1000
 +
 +#define CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector   */
 +#define CFG_ENV_ADDR        0xbf040000
@@ -12002,9 +12356,18 @@ index 0000000..2a92495
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL        | CFG_CMD_MII   | CFG_CMD_PING  \
-+   | CFG_CMD_NET | CFG_CMD_PCI     | CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS \
-+   | CFG_CMD_RUN | CFG_CMD_LOADB   | CFG_CMD_ELF | CFG_CMD_BSP ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_BSP
 +
 +/*
 +** Ethernet Configuration
@@ -12041,15 +12404,15 @@ index 0000000..2a92495
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/pb47.h b/include/configs/pb47.h
 new file mode 100644
-index 0000000..ec1b249
+index 0000000000..687a1c72db
 --- /dev/null
 +++ b/include/configs/pb47.h
-@@ -0,0 +1,160 @@
+@@ -0,0 +1,169 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -12069,11 +12432,11 @@ index 0000000..ec1b249
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)        
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE          0xbf000000
@@ -12101,8 +12464,8 @@ index 0000000..ec1b249
 +"loadFiles=tftpboot 0x80010000 pb47-jffs2;erase 0xbf040000 +0x600000;cp.b 0x80010000 0xbf040000 0x600000\0" \
 +"loadAll=run loadUboot;run loadLinux;run loadFiles\0"
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define CFG_MONITOR_BASE    TEXT_BASE
 +#define CFG_MONITOR_LEN     (192 << 10)
@@ -12121,8 +12484,8 @@ index 0000000..ec1b249
 +
 +#define CFG_HZ	(680000000/2)
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT    (2 * CFG_HZ) /* Timeout for Flash Write */
@@ -12133,7 +12496,7 @@ index 0000000..ec1b249
 +#define CFG_INIT_SP_OFFSET  0x1000
 +
 +#define CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector   */
 +#define CFG_ENV_ADDR        0xbf030000
@@ -12177,9 +12540,18 @@ index 0000000..ec1b249
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL        | CFG_CMD_MII   | CFG_CMD_PING  \
-+   | CFG_CMD_NET | CFG_CMD_PCI     | CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS \
-+   | CFG_CMD_RUN | CFG_CMD_LOADB   | CFG_CMD_ELF | CFG_CMD_BSP ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_BSP
 +
 +/*
 +** Ethernet Configuration
@@ -12194,7 +12566,7 @@ index 0000000..ec1b249
 +#define CFG_ATHRF1_PHY  			1
 +#define CFG_AG7100_NMACS 			2
 +
-+#define CFG_PHY_ADDR				0 
++#define CFG_PHY_ADDR				0
 +#define CFG_AG7100_GE0_RGMII 1 /* XXX: on pb47, GE0 can be RGMII or GMII depending magpie's interface */
 +#define CFG_AG7100_GE1_RGMII 1
 +
@@ -12207,15 +12579,15 @@ index 0000000..ec1b249
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/pb90.h b/include/configs/pb90.h
 new file mode 100644
-index 0000000..9d1a2d0
+index 0000000000..eb33cb25cf
 --- /dev/null
 +++ b/include/configs/pb90.h
-@@ -0,0 +1,167 @@
+@@ -0,0 +1,177 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -12236,15 +12608,15 @@ index 0000000..9d1a2d0
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -12344,9 +12716,19 @@ index 0000000..9d1a2d0
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -12355,7 +12737,7 @@ index 0000000..9d1a2d0
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -12380,15 +12762,15 @@ index 0000000..9d1a2d0
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb92.h b/include/configs/pb92.h
 new file mode 100644
-index 0000000..a340038
+index 0000000000..995026f2b4
 --- /dev/null
 +++ b/include/configs/pb92.h
-@@ -0,0 +1,330 @@
+@@ -0,0 +1,347 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -12431,9 +12813,9 @@ index 0000000..a340038
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -12462,8 +12844,8 @@ index 0000000..a340038
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -12640,7 +13022,7 @@ index 0000000..a340038
 +#define CFG_DDR_RD_DATA_THIS_CYCLE_VAL  0x00ff
 +
 +/* DDR values to support AR7241 */
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +//#define CFG_7241_DDR1_CONFIG_VAL      0x6fbc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
@@ -12650,7 +13032,7 @@ index 0000000..a340038
 +#define CFG_7241_DDR1_CONFIG2_VAL	0x9dd0e6a8
 +
 +#define CFG_7241_DDR2_CONFIG_VAL        0xc7bc8cd0
-+#define CFG_7241_DDR2_MODE_VAL_INIT     0x133 
++#define CFG_7241_DDR2_MODE_VAL_INIT     0x133
 +#define CFG_7241_DDR2_EXT_MODE_VAL      0x402
 +#define CFG_7241_DDR2_MODE_VAL          0x33
 +#define CFG_7241_DDR2_CONFIG2_VAL       0x9dd0e6a8
@@ -12678,12 +13060,29 @@ index 0000000..a340038
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
++
 +#define CFG_ATHRS26_PHY  1
 +#define CONFIG_IPADDR   192.168.1.1
 +#define CONFIG_SERVERIP 192.168.1.10
@@ -12691,7 +13090,7 @@ index 0000000..a340038
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -12716,15 +13115,15 @@ index 0000000..a340038
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb93.h b/include/configs/pb93.h
 new file mode 100644
-index 0000000..6e8b3c2
+index 0000000000..58700cdc7a
 --- /dev/null
 +++ b/include/configs/pb93.h
-@@ -0,0 +1,229 @@
+@@ -0,0 +1,242 @@
 +/*
 + * This file contains the configuration parameters for the pb93 board.
 + */
@@ -12758,9 +13157,9 @@ index 0000000..6e8b3c2
 +
 +#define CONFIG_SUPPORT_AR7241 1
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -12779,8 +13178,8 @@ index 0000000..6e8b3c2
 +#define CFG_MAX_FLASH_SECT_F      (CFG_FLASH_SIZE / CFG_FLASH_SECTOR_SIZE) /* max number of sectors on one chip */
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -12857,7 +13256,7 @@ index 0000000..6e8b3c2
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0x9f040000
-+#define CFG_ENV_SIZE            CFG_FLASH_SECTOR_SIZE 
++#define CFG_ENV_SIZE            CFG_FLASH_SECTOR_SIZE
 +
 +#if (FLASH_SIZE == 8)
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f550000"
@@ -12882,15 +13281,15 @@ index 0000000..6e8b3c2
 +#define CFG_DDR_RD_DATA_THIS_CYCLE_VAL  0x00ff
 +
 +/* DDR values to support AR7241 */
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
 +#define CFG_7241_DDR1_EXT_MODE_VAL    0x0
 +#define CFG_7241_DDR1_MODE_VAL        0x33
-+#define CFG_7241_DDR1_CONFIG2_VAL       0x9dd0e6a8 
++#define CFG_7241_DDR1_CONFIG2_VAL       0x9dd0e6a8
 +
 +#define CFG_7241_DDR2_CONFIG_VAL        0xc7bc8cd0
-+#define CFG_7241_DDR2_MODE_VAL_INIT     0x133 
++#define CFG_7241_DDR2_MODE_VAL_INIT     0x133
 +#define CFG_7241_DDR2_EXT_MODE_VAL      0x402
 +#define CFG_7241_DDR2_MODE_VAL          0x33
 +#define CFG_7241_DDR2_CONFIG2_VAL       0x9dd0e6a8
@@ -12915,9 +13314,22 @@ index 0000000..6e8b3c2
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL | \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -12926,7 +13338,7 @@ index 0000000..6e8b3c2
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -12951,15 +13363,15 @@ index 0000000..6e8b3c2
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb9x-2.6.31.h b/include/configs/pb9x-2.6.31.h
 new file mode 100644
-index 0000000..47330f3
+index 0000000000..0b2c9e4110
 --- /dev/null
 +++ b/include/configs/pb9x-2.6.31.h
-@@ -0,0 +1,286 @@
+@@ -0,0 +1,301 @@
 +/*
 + * Copyright (c) 2009, Atheros Communications Inc.
 + *
@@ -12974,7 +13386,7 @@ index 0000000..47330f3
 + * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 + * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 + * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-+ * 
++ *
 + */
 +/*
 + * This file contains the configuration parameters for the pb93 board.
@@ -13012,9 +13424,9 @@ index 0000000..47330f3
 +
 +#define CONFIG_SUPPORT_AR7241 1
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -13038,8 +13450,8 @@ index 0000000..47330f3
 +#define CFG_MAX_FLASH_SECT_F      (CFG_FLASH_SIZE / CFG_FLASH_SECTOR_SIZE) /* max number of sectors on one chip */
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -13144,7 +13556,7 @@ index 0000000..47330f3
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0x9f040000
-+#define CFG_ENV_SIZE            CFG_FLASH_SECTOR_SIZE 
++#define CFG_ENV_SIZE            CFG_FLASH_SECTOR_SIZE
 +
 +#if (FLASH_SIZE == 8)
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f550000"
@@ -13169,15 +13581,15 @@ index 0000000..47330f3
 +#define CFG_DDR_RD_DATA_THIS_CYCLE_VAL  0x00ff
 +
 +/* DDR values to support AR7241 */
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
 +#define CFG_7241_DDR1_EXT_MODE_VAL    0x0
 +#define CFG_7241_DDR1_MODE_VAL        0x33
-+#define CFG_7241_DDR1_CONFIG2_VAL       0x9dd0e6a8 
++#define CFG_7241_DDR1_CONFIG2_VAL       0x9dd0e6a8
 +
 +#define CFG_7241_DDR2_CONFIG_VAL        0xc7bc8cd0
-+#define CFG_7241_DDR2_MODE_VAL_INIT     0x133 
++#define CFG_7241_DDR2_MODE_VAL_INIT     0x133
 +#define CFG_7241_DDR2_EXT_MODE_VAL      0x402
 +#define CFG_7241_DDR2_MODE_VAL          0x33
 +#define CFG_7241_DDR2_CONFIG2_VAL       0x9dd0e6a8
@@ -13205,11 +13617,26 @@ index 0000000..47330f3
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL | \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -13218,7 +13645,7 @@ index 0000000..47330f3
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -13243,15 +13670,15 @@ index 0000000..47330f3
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb9x-2x8.h b/include/configs/pb9x-2x8.h
 new file mode 100644
-index 0000000..31b2efb
+index 0000000000..c04b1675b9
 --- /dev/null
 +++ b/include/configs/pb9x-2x8.h
-@@ -0,0 +1,212 @@
+@@ -0,0 +1,225 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -13281,9 +13708,9 @@ index 0000000..31b2efb
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -13293,8 +13720,8 @@ index 0000000..31b2efb
 +#define BOOTSTRAP_CFG_MONITOR_BASE  BOOTSTRAP_TEXT_BASE
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -13353,8 +13780,8 @@ index 0000000..31b2efb
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -13366,7 +13793,7 @@ index 0000000..31b2efb
 +
 +#ifndef COMPRESSED_UBOOT
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +#else
 +#undef  CFG_ENV_IS_IN_FLASH
 +#define CFG_ENV_IS_NOWHERE  1
@@ -13380,7 +13807,7 @@ index 0000000..31b2efb
 +
 +#ifndef COMPRESSED_UBOOT
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f300000"
-+#else 
++#else
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f150000"
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
@@ -13421,11 +13848,24 @@ index 0000000..31b2efb
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.2
@@ -13434,7 +13874,7 @@ index 0000000..31b2efb
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -13461,15 +13901,15 @@ index 0000000..31b2efb
 +
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb9x.h b/include/configs/pb9x.h
 new file mode 100644
-index 0000000..656e6af
+index 0000000000..c1091b596f
 --- /dev/null
 +++ b/include/configs/pb9x.h
-@@ -0,0 +1,282 @@
+@@ -0,0 +1,297 @@
 +/*
 + * Copyright (c) 2009, Atheros Communications Inc.
 + *
@@ -13484,7 +13924,7 @@ index 0000000..656e6af
 + * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 + * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 + * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-+ * 
++ *
 + */
 +/*
 + * This file contains the configuration parameters for the pb93 board.
@@ -13522,9 +13962,9 @@ index 0000000..656e6af
 +
 +#define CONFIG_SUPPORT_AR7241 1
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0x9f000000
@@ -13548,8 +13988,8 @@ index 0000000..656e6af
 +#define CFG_MAX_FLASH_SECT_F      (CFG_FLASH_SIZE / CFG_FLASH_SECTOR_SIZE) /* max number of sectors on one chip */
 +#endif
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -13650,7 +14090,7 @@ index 0000000..656e6af
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0x9f040000
-+#define CFG_ENV_SIZE            CFG_FLASH_SECTOR_SIZE 
++#define CFG_ENV_SIZE            CFG_FLASH_SECTOR_SIZE
 +
 +#if (FLASH_SIZE == 8)
 +#define CONFIG_BOOTCOMMAND "bootm 0x9f550000"
@@ -13675,15 +14115,15 @@ index 0000000..656e6af
 +#define CFG_DDR_RD_DATA_THIS_CYCLE_VAL  0x00ff
 +
 +/* DDR values to support AR7241 */
-+#ifdef CONFIG_SUPPORT_AR7241 
++#ifdef CONFIG_SUPPORT_AR7241
 +#define CFG_7241_DDR1_CONFIG_VAL      0xc7bc8cd0
 +#define CFG_7241_DDR1_MODE_VAL_INIT   0x133
 +#define CFG_7241_DDR1_EXT_MODE_VAL    0x0
 +#define CFG_7241_DDR1_MODE_VAL        0x33
-+#define CFG_7241_DDR1_CONFIG2_VAL       0x9dd0e6a8 
++#define CFG_7241_DDR1_CONFIG2_VAL       0x9dd0e6a8
 +
 +#define CFG_7241_DDR2_CONFIG_VAL        0xc7bc8cd0
-+#define CFG_7241_DDR2_MODE_VAL_INIT     0x133 
++#define CFG_7241_DDR2_MODE_VAL_INIT     0x133
 +#define CFG_7241_DDR2_EXT_MODE_VAL      0x402
 +#define CFG_7241_DDR2_MODE_VAL          0x33
 +#define CFG_7241_DDR2_CONFIG2_VAL       0x9dd0e6a8
@@ -13711,11 +14151,26 @@ index 0000000..656e6af
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL | \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -13724,7 +14179,7 @@ index 0000000..656e6af
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -13749,15 +14204,15 @@ index 0000000..656e6af
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/reh132.h b/include/configs/reh132.h
 new file mode 100644
-index 0000000..1f51c6f
+index 0000000000..6029ae2e53
 --- /dev/null
 +++ b/include/configs/reh132.h
-@@ -0,0 +1,424 @@
+@@ -0,0 +1,440 @@
 +/*
 + * This file contains the configuration parameters for the db120 board.
 + */
@@ -13802,7 +14257,7 @@ index 0000000..1f51c6f
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -13833,7 +14288,7 @@ index 0000000..1f51c6f
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -13844,8 +14299,8 @@ index 0000000..1f51c6f
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -14140,11 +14595,27 @@ index 0000000..1f51c6f
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -14153,9 +14624,9 @@ index 0000000..1f51c6f
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_WAH132 1 
++#define CFG_WAH132 1
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
 +#define CFG_AG7100_GE0_RMII             1
@@ -14179,15 +14650,15 @@ index 0000000..1f51c6f
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/scoemu.h b/include/configs/scoemu.h
 new file mode 100644
-index 0000000..6159793
+index 0000000000..6181045e29
 --- /dev/null
 +++ b/include/configs/scoemu.h
-@@ -0,0 +1,439 @@
+@@ -0,0 +1,432 @@
 +#ifndef __SCOEMU_H
 +#define __SCOEMU_H
 +
@@ -14541,30 +15012,24 @@ index 0000000..6159793
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define ATH_CFG_COMMANDS	(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -14572,16 +15037,17 @@ index 0000000..6159793
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -14593,8 +15059,6 @@ index 0000000..6159793
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -14624,15 +15088,15 @@ index 0000000..6159793
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define ATH_ART_PCICFG_OFFSET		12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __SCOEMU_H */
 diff --git a/include/configs/tb225.h b/include/configs/tb225.h
 new file mode 100644
-index 0000000..816c8a0
+index 0000000000..6187e8a171
 --- /dev/null
 +++ b/include/configs/tb225.h
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,91 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -14648,13 +15112,13 @@ index 0000000..816c8a0
 +#define CFG_MAX_FLASH_BANKS	     1	     /* max number of memory banks */
 +#define CFG_MAX_FLASH_SECT	    (128)	 /* max number of sectors on one chip */
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
-+/* 
-+ * We boot from this flash, selected with dip switch 
++/*
++ * We boot from this flash, selected with dip switch
 + */
 +#define CFG_FLASH_BASE		    0xbfc00000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	    TEXT_BASE
 +#define	CFG_MONITOR_LEN		    (192 << 10)
@@ -14694,10 +15158,17 @@ index 0000000..816c8a0
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ) & ~CFG_CMD_ENV)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +#define CFG_PHY_ADDR    0x18
 +
@@ -14714,15 +15185,15 @@ index 0000000..816c8a0
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/tb243.h b/include/configs/tb243.h
 new file mode 100644
-index 0000000..ff19bc8
+index 0000000000..8811e658a4
 --- /dev/null
 +++ b/include/configs/tb243.h
-@@ -0,0 +1,124 @@
+@@ -0,0 +1,132 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -14742,18 +15213,18 @@ index 0000000..ff19bc8
 +//#define CFG_FLASH_SIZE          0x00800000    /* max number of sectors on one chip */
 +#define CFG_FLASH_SIZE          0x00800000    /* max number of sectors on one chip */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
-+#define CFG_FLASH_ADDR0         (0x5555)  		
++#define CFG_FLASH_WORD_SIZE     unsigned short
++#define CFG_FLASH_ADDR0         (0x5555)
 +#define CFG_FLASH_ADDR1         (0x2AAA)
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +//#define CFG_FLASH_BASE		    0xbfc00000 /* Temp WAR as remap is not on by default */
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -14776,8 +15247,8 @@ index 0000000..ff19bc8
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -14788,7 +15259,7 @@ index 0000000..ff19bc8
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -14812,10 +15283,18 @@ index 0000000..ff19bc8
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -14823,7 +15302,7 @@ index 0000000..ff19bc8
 +#define CONFIG_ETHADDR 0x00:0xaa:0xbb:0xcc:0xdd:0xee
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
-+#define CONFIG_ADMTEK_PHY 
++#define CONFIG_ADMTEK_PHY
 +#define CFG_PHY_ADDR 0x14  /* Port 4 */
 +
 +#define CFG_GMII     0
@@ -14833,7 +15312,7 @@ index 0000000..ff19bc8
 +#define CFG_HUSH_PARSER
 +#define CFG_PROMPT_HUSH_PS2 "hush>"
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +/* Ported from
 + * redboot/ecos/packages/hal/mips/pb42/current/cdl/hal_mips_pb42.cdl
@@ -14849,10 +15328,10 @@ index 0000000..ff19bc8
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/tb327.h b/include/configs/tb327.h
 new file mode 100644
-index 0000000..0e057ce
+index 0000000000..1f108444ca
 --- /dev/null
 +++ b/include/configs/tb327.h
-@@ -0,0 +1,156 @@
+@@ -0,0 +1,166 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -14869,15 +15348,15 @@ index 0000000..0e057ce
 +#define CFG_FLASH_SECTOR_SIZE   (64*1024)
 +#define CFG_FLASH_SIZE          0x00800000 /* Total flash size */
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -14925,8 +15404,8 @@ index 0000000..0e057ce
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -14937,7 +15416,7 @@ index 0000000..0e057ce
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -14970,9 +15449,19 @@ index 0000000..0e057ce
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI |	\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV |	\
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -14981,7 +15470,7 @@ index 0000000..0e057ce
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -15006,15 +15495,15 @@ index 0000000..0e057ce
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/tb6xx.h b/include/configs/tb6xx.h
 new file mode 100644
-index 0000000..430c1f1
+index 0000000000..b79009d3e6
 --- /dev/null
 +++ b/include/configs/tb6xx.h
-@@ -0,0 +1,342 @@
+@@ -0,0 +1,335 @@
 +#ifndef __TB6XX_H
 +#define __TB6XX_H
 +
@@ -15271,30 +15760,24 @@ index 0000000..430c1f1
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define ATH_CFG_COMMANDS	((			\
-+				CONFIG_CMD_DFL	|	\
-+				CFG_CMD_DHCP	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_PCI	|	\
-+				CFG_CMD_FLS	|	\
-+				CFG_CMD_MII	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET	|	\
-+				CFG_CMD_ENV	|	\
-+				CFG_CMD_PLL	|	\
-+				CFG_CMD_FLASH	|	\
-+				CFG_CMD_RUN	|	\
-+				CFG_CMD_ELF	|	\
-+				CFG_CMD_DDR	|	\
-+				CFG_CMD_ETHREG		\
-+				) & ~(			\
-+				CFG_CMD_IMLS	|	\
-+				CFG_CMD_FLASH		\
-+				))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define ATH_CFG_COMMANDS	(CONFIG_CMD_DFL	|	\
-+				CFG_CMD_PING	|	\
-+				CFG_CMD_NET)
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#ifdef CONFIG_ATH_NAND_SUPPORT
@@ -15302,16 +15785,17 @@ index 0000000..430c1f1
 +#		define CFG_ENV_IS_IN_NAND	1
 +#		define CFG_ENV_OFFSET		0x40000u
 +#		define CFG_ENV_SIZE		0x40000u
-+#		define ATH_EXTRA_CMD		CFG_CMD_NAND
++#		define CONFIG_CMD_NAND
 +#	else
 +#		define CFG_ENV_IS_IN_FLASH	1
 +#		define CFG_ENV_SIZE		CFG_FLASH_SECTOR_SIZE
-+#		define ATH_EXTRA_CMD		(CFG_CMD_NAND | CFG_CMD_FLASH)
++#		define CONFIG_CMD_NAND
++#		define CONFIG_CMD_FLASH
 +#	endif
 +#	define NAND_MAX_CHIPS			1
 +#	define CFG_MAX_NAND_DEVICE		1
 +#else
-+#	define ATH_EXTRA_CMD			CFG_CMD_FLASH
++#	define CONFIG_CMD_FLASH
 +#	define CFG_ENV_IS_IN_FLASH		1
 +#	define CFG_ENV_SIZE			CFG_FLASH_SECTOR_SIZE
 +#endif
@@ -15323,8 +15807,6 @@ index 0000000..430c1f1
 +#undef  CFG_ENV_IS_IN_NAND
 +#define CFG_ENV_IS_NOWHERE		1
 +#endif
-+
-+#define CONFIG_COMMANDS			(ATH_CFG_COMMANDS | ATH_EXTRA_CMD)
 +
 +#define CONFIG_IPADDR			192.168.1.1
 +#define CONFIG_SERVERIP			192.168.1.10
@@ -15354,15 +15836,15 @@ index 0000000..430c1f1
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define ATH_ART_PCICFG_OFFSET		12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __TB6XX_H */
 diff --git a/include/configs/wah132.h b/include/configs/wah132.h
 new file mode 100644
-index 0000000..7b744e3
+index 0000000000..08a1f7c054
 --- /dev/null
 +++ b/include/configs/wah132.h
-@@ -0,0 +1,422 @@
+@@ -0,0 +1,438 @@
 +/*
 + * This file contains the configuration parameters for the db120 board.
 + */
@@ -15407,7 +15889,7 @@ index 0000000..7b744e3
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
 +// Set this to zero, for 16bit ddr2
 +#define DDR2_32BIT_SUPPORT 	1
@@ -15438,7 +15920,7 @@ index 0000000..7b744e3
 +#define UBOOT_FLASH_SIZE          (256 * 1024)
 +#define UBOOT_ENV_SEC_START        (CFG_FLASH_BASE + UBOOT_FLASH_SIZE)
 +
-+#define CFG_FLASH_MAGIC           0xaabacada  
++#define CFG_FLASH_MAGIC           0xaabacada
 +#define CFG_FLASH_MAGIC_F         (UBOOT_ENV_SEC_START + CFG_FLASH_SECTOR_SIZE - 0x20)
 +#define CFG_FLASH_SECTOR_SIZE_F   *(volatile int *)(CFG_FLASH_MAGIC_F + 0x4)
 +#define CFG_FLASH_SIZE_F          *(volatile int *)(CFG_FLASH_MAGIC_F + 0x8) /* Total flash size */
@@ -15449,8 +15931,8 @@ index 0000000..7b744e3
 +#endif
 +
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -15743,11 +16225,27 @@ index 0000000..7b744e3
 + * Cache Configuration
 + */
 +#ifndef COMPRESSED_UBOOT
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | CFG_CMD_PCI | CFG_CMD_FLS |\
-+	CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET | CFG_CMD_ENV | CFG_CMD_PLL| \
-+	CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB | CFG_CMD_ELF | CFG_CMD_DDR | CFG_CMD_ETHREG))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_FLS
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_PLL
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_DDR
++#define CONFIG_CMD_ETHREG
 +#else
-+#define CONFIG_COMMANDS (( CONFIG_CMD_DFL | CFG_CMD_PING | CFG_CMD_NET))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
 +#endif /* #ifndef COMPRESSED_UBOOT */
 +
 +#define CONFIG_IPADDR   192.168.1.1
@@ -15756,9 +16254,9 @@ index 0000000..7b744e3
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_WAH132 1 
++#define CFG_WAH132 1
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
 +#define CFG_AG7100_GE0_RMII             1
@@ -15782,15 +16280,15 @@ index 0000000..7b744e3
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/wasp_emu.h b/include/configs/wasp_emu.h
 new file mode 100644
-index 0000000..b443030
+index 0000000000..e0a9899929
 --- /dev/null
 +++ b/include/configs/wasp_emu.h
-@@ -0,0 +1,179 @@
+@@ -0,0 +1,187 @@
 +/*
 + * This file contains the configuration parameters for the dbau1x00 board.
 + */
@@ -15815,15 +16313,15 @@ index 0000000..b443030
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -15871,8 +16369,8 @@ index 0000000..b443030
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -15883,7 +16381,7 @@ index 0000000..b443030
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf040000
@@ -15926,15 +16424,23 @@ index 0000000..b443030
 +#define CFG_DDR_EXT_MODE_VAL    0x1
 +#define CFG_DDR_MODE_VAL        0x23
 +
-+#define CFG_DDR_CONFIG2_VAL     0x91d0e6a8	
++#define CFG_DDR_CONFIG2_VAL     0x91d0e6a8
 +#define CFG_DDR_RD_DATA_THIS_CYCLE_VAL  0x00ff
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_DHCP | CFG_CMD_ELF | \
-+            CFG_CMD_MII | CFG_CMD_PING | CFG_CMD_NET |\
-+   CFG_CMD_ENV | CFG_CMD_FLASH | CFG_CMD_LOADS | CFG_CMD_RUN | CFG_CMD_LOADB \
-+   | CFG_CMD_ELF ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_DHCP
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_LOADS
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_LOADB
++#define CONFIG_CMD_ELF
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -15943,7 +16449,7 @@ index 0000000..b443030
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -15967,15 +16473,15 @@ index 0000000..b443030
 +/* For Merlin, both PCI, PCI-E interfaces are valid */
 +#define AR7240_ART_PCICFG_OFFSET        12
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/wrt54g.h b/include/configs/wrt54g.h
 new file mode 100644
-index 0000000..82b7305
+index 0000000000..d187ab4364
 --- /dev/null
 +++ b/include/configs/wrt54g.h
-@@ -0,0 +1,173 @@
+@@ -0,0 +1,180 @@
 +/*****************************************************************************/
 +/* \file wrt54g.h
 +** \brief wrt54g configuration file
@@ -15984,7 +16490,7 @@ index 0000000..82b7305
 +**  in u-boot.
 +**
 +**  Copyright (c) 2009 Atheros Communications Inc.  All rights reserved.
-+** 
++**
 +**  This file is proprietary to Atheros Communications, Inc.'s and licensed only
 +**  according to a Technology License Agreement approved and executed by Atheros,
 +**  or sublicensed by an authorized sublicensor.
@@ -16007,15 +16513,15 @@ index 0000000..82b7305
 +#	error "Invalid flash configuration"
 +#endif
 +
-+#define CFG_FLASH_WORD_SIZE     unsigned short 
++#define CFG_FLASH_WORD_SIZE     unsigned short
 +
-+/* 
++/*
 + * We boot from this flash
 + */
 +#define CFG_FLASH_BASE		    0xbf000000
 +
-+/* 
-+ * The following #defines are needed to get flash environment right 
++/*
++ * The following #defines are needed to get flash environment right
 + */
 +#define	CFG_MONITOR_BASE	TEXT_BASE
 +#define	CFG_MONITOR_LEN		(192 << 10)
@@ -16064,8 +16570,8 @@ index 0000000..82b7305
 +#endif
 +
 +
-+/* 
-+ * timeout values are in ticks 
++/*
++ * timeout values are in ticks
 + */
 +#define CFG_FLASH_ERASE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Erase */
 +#define CFG_FLASH_WRITE_TOUT	(2 * CFG_HZ) /* Timeout for Flash Write */
@@ -16076,7 +16582,7 @@ index 0000000..82b7305
 +#define CFG_INIT_SP_OFFSET	0x1000
 +
 +#define	CFG_ENV_IS_IN_FLASH    1
-+#undef CFG_ENV_IS_NOWHERE  
++#undef CFG_ENV_IS_NOWHERE
 +
 +/* Address and size of Primary Environment Sector	*/
 +#define CFG_ENV_ADDR		0xbf030000
@@ -16109,9 +16615,16 @@ index 0000000..82b7305
 +/*-----------------------------------------------------------------------
 + * Cache Configuration
 + */
-+#define CONFIG_COMMANDS	(( CONFIG_CMD_DFL | CFG_CMD_PCI   | CFG_CMD_MII | CFG_CMD_PING | \
-+			               CFG_CMD_NET    | CFG_CMD_ENV   |	CMD_FLASH   | CFG_CMD_ELF  | \
-+			               CFG_CMD_RUN    | CFG_CMD_ETHREG ))
++#define CONFIG_CMD_DFL
++#define CONFIG_CMD_PCI
++#define CONFIG_CMD_MII
++#define CONFIG_CMD_PING
++#define CONFIG_CMD_NET
++#define CONFIG_CMD_ENV
++#define CONFIG_CMD_FLASH
++#define CONFIG_CMD_ELF
++#define CONFIG_CMD_RUN
++#define CONFIG_CMD_ETHREG
 +
 +
 +#define CONFIG_IPADDR   192.168.1.10
@@ -16120,7 +16633,7 @@ index 0000000..82b7305
 +#define CFG_FAULT_ECHO_LINK_DOWN    1
 +
 +
-+#define CFG_PHY_ADDR 0 
++#define CFG_PHY_ADDR 0
 +#define CFG_AG7240_NMACS 2
 +#define CFG_GMII     0
 +#define CFG_MII0_RMII             1
@@ -16146,9 +16659,9 @@ index 0000000..82b7305
 +/* For Kite, only PCI-e interface is valid */
 +#define AR7240_ART_PCICFG_OFFSET        3
 +
-+#include <cmd_confdefs.h>
++#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
--- 
-2.17.1
+--
+2.24.0
 

@@ -527,7 +527,7 @@ index cb1c5bb..d5bb37f 100644
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
  
  /**************************************************/
- #if (CONFIG_COMMANDS & CFG_CMD_JFFS2) && defined(CONFIG_JFFS2_CMDLINE)
+ #if defined(CONFIG_CMD_JFFS2) && defined(CONFIG_JFFS2_CMDLINE)
 @@ -682,12 +695,14 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
  # define TMP_PROT_OFF	/* empty */
  #endif
@@ -641,7 +641,7 @@ index d0fae6b..3458307 100644
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
  
  /**************************************************/
- #if (CONFIG_COMMANDS & CFG_CMD_MEMORY)
+ #if defined(CONFIG_CMD_MEMORY)
 @@ -1219,6 +1226,7 @@ U_BOOT_CMD(
  	"[.b, .w, .l] source target count\n    - copy memory\n"
  );
@@ -673,7 +673,7 @@ index d0fae6b..3458307 100644
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
  
  #endif
- #endif	/* CFG_CMD_MEMORY */
+ #endif
 diff --git a/common/cmd_mii.c b/common/cmd_mii.c
 index e659536..eef5b24 100644
 --- a/common/cmd_mii.c
@@ -689,13 +689,13 @@ index e659536..eef5b24 100644
 +
 +#ifndef COMPRESSED_UBOOT
 +/* cu570m end */
- #if (CONFIG_COMMANDS & CFG_CMD_MII)
+ #if defined(CONFIG_CMD_MII)
  #include <miiphy.h>
  
 @@ -596,3 +603,270 @@ U_BOOT_CMD(
  #endif /* CONFIG_TERSE_MII */
  
- #endif /* CFG_CMD_MII */
+ #endif
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
 +
 +/* cu570m start */
@@ -1055,7 +1055,7 @@ index 2cb2c5d..f6db97e 100644
 --- a/common/cmd_net.c
 +++ b/common/cmd_net.c
 @@ -32,9 +32,15 @@
- #if (CONFIG_COMMANDS & CFG_CMD_NET)
+ #if defined(CONFIG_CMD_NET)
  
  extern int do_bootm (cmd_tbl_t *, int, int, char *[]);
 +/* cu570m start */
@@ -1092,7 +1092,7 @@ index 2cb2c5d..f6db97e 100644
  );
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
  
- #if (CONFIG_COMMANDS & CFG_CMD_DHCP)
+ #if defined(CONFIG_CMD_DHCP)
  int do_dhcp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 @@ -183,7 +192,7 @@ netboot_common (proto_t proto, cmd_tbl_t *cmdtp, int argc, char *argv[])
  
@@ -1129,16 +1129,16 @@ index 2cb2c5d..f6db97e 100644
 +#endif
 +/* cu570m end */
 +
- #endif	/* CFG_CMD_PING */
+ #endif
  
- #if (CONFIG_COMMANDS & CFG_CMD_CDP)
+ #if defined(CONFIG_CMD_CDP)
 diff --git a/common/command.c b/common/command.c
 index e917975..9e7ad7c 100644
 --- a/common/command.c
 +++ b/common/command.c
 @@ -78,6 +78,7 @@ U_BOOT_CMD(
  
- #endif	/*  CFG_CMD_ECHO */
+ #endif
  
 +#ifndef COMPRESSED_UBOOT /* cu570m */
  #ifdef CFG_HUSH_PARSER

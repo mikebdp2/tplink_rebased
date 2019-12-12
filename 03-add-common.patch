@@ -19,10 +19,10 @@ new file mode 100644
 index 0000000..c673a71
 --- /dev/null
 +++ b/common/cmd_bdr.c
-@@ -0,0 +1,427 @@
+@@ -0,0 +1,425 @@
 +/*     The module is designed to support a BDR with the highest sequence number in the flash.
 + *	If it is successfule, bootloader will choose the BDR to startup.
-+ *  
++ *
 + *	Author Tos Xu		April 22, 2009
 + *
 + */
@@ -67,7 +67,7 @@ index 0000000..c673a71
 +#define BDR_SIZE	256
 +
 +unsigned int bdr_bootaddr = 0;
-+unsigned int bdr_seq = 0; 
++unsigned int bdr_seq = 0;
 +char bdr_bootarg[512];
 +
 +extern flash_info_t flash_info[];
@@ -85,7 +85,7 @@ index 0000000..c673a71
 +static inline unsigned big_endian(unsigned char *p)
 +{
 +    return ((p[0]<<24) | (p[1]<<16) | (p[2]<<8) | p[3]);
-+}	
++}
 +
 +/*
 + * fix endian
@@ -105,7 +105,7 @@ index 0000000..c673a71
 +	int i = 0;
 +	unsigned data;
 +
-+	// Reset the value to prevent the failure of parsing the bdr.	
++	// Reset the value to prevent the failure of parsing the bdr.
 +	bdr_bootaddr = 0;
 +	memset(bdr_bootarg,0,sizeof(bdr_bootarg));
 +
@@ -150,7 +150,7 @@ index 0000000..c673a71
 +				bdrp += tagsize + 1;
 +				break;
 +		}
-+			
++
 +		tags++;
 +	}
 +
@@ -272,7 +272,7 @@ index 0000000..c673a71
 +	bdr_seq = sequence;
 +	parse_tag(bdrblock + BDRTailerNWords,BDR_SIZE);
 +    }
-+	
++
 +    return sequence;
 +}
 +
@@ -294,7 +294,7 @@ index 0000000..c673a71
 +	for(offset =flashaddr;offset < TOTALFLASHSIZE;offset += BDRBlockSize)
 +	{
 +		findBDRstart(offset);
-+		findBDRend(offset);		
++		findBDRend(offset);
 +	}
 +
 +	// if bootaddr is equal to 0xffffffff or 0x0, it is not valid.
@@ -302,14 +302,14 @@ index 0000000..c673a71
 +		printf("Failed to find a good BDR at seq 0x%x.\n",bdr_seq);
 +		return 0;
 +	}
-+	
++
 +	if(bdr_bootaddr < TOTALFLASHSIZE) bdr_bootaddr |= FLASHSTARTADDRESS;
 +	sprintf(buf,"%s 0x%x","bootm",bdr_bootaddr);
 +	setenv("bootcmd",buf);
 +	setenv("bootargs",bdr_bootarg);
 +	printf("Got a good Boot Descriptor Record.\n  -Sequence:0x%x.\n",bdr_seq);
 +	printf("  -Boot address: 0x%x.\n",bdr_bootaddr);
-+	if(strlen(bdr_bootarg) < 512)	
++	if(strlen(bdr_bootarg) < 512)
 +		printf("  -Boot arguments: %s.\n",bdr_bootarg);
 +	return 1;
 +
@@ -328,7 +328,7 @@ index 0000000..c673a71
 +		addr = simple_strtoul(argv[1], NULL, 16);
 +		err = findbdr(addr);
 +	}
-+	
++
 +	return err;
 +}
 +/*
@@ -343,10 +343,10 @@ index 0000000..c673a71
 +	unsigned tags;
 +	char * p;
 +	char buffer[64];
-+	
++
 +	//Make sure the flashaddr is located at X*1024.
 +	if(flashaddr &0x3ff) return 1;
-+	
++
 +	err = findbdr(0);
 +	seq = bdr_seq + 1;
 +
@@ -355,7 +355,7 @@ index 0000000..c673a71
 +	bdrp[1] = bdrp[BDR_SIZE-2] = fix_endian(BDR_SIZE);
 +	bdrp[2] = 0;
 +	bdrp[3] = seq;
-+	
++
 +	bdrp += 4;
 +	tags = 0;
 +
@@ -368,7 +368,7 @@ index 0000000..c673a71
 +
 +	*bdrp++ = fix_endian(tags++<<24| BDRTag_BOOTARGS <<16|(1+sizeof(bdr_bootarg)/sizeof(int)));
 +	memcpy(bdrp,cmdline,sizeof(bdr_bootarg));
-+	bdrp += sizeof(bdr_bootarg)/sizeof(int);//bootarg.	
++	bdrp += sizeof(bdr_bootarg)/sizeof(int);//bootarg.
 +
 +	*bdrp++ = fix_endian(tags++<<24| BDRTag_STOP<<16|1);//STOP tag
 +	p = (char *)malloc(FLASH_BLOCK_SIZE);
@@ -390,7 +390,7 @@ index 0000000..c673a71
 +		printf("Error when writing bdr into flash.\n");
 +		return 1;
 +	}
-+	
++
 +	printf("BDR has been successfully written.\n");
 +	printf("BDR boot address: 0x%x.\n",bootaddr);
 +	printf("BDR boot arg: %s.\n",cmdline);
@@ -411,7 +411,7 @@ index 0000000..c673a71
 +	char cmd[512];
 +
 +	char * s = getenv("bootargs");
-+	
++
 +	printf("do_writebdr :: size %d bootargs = %s .\n",sizeof(s),s);
 +	if(argc < 2)
 +		return 1;
@@ -423,30 +423,28 @@ index 0000000..c673a71
 +		if(flashaddr < (FLASHSTARTADDRESS|0x80000)) return 1;
 +		memset(cmd,0,sizeof(cmd));
 +		memcpy(cmd,s,sizeof(cmd));
-+		//printf("do_writebdr :: bdr_bootargs = %s size %d.\n",bdr_bootarg,sizeof(bdr_bootarg));		
++		//printf("do_writebdr :: bdr_bootargs = %s size %d.\n",bdr_bootarg,sizeof(bdr_bootarg));
 +		err = writebdr(flashaddr,bootaddr,cmd);
 +	}
-+	
++
 +	return err;
 +}
 +
 +U_BOOT_CMD(
-+ 	writebdr,	CFG_MAXARGS,	1,	do_writebdr,
-+ 	"writebdr- write a valid bdr in the flash based on existing sequences\n",
-+ 	"[writebdr [arg ...]]\n  write a valid bdr based on existing sequences at the designed address  - \n"
-+ 	"\tpassing arguments 'flash_offset, bootaddr'; you may assign the flash address,\n"
-+ 	"\t'bootaddr' can be ignored or set it.\n"
++	writebdr,	CFG_MAXARGS,	1,	do_writebdr,
++	"writebdr- write a valid bdr in the flash based on existing sequences\n",
++	"[writebdr [arg ...]]\n  write a valid bdr based on existing sequences at the designed address  - \n"
++	"\tpassing arguments 'flash_offset, bootaddr'; you may assign the flash address,\n"
++	"\t'bootaddr' can be ignored or set it.\n"
 +);
 +
 +U_BOOT_CMD(
-+ 	findbdr,	CFG_MAXARGS,	1,	do_findbdr,
-+ 	"findbdr - find a valid bdr with the highest sequence in the flash\n",
-+ 	"[findbdr [arg ...]]\n  find a valid bdr with the highest sequence in the flash from the starting address  - \n"
-+ 	"\tpassing arguments 'arg ...'; you may assign the address or not,\n"
-+ 	"\t'arg' can be the starting address of search.\n"
++	findbdr,	CFG_MAXARGS,	1,	do_findbdr,
++	"findbdr - find a valid bdr with the highest sequence in the flash\n",
++	"[findbdr [arg ...]]\n  find a valid bdr with the highest sequence in the flash from the starting address  - \n"
++	"\tpassing arguments 'arg ...'; you may assign the address or not,\n"
++	"\t'arg' can be the starting address of search.\n"
 +);
-+
-+
 diff --git a/common/cmd_ddr.c b/common/cmd_ddr.c
 new file mode 100644
 index 0000000..a050c6a
@@ -486,13 +484,13 @@ index 0000000..a050c6a
 +#include <config.h>
 +#include <ar7240_soc.h>
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_DDR)
++#if defined(CONFIG_CMD_DDR)
 +
 +/*-----------------------------------------------------------------------
 + * Definitions
 + */
 +
-+static void prepare_flash(char **buff_ptr,long **val) 
++static void prepare_flash(char **buff_ptr,long **val)
 +{
 +	if((long)*buff_ptr % 4)
 +		*buff_ptr = *buff_ptr + ((long)*buff_ptr % 4);
@@ -513,7 +511,7 @@ index 0000000..a050c6a
 +	 */
 +
 +	/* last sector of uboot 0xbf040000 - 0xbf050000
-+	 * write MAGIC at 0xbf04ffe0 
++	 * write MAGIC at 0xbf04ffe0
 +	 * write sector at 0xbf04ffe4
 +	 * write size at   0xbf04ffe8
 +         */
@@ -569,7 +567,7 @@ index 0000000..a050c6a
 +	"<value>  - EXT MOD\n"
 +);
 +
-+#endif	/* CFG_CMD_SPI */
++#endif	/* CONFIG_CMD_SPI */
 diff --git a/common/cmd_ethreg.c b/common/cmd_ethreg.c
 new file mode 100644
 index 0000000..6bda1fe
@@ -606,7 +604,7 @@ index 0000000..6bda1fe
 +#include <common.h>
 +#include <command.h>
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_ETHREG)
++#if defined(CONFIG_CMD_ETHREG)
 +
 +/*-----------------------------------------------------------------------
 + * Definitions
@@ -669,20 +667,20 @@ index 0000000..6bda1fe
 +			rcode = WRITE_MAC;
 +		}
 +		if (argc == 4) {
-+    	                if(*argv[1] == 'p') {
++			if(*argv[1] == 'p') {
 +				portnum = simple_strtoul(argv[2], NULL, 10);
 +				reg = simple_strtoul(argv[3],NULL,10);
-+				rcode = READ_PHY; 
++				rcode = READ_PHY;
 +			}
 +			else
 +			    return 1;
 +		}
-+        	if (argc == 5) {
-+    	                if(*argv[1] == 'p') {
++		if (argc == 5) {
++			if(*argv[1] == 'p') {
 +				portnum = simple_strtoul(argv[2], NULL, 10);
 +				reg = simple_strtoul(argv[3],NULL,10);
 +				val = simple_strtoul(argv[4],NULL,10);
-+				rcode = WRITE_PHY; 
++				rcode = WRITE_PHY;
 +			}
 +			else
 +			    return 1;
@@ -693,7 +691,7 @@ index 0000000..6bda1fe
 +	}
 +#ifdef CONFIG_AR7242_S16_PHY
 +   if(rcode == READ_PHY) {
-+   	rd_value = ag7240_miiphy_read("eth0",portnum,reg);
++        rd_value = ag7240_miiphy_read("eth0",portnum,reg);
 +        printf("Read Reg: 0x%08x = 0x%08x\n",reg,rd_value);
 +   }
 +   else if(rcode == READ_MAC) {
@@ -701,7 +699,7 @@ index 0000000..6bda1fe
 +        printf("Read Reg: 0x%08x = 0x%08x\n",reg,rd_value);
 +   }
 +   else if(rcode  == WRITE_PHY) {
-+   	rd_value = ag7240_miiphy_read("eth0",portnum,reg);
++        rd_value = ag7240_miiphy_read("eth0",portnum,reg);
 +        ag7240_miiphy_write("eth0",portnum,reg,val);
 +        printf("Write Reg: 0x%08x: Oldval = 0x%08x Newval = 0x%08x\n", reg, rd_value, val);
 +   }
@@ -713,9 +711,9 @@ index 0000000..6bda1fe
 +   else
 +	return 1;
 +#endif
-+#ifdef CFG_ATHRS26_PHY        
++#ifdef CFG_ATHRS26_PHY
 +   if(rcode == READ_PHY) {
-+   	rd_value = s26_rd_phy(portnum,reg);
++        rd_value = s26_rd_phy(portnum,reg);
 +        printf("Read Reg: 0x%08x = 0x%08x\n",reg,rd_value);
 +   }
 +   else if(rcode == READ_MAC) {
@@ -723,7 +721,7 @@ index 0000000..6bda1fe
 +        printf("Read Reg: 0x%08x = 0x%08x\n",reg,rd_value);
 +   }
 +   else if(rcode  == WRITE_PHY) {
-+   	rd_value = s26_rd_phy(portnum,reg);
++        rd_value = s26_rd_phy(portnum,reg);
 +        s26_wr_phy(portnum,reg,val);
 +        printf("Write Reg: 0x%08x: Oldval = 0x%08x Newval = 0x%08x\n", reg, rd_value, val);
 +   }
@@ -735,9 +733,9 @@ index 0000000..6bda1fe
 +   else
 +	return 1;
 +#endif
-+#ifdef CFG_ATHRS27_PHY        
++#ifdef CFG_ATHRS27_PHY
 +   if(rcode == READ_PHY) {
-+   	rd_value = s27_rd_phy(portnum,reg);
++        rd_value = s27_rd_phy(portnum,reg);
 +        printf("Read Reg: 0x%08x = 0x%08x\n",reg,rd_value);
 +   }
 +   else if(rcode == READ_MAC) {
@@ -745,7 +743,7 @@ index 0000000..6bda1fe
 +        printf("Read Reg: 0x%08x = 0x%08x\n",reg,rd_value);
 +   }
 +   else if(rcode  == WRITE_PHY) {
-+   	rd_value = s27_rd_phy(portnum,reg);
++        rd_value = s27_rd_phy(portnum,reg);
 +        s27_wr_phy(portnum,reg,val);
 +        printf("Write Reg: 0x%08x: Oldval = 0x%08x Newval = 0x%08x\n", reg, rd_value, val);
 +   }
@@ -772,7 +770,7 @@ index 0000000..6bda1fe
 +	"<value>  - value to write\n"
 +);
 +
-+#endif	/* CFG_CMD_SPI */
++#endif	/* CONFIG_CMD_SPI */
 diff --git a/common/cmd_pll.c b/common/cmd_pll.c
 new file mode 100644
 index 0000000..72724b2
@@ -811,7 +809,7 @@ index 0000000..72724b2
 +#endif
 +
 +#ifndef CONFIG_ATH_EMULATION
-+#if (CONFIG_COMMANDS & CFG_CMD_PLL)
++#if defined(CONFIG_CMD_PLL)
 +#if defined(CONFIG_MACH_QCA955x) || defined(CONFIG_MACH_QCA953x)
 +int do_pll (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 +{
@@ -1086,8 +1084,8 @@ index 0000000..72724b2
 +);
 +#endif /* CONFIG_WASP_SUPPORT */
 +
-+#endif	/* CFG_CMD_SPI */
++#endif	/* CONFIG_CMD_SPI */
 +#endif // CONFIG_ATH_EMULATION
--- 
+--
 2.17.1
 

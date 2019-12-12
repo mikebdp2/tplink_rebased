@@ -2580,7 +2580,7 @@ index 0000000..f323218
 +#define PCIE_PHY_REG_1_RSTMASK                                       0xffffffff
 +// reset value (ignore bits undefined at reset)
 +#define PCIE_PHY_REG_1_RESET                                         0x1021265e
-+#define PCIE_PHY_REG_1_RESET_1                                       0x0061060e  
++#define PCIE_PHY_REG_1_RESET_1                                       0x0061060e
 +
 +// 32'h18116cc4 (PCIE_PHY_REG_2)
 +#define PCIE_PHY_REG_2_PRBS_ERROR_COUNT_MSB                          31
@@ -4100,10 +4100,10 @@ index 0000000..f323218
 +#define CPU_PLL_CONFIG_OUT_DIV_VAL2		CPU_PLL_CONFIG_OUTDIV_SET(0)
 +#define CPU_PLL_DITHER_VAL			CPU_PLL_DITHER_DITHER_EN_SET(0) | \
 +						CPU_PLL_DITHER_NFRAC_MAX_SET(0x3f) | \
-+ 						CPU_PLL_DITHER_NFRAC_MIN_SET(0) | \
-+ 						CPU_PLL_DITHER_NFRAC_STEP_SET(1) | \
-+ 						CPU_PLL_DITHER_UPDATE_COUNT_SET(0xf)
-+ 
++						CPU_PLL_DITHER_NFRAC_MIN_SET(0) | \
++						CPU_PLL_DITHER_NFRAC_STEP_SET(1) | \
++						CPU_PLL_DITHER_UPDATE_COUNT_SET(0xf)
++
 +#define DDR_PLL_CONFIG_NINT_VAL			DDR_PLL_CONFIG_NINT_SET(24)
 +#define DDR_PLL_CONFIG_REF_DIV_VAL		DDR_PLL_CONFIG_REFDIV_SET(1)
 +#define DDR_PLL_CONFIG_RANGE_VAL		DDR_PLL_CONFIG_RANGE_SET(0)
@@ -4111,9 +4111,9 @@ index 0000000..f323218
 +#define DDR_PLL_CONFIG_OUT_DIV_VAL2		DDR_PLL_CONFIG_OUTDIV_SET(0)
 +#define DDR_PLL_DITHER_VAL			DDR_PLL_DITHER_DITHER_EN_SET(0) | \
 +						DDR_PLL_DITHER_NFRAC_MAX_SET(0x3ff) | \
-+ 						DDR_PLL_DITHER_NFRAC_MIN_SET(0) | \
-+ 						DDR_PLL_DITHER_NFRAC_STEP_SET(1) | \
-+ 						DDR_PLL_DITHER_UPDATE_COUNT_SET(0xf)
++						DDR_PLL_DITHER_NFRAC_MIN_SET(0) | \
++						DDR_PLL_DITHER_NFRAC_STEP_SET(1) | \
++						DDR_PLL_DITHER_UPDATE_COUNT_SET(0xf)
 +#define CPU_DDR_CLOCK_CONTROL_AHB_DIV_VAL	CPU_DDR_CLOCK_CONTROL_AHB_POST_DIV_SET(2)
 +#define CPU_DDR_CLOCK_CONTROL_DDR_POST_DIV	CPU_DDR_CLOCK_CONTROL_DDR_POST_DIV_SET(0)
 +#define CPU_DDR_CLOCK_CONTROL_CPU_POST_DIV	CPU_DDR_CLOCK_CONTROL_CPU_POST_DIV_SET(0)
@@ -9302,7 +9302,7 @@ index 0000000..f33c4f1
 +
 +#define is_ar933x_11()  (((ar7240_reg_rd(AR7240_REV_ID) & AR7240_REV_ID_MASK) == AR9330_REV_1_1) || \
 +                            ((ar7240_reg_rd(AR7240_REV_ID) & AR7240_REV_ID_MASK) == AR9331_REV_1_1))
-+   
++
 +#define is_ar933x_12()  (((ar7240_reg_rd(AR7240_REV_ID) & AR7240_REV_ID_MASK) == AR9330_REV_1_2) || \
 +                            ((ar7240_reg_rd(AR7240_REV_ID) & AR7240_REV_ID_MASK) == AR9331_REV_1_2))
 +
@@ -13222,7 +13222,7 @@ new file mode 100755
 index 0000000..a027d16
 --- /dev/null
 +++ b/include/tpLinuxTag.h
-@@ -0,0 +1,45 @@
+@@ -0,0 +1,44 @@
 +
 +/**************************************************************************************
 +* File Name  : tpLinuxTag.h
@@ -13267,7 +13267,6 @@ index 0000000..a027d16
 +int getElfInfo(char *elfFile, Elf32_Addr *eEntry, Elf32_Addr *pVaddr);
 +
 +#endif // _TP_LINUX_TAG_H_
-+
--- 
+--
 2.17.1
 

@@ -185,6 +185,7 @@ rm -f ./include/ppc4xx.h
 rm -f ./include/ppc4xx_enet.h
 rm -f ./include/ppc_defs.h
 rm -f ./include/ps2mult.h
+rm -f ./include/radeon.h
 rm -f ./include/reiserfs.h
 rm -f ./include/s3c2400.h
 rm -f ./include/s3c2410.h

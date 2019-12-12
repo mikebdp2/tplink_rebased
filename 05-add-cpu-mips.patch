@@ -91,7 +91,7 @@ index 0000000..66e7649
 +#include "ar7100_soc.h"
 +#include "ag7100.h"
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +#include <miiphy.h>
 +#endif
 +
@@ -758,7 +758,7 @@ index 0000000..66e7649
 +#if defined(CFG_ATHRS26_PHY) && defined(CFG_ATHRHDR_EN)
 +    athrs26_reg_dev(dev[i]);
 +#endif
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +    miiphy_register(dev[i]->name, ag7100_miiphy_read, ag7100_miiphy_write);
 +#endif
 +        /*
@@ -827,7 +827,7 @@ index 0000000..66e7649
 +    return 1;
 +}
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +int ag7100_miiphy_read(char *devname, unsigned char phaddr,
 +	       unsigned char reg, unsigned short *value)
 +{
@@ -901,7 +901,7 @@ index 0000000..66e7649
 +    );
 +#endif
 +
-+#endif		/* CONFIG_COMMANDS & CFG_CMD_MII */
++#endif		/* CONFIG_CMD_MII */
 +
 diff --git a/cpu/mips/ar7100/ag7100.h b/cpu/mips/ar7100/ag7100.h
 new file mode 100644
@@ -1983,7 +1983,7 @@ index 0000000..9d8475b
 +#include "ag7240.h"
 +#include "ag7240_phy.h"
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +#include <miiphy.h>
 +#endif
 +#define ag7240_unit2mac(_unit)     ag7240_macs[(_unit)]
@@ -2528,7 +2528,7 @@ index 0000000..9d8475b
 +    }
 +    for (i = 0;i < CFG_AG7240_NMACS;i++) {
 +        eth_register(dev[i]);
-+#if(CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +        miiphy_register(dev[i]->name, ag7240_miiphy_read, ag7240_miiphy_write);
 +#endif
 +
@@ -2617,7 +2617,7 @@ index 0000000..9d8475b
 +    return 1;
 +}
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +uint16_t
 +ag7240_miiphy_read(char *devname, uint32_t phy_addr, uint8_t reg)
 +{
@@ -2692,7 +2692,7 @@ index 0000000..9d8475b
 +    if(ii==0)
 +        printf("Error!!! Leave ag7240_miiphy_write without polling correct status!\n");
 +}
-+#endif		/* CONFIG_COMMANDS & CFG_CMD_MII */
++#endif		/* CONFIG_CMD_MII */
 diff --git a/cpu/mips/ar7240/ag7240.h b/cpu/mips/ar7240/ag7240.h
 new file mode 100644
 index 0000000..5f2a708
@@ -3034,7 +3034,7 @@ index 0000000..5de8900
 +#include "ag934x.h"
 +#include "ag934x_phy.h"
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +#include <miiphy.h>
 +#endif
 +#define ag7240_unit2mac(_unit)     ag7240_macs[(_unit)]
@@ -3721,7 +3721,7 @@ index 0000000..5de8900
 +    
 +    for (i = 0;i < CFG_AG7240_NMACS;i++) {
 +        eth_register(dev[i]);
-+#if(CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +        miiphy_register(dev[i]->name, ag7240_miiphy_read, ag7240_miiphy_write);
 +#endif
 +
@@ -3818,7 +3818,7 @@ index 0000000..5de8900
 +    return 1;
 +}
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +uint16_t
 +ag7240_miiphy_read(char *devname, uint32_t phy_addr, uint8_t reg)
 +{
@@ -3893,7 +3893,7 @@ index 0000000..5de8900
 +    if(ii==0)
 +        printf("Error!!! Leave ag7240_miiphy_write without polling correct status!\n");
 +}
-+#endif		/* CONFIG_COMMANDS & CFG_CMD_MII */
++#endif		/* CONFIG_CMD_MII */
 diff --git a/cpu/mips/ar7240/ag934x.h b/cpu/mips/ar7240/ag934x.h
 new file mode 100644
 index 0000000..7a9b476
@@ -4471,7 +4471,7 @@ index 0000000..bec55fe
 +#include "ag7240.h"
 +#include "ag7240_phy.h"
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +#include <miiphy.h>
 +#endif
 +#define ag7240_unit2mac(_unit)     ag7240_macs[(_unit)]
@@ -4939,7 +4939,7 @@ index 0000000..bec55fe
 +
 +    eth_register(dev[i]);
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +    miiphy_register(dev[i]->name, ag7240_miiphy_read, ag7240_miiphy_write);
 +#endif
 +    if(!i) {
@@ -5004,7 +5004,7 @@ index 0000000..bec55fe
 +    return 1;
 +}
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +uint16_t
 +ag7240_miiphy_read(char *devname, uint32_t phy_addr, uint8_t reg)
 +{
@@ -5045,7 +5045,7 @@ index 0000000..bec55fe
 +        rddata = ag7240_reg_rd(mac, AG7240_MII_MGMT_IND) & 0x1;
 +    }while(rddata && --ii);
 +}
-+#endif		/* CONFIG_COMMANDS & CFG_CMD_MII */
++#endif		/* CONFIG_CMD_MII */
 +
 +#ifdef CONFIG_HORNET_EMU
 +void

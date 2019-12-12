@@ -88,7 +88,7 @@ index 1d1c98f..61f841a 100644
 +#endif
 +/* cu570m end */
 +
- #if (CONFIG_COMMANDS & CFG_CMD_CDP)
+ #if defined(CONFIG_CMD_CDP)
  static void CDPStart(void);
  #endif
 @@ -269,6 +275,11 @@ int
@@ -175,7 +175,7 @@ index 1d1c98f..61f841a 100644
 @@ -415,7 +468,7 @@ restart:
  			DhcpRequest();		/* Basically same as BOOTP */
  			break;
- #endif /* CFG_CMD_DHCP */
+ #endif
 -
 +#ifndef COMPRESSED_UBOOT /* cu570m */
  		case BOOTP:
@@ -186,7 +186,7 @@ index 1d1c98f..61f841a 100644
  			RarpRequest ();
  			break;
 +#endif /* cu570m */
- #if (CONFIG_COMMANDS & CFG_CMD_PING)
+ #if defined(CONFIG_CMD_PING)
  		case PING:
  			PingStart();
 @@ -475,6 +529,7 @@ restart:
@@ -217,7 +217,7 @@ index 1d1c98f..61f841a 100644
  			thand_f *x;
  
 +#if !defined(CFG_ATHRS26_PHY) && !defined(CFG_ATHRHDR_EN) /* cu570m */
- #if defined(CONFIG_MII) || (CONFIG_COMMANDS & CFG_CMD_MII)
+ #if defined(CONFIG_MII) || defined(CONFIG_CMD_MII)
  #  if defined(CFG_FAULT_ECHO_LINK_DOWN) && \
        defined(CONFIG_STATUS_LED) &&	   \
 @@ -521,6 +582,7 @@ restart:
@@ -283,7 +283,7 @@ index 1d1c98f..61f841a 100644
 +        uint8_t type;
 +#endif
 +/* cu570m end */
- #if (CONFIG_COMMANDS & CFG_CMD_CDP)
+ #if defined(CONFIG_CMD_CDP)
  	int iscdp;
  #endif
 @@ -1149,6 +1239,25 @@ NetReceive(volatile uchar * inpkt, int len)
@@ -317,7 +317,7 @@ index f3a5471..e4f239c 100644
 --- a/net/tftp.c
 +++ b/net/tftp.c
 @@ -15,9 +15,9 @@
- #if (CONFIG_COMMANDS & CFG_CMD_NET)
+ #if defined(CONFIG_CMD_NET)
  
  #define WELL_KNOWN_PORT	69		/* Well known TFTP port #		*/
 -#define TIMEOUT		5		/* Seconds to timeout for a lost pkt	*/

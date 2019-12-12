@@ -3207,7 +3207,7 @@ index 0000000..ac19dda
 +
 +}
 +
-+#if(0) // (CONFIG_COMMANDS & CFG_CMD_BSP)
++#if(0) // defined(CONFIG_CMD_BSP)
 +
 +/**********************************************************************************
 +** do_mac_setting
@@ -14501,7 +14501,7 @@ index 0000000..67c50a7
 +
 +extern flash_info_t flash_info[];
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_PLL)
++#if defined(CONFIG_CMD_PLL)
 +int do_ar7100_pll (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[])
 +{
 +    char    sectorBuff[65536];
@@ -14559,7 +14559,7 @@ index 0000000..67c50a7
 +    "\t7 - 400/400/100\n"
 +    "\t8 - 680/340/170\n"
 +);
-+#endif /* #if (CONFIG_COMMANDS & CFG_CMD_PLL) */
++#endif /* #if defined(CONFIG_CMD_PLL) */
 +
 +#ifdef AG7100_DEBUG
 +extern int ag7100_rxdbg;
@@ -45308,7 +45308,7 @@ index 0000000..c8a449c
 +#include "qca-eth-953x_phy.h"
 +#define SGMII_LINK_WAR_MAX_TRY 10
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +#include <miiphy.h>
 +#endif
 +#define ath_gmac_unit2mac(_unit)     ath_gmac_macs[(_unit)]
@@ -45834,7 +45834,7 @@ index 0000000..c8a449c
 +                        continue;
 +#endif
 +		eth_register(dev[i]);
-+#if(CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +		miiphy_register(dev[i]->name, ath_gmac_miiphy_read, ath_gmac_miiphy_write);
 +#endif
 +		ath_gmac_mii_setup(ath_gmac_macs[i]);
@@ -45898,7 +45898,7 @@ index 0000000..c8a449c
 +	return 1;
 +}
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +uint16_t
 +ath_gmac_miiphy_read(char *devname, uint32_t phy_addr, uint8_t reg)
 +{
@@ -45974,7 +45974,7 @@ index 0000000..c8a449c
 +	if (ii == 0)
 +		printf("Error!!! Leave ath_gmac_miiphy_write without polling correct status!\n");
 +}
-+#endif		/* CONFIG_COMMANDS & CFG_CMD_MII */
++#endif		/* CONFIG_CMD_MII */
 diff --git a/board/atheros/common/qca-eth-953x.h b/board/atheros/common/qca-eth-953x.h
 new file mode 100755
 index 0000000..8cd29cc
@@ -46433,7 +46433,7 @@ index 0000000..62366ca
 +#include "qca-eth-955x_phy.h"
 +#define SGMII_LINK_WAR_MAX_TRY 10
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +#include <miiphy.h>
 +#endif
 +#define ath_gmac_unit2mac(_unit)     ath_gmac_macs[(_unit)]
@@ -47246,7 +47246,7 @@ index 0000000..62366ca
 +                        continue;
 +#endif
 +		eth_register(dev[i]);
-+#if(CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +		miiphy_register(dev[i]->name, ath_gmac_miiphy_read, ath_gmac_miiphy_write);
 +#endif
 +		ath_gmac_mii_setup(ath_gmac_macs[i]);
@@ -47315,7 +47315,7 @@ index 0000000..62366ca
 +	return 1;
 +}
 +
-+#if (CONFIG_COMMANDS & CFG_CMD_MII)
++#if defined(CONFIG_CMD_MII)
 +uint16_t
 +ath_gmac_miiphy_read(char *devname, uint32_t phy_addr, uint8_t reg)
 +{
@@ -47391,7 +47391,7 @@ index 0000000..62366ca
 +	if (ii == 0)
 +		printf("Error!!! Leave ath_gmac_miiphy_write without polling correct status!\n");
 +}
-+#endif		/* CONFIG_COMMANDS & CFG_CMD_MII */
++#endif		/* CONFIG_CMD_MII */
 diff --git a/board/atheros/common/qca-eth-955x.h b/board/atheros/common/qca-eth-955x.h
 new file mode 100644
 index 0000000..86821f4
