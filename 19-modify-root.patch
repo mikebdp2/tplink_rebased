@@ -85,12 +85,16 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -190,55 +209,85 @@ endif
+@@ -190,59 +209,89 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
 +# LIBS - cu570m start
  LIBS  = lib_generic/libgeneric.a
+-LIBS += $(shell if [ -f board/$(VENDOR)/common/Makefile ]; then echo \
+-	"board/$(VENDOR)/common/lib$(VENDOR).a"; fi)
++# LIBS += $(shell if [ -f board/$(VENDOR)/common/Makefile ]; then echo \
++# 	"board/$(VENDOR)/common/lib$(VENDOR).a"; fi)
 +LIBS += common/libcommon.a
  LIBS += board/$(BOARDDIR)/lib$(BOARD).a
  LIBS += cpu/$(CPU)/lib$(CPU).a
@@ -123,12 +127,14 @@ index a282342..63fe227 100644
 -LIBS += drivers/bios_emulator/libatibiosemu.a
 -LIBS += drivers/nand/libnand.a
 -LIBS += drivers/nand_legacy/libnand_legacy.a
+-LIBS += drivers/net/libnet.a
 -ifeq ($(CPU),mpc83xx)
 -LIBS += drivers/qe/qe.a
 -endif
 -ifeq ($(CPU),mpc85xx)
 -LIBS += drivers/qe/qe.a
 -endif
+-LIBS += drivers/serial/libserial.a
 -LIBS += drivers/sk98lin/libsk98lin.a
 -LIBS += post/libpost.a post/drivers/libpostdrivers.a
 -LIBS += $(shell if [ -d post/lib_$(ARCH) ]; then echo \
@@ -150,12 +156,14 @@ index a282342..63fe227 100644
 +# LIBS += drivers/bios_emulator/libatibiosemu.a
 +# LIBS += drivers/nand/libnand.a
 +# LIBS += drivers/nand_legacy/libnand_legacy.a
++# LIBS += drivers/net/libnet.a
 +# ifeq ($(CPU),mpc83xx)
 +# LIBS += drivers/qe/qe.a
 +# endif
 +# ifeq ($(CPU),mpc85xx)
 +# LIBS += drivers/qe/qe.a
 +# endif
++# LIBS += drivers/serial/libserial.a
 +# LIBS += drivers/sk98lin/libsk98lin.a
 +# LIBS += post/libpost.a post/drivers/libpostdrivers.a
 +# LIBS += $(shell if [ -d post/lib_$(ARCH) ]; then echo \

@@ -102,6 +102,7 @@ mv ./include_asm-mips/ ./include/asm-mips/
 rm -f ./include/asm-mips/au1x00.h
 rm -f ./include/at91rm9200_i2c.h
 rm -f ./include/at91rm9200_net.h
+rm -f ./include/at45.h
 rm -f ./include/ata.h
 rm -f ./include/bcm5221.h
 rm -rf ./include/bedbug/
@@ -113,7 +114,9 @@ mkdir ./include/configs/
 touch ./include/configs/.keep
 rm -rf ./include/cramfs/
 rm -f ./include/dataflash.h
+rm -f ./include/div64.h
 rm -f ./include/dm9161.h
+rm -f ./include/dp83848.h
 rm -f ./include/dtt.h
 rm -f ./include/e500.h
 rm -f ./include/elf.h
@@ -132,6 +135,7 @@ rm -f ./include/jffs2/mini_inflate.h
 rm -f ./include/keyboard.h
 rm -f ./include/kgdb.h
 rm -f ./include/lcdvideo.h
+rm -f ./include/led.h
 rm -f ./include/lh7a400.h
 rm -f ./include/lh7a404.h
 rm -f ./include/lh7a40x.h
@@ -209,9 +213,11 @@ rm -f ./include/systemace.h
 rm -f ./include/tsi108.h
 rm -f ./include/universe.h
 rm -f ./include/usb.h
+rm -f ./include/usb_cdc_acm.h
 rm -f ./include/usb_defs.h
 rm -f ./include/usbdcore.h
 rm -f ./include/usbdcore_ep0.h
+rm -f ./include/usbdcore_mpc8xx.h
 rm -f ./include/usbdcore_omap1510.h
 rm -f ./include/usbdescriptors.h
 rm -f ./include/vfd_logo.h
@@ -239,6 +245,7 @@ rm -f ./lib_generic/bzlib_decompress.c
 rm -f ./lib_generic/bzlib_huffman.c
 rm -f ./lib_generic/bzlib_private.h
 rm -f ./lib_generic/bzlib_randtable.c
+rm -f ./lib_generic/div64.c
 rm -f ./lib_generic/zlib.c
 rm -rf ./libfdt/
 rm -rf ./nand_spl/
