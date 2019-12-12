@@ -240,11 +240,15 @@ rm -f ./include/video_logo.h
 rm -f ./include/virtex2.h
 rm -f ./include/w83c553f.h
 rm -f ./include/xilinx.h
+if [ -d "./lib_bootstrap/" ] ; then
 mv ./lib_bootstrap/ ./l1b_bootstrap/
+fi
 mv ./lib_generic/ ./l1b_generic/
 mv ./lib_mips/ ./l1b_mips/
 rm -rf ./lib_*
+if [ -d "./l1b_bootstrap/" ] ; then
 mv ./l1b_bootstrap/ ./lib_bootstrap/
+fi
 mv ./l1b_generic/ ./lib_generic/
 mv ./l1b_mips/ ./lib_mips/
 rm -f ./lib_generic/bzlib.c

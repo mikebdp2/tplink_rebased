@@ -88,7 +88,7 @@ index 0000000..3f7b99a
 +	.set	noreorder
 +	.cpload	$25
 +	.set	nomacro
-+	
++
 +	addiu	$sp,$sp,-40
 +$LCFI0:
 +	sw	$31,36($sp)
