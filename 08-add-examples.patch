@@ -1,6 +1,6 @@
-From 73bc45b1d7ed0f24174e8b5c6148d65b3416c253 Mon Sep 17 00:00:00 2001
+From 92b6df24eeb9db2440191028b6a1cc68ecdefeab Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:51:21 +0000
+Date: Tue, 10 Dec 2019 16:57:19 +0000
 Subject: [PATCH] Add ./examples/ Atheros files from WR841N(D)v9 u-boot
 
 ---
@@ -596,5 +596,5 @@ index 0000000..51cf850
 +S30D8020035080200160802001A0BD
 +S705802000005A
 -- 
-2.17.1
+2.24.0
 

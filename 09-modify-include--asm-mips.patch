@@ -1,6 +1,6 @@
-From d8c3edb08cab7a45fbdbe43d6509ba5955e43a4e Mon Sep 17 00:00:00 2001
+From dea96d76e50e9aaaf2f2cf00925a18551d5e881e Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:52:25 +0000
+Date: Tue, 10 Dec 2019 16:58:42 +0000
 Subject: [PATCH] Modify ./include/asm-mips/ files according to WR841N(D)v9
 
 ---
@@ -9,12 +9,11 @@ Subject: [PATCH] Modify ./include/asm-mips/ files according to WR841N(D)v9
  include/asm-mips/io.h        | 23 ++++++------
  include/asm-mips/mipsregs.h  |  9 +++--
  include/asm-mips/processor.h |  5 ++-
- include/asm-mips/string.h    | 13 ++++---
  include/asm-mips/system.h    |  9 +++--
- 7 files changed, 78 insertions(+), 55 deletions(-)
+ 6 files changed, 70 insertions(+), 50 deletions(-)
 
 diff --git a/include/asm-mips/addrspace.h b/include/asm-mips/addrspace.h
-index b8214b1..69f6675 100644
+index 0e6abd7d0f..883d406359 100644
 --- a/include/asm-mips/addrspace.h
 +++ b/include/asm-mips/addrspace.h
 @@ -48,7 +48,11 @@
@@ -31,7 +30,7 @@ index b8214b1..69f6675 100644
  #endif	/* CONFIG_AU1X00 */
  #endif	/* __ASSEMBLY__ */
 diff --git a/include/asm-mips/bitops.h b/include/asm-mips/bitops.h
-index 56d7225..8ba888c 100644
+index 56d7225bb7..1dec59e50d 100644
 --- a/include/asm-mips/bitops.h
 +++ b/include/asm-mips/bitops.h
 @@ -6,6 +6,9 @@
@@ -334,7 +333,7 @@ index 56d7225..8ba888c 100644
  
  #endif /* _ASM_BITOPS_H */
 diff --git a/include/asm-mips/io.h b/include/asm-mips/io.h
-index 857fb03..4498dc0 100644
+index e27d1f159d..fc807968eb 100644
 --- a/include/asm-mips/io.h
 +++ b/include/asm-mips/io.h
 @@ -8,6 +8,9 @@
@@ -347,7 +346,7 @@ index 857fb03..4498dc0 100644
  #ifndef _ASM_IO_H
  #define _ASM_IO_H
  
-@@ -104,12 +107,12 @@ extern unsigned long mips_io_port_base;
+@@ -118,12 +121,12 @@ static inline void set_io_port_base(unsigned long base)
   * Change virtual addresses to physical addresses and vv.
   * These are trivial on the 1:1 Linux/MIPS mapping
   */
@@ -362,7 +361,7 @@ index 857fb03..4498dc0 100644
  {
  	return (void *)KSEG0ADDR(address);
  }
-@@ -117,12 +120,12 @@ extern inline void * phys_to_virt(unsigned long address)
+@@ -131,12 +134,12 @@ extern inline void * phys_to_virt(unsigned long address)
  /*
   * IO bus memory addresses are also 1:1 with the physical address
   */
@@ -377,7 +376,7 @@ index 857fb03..4498dc0 100644
  {
  	return (void *)KSEG0ADDR(address);
  }
-@@ -136,12 +139,12 @@ extern unsigned long isa_slot_offset;
+@@ -150,12 +153,12 @@ extern unsigned long isa_slot_offset;
  extern void * __ioremap(unsigned long offset, unsigned long size, unsigned long flags);
  
  #if 0
@@ -392,7 +391,7 @@ index 857fb03..4498dc0 100644
  {
  	return __ioremap(offset, size, _CACHE_UNCACHED);
  }
-@@ -224,7 +227,7 @@ out:
+@@ -238,7 +241,7 @@ out:
   */
  
  #define __OUT1(s) \
@@ -401,7 +400,7 @@ index 857fb03..4498dc0 100644
  
  #define __OUT2(m) \
  __asm__ __volatile__ ("s" #m "\t%0,%1(%2)"
-@@ -238,7 +241,7 @@ __OUT1(s##c_p) __OUT2(m) : : "r" (__ioswab##w(value)), "ir" (port), "r" (mips_io
+@@ -252,7 +255,7 @@ __OUT1(s##c_p) __OUT2(m) : : "r" (__ioswab##w(value)), "ir" (port), "r" (mips_io
  	SLOW_DOWN_IO; }
  
  #define __IN1(t,s) \
@@ -410,7 +409,7 @@ index 857fb03..4498dc0 100644
  
  /*
   * Required nops will be inserted by the assembler
-@@ -253,7 +256,7 @@ __IN1(t,s##_p) __IN2(m) : "=r" (_v) : "i" (0), "r" (mips_io_port_base+port)); SL
+@@ -267,7 +270,7 @@ __IN1(t,s##_p) __IN2(m) : "=r" (_v) : "i" (0), "r" (mips_io_port_base+port)); SL
  __IN1(t,s##c_p) __IN2(m) : "=r" (_v) : "ir" (port), "r" (mips_io_port_base)); SLOW_DOWN_IO; return __ioswab##w(_v); }
  
  #define __INS1(s) \
@@ -419,7 +418,7 @@ index 857fb03..4498dc0 100644
  
  #define __INS2(m) \
  if (count) \
-@@ -281,7 +284,7 @@ __INS1(s##c) __INS2(m) \
+@@ -295,7 +298,7 @@ __INS1(s##c) __INS2(m) \
  	: "$1");}
  
  #define __OUTS1(s) \
@@ -429,7 +428,7 @@ index 857fb03..4498dc0 100644
  #define __OUTS2(m) \
  if (count) \
 diff --git a/include/asm-mips/mipsregs.h b/include/asm-mips/mipsregs.h
-index 0586c53..495dadc 100644
+index 0586c53d3b..495dadcffc 100644
 --- a/include/asm-mips/mipsregs.h
 +++ b/include/asm-mips/mipsregs.h
 @@ -10,6 +10,9 @@
@@ -470,7 +469,7 @@ index 0586c53..495dadc 100644
  {                                                               \
  	unsigned int res;                                       \
 diff --git a/include/asm-mips/processor.h b/include/asm-mips/processor.h
-index 6838aee..6ad71f7 100644
+index 6838aee98c..6ad71f749e 100644
 --- a/include/asm-mips/processor.h
 +++ b/include/asm-mips/processor.h
 @@ -8,6 +8,9 @@
@@ -493,7 +492,7 @@ index 6838aee..6ad71f7 100644
  	extern void ret_from_fork(void);
  
 diff --git a/include/asm-mips/system.h b/include/asm-mips/system.h
-index b6d50e2..4992cbc 100644
+index b6d50e2f04..4992cbc5af 100644
 --- a/include/asm-mips/system.h
 +++ b/include/asm-mips/system.h
 @@ -13,6 +13,9 @@
@@ -534,5 +533,5 @@ index b6d50e2..4992cbc 100644
  #ifdef CONFIG_CPU_HAS_LLSC
  	unsigned long dummy;
 -- 
-2.17.1
+2.24.0
 

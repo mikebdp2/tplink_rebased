@@ -1,14 +1,14 @@
-From a9717e76fc1871ae3ddc0ac3b6f6ff7ce032fe9f Mon Sep 17 00:00:00 2001
+From 84735fa06111afcacf0aae69272ed43208d46807 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 18:00:32 +0000
+Date: Tue, 10 Dec 2019 17:12:03 +0000
 Subject: [PATCH] Modify ./net/ files according to WR841N(D)v9 u-boot
 
 ---
- net/Makefile |   4 ++
+ net/Makefile |   7 +++
  net/eth.c    |  15 +++++++
  net/net.c    | 117 +++++++++++++++++++++++++++++++++++++++++++++++++--
  net/tftp.c   |  23 +++++++++-
- 4 files changed, 153 insertions(+), 6 deletions(-)
+ 4 files changed, 156 insertions(+), 6 deletions(-)
 
 diff --git a/net/Makefile b/net/Makefile
 index 0eee330cfe..cc715f6659 100644
@@ -36,10 +36,10 @@ index 0eee330cfe..cc715f6659 100644
  COBJS	:= $(COBJS-y)
  SRCS	:= $(COBJS:.o=.c)
 diff --git a/net/eth.c b/net/eth.c
-index e8ac251..36d9376 100644
+index 16a6dcbd8c..39edba0d30 100644
 --- a/net/eth.c
 +++ b/net/eth.c
-@@ -251,6 +251,17 @@ int eth_initialize(bd_t *bis)
+@@ -287,6 +287,17 @@ int eth_initialize(bd_t *bis)
  #if defined(CONFIG_AT91CAP9)
  	at91cap9_eth_initialize(bis);
  #endif
@@ -57,7 +57,7 @@ index e8ac251..36d9376 100644
  
  	if (!eth_devices) {
  		puts ("No ethernet found.\n");
-@@ -278,6 +289,7 @@ int eth_initialize(bd_t *bis)
+@@ -316,6 +327,7 @@ int eth_initialize(bd_t *bis)
  					tmp = (*end) ? end+1 : end;
  			}
  
@@ -65,7 +65,7 @@ index e8ac251..36d9376 100644
  			if (memcmp(env_enetaddr, "\0\0\0\0\0\0", 6)) {
  				if (memcmp(dev->enetaddr, "\0\0\0\0\0\0", 6) &&
  				    memcmp(dev->enetaddr, env_enetaddr, 6))
-@@ -298,6 +310,7 @@ int eth_initialize(bd_t *bis)
+@@ -336,6 +348,7 @@ int eth_initialize(bd_t *bis)
  
  				memcpy(dev->enetaddr, env_enetaddr, 6);
  			}
@@ -73,7 +73,7 @@ index e8ac251..36d9376 100644
  
  			eth_number++;
  			dev = dev->next;
-@@ -363,7 +376,9 @@ int eth_init(bd_t *bis)
+@@ -448,7 +461,9 @@ int eth_init(bd_t *bis)
  
  	old_current = eth_current;
  	do {
@@ -84,10 +84,10 @@ index e8ac251..36d9376 100644
  		if (eth_current->init(eth_current,bis) >= 0) {
  			eth_current->state = ETH_STATE_ACTIVE;
 diff --git a/net/net.c b/net/net.c
-index 1d1c98f..61f841a 100644
+index 44feee2290..67c2044374 100644
 --- a/net/net.c
 +++ b/net/net.c
-@@ -156,6 +156,12 @@ IPaddr_t	NetPingIP;		/* the ip address to ping 		*/
+@@ -163,6 +163,12 @@ IPaddr_t	NetPingIP;		/* the ip address to ping 		*/
  static void PingStart(void);
  #endif
  
@@ -100,7 +100,7 @@ index 1d1c98f..61f841a 100644
  #if defined(CONFIG_CMD_CDP)
  static void CDPStart(void);
  #endif
-@@ -269,6 +275,11 @@ int
+@@ -276,6 +282,11 @@ int
  NetLoop(proto_t protocol)
  {
  	bd_t *bd = gd->bd;
@@ -112,7 +112,7 @@ index 1d1c98f..61f841a 100644
  
  #ifdef CONFIG_NET_MULTI
  	NetRestarted = 0;
-@@ -300,15 +311,44 @@ NetLoop(proto_t protocol)
+@@ -307,15 +318,44 @@ NetLoop(proto_t protocol)
  		NetArpWaitTxPacket -= (ulong)NetArpWaitTxPacket % PKTALIGN;
  		NetArpWaitTxPacketSize = 0;
  	}
@@ -158,7 +158,7 @@ index 1d1c98f..61f841a 100644
  
  restart:
  #ifdef CONFIG_NET_MULTI
-@@ -380,9 +420,22 @@ restart:
+@@ -387,9 +427,22 @@ restart:
  		NetOurVLAN = getenv_VLAN("vlan");	/* VLANs must be read */
  		NetOurNativeVLAN = getenv_VLAN("nvlan");
  		break;
@@ -181,7 +181,7 @@ index 1d1c98f..61f841a 100644
  
  	switch (net_check_prereq (protocol)) {
  	case 1:
-@@ -415,7 +468,7 @@ restart:
+@@ -422,7 +475,7 @@ restart:
  			DhcpRequest();		/* Basically same as BOOTP */
  			break;
  #endif
@@ -190,7 +190,7 @@ index 1d1c98f..61f841a 100644
  		case BOOTP:
  			BootpTry = 0;
  			BootpRequest ();
-@@ -425,6 +478,7 @@ restart:
+@@ -432,6 +485,7 @@ restart:
  			RarpTry = 0;
  			RarpRequest ();
  			break;
@@ -198,7 +198,7 @@ index 1d1c98f..61f841a 100644
  #if defined(CONFIG_CMD_PING)
  		case PING:
  			PingStart();
-@@ -475,6 +529,7 @@ restart:
+@@ -482,6 +536,7 @@ restart:
  	 *	Main packet reception loop.  Loop receiving packets until
  	 *	someone sets `NetState' to a state that terminates.
  	 */
@@ -206,7 +206,7 @@ index 1d1c98f..61f841a 100644
  	for (;;) {
  		WATCHDOG_RESET();
  #ifdef CONFIG_SHOW_ACTIVITY
-@@ -497,8 +552,13 @@ restart:
+@@ -504,8 +559,13 @@ restart:
  			puts ("\nAbort\n");
  			return (-1);
  		}
@@ -221,7 +221,7 @@ index 1d1c98f..61f841a 100644
  
  		/*
  		 *	Check for a timeout, and run the timeout handler
-@@ -507,6 +567,7 @@ restart:
+@@ -514,6 +574,7 @@ restart:
  		if (timeHandler && ((get_timer(0) - timeStart) > timeDelta)) {
  			thand_f *x;
  
@@ -229,7 +229,7 @@ index 1d1c98f..61f841a 100644
  #if defined(CONFIG_MII) || defined(CONFIG_CMD_MII)
  #  if defined(CFG_FAULT_ECHO_LINK_DOWN) && \
        defined(CONFIG_STATUS_LED) &&	   \
-@@ -521,6 +582,7 @@ restart:
+@@ -528,6 +589,7 @@ restart:
  			}
  #  endif /* CFG_FAULT_ECHO_LINK_DOWN, ... */
  #endif /* CONFIG_MII, ... */
@@ -237,7 +237,7 @@ index 1d1c98f..61f841a 100644
  			x = timeHandler;
  			timeHandler = (thand_f *)0;
  			(*x)();
-@@ -536,6 +598,12 @@ restart:
+@@ -543,6 +605,12 @@ restart:
  			goto restart;
  
  		case NETLOOP_SUCCESS:
@@ -250,7 +250,7 @@ index 1d1c98f..61f841a 100644
  			if (NetBootFileXferSize > 0) {
  				char buf[20];
  				printf("Bytes transferred = %ld (%lx hex)\n",
-@@ -572,6 +640,16 @@ startAgainHandler(uchar * pkt, unsigned dest, unsigned src, unsigned len)
+@@ -579,6 +647,16 @@ startAgainHandler(uchar * pkt, unsigned dest, unsigned src, unsigned len)
  
  void NetStartAgain (void)
  {
@@ -267,7 +267,7 @@ index 1d1c98f..61f841a 100644
  	char *nretry;
  	int noretry = 0, once = 0;
  
-@@ -770,7 +848,14 @@ static void PingStart(void)
+@@ -779,7 +857,14 @@ static void PingStart(void)
  #if defined(CONFIG_NET_MULTI)
  	printf ("Using %s device\n", eth_get_name());
  #endif	/* CONFIG_NET_MULTI */
@@ -283,7 +283,7 @@ index 1d1c98f..61f841a 100644
  	NetSetHandler (PingHandler);
  
  	PingSend();
-@@ -1140,6 +1225,11 @@ NetReceive(volatile uchar * inpkt, int len)
+@@ -1149,6 +1234,11 @@ NetReceive(volatile uchar * inpkt, int len)
  	IPaddr_t tmp;
  	int	x;
  	uchar *pkt;
@@ -295,7 +295,7 @@ index 1d1c98f..61f841a 100644
  #if defined(CONFIG_CMD_CDP)
  	int iscdp;
  #endif
-@@ -1149,6 +1239,25 @@ NetReceive(volatile uchar * inpkt, int len)
+@@ -1158,6 +1248,25 @@ NetReceive(volatile uchar * inpkt, int len)
  	printf("packet received\n");
  #endif
  
@@ -322,7 +322,7 @@ index 1d1c98f..61f841a 100644
  	NetRxPktLen = len;
  	et = (Ethernet_t *)inpkt;
 diff --git a/net/tftp.c b/net/tftp.c
-index f3a5471..e4f239c 100644
+index ea8fea2f7e..b5c6b788ee 100644
 --- a/net/tftp.c
 +++ b/net/tftp.c
 @@ -15,9 +15,9 @@
@@ -337,7 +337,7 @@ index f3a5471..e4f239c 100644
  #else
  # define TIMEOUT_COUNT  (CONFIG_NET_RETRY_COUNT * 2)
  #endif
-@@ -267,6 +267,10 @@ TftpHandler (uchar * pkt, unsigned dest, unsigned src, unsigned len)
+@@ -369,6 +369,10 @@ TftpHandler (uchar * pkt, unsigned dest, unsigned src, unsigned len)
  
  		TftpLastBlock = TftpBlock;
  		NetSetTimeout (TIMEOUT * CFG_HZ, TftpTimeout);
@@ -348,7 +348,7 @@ index f3a5471..e4f239c 100644
  
  		store_block (TftpBlock - 1, pkt + 2, len);
  
-@@ -295,15 +299,30 @@ TftpHandler (uchar * pkt, unsigned dest, unsigned src, unsigned len)
+@@ -435,6 +439,13 @@ TftpHandler (uchar * pkt, unsigned dest, unsigned src, unsigned len)
  	}
  }
  
@@ -362,9 +362,7 @@ index f3a5471..e4f239c 100644
  
  static void
  TftpTimeout (void)
- {
- 	if (++TftpTimeoutCount > TIMEOUT_COUNT) {
- 		puts ("\nRetry count exceeded; starting again\n");
+@@ -444,6 +455,14 @@ TftpTimeout (void)
  #ifdef CONFIG_MCAST_TFTP
  		mcast_cleanup();
  #endif
@@ -380,5 +378,5 @@ index f3a5471..e4f239c 100644
  	} else {
  		puts ("T ");
 -- 
-2.17.1
+2.24.0
 

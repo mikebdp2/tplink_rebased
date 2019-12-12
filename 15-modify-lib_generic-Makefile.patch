@@ -1,6 +1,6 @@
-From 48e68056c4f770936f3fda249755e0563508f7e8 Mon Sep 17 00:00:00 2001
+From 3d0bdc4367a589d5487fd073e4e8f07ad0d33667 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:58:55 +0000
+Date: Tue, 10 Dec 2019 17:07:47 +0000
 Subject: [PATCH] Modify ./lib_generic/Makefile according to WR841N(D)v9 u-boot
 
 ---
@@ -41,5 +41,5 @@ index 9713353ddf..506d6927f2 100644
  COBJS	:= $(COBJS-y)
  SRCS 	:= $(COBJS:.o=.c)
 -- 
-2.17.1
+2.24.0
 

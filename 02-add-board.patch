@@ -1,6 +1,6 @@
-From 0f3859f69580fde11385fb39eb118c220d4ff8bc Mon Sep 17 00:00:00 2001
+From bfc1a27dcc9228e4252249b994a0087d9ed393ab Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:40:25 +0000
+Date: Tue, 10 Dec 2019 16:46:44 +0000
 Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
 
 ---
@@ -16,38 +16,38 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/ar7100/ap83/u-boot.lds                  |   42 +
  board/ar7100/ap94/Makefile                    |   18 +
  board/ar7100/ap94/ap94.c                      |  106 ++
- board/ar7100/ap94/ap94_pci.c                  |  432 +++++
+ board/ar7100/ap94/ap94_pci.c                  |  430 +++++
  board/ar7100/ap94/athrs26_phy.c               |  745 ++++++++
- board/ar7100/ap94/athrs26_phy.h               |  116 ++
+ board/ar7100/ap94/athrs26_phy.h               |  115 ++
  board/ar7100/ap94/config.mk                   |    5 +
- board/ar7100/ap94/lowlevel_init.S             |  217 +++
+ board/ar7100/ap94/lowlevel_init.S             |  218 +++
  board/ar7100/ap94/u-boot.lds                  |   42 +
  board/ar7100/ap96/Makefile                    |   19 +
  board/ar7100/ap96/ap96.c                      |  201 +++
  board/ar7100/ap96/config.mk                   |    5 +
  board/ar7100/ap96/u-boot.lds                  |   40 +
- board/ar7100/common/ar7100_flash.c            |  183 ++
+ board/ar7100/common/ar7100_flash.c            |  181 ++
  board/ar7100/common/ar7100_flash.h            |   62 +
  board/ar7100/common/ar9100_pflash.c           |  325 ++++
- board/ar7100/common/athr_phy.h                |   81 +
+ board/ar7100/common/athr_phy.h                |   80 +
  board/ar7100/common/athrf1_phy.c              |  196 ++
- board/ar7100/common/athrs16_phy.c             |  681 +++++++
- board/ar7100/common/athrs16_phy.h             |  105 ++
- board/ar7100/common/athrs26_phy.c             |  828 +++++++++
- board/ar7100/common/athrs26_phy.h             |  134 ++
+ board/ar7100/common/athrs16_phy.c             |  680 +++++++
+ board/ar7100/common/athrs16_phy.h             |  103 ++
+ board/ar7100/common/athrs26_phy.c             |  827 +++++++++
+ board/ar7100/common/athrs26_phy.h             |  133 ++
  .../g5_Plus1_2_29a_unmanaged_Atheros_v5.c     |  511 ++++++
  .../g5_Plus1_2_29b_unmanaged_Atheros_v5.c     |  511 ++++++
  .../g5_Plus1_2_31_unmanaged_Atheros_v3.c      |  521 ++++++
  .../g5_Plus1_2_31_unmanaged_Atheros_v4.c      |  509 ++++++
  .../g5e_Plus1_2_29a_unmanaged_Atheros_v3.c    |  513 ++++++
- board/ar7100/common/generic_i2c.c             |  461 +++++
+ board/ar7100/common/generic_i2c.c             |  460 +++++
  board/ar7100/common/generic_i2c.h             |   84 +
  board/ar7100/common/generic_spi.c             |  355 ++++
  board/ar7100/common/generic_spi.h             |   48 +
  board/ar7100/common/ipPhy.c                   |  843 +++++++++
  board/ar7100/common/ipPhy.h                   |  172 ++
- board/ar7100/common/lowlevel_init.S           |  246 +++
- board/ar7100/common/lowlevel_init_ar9100.S    |  149 ++
+ board/ar7100/common/lowlevel_init.S           |  247 +++
+ board/ar7100/common/lowlevel_init_ar9100.S    |  150 ++
  board/ar7100/common/phy.h                     |   28 +
  board/ar7100/common/vsc73xx.c                 | 1208 +++++++++++++
  board/ar7100/common/vsc73xx.h                 |  168 ++
@@ -59,18 +59,18 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/ar7100/pb42/flash.c                     |   28 +
  board/ar7100/pb42/pb42.c                      |   72 +
  board/ar7100/pb42/u-boot.lds                  |   42 +
- board/ar7100/pb44/Makefile                    |   14 +
+ board/ar7100/pb44/Makefile                    |   13 +
  board/ar7100/pb44/config.mk                   |   10 +
- board/ar7100/pb44/lowlevel_init.S             |  427 +++++
- board/ar7100/pb44/pb44.c                      |  234 +++
- board/ar7100/pb44/pb44_pci.c                  |  374 ++++
+ board/ar7100/pb44/lowlevel_init.S             |  428 +++++
+ board/ar7100/pb44/pb44.c                      |  233 +++
+ board/ar7100/pb44/pb44_pci.c                  |  372 ++++
  board/ar7100/pb44/u-boot-bootstrap.lds        |   61 +
  board/ar7100/pb44/u-boot.lds                  |   40 +
  board/ar7100/pb47/Makefile                    |   13 +
  board/ar7100/pb47/config.mk                   |    5 +
- board/ar7100/pb47/lowlevel_init.S             |  427 +++++
- board/ar7100/pb47/pb47.c                      |  221 +++
- board/ar7100/pb47/pb47_pci.c                  |  368 ++++
+ board/ar7100/pb47/lowlevel_init.S             |  428 +++++
+ board/ar7100/pb47/pb47.c                      |  220 +++
+ board/ar7100/pb47/pb47_pci.c                  |  366 ++++
  board/ar7100/pb47/u-boot.lds                  |   40 +
  board/ar7100/tb225/Makefile                   |   18 +
  board/ar7100/tb225/config.mk                  |    5 +
@@ -116,7 +116,7 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/ar7240/ap121/ap121.c                    |  142 ++
  board/ar7240/ap121/config.mk                  |   10 +
  board/ar7240/ap121/flash.c                    |   28 +
- board/ar7240/ap121/hornet_pll_init.S          |  375 ++++
+ board/ar7240/ap121/hornet_pll_init.S          |  377 ++++
  board/ar7240/ap121/u-boot-bootstrap.lds       |   62 +
  board/ar7240/ap121/u-boot.lds                 |   42 +
  board/ar7240/ap123/Makefile                   |   68 +
@@ -127,7 +127,7 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/ar7240/ap123/u-boot.lds                 |   42 +
  board/ar7240/ap91-2MB/Makefile                |   18 +
  board/ar7240/ap91-2MB/ap91-2MB.c              |   75 +
- board/ar7240/ap91-2MB/ar9285gpio.c            |  141 ++
+ board/ar7240/ap91-2MB/ar9285gpio.c            |  140 ++
  board/ar7240/ap91-2MB/config.mk               |   10 +
  board/ar7240/ap91-2MB/flash.c                 |   28 +
  board/ar7240/ap91-2MB/u-boot-bootstrap.lds    |   62 +
@@ -169,7 +169,7 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/ar7240/ap98/u-boot.lds                  |   42 +
  board/ar7240/ap99-2.6.31/Makefile             |   18 +
  board/ar7240/ap99-2.6.31/ap99-2.6.31.c        |   73 +
- board/ar7240/ap99-2.6.31/config.mk            |   11 +
+ board/ar7240/ap99-2.6.31/config.mk            |   10 +
  board/ar7240/ap99-2.6.31/flash.c              |   35 +
  board/ar7240/ap99-2.6.31/u-boot-bootstrap.lds |   62 +
  board/ar7240/ap99-2.6.31/u-boot.lds           |   42 +
@@ -217,22 +217,22 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/ar7240/common/ar7240_flash.c            |  249 +++
  board/ar7240/common/ar7240_flash.h            |   64 +
  board/ar7240/common/ar7240_pci.c              |  584 ++++++
- board/ar7240/common/ar7240_s26_phy.c          |  916 ++++++++++
- board/ar7240/common/ar7240_s26_phy.h          |  121 ++
+ board/ar7240/common/ar7240_s26_phy.c          |  915 ++++++++++
+ board/ar7240/common/ar7240_s26_phy.h          |  119 ++
  board/ar7240/common/ath_nand.c                | 1597 +++++++++++++++++
- board/ar7240/common/athr_s27_phy.c            |  878 +++++++++
+ board/ar7240/common/athr_s27_phy.c            |  877 +++++++++
  board/ar7240/common/athr_s27_phy.h            |  208 +++
- board/ar7240/common/athrs16_phy.c             |  687 +++++++
- board/ar7240/common/athrs16_phy.h             |  143 ++
- board/ar7240/common/athrs17_phy.c             |  628 +++++++
- board/ar7240/common/athrs17_phy.h             |  109 ++
- board/ar7240/common/athrs_vir_phy.c           |  123 ++
- board/ar7240/common/athrsf1_phy.c             |  434 +++++
+ board/ar7240/common/athrs16_phy.c             |  684 +++++++
+ board/ar7240/common/athrs16_phy.h             |  141 ++
+ board/ar7240/common/athrs17_phy.c             |  625 +++++++
+ board/ar7240/common/athrs17_phy.h             |  107 ++
+ board/ar7240/common/athrs_vir_phy.c           |  122 ++
+ board/ar7240/common/athrsf1_phy.c             |  433 +++++
  board/ar7240/common/athrsf1_phy.h             |   26 +
  board/ar7240/common/athrsf2_phy.c             |  377 ++++
- board/ar7240/common/lowlevel_init.S           |  212 +++
- board/ar7240/common/lowlevel_init_934x-1.1.S  |  405 +++++
- board/ar7240/common/lowlevel_init_934x.S      |  180 ++
+ board/ar7240/common/lowlevel_init.S           |  213 +++
+ board/ar7240/common/lowlevel_init_934x-1.1.S  |  406 +++++
+ board/ar7240/common/lowlevel_init_934x.S      |  182 ++
  board/ar7240/common/phy.h                     |   19 +
  board/ar7240/cus136/Makefile                  |   18 +
  board/ar7240/cus136/config.mk                 |    5 +
@@ -346,21 +346,21 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/atheros/board955x/flash.c               |   32 +
  board/atheros/board955x/u-boot-bootstrap.lds  |   61 +
  board/atheros/board955x/u-boot.lds            |   42 +
- board/atheros/common/953x.S                   |  151 ++
- board/atheros/common/955x.S                   |  153 ++
- board/atheros/common/ath_flash.c              |  323 ++++
+ board/atheros/common/953x.S                   |  153 ++
+ board/atheros/common/955x.S                   |  155 ++
+ board/atheros/common/ath_flash.c              |  322 ++++
  board/atheros/common/ath_flash.h              |   53 +
  board/atheros/common/ath_nand.c               | 1593 ++++++++++++++++
  board/atheros/common/ath_pci.c                |  421 +++++
- board/atheros/common/athr_ar8033_phy.c        |  156 ++
- board/atheros/common/athr_s27_phy.c           |  878 +++++++++
+ board/atheros/common/athr_ar8033_phy.c        |  155 ++
+ board/atheros/common/athr_s27_phy.c           |  877 +++++++++
  board/atheros/common/athr_s27_phy.h           |  208 +++
  board/atheros/common/athrs17_lpbk.c           |  290 +++
  board/atheros/common/athrs17_phy.c            |  713 ++++++++
- board/atheros/common/athrs17_phy.h            |  555 ++++++
+ board/atheros/common/athrs17_phy.h            |  553 ++++++
  board/atheros/common/athrs_ar8033_phy.h       |   87 +
- board/atheros/common/athrs_vir_phy.c          |  123 ++
- board/atheros/common/athrsf1_phy.c            |  434 +++++
+ board/atheros/common/athrs_vir_phy.c          |  122 ++
+ board/atheros/common/athrsf1_phy.c            |  433 +++++
  board/atheros/common/athrsf1_phy.h            |   26 +
  board/atheros/common/init-953x.c              |  381 ++++
  board/atheros/common/init-955x.c              |  458 +++++
@@ -373,8 +373,8 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/atheros/common/qca-eth-955x_phy.h       |  102 ++
  board/atheros/common/rgmii-cal-955x.c         |  600 +++++++
  board/atheros/common/serial.c                 |   88 +
- board/atheros/common/tap-953x.S               |  182 ++
- board/atheros/common/tap-955x.S               |  184 ++
+ board/atheros/common/tap-953x.S               |  183 ++
+ board/atheros/common/tap-955x.S               |  185 ++
  board/atheros/scoemu/Makefile                 |   73 +
  board/atheros/scoemu/config.mk                |   19 +
  board/atheros/scoemu/flash.c                  |   32 +
@@ -385,7 +385,7 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
  board/atheros/tb6xx/flash.c                   |   32 +
  board/atheros/tb6xx/tb6xx.c                   |  126 ++
  board/atheros/tb6xx/u-boot.lds                |   42 +
- 381 files changed, 46576 insertions(+)
+ 381 files changed, 46549 insertions(+)
  create mode 100644 board/ar7100/ap81/Makefile
  create mode 100644 board/ar7100/ap81/ap81.c
  create mode 100755 board/ar7100/ap81/config.mk
@@ -770,7 +770,7 @@ Subject: [PATCH] Add ./board/* Atheros files from WR841N(D)v9 u-boot
 
 diff --git a/board/ar7100/ap81/Makefile b/board/ar7100/ap81/Makefile
 new file mode 100644
-index 0000000..9057cbd
+index 0000000000..9057cbd772
 --- /dev/null
 +++ b/board/ar7100/ap81/Makefile
 @@ -0,0 +1,23 @@
@@ -799,7 +799,7 @@ index 0000000..9057cbd
 +#########################################################################
 diff --git a/board/ar7100/ap81/ap81.c b/board/ar7100/ap81/ap81.c
 new file mode 100644
-index 0000000..8b0ac71
+index 0000000000..8b0ac718f5
 --- /dev/null
 +++ b/board/ar7100/ap81/ap81.c
 @@ -0,0 +1,150 @@
@@ -955,7 +955,7 @@ index 0000000..8b0ac71
 +}
 diff --git a/board/ar7100/ap81/config.mk b/board/ar7100/ap81/config.mk
 new file mode 100755
-index 0000000..3c41057
+index 0000000000..3c410579c0
 --- /dev/null
 +++ b/board/ar7100/ap81/config.mk
 @@ -0,0 +1,5 @@
@@ -966,7 +966,7 @@ index 0000000..3c41057
 +#TEXT_BASE = 0xa1000000
 diff --git a/board/ar7100/ap81/flash.c b/board/ar7100/ap81/flash.c
 new file mode 100644
-index 0000000..c2d244f
+index 0000000000..511ee49298
 --- /dev/null
 +++ b/board/ar7100/ap81/flash.c
 @@ -0,0 +1,29 @@
@@ -1001,7 +1001,7 @@ index 0000000..c2d244f
 +}
 diff --git a/board/ar7100/ap81/u-boot.lds b/board/ar7100/ap81/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7100/ap81/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -1049,7 +1049,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7100/ap83/Makefile b/board/ar7100/ap83/Makefile
 new file mode 100644
-index 0000000..0c84329
+index 0000000000..0c8432990b
 --- /dev/null
 +++ b/board/ar7100/ap83/Makefile
 @@ -0,0 +1,23 @@
@@ -1078,7 +1078,7 @@ index 0000000..0c84329
 +#########################################################################
 diff --git a/board/ar7100/ap83/ap83.c b/board/ar7100/ap83/ap83.c
 new file mode 100644
-index 0000000..79a93ee
+index 0000000000..79a93eeb61
 --- /dev/null
 +++ b/board/ar7100/ap83/ap83.c
 @@ -0,0 +1,153 @@
@@ -1237,7 +1237,7 @@ index 0000000..79a93ee
 +}
 diff --git a/board/ar7100/ap83/config.mk b/board/ar7100/ap83/config.mk
 new file mode 100644
-index 0000000..36591cc
+index 0000000000..36591ccd48
 --- /dev/null
 +++ b/board/ar7100/ap83/config.mk
 @@ -0,0 +1,6 @@
@@ -1249,7 +1249,7 @@ index 0000000..36591cc
 +#TEXT_BASE = 0xa1000000
 diff --git a/board/ar7100/ap83/flash.c b/board/ar7100/ap83/flash.c
 new file mode 100644
-index 0000000..c2d244f
+index 0000000000..511ee49298
 --- /dev/null
 +++ b/board/ar7100/ap83/flash.c
 @@ -0,0 +1,29 @@
@@ -1284,7 +1284,7 @@ index 0000000..c2d244f
 +}
 diff --git a/board/ar7100/ap83/u-boot.lds b/board/ar7100/ap83/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7100/ap83/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -1332,7 +1332,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7100/ap94/Makefile b/board/ar7100/ap94/Makefile
 new file mode 100644
-index 0000000..5acded7
+index 0000000000..a1a3e4472e
 --- /dev/null
 +++ b/board/ar7100/ap94/Makefile
 @@ -0,0 +1,18 @@
@@ -1356,7 +1356,7 @@ index 0000000..5acded7
 +#########################################################################
 diff --git a/board/ar7100/ap94/ap94.c b/board/ar7100/ap94/ap94.c
 new file mode 100644
-index 0000000..2f88824
+index 0000000000..c9e1001f80
 --- /dev/null
 +++ b/board/ar7100/ap94/ap94.c
 @@ -0,0 +1,106 @@
@@ -1468,7 +1468,7 @@ index 0000000..2f88824
 +}
 diff --git a/board/ar7100/ap94/ap94_pci.c b/board/ar7100/ap94/ap94_pci.c
 new file mode 100644
-index 0000000..b7fcee2
+index 0000000000..4e9a10853d
 --- /dev/null
 +++ b/board/ar7100/ap94/ap94_pci.c
 @@ -0,0 +1,430 @@
@@ -1904,7 +1904,7 @@ index 0000000..b7fcee2
 +}
 diff --git a/board/ar7100/ap94/athrs26_phy.c b/board/ar7100/ap94/athrs26_phy.c
 new file mode 100644
-index 0000000..9b57dc5
+index 0000000000..edba6bdccf
 --- /dev/null
 +++ b/board/ar7100/ap94/athrs26_phy.c
 @@ -0,0 +1,745 @@
@@ -2655,7 +2655,7 @@ index 0000000..9b57dc5
 +}
 diff --git a/board/ar7100/ap94/athrs26_phy.h b/board/ar7100/ap94/athrs26_phy.h
 new file mode 100644
-index 0000000..18cb02a
+index 0000000000..8b6777533d
 --- /dev/null
 +++ b/board/ar7100/ap94/athrs26_phy.h
 @@ -0,0 +1,115 @@
@@ -2776,7 +2776,7 @@ index 0000000..18cb02a
 +#endif /* _ATHRS26_PHY_H */
 diff --git a/board/ar7100/ap94/config.mk b/board/ar7100/ap94/config.mk
 new file mode 100755
-index 0000000..4a032b7
+index 0000000000..4a032b7f0c
 --- /dev/null
 +++ b/board/ar7100/ap94/config.mk
 @@ -0,0 +1,5 @@
@@ -2787,7 +2787,7 @@ index 0000000..4a032b7
 +#TEXT_BASE = 0xa0010000
 diff --git a/board/ar7100/ap94/lowlevel_init.S b/board/ar7100/ap94/lowlevel_init.S
 new file mode 100755
-index 0000000..856312a
+index 0000000000..4a33cf96e5
 --- /dev/null
 +++ b/board/ar7100/ap94/lowlevel_init.S
 @@ -0,0 +1,218 @@
@@ -3011,7 +3011,7 @@ index 0000000..856312a
 + /* end of file */
 diff --git a/board/ar7100/ap94/u-boot.lds b/board/ar7100/ap94/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7100/ap94/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -3059,7 +3059,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7100/ap96/Makefile b/board/ar7100/ap96/Makefile
 new file mode 100644
-index 0000000..1149098
+index 0000000000..62ad424c42
 --- /dev/null
 +++ b/board/ar7100/ap96/Makefile
 @@ -0,0 +1,19 @@
@@ -3084,7 +3084,7 @@ index 0000000..1149098
 +#########################################################################
 diff --git a/board/ar7100/ap96/ap96.c b/board/ar7100/ap96/ap96.c
 new file mode 100644
-index 0000000..ac19dda
+index 0000000000..dbaac95185
 --- /dev/null
 +++ b/board/ar7100/ap96/ap96.c
 @@ -0,0 +1,201 @@
@@ -3291,7 +3291,7 @@ index 0000000..ac19dda
 +#endif
 diff --git a/board/ar7100/ap96/config.mk b/board/ar7100/ap96/config.mk
 new file mode 100644
-index 0000000..4a032b7
+index 0000000000..4a032b7f0c
 --- /dev/null
 +++ b/board/ar7100/ap96/config.mk
 @@ -0,0 +1,5 @@
@@ -3302,7 +3302,7 @@ index 0000000..4a032b7
 +#TEXT_BASE = 0xa0010000
 diff --git a/board/ar7100/ap96/u-boot.lds b/board/ar7100/ap96/u-boot.lds
 new file mode 100755
-index 0000000..9ac25be
+index 0000000000..9ac25bead9
 --- /dev/null
 +++ b/board/ar7100/ap96/u-boot.lds
 @@ -0,0 +1,40 @@
@@ -3348,7 +3348,7 @@ index 0000000..9ac25be
 +}
 diff --git a/board/ar7100/common/ar7100_flash.c b/board/ar7100/common/ar7100_flash.c
 new file mode 100644
-index 0000000..77efd99
+index 0000000000..6aa770c1ea
 --- /dev/null
 +++ b/board/ar7100/common/ar7100_flash.c
 @@ -0,0 +1,181 @@
@@ -3535,7 +3535,7 @@ index 0000000..77efd99
 +}
 diff --git a/board/ar7100/common/ar7100_flash.h b/board/ar7100/common/ar7100_flash.h
 new file mode 100644
-index 0000000..d6a810f
+index 0000000000..d6a810fa24
 --- /dev/null
 +++ b/board/ar7100/common/ar7100_flash.h
 @@ -0,0 +1,62 @@
@@ -3603,7 +3603,7 @@ index 0000000..d6a810f
 +#endif /*_FLASH_H*/
 diff --git a/board/ar7100/common/ar9100_pflash.c b/board/ar7100/common/ar9100_pflash.c
 new file mode 100644
-index 0000000..1b87cd3
+index 0000000000..9d1708b08b
 --- /dev/null
 +++ b/board/ar7100/common/ar9100_pflash.c
 @@ -0,0 +1,325 @@
@@ -3934,7 +3934,7 @@ index 0000000..1b87cd3
 +}
 diff --git a/board/ar7100/common/athr_phy.h b/board/ar7100/common/athr_phy.h
 new file mode 100644
-index 0000000..6fe9c4d
+index 0000000000..87825fa52e
 --- /dev/null
 +++ b/board/ar7100/common/athr_phy.h
 @@ -0,0 +1,80 @@
@@ -4020,7 +4020,7 @@ index 0000000..6fe9c4d
 +#endif /* _ATHR_PHY_H */
 diff --git a/board/ar7100/common/athrf1_phy.c b/board/ar7100/common/athrf1_phy.c
 new file mode 100644
-index 0000000..b64f69f
+index 0000000000..31b43673b7
 --- /dev/null
 +++ b/board/ar7100/common/athrf1_phy.c
 @@ -0,0 +1,196 @@
@@ -4222,7 +4222,7 @@ index 0000000..b64f69f
 +}
 diff --git a/board/ar7100/common/athrs16_phy.c b/board/ar7100/common/athrs16_phy.c
 new file mode 100644
-index 0000000..8331d31
+index 0000000000..ffc28669cf
 --- /dev/null
 +++ b/board/ar7100/common/athrs16_phy.c
 @@ -0,0 +1,680 @@
@@ -4908,7 +4908,7 @@ index 0000000..8331d31
 +}
 diff --git a/board/ar7100/common/athrs16_phy.h b/board/ar7100/common/athrs16_phy.h
 new file mode 100644
-index 0000000..652b9ba
+index 0000000000..b4bf5be25c
 --- /dev/null
 +++ b/board/ar7100/common/athrs16_phy.h
 @@ -0,0 +1,103 @@
@@ -5017,7 +5017,7 @@ index 0000000..652b9ba
 +#endif
 diff --git a/board/ar7100/common/athrs26_phy.c b/board/ar7100/common/athrs26_phy.c
 new file mode 100644
-index 0000000..62ed60b
+index 0000000000..043dc61431
 --- /dev/null
 +++ b/board/ar7100/common/athrs26_phy.c
 @@ -0,0 +1,827 @@
@@ -5850,7 +5850,7 @@ index 0000000..62ed60b
 +}
 diff --git a/board/ar7100/common/athrs26_phy.h b/board/ar7100/common/athrs26_phy.h
 new file mode 100644
-index 0000000..0fdde37
+index 0000000000..e815678b16
 --- /dev/null
 +++ b/board/ar7100/common/athrs26_phy.h
 @@ -0,0 +1,133 @@
@@ -5989,7 +5989,7 @@ index 0000000..0fdde37
 +#endif /* _ATHRS26_PHY_H */
 diff --git a/board/ar7100/common/g5_Plus1_2_29a_unmanaged_Atheros_v5.c b/board/ar7100/common/g5_Plus1_2_29a_unmanaged_Atheros_v5.c
 new file mode 100644
-index 0000000..1aea750
+index 0000000000..1aea750379
 --- /dev/null
 +++ b/board/ar7100/common/g5_Plus1_2_29a_unmanaged_Atheros_v5.c
 @@ -0,0 +1,511 @@
@@ -6506,7 +6506,7 @@ index 0000000..1aea750
 +};
 diff --git a/board/ar7100/common/g5_Plus1_2_29b_unmanaged_Atheros_v5.c b/board/ar7100/common/g5_Plus1_2_29b_unmanaged_Atheros_v5.c
 new file mode 100644
-index 0000000..74a5afe
+index 0000000000..fe133f380b
 --- /dev/null
 +++ b/board/ar7100/common/g5_Plus1_2_29b_unmanaged_Atheros_v5.c
 @@ -0,0 +1,511 @@
@@ -7023,7 +7023,7 @@ index 0000000..74a5afe
 +};
 diff --git a/board/ar7100/common/g5_Plus1_2_31_unmanaged_Atheros_v3.c b/board/ar7100/common/g5_Plus1_2_31_unmanaged_Atheros_v3.c
 new file mode 100644
-index 0000000..1ea408b
+index 0000000000..1ea408ba42
 --- /dev/null
 +++ b/board/ar7100/common/g5_Plus1_2_31_unmanaged_Atheros_v3.c
 @@ -0,0 +1,521 @@
@@ -7550,7 +7550,7 @@ index 0000000..1ea408b
 +};
 diff --git a/board/ar7100/common/g5_Plus1_2_31_unmanaged_Atheros_v4.c b/board/ar7100/common/g5_Plus1_2_31_unmanaged_Atheros_v4.c
 new file mode 100644
-index 0000000..7608c6f
+index 0000000000..7608c6f13e
 --- /dev/null
 +++ b/board/ar7100/common/g5_Plus1_2_31_unmanaged_Atheros_v4.c
 @@ -0,0 +1,509 @@
@@ -8065,7 +8065,7 @@ index 0000000..7608c6f
 +};
 diff --git a/board/ar7100/common/g5e_Plus1_2_29a_unmanaged_Atheros_v3.c b/board/ar7100/common/g5e_Plus1_2_29a_unmanaged_Atheros_v3.c
 new file mode 100644
-index 0000000..15647dc
+index 0000000000..15f4d2dc22
 --- /dev/null
 +++ b/board/ar7100/common/g5e_Plus1_2_29a_unmanaged_Atheros_v3.c
 @@ -0,0 +1,513 @@
@@ -8584,7 +8584,7 @@ index 0000000..15647dc
 +};
 diff --git a/board/ar7100/common/generic_i2c.c b/board/ar7100/common/generic_i2c.c
 new file mode 100644
-index 0000000..32ef8a2
+index 0000000000..7d59c31370
 --- /dev/null
 +++ b/board/ar7100/common/generic_i2c.c
 @@ -0,0 +1,460 @@
@@ -9050,7 +9050,7 @@ index 0000000..32ef8a2
 +#endif
 diff --git a/board/ar7100/common/generic_i2c.h b/board/ar7100/common/generic_i2c.h
 new file mode 100644
-index 0000000..7a36618
+index 0000000000..e0349f01ae
 --- /dev/null
 +++ b/board/ar7100/common/generic_i2c.h
 @@ -0,0 +1,84 @@
@@ -9140,7 +9140,7 @@ index 0000000..7a36618
 +#endif
 diff --git a/board/ar7100/common/generic_spi.c b/board/ar7100/common/generic_spi.c
 new file mode 100644
-index 0000000..1ee6bba
+index 0000000000..8ff8b4664a
 --- /dev/null
 +++ b/board/ar7100/common/generic_spi.c
 @@ -0,0 +1,355 @@
@@ -9501,7 +9501,7 @@ index 0000000..1ee6bba
 +#endif
 diff --git a/board/ar7100/common/generic_spi.h b/board/ar7100/common/generic_spi.h
 new file mode 100644
-index 0000000..34fd994
+index 0000000000..69e268b865
 --- /dev/null
 +++ b/board/ar7100/common/generic_spi.h
 @@ -0,0 +1,48 @@
@@ -9555,7 +9555,7 @@ index 0000000..34fd994
 +#endif
 diff --git a/board/ar7100/common/ipPhy.c b/board/ar7100/common/ipPhy.c
 new file mode 100644
-index 0000000..f69f681
+index 0000000000..a64d365f28
 --- /dev/null
 +++ b/board/ar7100/common/ipPhy.c
 @@ -0,0 +1,843 @@
@@ -10404,7 +10404,7 @@ index 0000000..f69f681
 +#endif
 diff --git a/board/ar7100/common/ipPhy.h b/board/ar7100/common/ipPhy.h
 new file mode 100644
-index 0000000..be45fcc
+index 0000000000..1b5f16dbf7
 --- /dev/null
 +++ b/board/ar7100/common/ipPhy.h
 @@ -0,0 +1,172 @@
@@ -10582,7 +10582,7 @@ index 0000000..be45fcc
 +#endif
 diff --git a/board/ar7100/common/lowlevel_init.S b/board/ar7100/common/lowlevel_init.S
 new file mode 100644
-index 0000000..dd8c5c8
+index 0000000000..c7fdeec9dd
 --- /dev/null
 +++ b/board/ar7100/common/lowlevel_init.S
 @@ -0,0 +1,247 @@
@@ -10835,7 +10835,7 @@ index 0000000..dd8c5c8
 + /* end of file */
 diff --git a/board/ar7100/common/lowlevel_init_ar9100.S b/board/ar7100/common/lowlevel_init_ar9100.S
 new file mode 100644
-index 0000000..4f97803
+index 0000000000..eaff1f9a8d
 --- /dev/null
 +++ b/board/ar7100/common/lowlevel_init_ar9100.S
 @@ -0,0 +1,150 @@
@@ -10991,7 +10991,7 @@ index 0000000..4f97803
 + /* end of file */
 diff --git a/board/ar7100/common/phy.h b/board/ar7100/common/phy.h
 new file mode 100644
-index 0000000..e885f4e
+index 0000000000..e885f4ef1c
 --- /dev/null
 +++ b/board/ar7100/common/phy.h
 @@ -0,0 +1,28 @@
@@ -11025,7 +11025,7 @@ index 0000000..e885f4e
 +#endif
 diff --git a/board/ar7100/common/vsc73xx.c b/board/ar7100/common/vsc73xx.c
 new file mode 100644
-index 0000000..91fce8f
+index 0000000000..720f29bfdc
 --- /dev/null
 +++ b/board/ar7100/common/vsc73xx.c
 @@ -0,0 +1,1208 @@
@@ -12239,7 +12239,7 @@ index 0000000..91fce8f
 +#endif
 diff --git a/board/ar7100/common/vsc73xx.h b/board/ar7100/common/vsc73xx.h
 new file mode 100644
-index 0000000..09a60ad
+index 0000000000..38e2ba1ce9
 --- /dev/null
 +++ b/board/ar7100/common/vsc73xx.h
 @@ -0,0 +1,168 @@
@@ -12413,7 +12413,7 @@ index 0000000..09a60ad
 +#endif
 diff --git a/board/ar7100/common/vsc8601_phy.c b/board/ar7100/common/vsc8601_phy.c
 new file mode 100644
-index 0000000..bb2c9fb
+index 0000000000..39edfbcb18
 --- /dev/null
 +++ b/board/ar7100/common/vsc8601_phy.c
 @@ -0,0 +1,1226 @@
@@ -13645,7 +13645,7 @@ index 0000000..bb2c9fb
 +#endif
 diff --git a/board/ar7100/common/vsc8601_phy.h b/board/ar7100/common/vsc8601_phy.h
 new file mode 100644
-index 0000000..fe3b2d2
+index 0000000000..9b2e7e7230
 --- /dev/null
 +++ b/board/ar7100/common/vsc8601_phy.h
 @@ -0,0 +1,19 @@
@@ -13670,7 +13670,7 @@ index 0000000..fe3b2d2
 +#endif
 diff --git a/board/ar7100/common/vsc_phy.c b/board/ar7100/common/vsc_phy.c
 new file mode 100644
-index 0000000..4cde4da
+index 0000000000..4cde4da6d5
 --- /dev/null
 +++ b/board/ar7100/common/vsc_phy.c
 @@ -0,0 +1,15 @@
@@ -13691,7 +13691,7 @@ index 0000000..4cde4da
 +}
 diff --git a/board/ar7100/pb42/Makefile b/board/ar7100/pb42/Makefile
 new file mode 100644
-index 0000000..3bc6236
+index 0000000000..3bc62362bf
 --- /dev/null
 +++ b/board/ar7100/pb42/Makefile
 @@ -0,0 +1,18 @@
@@ -13715,7 +13715,7 @@ index 0000000..3bc6236
 +#########################################################################
 diff --git a/board/ar7100/pb42/config.mk b/board/ar7100/pb42/config.mk
 new file mode 100755
-index 0000000..3c41057
+index 0000000000..3c410579c0
 --- /dev/null
 +++ b/board/ar7100/pb42/config.mk
 @@ -0,0 +1,5 @@
@@ -13726,7 +13726,7 @@ index 0000000..3c41057
 +#TEXT_BASE = 0xa1000000
 diff --git a/board/ar7100/pb42/flash.c b/board/ar7100/pb42/flash.c
 new file mode 100644
-index 0000000..3938034
+index 0000000000..94d797f77a
 --- /dev/null
 +++ b/board/ar7100/pb42/flash.c
 @@ -0,0 +1,28 @@
@@ -13760,7 +13760,7 @@ index 0000000..3938034
 +}
 diff --git a/board/ar7100/pb42/pb42.c b/board/ar7100/pb42/pb42.c
 new file mode 100644
-index 0000000..eb41abf
+index 0000000000..eb41abf5ff
 --- /dev/null
 +++ b/board/ar7100/pb42/pb42.c
 @@ -0,0 +1,72 @@
@@ -13838,7 +13838,7 @@ index 0000000..eb41abf
 +}
 diff --git a/board/ar7100/pb42/u-boot.lds b/board/ar7100/pb42/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7100/pb42/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -13886,7 +13886,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7100/pb44/Makefile b/board/ar7100/pb44/Makefile
 new file mode 100644
-index 0000000..9c29251
+index 0000000000..ec1cf768cb
 --- /dev/null
 +++ b/board/ar7100/pb44/Makefile
 @@ -0,0 +1,13 @@
@@ -13905,7 +13905,7 @@ index 0000000..9c29251
 +sinclude .depend
 diff --git a/board/ar7100/pb44/config.mk b/board/ar7100/pb44/config.mk
 new file mode 100644
-index 0000000..58dff26
+index 0000000000..58dff26537
 --- /dev/null
 +++ b/board/ar7100/pb44/config.mk
 @@ -0,0 +1,10 @@
@@ -13921,7 +13921,7 @@ index 0000000..58dff26
 +#TEXT_BASE = 0xa0010000
 diff --git a/board/ar7100/pb44/lowlevel_init.S b/board/ar7100/pb44/lowlevel_init.S
 new file mode 100755
-index 0000000..d0dd419
+index 0000000000..c769f918e6
 --- /dev/null
 +++ b/board/ar7100/pb44/lowlevel_init.S
 @@ -0,0 +1,428 @@
@@ -14355,7 +14355,7 @@ index 0000000..d0dd419
 + /* end of file */
 diff --git a/board/ar7100/pb44/pb44.c b/board/ar7100/pb44/pb44.c
 new file mode 100644
-index 0000000..67c50a7
+index 0000000000..12b001a2bd
 --- /dev/null
 +++ b/board/ar7100/pb44/pb44.c
 @@ -0,0 +1,233 @@
@@ -14594,7 +14594,7 @@ index 0000000..67c50a7
 +#endif /* AG7100_DEBUG */
 diff --git a/board/ar7100/pb44/pb44_pci.c b/board/ar7100/pb44/pb44_pci.c
 new file mode 100644
-index 0000000..27e7a4a
+index 0000000000..6a475a2ee6
 --- /dev/null
 +++ b/board/ar7100/pb44/pb44_pci.c
 @@ -0,0 +1,372 @@
@@ -14972,7 +14972,7 @@ index 0000000..27e7a4a
 +}
 diff --git a/board/ar7100/pb44/u-boot-bootstrap.lds b/board/ar7100/pb44/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..2f01270
+index 0000000000..2f01270d05
 --- /dev/null
 +++ b/board/ar7100/pb44/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -15039,7 +15039,7 @@ index 0000000..2f01270
 +}
 diff --git a/board/ar7100/pb44/u-boot.lds b/board/ar7100/pb44/u-boot.lds
 new file mode 100644
-index 0000000..9ac25be
+index 0000000000..9ac25bead9
 --- /dev/null
 +++ b/board/ar7100/pb44/u-boot.lds
 @@ -0,0 +1,40 @@
@@ -15085,7 +15085,7 @@ index 0000000..9ac25be
 +}
 diff --git a/board/ar7100/pb47/Makefile b/board/ar7100/pb47/Makefile
 new file mode 100644
-index 0000000..534be37
+index 0000000000..534be3709b
 --- /dev/null
 +++ b/board/ar7100/pb47/Makefile
 @@ -0,0 +1,13 @@
@@ -15104,7 +15104,7 @@ index 0000000..534be37
 +sinclude .depend
 diff --git a/board/ar7100/pb47/config.mk b/board/ar7100/pb47/config.mk
 new file mode 100644
-index 0000000..4a032b7
+index 0000000000..4a032b7f0c
 --- /dev/null
 +++ b/board/ar7100/pb47/config.mk
 @@ -0,0 +1,5 @@
@@ -15115,7 +15115,7 @@ index 0000000..4a032b7
 +#TEXT_BASE = 0xa0010000
 diff --git a/board/ar7100/pb47/lowlevel_init.S b/board/ar7100/pb47/lowlevel_init.S
 new file mode 100755
-index 0000000..d0dd419
+index 0000000000..c769f918e6
 --- /dev/null
 +++ b/board/ar7100/pb47/lowlevel_init.S
 @@ -0,0 +1,428 @@
@@ -15549,7 +15549,7 @@ index 0000000..d0dd419
 + /* end of file */
 diff --git a/board/ar7100/pb47/pb47.c b/board/ar7100/pb47/pb47.c
 new file mode 100644
-index 0000000..5358e84
+index 0000000000..5320eb8f73
 --- /dev/null
 +++ b/board/ar7100/pb47/pb47.c
 @@ -0,0 +1,220 @@
@@ -15775,7 +15775,7 @@ index 0000000..5358e84
 +#endif /* AG7100_DEBUG */
 diff --git a/board/ar7100/pb47/pb47_pci.c b/board/ar7100/pb47/pb47_pci.c
 new file mode 100644
-index 0000000..e648a3d
+index 0000000000..acc1d51f79
 --- /dev/null
 +++ b/board/ar7100/pb47/pb47_pci.c
 @@ -0,0 +1,366 @@
@@ -16147,7 +16147,7 @@ index 0000000..e648a3d
 +}
 diff --git a/board/ar7100/pb47/u-boot.lds b/board/ar7100/pb47/u-boot.lds
 new file mode 100644
-index 0000000..9ac25be
+index 0000000000..9ac25bead9
 --- /dev/null
 +++ b/board/ar7100/pb47/u-boot.lds
 @@ -0,0 +1,40 @@
@@ -16193,7 +16193,7 @@ index 0000000..9ac25be
 +}
 diff --git a/board/ar7100/tb225/Makefile b/board/ar7100/tb225/Makefile
 new file mode 100644
-index 0000000..f3e8c66
+index 0000000000..f3e8c66cf6
 --- /dev/null
 +++ b/board/ar7100/tb225/Makefile
 @@ -0,0 +1,18 @@
@@ -16217,7 +16217,7 @@ index 0000000..f3e8c66
 +#########################################################################
 diff --git a/board/ar7100/tb225/config.mk b/board/ar7100/tb225/config.mk
 new file mode 100644
-index 0000000..f834c98
+index 0000000000..f834c98c11
 --- /dev/null
 +++ b/board/ar7100/tb225/config.mk
 @@ -0,0 +1,5 @@
@@ -16228,7 +16228,7 @@ index 0000000..f834c98
 +#TEXT_BASE = 0xa1000000
 diff --git a/board/ar7100/tb225/flash.c b/board/ar7100/tb225/flash.c
 new file mode 100644
-index 0000000..3f91d3e
+index 0000000000..ff99f9b044
 --- /dev/null
 +++ b/board/ar7100/tb225/flash.c
 @@ -0,0 +1,26 @@
@@ -16260,7 +16260,7 @@ index 0000000..3f91d3e
 +}
 diff --git a/board/ar7100/tb225/tb225.c b/board/ar7100/tb225/tb225.c
 new file mode 100644
-index 0000000..0dc0b71
+index 0000000000..edb8490ad6
 --- /dev/null
 +++ b/board/ar7100/tb225/tb225.c
 @@ -0,0 +1,55 @@
@@ -16321,7 +16321,7 @@ index 0000000..0dc0b71
 +}
 diff --git a/board/ar7100/tb225/u-boot.lds b/board/ar7100/tb225/u-boot.lds
 new file mode 100644
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7100/tb225/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -16369,7 +16369,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7100/tb243/Makefile b/board/ar7100/tb243/Makefile
 new file mode 100644
-index 0000000..e3785e7
+index 0000000000..e3785e760f
 --- /dev/null
 +++ b/board/ar7100/tb243/Makefile
 @@ -0,0 +1,18 @@
@@ -16393,7 +16393,7 @@ index 0000000..e3785e7
 +#########################################################################
 diff --git a/board/ar7100/tb243/config.mk b/board/ar7100/tb243/config.mk
 new file mode 100755
-index 0000000..1d06cc5
+index 0000000000..1d06cc5eb1
 --- /dev/null
 +++ b/board/ar7100/tb243/config.mk
 @@ -0,0 +1,6 @@
@@ -16405,7 +16405,7 @@ index 0000000..1d06cc5
 +#TEXT_BASE = 0xa1000000
 diff --git a/board/ar7100/tb243/tb243.c b/board/ar7100/tb243/tb243.c
 new file mode 100644
-index 0000000..0f23f8a
+index 0000000000..d61186fe7a
 --- /dev/null
 +++ b/board/ar7100/tb243/tb243.c
 @@ -0,0 +1,83 @@
@@ -16494,7 +16494,7 @@ index 0000000..0f23f8a
 +}
 diff --git a/board/ar7100/tb243/u-boot.lds b/board/ar7100/tb243/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7100/tb243/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -16542,7 +16542,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap101-2.6.31/Makefile b/board/ar7240/ap101-2.6.31/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/ap101-2.6.31/Makefile
 @@ -0,0 +1,18 @@
@@ -16566,7 +16566,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/ap101-2.6.31/ap101-2.6.31.c b/board/ar7240/ap101-2.6.31/ap101-2.6.31.c
 new file mode 100644
-index 0000000..574c24f
+index 0000000000..099a578b66
 --- /dev/null
 +++ b/board/ar7240/ap101-2.6.31/ap101-2.6.31.c
 @@ -0,0 +1,71 @@
@@ -16643,7 +16643,7 @@ index 0000000..574c24f
 +}
 diff --git a/board/ar7240/ap101-2.6.31/config.mk b/board/ar7240/ap101-2.6.31/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap101-2.6.31/config.mk
 @@ -0,0 +1,5 @@
@@ -16654,7 +16654,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap101-2.6.31/flash.c b/board/ar7240/ap101-2.6.31/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap101-2.6.31/flash.c
 @@ -0,0 +1,35 @@
@@ -16695,7 +16695,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap101-2.6.31/u-boot.lds b/board/ar7240/ap101-2.6.31/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap101-2.6.31/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -16743,7 +16743,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap101-small/Makefile b/board/ar7240/ap101-small/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/ap101-small/Makefile
 @@ -0,0 +1,18 @@
@@ -16767,7 +16767,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/ap101-small/ap101-small.c b/board/ar7240/ap101-small/ap101-small.c
 new file mode 100644
-index 0000000..574c24f
+index 0000000000..099a578b66
 --- /dev/null
 +++ b/board/ar7240/ap101-small/ap101-small.c
 @@ -0,0 +1,71 @@
@@ -16844,7 +16844,7 @@ index 0000000..574c24f
 +}
 diff --git a/board/ar7240/ap101-small/config.mk b/board/ar7240/ap101-small/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap101-small/config.mk
 @@ -0,0 +1,5 @@
@@ -16855,7 +16855,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap101-small/flash.c b/board/ar7240/ap101-small/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap101-small/flash.c
 @@ -0,0 +1,35 @@
@@ -16896,7 +16896,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap101-small/u-boot.lds b/board/ar7240/ap101-small/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap101-small/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -16944,7 +16944,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap101/Makefile b/board/ar7240/ap101/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/ap101/Makefile
 @@ -0,0 +1,18 @@
@@ -16968,7 +16968,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/ap101/ap101.c b/board/ar7240/ap101/ap101.c
 new file mode 100644
-index 0000000..574c24f
+index 0000000000..099a578b66
 --- /dev/null
 +++ b/board/ar7240/ap101/ap101.c
 @@ -0,0 +1,71 @@
@@ -17045,7 +17045,7 @@ index 0000000..574c24f
 +}
 diff --git a/board/ar7240/ap101/config.mk b/board/ar7240/ap101/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap101/config.mk
 @@ -0,0 +1,5 @@
@@ -17056,7 +17056,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap101/flash.c b/board/ar7240/ap101/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap101/flash.c
 @@ -0,0 +1,35 @@
@@ -17097,7 +17097,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap101/u-boot.lds b/board/ar7240/ap101/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap101/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -17145,7 +17145,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap111-2.6.31/Makefile b/board/ar7240/ap111-2.6.31/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/ap111-2.6.31/Makefile
 @@ -0,0 +1,18 @@
@@ -17169,7 +17169,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/ap111-2.6.31/ap111-2.6.31.c b/board/ar7240/ap111-2.6.31/ap111-2.6.31.c
 new file mode 100644
-index 0000000..14e7289
+index 0000000000..d609814ed1
 --- /dev/null
 +++ b/board/ar7240/ap111-2.6.31/ap111-2.6.31.c
 @@ -0,0 +1,71 @@
@@ -17246,7 +17246,7 @@ index 0000000..14e7289
 +}
 diff --git a/board/ar7240/ap111-2.6.31/config.mk b/board/ar7240/ap111-2.6.31/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap111-2.6.31/config.mk
 @@ -0,0 +1,5 @@
@@ -17257,7 +17257,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap111-2.6.31/flash.c b/board/ar7240/ap111-2.6.31/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap111-2.6.31/flash.c
 @@ -0,0 +1,35 @@
@@ -17298,7 +17298,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap111-2.6.31/u-boot.lds b/board/ar7240/ap111-2.6.31/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap111-2.6.31/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -17346,7 +17346,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap111/Makefile b/board/ar7240/ap111/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/ap111/Makefile
 @@ -0,0 +1,18 @@
@@ -17370,7 +17370,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/ap111/ap111.c b/board/ar7240/ap111/ap111.c
 new file mode 100644
-index 0000000..14e7289
+index 0000000000..d609814ed1
 --- /dev/null
 +++ b/board/ar7240/ap111/ap111.c
 @@ -0,0 +1,71 @@
@@ -17447,7 +17447,7 @@ index 0000000..14e7289
 +}
 diff --git a/board/ar7240/ap111/config.mk b/board/ar7240/ap111/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap111/config.mk
 @@ -0,0 +1,5 @@
@@ -17458,7 +17458,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap111/flash.c b/board/ar7240/ap111/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap111/flash.c
 @@ -0,0 +1,35 @@
@@ -17499,7 +17499,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap111/u-boot.lds b/board/ar7240/ap111/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap111/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -17547,7 +17547,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap120/Makefile b/board/ar7240/ap120/Makefile
 new file mode 100644
-index 0000000..045813b
+index 0000000000..045813bfdd
 --- /dev/null
 +++ b/board/ar7240/ap120/Makefile
 @@ -0,0 +1,68 @@
@@ -17621,7 +17621,7 @@ index 0000000..045813b
 +#########################################################################
 diff --git a/board/ar7240/ap120/ap120.c b/board/ar7240/ap120/ap120.c
 new file mode 100644
-index 0000000..b49f632
+index 0000000000..cfedf2aa12
 --- /dev/null
 +++ b/board/ar7240/ap120/ap120.c
 @@ -0,0 +1,177 @@
@@ -17804,7 +17804,7 @@ index 0000000..b49f632
 +}
 diff --git a/board/ar7240/ap120/config.mk b/board/ar7240/ap120/config.mk
 new file mode 100755
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/ap120/config.mk
 @@ -0,0 +1,19 @@
@@ -17829,7 +17829,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/ap120/flash.c b/board/ar7240/ap120/flash.c
 new file mode 100644
-index 0000000..0d511b1
+index 0000000000..0d511b13b4
 --- /dev/null
 +++ b/board/ar7240/ap120/flash.c
 @@ -0,0 +1,30 @@
@@ -17865,7 +17865,7 @@ index 0000000..0d511b1
 +}
 diff --git a/board/ar7240/ap120/u-boot-bootstrap.lds b/board/ar7240/ap120/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/ap120/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -17932,7 +17932,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/ap120/u-boot.lds b/board/ar7240/ap120/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/ap120/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -17980,7 +17980,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/ap121/Makefile b/board/ar7240/ap121/Makefile
 new file mode 100644
-index 0000000..73fe788
+index 0000000000..73fe788152
 --- /dev/null
 +++ b/board/ar7240/ap121/Makefile
 @@ -0,0 +1,22 @@
@@ -18008,7 +18008,7 @@ index 0000000..73fe788
 +#########################################################################
 diff --git a/board/ar7240/ap121/ap121.c b/board/ar7240/ap121/ap121.c
 new file mode 100644
-index 0000000..717404a
+index 0000000000..5aaf1b5e20
 --- /dev/null
 +++ b/board/ar7240/ap121/ap121.c
 @@ -0,0 +1,142 @@
@@ -18156,7 +18156,7 @@ index 0000000..717404a
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/ap121/config.mk b/board/ar7240/ap121/config.mk
 new file mode 100644
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/ap121/config.mk
 @@ -0,0 +1,10 @@
@@ -18172,7 +18172,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap121/flash.c b/board/ar7240/ap121/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap121/flash.c
 @@ -0,0 +1,28 @@
@@ -18206,7 +18206,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap121/hornet_pll_init.S b/board/ar7240/ap121/hornet_pll_init.S
 new file mode 100755
-index 0000000..b2e99a0
+index 0000000000..1172cbe446
 --- /dev/null
 +++ b/board/ar7240/ap121/hornet_pll_init.S
 @@ -0,0 +1,377 @@
@@ -18589,7 +18589,7 @@ index 0000000..b2e99a0
 + /* end of file */
 diff --git a/board/ar7240/ap121/u-boot-bootstrap.lds b/board/ar7240/ap121/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap121/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -18657,7 +18657,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap121/u-boot.lds b/board/ar7240/ap121/u-boot.lds
 new file mode 100644
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap121/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -18705,7 +18705,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap123/Makefile b/board/ar7240/ap123/Makefile
 new file mode 100644
-index 0000000..045813b
+index 0000000000..045813bfdd
 --- /dev/null
 +++ b/board/ar7240/ap123/Makefile
 @@ -0,0 +1,68 @@
@@ -18779,7 +18779,7 @@ index 0000000..045813b
 +#########################################################################
 diff --git a/board/ar7240/ap123/ap123.c b/board/ar7240/ap123/ap123.c
 new file mode 100644
-index 0000000..9df940a
+index 0000000000..9df940a18b
 --- /dev/null
 +++ b/board/ar7240/ap123/ap123.c
 @@ -0,0 +1,171 @@
@@ -18956,7 +18956,7 @@ index 0000000..9df940a
 +}
 diff --git a/board/ar7240/ap123/config.mk b/board/ar7240/ap123/config.mk
 new file mode 100755
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/ap123/config.mk
 @@ -0,0 +1,19 @@
@@ -18981,7 +18981,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/ap123/flash.c b/board/ar7240/ap123/flash.c
 new file mode 100644
-index 0000000..0d511b1
+index 0000000000..0d511b13b4
 --- /dev/null
 +++ b/board/ar7240/ap123/flash.c
 @@ -0,0 +1,30 @@
@@ -19017,7 +19017,7 @@ index 0000000..0d511b1
 +}
 diff --git a/board/ar7240/ap123/u-boot-bootstrap.lds b/board/ar7240/ap123/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/ap123/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -19084,7 +19084,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/ap123/u-boot.lds b/board/ar7240/ap123/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/ap123/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -19132,7 +19132,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/ap91-2MB/Makefile b/board/ar7240/ap91-2MB/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/Makefile
 @@ -0,0 +1,18 @@
@@ -19156,7 +19156,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap91-2MB/ap91-2MB.c b/board/ar7240/ap91-2MB/ap91-2MB.c
 new file mode 100644
-index 0000000..401bdc2
+index 0000000000..401bdc2130
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/ap91-2MB.c
 @@ -0,0 +1,75 @@
@@ -19237,7 +19237,7 @@ index 0000000..401bdc2
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/ap91-2MB/ar9285gpio.c b/board/ar7240/ap91-2MB/ar9285gpio.c
 new file mode 100644
-index 0000000..b7ac12b
+index 0000000000..4e7401db3f
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/ar9285gpio.c
 @@ -0,0 +1,140 @@
@@ -19383,7 +19383,7 @@ index 0000000..b7ac12b
 +}
 diff --git a/board/ar7240/ap91-2MB/config.mk b/board/ar7240/ap91-2MB/config.mk
 new file mode 100755
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/config.mk
 @@ -0,0 +1,10 @@
@@ -19399,7 +19399,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap91-2MB/flash.c b/board/ar7240/ap91-2MB/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/flash.c
 @@ -0,0 +1,28 @@
@@ -19433,7 +19433,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap91-2MB/u-boot-bootstrap.lds b/board/ar7240/ap91-2MB/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -19501,7 +19501,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap91-2MB/u-boot.lds b/board/ar7240/ap91-2MB/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap91-2MB/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -19549,7 +19549,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap91-2x8/Makefile b/board/ar7240/ap91-2x8/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap91-2x8/Makefile
 @@ -0,0 +1,18 @@
@@ -19573,7 +19573,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap91-2x8/ap91-2x8.c b/board/ar7240/ap91-2x8/ap91-2x8.c
 new file mode 100644
-index 0000000..203aba3
+index 0000000000..203aba32e5
 --- /dev/null
 +++ b/board/ar7240/ap91-2x8/ap91-2x8.c
 @@ -0,0 +1,75 @@
@@ -19654,7 +19654,7 @@ index 0000000..203aba3
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/ap91-2x8/config.mk b/board/ar7240/ap91-2x8/config.mk
 new file mode 100755
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/ap91-2x8/config.mk
 @@ -0,0 +1,10 @@
@@ -19670,7 +19670,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap91-2x8/flash.c b/board/ar7240/ap91-2x8/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap91-2x8/flash.c
 @@ -0,0 +1,28 @@
@@ -19704,7 +19704,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap91-2x8/u-boot-bootstrap.lds b/board/ar7240/ap91-2x8/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap91-2x8/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -19772,7 +19772,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap91-2x8/u-boot.lds b/board/ar7240/ap91-2x8/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap91-2x8/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -19820,7 +19820,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap91-router/Makefile b/board/ar7240/ap91-router/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap91-router/Makefile
 @@ -0,0 +1,18 @@
@@ -19844,7 +19844,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap91-router/ap91-router.c b/board/ar7240/ap91-router/ap91-router.c
 new file mode 100644
-index 0000000..3bc886a
+index 0000000000..3bc886a94b
 --- /dev/null
 +++ b/board/ar7240/ap91-router/ap91-router.c
 @@ -0,0 +1,58 @@
@@ -19908,7 +19908,7 @@ index 0000000..3bc886a
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/ap91-router/config.mk b/board/ar7240/ap91-router/config.mk
 new file mode 100755
-index 0000000..7e602fd
+index 0000000000..7e602fd66a
 --- /dev/null
 +++ b/board/ar7240/ap91-router/config.mk
 @@ -0,0 +1,13 @@
@@ -19927,7 +19927,7 @@ index 0000000..7e602fd
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap91-router/flash.c b/board/ar7240/ap91-router/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap91-router/flash.c
 @@ -0,0 +1,28 @@
@@ -19961,7 +19961,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap91-router/u-boot-bootstrap.lds b/board/ar7240/ap91-router/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap91-router/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -20029,7 +20029,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap91-router/u-boot.lds b/board/ar7240/ap91-router/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap91-router/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -20077,7 +20077,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap91/Makefile b/board/ar7240/ap91/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap91/Makefile
 @@ -0,0 +1,18 @@
@@ -20101,7 +20101,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap91/ap91.c b/board/ar7240/ap91/ap91.c
 new file mode 100644
-index 0000000..941b59b
+index 0000000000..941b59b9b4
 --- /dev/null
 +++ b/board/ar7240/ap91/ap91.c
 @@ -0,0 +1,70 @@
@@ -20177,7 +20177,7 @@ index 0000000..941b59b
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/ap91/ar9285gpio.c b/board/ar7240/ap91/ar9285gpio.c
 new file mode 100644
-index 0000000..6021da5
+index 0000000000..b0c14f0393
 --- /dev/null
 +++ b/board/ar7240/ap91/ar9285gpio.c
 @@ -0,0 +1,152 @@
@@ -20335,7 +20335,7 @@ index 0000000..6021da5
 +}
 diff --git a/board/ar7240/ap91/config.mk b/board/ar7240/ap91/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap91/config.mk
 @@ -0,0 +1,5 @@
@@ -20346,7 +20346,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap91/flash.c b/board/ar7240/ap91/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap91/flash.c
 @@ -0,0 +1,28 @@
@@ -20380,7 +20380,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap91/u-boot-bootstrap.lds b/board/ar7240/ap91/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap91/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -20448,7 +20448,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap91/u-boot.lds b/board/ar7240/ap91/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap91/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -20496,7 +20496,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap93-hgw/Makefile b/board/ar7240/ap93-hgw/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap93-hgw/Makefile
 @@ -0,0 +1,18 @@
@@ -20520,7 +20520,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap93-hgw/ap93-hgw.c b/board/ar7240/ap93-hgw/ap93-hgw.c
 new file mode 100644
-index 0000000..0de5b7a
+index 0000000000..0de5b7a357
 --- /dev/null
 +++ b/board/ar7240/ap93-hgw/ap93-hgw.c
 @@ -0,0 +1,53 @@
@@ -20579,7 +20579,7 @@ index 0000000..0de5b7a
 +}
 diff --git a/board/ar7240/ap93-hgw/config.mk b/board/ar7240/ap93-hgw/config.mk
 new file mode 100755
-index 0000000..f110fcb
+index 0000000000..f110fcb6ff
 --- /dev/null
 +++ b/board/ar7240/ap93-hgw/config.mk
 @@ -0,0 +1,5 @@
@@ -20590,7 +20590,7 @@ index 0000000..f110fcb
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap93-hgw/flash.c b/board/ar7240/ap93-hgw/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap93-hgw/flash.c
 @@ -0,0 +1,28 @@
@@ -20624,7 +20624,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap93-hgw/u-boot.lds b/board/ar7240/ap93-hgw/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap93-hgw/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -20672,7 +20672,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap93/Makefile b/board/ar7240/ap93/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap93/Makefile
 @@ -0,0 +1,18 @@
@@ -20696,7 +20696,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap93/ap93.c b/board/ar7240/ap93/ap93.c
 new file mode 100644
-index 0000000..bf781ac
+index 0000000000..bf781acc77
 --- /dev/null
 +++ b/board/ar7240/ap93/ap93.c
 @@ -0,0 +1,60 @@
@@ -20762,7 +20762,7 @@ index 0000000..bf781ac
 +}
 diff --git a/board/ar7240/ap93/config.mk b/board/ar7240/ap93/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap93/config.mk
 @@ -0,0 +1,5 @@
@@ -20773,7 +20773,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap93/flash.c b/board/ar7240/ap93/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/ap93/flash.c
 @@ -0,0 +1,28 @@
@@ -20807,7 +20807,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/ap93/u-boot.lds b/board/ar7240/ap93/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap93/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -20855,7 +20855,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap98/Makefile b/board/ar7240/ap98/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap98/Makefile
 @@ -0,0 +1,18 @@
@@ -20879,7 +20879,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap98/ap98.c b/board/ar7240/ap98/ap98.c
 new file mode 100644
-index 0000000..a71c3fc
+index 0000000000..a71c3fca33
 --- /dev/null
 +++ b/board/ar7240/ap98/ap98.c
 @@ -0,0 +1,87 @@
@@ -20972,7 +20972,7 @@ index 0000000..a71c3fc
 +#endif
 diff --git a/board/ar7240/ap98/config.mk b/board/ar7240/ap98/config.mk
 new file mode 100755
-index 0000000..e485e03
+index 0000000000..e485e03667
 --- /dev/null
 +++ b/board/ar7240/ap98/config.mk
 @@ -0,0 +1,13 @@
@@ -20991,7 +20991,7 @@ index 0000000..e485e03
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap98/flash.c b/board/ar7240/ap98/flash.c
 new file mode 100644
-index 0000000..eec58f6
+index 0000000000..f9e51f8286
 --- /dev/null
 +++ b/board/ar7240/ap98/flash.c
 @@ -0,0 +1,38 @@
@@ -21035,7 +21035,7 @@ index 0000000..eec58f6
 +}
 diff --git a/board/ar7240/ap98/u-boot-bootstrap.lds b/board/ar7240/ap98/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap98/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -21103,7 +21103,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap98/u-boot.lds b/board/ar7240/ap98/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap98/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -21151,7 +21151,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap99-2.6.31/Makefile b/board/ar7240/ap99-2.6.31/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap99-2.6.31/Makefile
 @@ -0,0 +1,18 @@
@@ -21175,7 +21175,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap99-2.6.31/ap99-2.6.31.c b/board/ar7240/ap99-2.6.31/ap99-2.6.31.c
 new file mode 100644
-index 0000000..2c03500
+index 0000000000..7d6a02956d
 --- /dev/null
 +++ b/board/ar7240/ap99-2.6.31/ap99-2.6.31.c
 @@ -0,0 +1,73 @@
@@ -21254,7 +21254,7 @@ index 0000000..2c03500
 +}
 diff --git a/board/ar7240/ap99-2.6.31/config.mk b/board/ar7240/ap99-2.6.31/config.mk
 new file mode 100644
-index 0000000..b5a58d9
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/ap99-2.6.31/config.mk
 @@ -0,0 +1,10 @@
@@ -21270,7 +21270,7 @@ index 0000000..b5a58d9
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap99-2.6.31/flash.c b/board/ar7240/ap99-2.6.31/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap99-2.6.31/flash.c
 @@ -0,0 +1,35 @@
@@ -21311,7 +21311,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap99-2.6.31/u-boot-bootstrap.lds b/board/ar7240/ap99-2.6.31/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap99-2.6.31/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -21379,7 +21379,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap99-2.6.31/u-boot.lds b/board/ar7240/ap99-2.6.31/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap99-2.6.31/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -21427,7 +21427,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap99-hgw/Makefile b/board/ar7240/ap99-hgw/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap99-hgw/Makefile
 @@ -0,0 +1,18 @@
@@ -21451,7 +21451,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap99-hgw/ap99-hgw.c b/board/ar7240/ap99-hgw/ap99-hgw.c
 new file mode 100644
-index 0000000..21ec65c
+index 0000000000..21ec65c72a
 --- /dev/null
 +++ b/board/ar7240/ap99-hgw/ap99-hgw.c
 @@ -0,0 +1,83 @@
@@ -21540,7 +21540,7 @@ index 0000000..21ec65c
 +#endif
 diff --git a/board/ar7240/ap99-hgw/config.mk b/board/ar7240/ap99-hgw/config.mk
 new file mode 100755
-index 0000000..7e602fd
+index 0000000000..7e602fd66a
 --- /dev/null
 +++ b/board/ar7240/ap99-hgw/config.mk
 @@ -0,0 +1,13 @@
@@ -21559,7 +21559,7 @@ index 0000000..7e602fd
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap99-hgw/flash.c b/board/ar7240/ap99-hgw/flash.c
 new file mode 100644
-index 0000000..eec58f6
+index 0000000000..f9e51f8286
 --- /dev/null
 +++ b/board/ar7240/ap99-hgw/flash.c
 @@ -0,0 +1,38 @@
@@ -21603,7 +21603,7 @@ index 0000000..eec58f6
 +}
 diff --git a/board/ar7240/ap99-hgw/u-boot-bootstrap.lds b/board/ar7240/ap99-hgw/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap99-hgw/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -21671,7 +21671,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap99-hgw/u-boot.lds b/board/ar7240/ap99-hgw/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap99-hgw/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -21719,7 +21719,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap99-ivi/Makefile b/board/ar7240/ap99-ivi/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap99-ivi/Makefile
 @@ -0,0 +1,18 @@
@@ -21743,7 +21743,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap99-ivi/ap99-ivi.c b/board/ar7240/ap99-ivi/ap99-ivi.c
 new file mode 100644
-index 0000000..21ec65c
+index 0000000000..21ec65c72a
 --- /dev/null
 +++ b/board/ar7240/ap99-ivi/ap99-ivi.c
 @@ -0,0 +1,83 @@
@@ -21832,7 +21832,7 @@ index 0000000..21ec65c
 +#endif
 diff --git a/board/ar7240/ap99-ivi/config.mk b/board/ar7240/ap99-ivi/config.mk
 new file mode 100755
-index 0000000..7e602fd
+index 0000000000..7e602fd66a
 --- /dev/null
 +++ b/board/ar7240/ap99-ivi/config.mk
 @@ -0,0 +1,13 @@
@@ -21851,7 +21851,7 @@ index 0000000..7e602fd
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap99-ivi/flash.c b/board/ar7240/ap99-ivi/flash.c
 new file mode 100644
-index 0000000..eec58f6
+index 0000000000..f9e51f8286
 --- /dev/null
 +++ b/board/ar7240/ap99-ivi/flash.c
 @@ -0,0 +1,38 @@
@@ -21895,7 +21895,7 @@ index 0000000..eec58f6
 +}
 diff --git a/board/ar7240/ap99-ivi/u-boot-bootstrap.lds b/board/ar7240/ap99-ivi/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..2f01270
+index 0000000000..2f01270d05
 --- /dev/null
 +++ b/board/ar7240/ap99-ivi/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -21962,7 +21962,7 @@ index 0000000..2f01270
 +}
 diff --git a/board/ar7240/ap99-ivi/u-boot.lds b/board/ar7240/ap99-ivi/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap99-ivi/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -22010,7 +22010,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap99-small/Makefile b/board/ar7240/ap99-small/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap99-small/Makefile
 @@ -0,0 +1,18 @@
@@ -22034,7 +22034,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap99-small/ap99-small.c b/board/ar7240/ap99-small/ap99-small.c
 new file mode 100644
-index 0000000..95c52df
+index 0000000000..7ba5e34da7
 --- /dev/null
 +++ b/board/ar7240/ap99-small/ap99-small.c
 @@ -0,0 +1,71 @@
@@ -22111,7 +22111,7 @@ index 0000000..95c52df
 +}
 diff --git a/board/ar7240/ap99-small/config.mk b/board/ar7240/ap99-small/config.mk
 new file mode 100644
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/ap99-small/config.mk
 @@ -0,0 +1,5 @@
@@ -22122,7 +22122,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap99-small/flash.c b/board/ar7240/ap99-small/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/ap99-small/flash.c
 @@ -0,0 +1,35 @@
@@ -22163,7 +22163,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/ap99-small/u-boot.lds b/board/ar7240/ap99-small/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap99-small/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -22211,7 +22211,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/ap99-test/ap99-test.c b/board/ar7240/ap99-test/ap99-test.c
 new file mode 100644
-index 0000000..95c52df
+index 0000000000..7ba5e34da7
 --- /dev/null
 +++ b/board/ar7240/ap99-test/ap99-test.c
 @@ -0,0 +1,71 @@
@@ -22288,7 +22288,7 @@ index 0000000..95c52df
 +}
 diff --git a/board/ar7240/ap99/Makefile b/board/ar7240/ap99/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ap99/Makefile
 @@ -0,0 +1,18 @@
@@ -22312,7 +22312,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ap99/ap99.c b/board/ar7240/ap99/ap99.c
 new file mode 100644
-index 0000000..bb726f8
+index 0000000000..bb726f8441
 --- /dev/null
 +++ b/board/ar7240/ap99/ap99.c
 @@ -0,0 +1,86 @@
@@ -22404,7 +22404,7 @@ index 0000000..bb726f8
 +#endif
 diff --git a/board/ar7240/ap99/config.mk b/board/ar7240/ap99/config.mk
 new file mode 100755
-index 0000000..e485e03
+index 0000000000..e485e03667
 --- /dev/null
 +++ b/board/ar7240/ap99/config.mk
 @@ -0,0 +1,13 @@
@@ -22423,7 +22423,7 @@ index 0000000..e485e03
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ap99/flash.c b/board/ar7240/ap99/flash.c
 new file mode 100644
-index 0000000..eec58f6
+index 0000000000..f9e51f8286
 --- /dev/null
 +++ b/board/ar7240/ap99/flash.c
 @@ -0,0 +1,38 @@
@@ -22467,7 +22467,7 @@ index 0000000..eec58f6
 +}
 diff --git a/board/ar7240/ap99/u-boot-bootstrap.lds b/board/ar7240/ap99/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/ap99/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -22535,7 +22535,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/ap99/u-boot.lds b/board/ar7240/ap99/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ap99/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -22583,7 +22583,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/aph126/Makefile b/board/ar7240/aph126/Makefile
 new file mode 100644
-index 0000000..6898bc0
+index 0000000000..dd3465eba2
 --- /dev/null
 +++ b/board/ar7240/aph126/Makefile
 @@ -0,0 +1,62 @@
@@ -22651,7 +22651,7 @@ index 0000000..6898bc0
 +#########################################################################
 diff --git a/board/ar7240/aph126/aph126.c b/board/ar7240/aph126/aph126.c
 new file mode 100644
-index 0000000..e27108f
+index 0000000000..958b38b617
 --- /dev/null
 +++ b/board/ar7240/aph126/aph126.c
 @@ -0,0 +1,163 @@
@@ -22820,7 +22820,7 @@ index 0000000..e27108f
 +}
 diff --git a/board/ar7240/aph126/config.mk b/board/ar7240/aph126/config.mk
 new file mode 100644
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/aph126/config.mk
 @@ -0,0 +1,19 @@
@@ -22845,7 +22845,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/aph126/flash.c b/board/ar7240/aph126/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/aph126/flash.c
 @@ -0,0 +1,28 @@
@@ -22879,7 +22879,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/aph126/u-boot-bootstrap.lds b/board/ar7240/aph126/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/aph126/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -22946,7 +22946,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/aph126/u-boot.lds b/board/ar7240/aph126/u-boot.lds
 new file mode 100644
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/aph126/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -22994,7 +22994,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/aph128/Makefile b/board/ar7240/aph128/Makefile
 new file mode 100644
-index 0000000..6898bc0
+index 0000000000..dd3465eba2
 --- /dev/null
 +++ b/board/ar7240/aph128/Makefile
 @@ -0,0 +1,62 @@
@@ -23062,7 +23062,7 @@ index 0000000..6898bc0
 +#########################################################################
 diff --git a/board/ar7240/aph128/aph128.c b/board/ar7240/aph128/aph128.c
 new file mode 100644
-index 0000000..0813b31
+index 0000000000..b78cf0d1e8
 --- /dev/null
 +++ b/board/ar7240/aph128/aph128.c
 @@ -0,0 +1,175 @@
@@ -23243,7 +23243,7 @@ index 0000000..0813b31
 +}
 diff --git a/board/ar7240/aph128/config.mk b/board/ar7240/aph128/config.mk
 new file mode 100644
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/aph128/config.mk
 @@ -0,0 +1,19 @@
@@ -23268,7 +23268,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/aph128/flash.c b/board/ar7240/aph128/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/aph128/flash.c
 @@ -0,0 +1,28 @@
@@ -23302,7 +23302,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/aph128/u-boot-bootstrap.lds b/board/ar7240/aph128/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/aph128/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -23369,7 +23369,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/aph128/u-boot.lds b/board/ar7240/aph128/u-boot.lds
 new file mode 100644
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/aph128/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -23417,7 +23417,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/ar7240_emu/Makefile b/board/ar7240/ar7240_emu/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/ar7240_emu/Makefile
 @@ -0,0 +1,18 @@
@@ -23441,7 +23441,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/ar7240_emu/ar7240_emu.c b/board/ar7240/ar7240_emu/ar7240_emu.c
 new file mode 100644
-index 0000000..d5bdfaa
+index 0000000000..d5bdfaa384
 --- /dev/null
 +++ b/board/ar7240/ar7240_emu/ar7240_emu.c
 @@ -0,0 +1,144 @@
@@ -23591,7 +23591,7 @@ index 0000000..d5bdfaa
 +}
 diff --git a/board/ar7240/ar7240_emu/config.mk b/board/ar7240/ar7240_emu/config.mk
 new file mode 100755
-index 0000000..f110fcb
+index 0000000000..f110fcb6ff
 --- /dev/null
 +++ b/board/ar7240/ar7240_emu/config.mk
 @@ -0,0 +1,5 @@
@@ -23602,7 +23602,7 @@ index 0000000..f110fcb
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/ar7240_emu/flash.c b/board/ar7240/ar7240_emu/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/ar7240_emu/flash.c
 @@ -0,0 +1,28 @@
@@ -23636,7 +23636,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/ar7240_emu/u-boot.lds b/board/ar7240/ar7240_emu/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/ar7240_emu/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -23684,7 +23684,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/common/ar7240_flash.c b/board/ar7240/common/ar7240_flash.c
 new file mode 100644
-index 0000000..06f234c
+index 0000000000..06f234cfdf
 --- /dev/null
 +++ b/board/ar7240/common/ar7240_flash.c
 @@ -0,0 +1,249 @@
@@ -23939,7 +23939,7 @@ index 0000000..06f234c
 +}
 diff --git a/board/ar7240/common/ar7240_flash.h b/board/ar7240/common/ar7240_flash.h
 new file mode 100644
-index 0000000..de6aae7
+index 0000000000..de6aae7acf
 --- /dev/null
 +++ b/board/ar7240/common/ar7240_flash.h
 @@ -0,0 +1,64 @@
@@ -24009,7 +24009,7 @@ index 0000000..de6aae7
 +#endif /*_FLASH_H*/
 diff --git a/board/ar7240/common/ar7240_pci.c b/board/ar7240/common/ar7240_pci.c
 new file mode 100644
-index 0000000..26ead23
+index 0000000000..8b2d69eec8
 --- /dev/null
 +++ b/board/ar7240/common/ar7240_pci.c
 @@ -0,0 +1,584 @@
@@ -24599,7 +24599,7 @@ index 0000000..26ead23
 +#endif /* CONFIG_WASP_SUPPORT */
 diff --git a/board/ar7240/common/ar7240_s26_phy.c b/board/ar7240/common/ar7240_s26_phy.c
 new file mode 100644
-index 0000000..4c5b218
+index 0000000000..50efcf0e05
 --- /dev/null
 +++ b/board/ar7240/common/ar7240_s26_phy.c
 @@ -0,0 +1,915 @@
@@ -25520,7 +25520,7 @@ index 0000000..4c5b218
 +}
 diff --git a/board/ar7240/common/ar7240_s26_phy.h b/board/ar7240/common/ar7240_s26_phy.h
 new file mode 100644
-index 0000000..a85ac9a
+index 0000000000..a124873916
 --- /dev/null
 +++ b/board/ar7240/common/ar7240_s26_phy.h
 @@ -0,0 +1,119 @@
@@ -25645,7 +25645,7 @@ index 0000000..a85ac9a
 +#endif
 diff --git a/board/ar7240/common/ath_nand.c b/board/ar7240/common/ath_nand.c
 new file mode 100644
-index 0000000..3b3a459
+index 0000000000..b9899f8126
 --- /dev/null
 +++ b/board/ar7240/common/ath_nand.c
 @@ -0,0 +1,1597 @@
@@ -27248,7 +27248,7 @@ index 0000000..3b3a459
 +}
 diff --git a/board/ar7240/common/athr_s27_phy.c b/board/ar7240/common/athr_s27_phy.c
 new file mode 100644
-index 0000000..225abe2
+index 0000000000..8d8497559c
 --- /dev/null
 +++ b/board/ar7240/common/athr_s27_phy.c
 @@ -0,0 +1,877 @@
@@ -28131,7 +28131,7 @@ index 0000000..225abe2
 +}
 diff --git a/board/ar7240/common/athr_s27_phy.h b/board/ar7240/common/athr_s27_phy.h
 new file mode 100644
-index 0000000..9846a4f
+index 0000000000..69540189db
 --- /dev/null
 +++ b/board/ar7240/common/athr_s27_phy.h
 @@ -0,0 +1,208 @@
@@ -28345,7 +28345,7 @@ index 0000000..9846a4f
 +#endif
 diff --git a/board/ar7240/common/athrs16_phy.c b/board/ar7240/common/athrs16_phy.c
 new file mode 100644
-index 0000000..3a68d7a
+index 0000000000..9a2edcec93
 --- /dev/null
 +++ b/board/ar7240/common/athrs16_phy.c
 @@ -0,0 +1,684 @@
@@ -29035,7 +29035,7 @@ index 0000000..3a68d7a
 +}
 diff --git a/board/ar7240/common/athrs16_phy.h b/board/ar7240/common/athrs16_phy.h
 new file mode 100644
-index 0000000..3f1844a
+index 0000000000..07e9d249ad
 --- /dev/null
 +++ b/board/ar7240/common/athrs16_phy.h
 @@ -0,0 +1,141 @@
@@ -29182,7 +29182,7 @@ index 0000000..3f1844a
 +#endif
 diff --git a/board/ar7240/common/athrs17_phy.c b/board/ar7240/common/athrs17_phy.c
 new file mode 100644
-index 0000000..d276a5d
+index 0000000000..f8d177b982
 --- /dev/null
 +++ b/board/ar7240/common/athrs17_phy.c
 @@ -0,0 +1,625 @@
@@ -29813,7 +29813,7 @@ index 0000000..d276a5d
 +}
 diff --git a/board/ar7240/common/athrs17_phy.h b/board/ar7240/common/athrs17_phy.h
 new file mode 100644
-index 0000000..fa4f27f
+index 0000000000..63b18c422c
 --- /dev/null
 +++ b/board/ar7240/common/athrs17_phy.h
 @@ -0,0 +1,107 @@
@@ -29926,7 +29926,7 @@ index 0000000..fa4f27f
 +#endif
 diff --git a/board/ar7240/common/athrs_vir_phy.c b/board/ar7240/common/athrs_vir_phy.c
 new file mode 100644
-index 0000000..6df4ced
+index 0000000000..a6a6c075ad
 --- /dev/null
 +++ b/board/ar7240/common/athrs_vir_phy.c
 @@ -0,0 +1,122 @@
@@ -30054,7 +30054,7 @@ index 0000000..6df4ced
 +}
 diff --git a/board/ar7240/common/athrsf1_phy.c b/board/ar7240/common/athrsf1_phy.c
 new file mode 100644
-index 0000000..2f58e61
+index 0000000000..598fc91123
 --- /dev/null
 +++ b/board/ar7240/common/athrsf1_phy.c
 @@ -0,0 +1,433 @@
@@ -30493,7 +30493,7 @@ index 0000000..2f58e61
 +}
 diff --git a/board/ar7240/common/athrsf1_phy.h b/board/ar7240/common/athrsf1_phy.h
 new file mode 100644
-index 0000000..4495d94
+index 0000000000..4495d94f76
 --- /dev/null
 +++ b/board/ar7240/common/athrsf1_phy.h
 @@ -0,0 +1,26 @@
@@ -30525,7 +30525,7 @@ index 0000000..4495d94
 +#endif
 diff --git a/board/ar7240/common/athrsf2_phy.c b/board/ar7240/common/athrsf2_phy.c
 new file mode 100644
-index 0000000..7610c1f
+index 0000000000..e5898d1a39
 --- /dev/null
 +++ b/board/ar7240/common/athrsf2_phy.c
 @@ -0,0 +1,377 @@
@@ -30908,7 +30908,7 @@ index 0000000..7610c1f
 +}
 diff --git a/board/ar7240/common/lowlevel_init.S b/board/ar7240/common/lowlevel_init.S
 new file mode 100644
-index 0000000..89f0e83
+index 0000000000..10372a7379
 --- /dev/null
 +++ b/board/ar7240/common/lowlevel_init.S
 @@ -0,0 +1,213 @@
@@ -31127,7 +31127,7 @@ index 0000000..89f0e83
 + /* end of file */
 diff --git a/board/ar7240/common/lowlevel_init_934x-1.1.S b/board/ar7240/common/lowlevel_init_934x-1.1.S
 new file mode 100644
-index 0000000..ce69a3a
+index 0000000000..e7d730e960
 --- /dev/null
 +++ b/board/ar7240/common/lowlevel_init_934x-1.1.S
 @@ -0,0 +1,406 @@
@@ -31539,7 +31539,7 @@ index 0000000..ce69a3a
 + /* end of file */
 diff --git a/board/ar7240/common/lowlevel_init_934x.S b/board/ar7240/common/lowlevel_init_934x.S
 new file mode 100644
-index 0000000..989e1b9
+index 0000000000..f105ebfa09
 --- /dev/null
 +++ b/board/ar7240/common/lowlevel_init_934x.S
 @@ -0,0 +1,182 @@
@@ -31727,7 +31727,7 @@ index 0000000..989e1b9
 + /* end of file */
 diff --git a/board/ar7240/common/phy.h b/board/ar7240/common/phy.h
 new file mode 100644
-index 0000000..96aec4b
+index 0000000000..96aec4b489
 --- /dev/null
 +++ b/board/ar7240/common/phy.h
 @@ -0,0 +1,19 @@
@@ -31752,7 +31752,7 @@ index 0000000..96aec4b
 +#endif
 diff --git a/board/ar7240/cus136/Makefile b/board/ar7240/cus136/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/cus136/Makefile
 @@ -0,0 +1,18 @@
@@ -31776,7 +31776,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/cus136/config.mk b/board/ar7240/cus136/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/cus136/config.mk
 @@ -0,0 +1,5 @@
@@ -31787,7 +31787,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/cus136/cus136.c b/board/ar7240/cus136/cus136.c
 new file mode 100644
-index 0000000..a333899
+index 0000000000..a333899e7d
 --- /dev/null
 +++ b/board/ar7240/cus136/cus136.c
 @@ -0,0 +1,70 @@
@@ -31863,7 +31863,7 @@ index 0000000..a333899
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/cus136/flash.c b/board/ar7240/cus136/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/cus136/flash.c
 @@ -0,0 +1,28 @@
@@ -31897,7 +31897,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/cus136/u-boot.lds b/board/ar7240/cus136/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/cus136/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -32171,7 +32171,7 @@ index 0000000..51919f7
 +  ../common/athr_s27_phy.h
 diff --git a/board/ar7240/db12x-extender/Makefile b/board/ar7240/db12x-extender/Makefile
 new file mode 100644
-index 0000000..6898bc0
+index 0000000000..dd3465eba2
 --- /dev/null
 +++ b/board/ar7240/db12x-extender/Makefile
 @@ -0,0 +1,62 @@
@@ -32239,7 +32239,7 @@ index 0000000..6898bc0
 +#########################################################################
 diff --git a/board/ar7240/db12x-extender/config.mk b/board/ar7240/db12x-extender/config.mk
 new file mode 100644
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/db12x-extender/config.mk
 @@ -0,0 +1,19 @@
@@ -32264,7 +32264,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/db12x-extender/db12x-extender.c b/board/ar7240/db12x-extender/db12x-extender.c
 new file mode 100644
-index 0000000..961dad3
+index 0000000000..961dad3ac1
 --- /dev/null
 +++ b/board/ar7240/db12x-extender/db12x-extender.c
 @@ -0,0 +1,136 @@
@@ -32406,7 +32406,7 @@ index 0000000..961dad3
 +}
 diff --git a/board/ar7240/db12x-extender/flash.c b/board/ar7240/db12x-extender/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/db12x-extender/flash.c
 @@ -0,0 +1,28 @@
@@ -32440,7 +32440,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/db12x-extender/u-boot-bootstrap.lds b/board/ar7240/db12x-extender/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/db12x-extender/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -32507,7 +32507,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/db12x-extender/u-boot.lds b/board/ar7240/db12x-extender/u-boot.lds
 new file mode 100644
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/db12x-extender/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -32555,7 +32555,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/db12x-hybrid/Makefile b/board/ar7240/db12x-hybrid/Makefile
 new file mode 100644
-index 0000000..60b78b3
+index 0000000000..045813bfdd
 --- /dev/null
 +++ b/board/ar7240/db12x-hybrid/Makefile
 @@ -0,0 +1,68 @@
@@ -32629,7 +32629,7 @@ index 0000000..60b78b3
 +#########################################################################
 diff --git a/board/ar7240/db12x-hybrid/config.mk b/board/ar7240/db12x-hybrid/config.mk
 new file mode 100644
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/db12x-hybrid/config.mk
 @@ -0,0 +1,19 @@
@@ -32654,7 +32654,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/db12x-hybrid/db12x-hybrid.c b/board/ar7240/db12x-hybrid/db12x-hybrid.c
 new file mode 100644
-index 0000000..add5fbc
+index 0000000000..21f3ea7062
 --- /dev/null
 +++ b/board/ar7240/db12x-hybrid/db12x-hybrid.c
 @@ -0,0 +1,170 @@
@@ -32830,7 +32830,7 @@ index 0000000..add5fbc
 +}
 diff --git a/board/ar7240/db12x-hybrid/flash.c b/board/ar7240/db12x-hybrid/flash.c
 new file mode 100644
-index 0000000..0d511b1
+index 0000000000..0d511b13b4
 --- /dev/null
 +++ b/board/ar7240/db12x-hybrid/flash.c
 @@ -0,0 +1,30 @@
@@ -32866,7 +32866,7 @@ index 0000000..0d511b1
 +}
 diff --git a/board/ar7240/db12x-hybrid/u-boot-bootstrap.lds b/board/ar7240/db12x-hybrid/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/db12x-hybrid/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -32933,7 +32933,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/db12x-hybrid/u-boot.lds b/board/ar7240/db12x-hybrid/u-boot.lds
 new file mode 100644
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/db12x-hybrid/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -32981,7 +32981,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/db12x/Makefile b/board/ar7240/db12x/Makefile
 new file mode 100644
-index 0000000..b6a9439
+index 0000000000..b6a9439dc5
 --- /dev/null
 +++ b/board/ar7240/db12x/Makefile
 @@ -0,0 +1,78 @@
@@ -33065,7 +33065,7 @@ index 0000000..b6a9439
 +#########################################################################
 diff --git a/board/ar7240/db12x/config.mk b/board/ar7240/db12x/config.mk
 new file mode 100755
-index 0000000..df2665e
+index 0000000000..df2665e385
 --- /dev/null
 +++ b/board/ar7240/db12x/config.mk
 @@ -0,0 +1,35 @@
@@ -33106,7 +33106,7 @@ index 0000000..df2665e
 +endif
 diff --git a/board/ar7240/db12x/db12x.c b/board/ar7240/db12x/db12x.c
 new file mode 100644
-index 0000000..53361f5
+index 0000000000..53361f53b0
 --- /dev/null
 +++ b/board/ar7240/db12x/db12x.c
 @@ -0,0 +1,131 @@
@@ -33243,7 +33243,7 @@ index 0000000..53361f5
 +}
 diff --git a/board/ar7240/db12x/extra.c b/board/ar7240/db12x/extra.c
 new file mode 100644
-index 0000000..d9f74dc
+index 0000000000..d9f74dce91
 --- /dev/null
 +++ b/board/ar7240/db12x/extra.c
 @@ -0,0 +1,89 @@
@@ -33338,7 +33338,7 @@ index 0000000..d9f74dc
 +}
 diff --git a/board/ar7240/db12x/flash.c b/board/ar7240/db12x/flash.c
 new file mode 100644
-index 0000000..0d511b1
+index 0000000000..0d511b13b4
 --- /dev/null
 +++ b/board/ar7240/db12x/flash.c
 @@ -0,0 +1,30 @@
@@ -33374,7 +33374,7 @@ index 0000000..0d511b1
 +}
 diff --git a/board/ar7240/db12x/u-boot-bootstrap.lds b/board/ar7240/db12x/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/db12x/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -33441,7 +33441,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/db12x/u-boot.lds b/board/ar7240/db12x/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/db12x/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -33489,7 +33489,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/dhp1565/Makefile b/board/ar7240/dhp1565/Makefile
 new file mode 100644
-index 0000000..6898bc0
+index 0000000000..dd3465eba2
 --- /dev/null
 +++ b/board/ar7240/dhp1565/Makefile
 @@ -0,0 +1,62 @@
@@ -33557,7 +33557,7 @@ index 0000000..6898bc0
 +#########################################################################
 diff --git a/board/ar7240/dhp1565/config.mk b/board/ar7240/dhp1565/config.mk
 new file mode 100644
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/dhp1565/config.mk
 @@ -0,0 +1,19 @@
@@ -33582,7 +33582,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/dhp1565/dhp1565.c b/board/ar7240/dhp1565/dhp1565.c
 new file mode 100644
-index 0000000..86f1d52
+index 0000000000..1f673fd45b
 --- /dev/null
 +++ b/board/ar7240/dhp1565/dhp1565.c
 @@ -0,0 +1,171 @@
@@ -33759,7 +33759,7 @@ index 0000000..86f1d52
 +}
 diff --git a/board/ar7240/dhp1565/flash.c b/board/ar7240/dhp1565/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/dhp1565/flash.c
 @@ -0,0 +1,28 @@
@@ -33793,7 +33793,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/dhp1565/u-boot-bootstrap.lds b/board/ar7240/dhp1565/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/dhp1565/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -33860,7 +33860,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/dhp1565/u-boot.lds b/board/ar7240/dhp1565/u-boot.lds
 new file mode 100644
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/dhp1565/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -33908,7 +33908,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/mi93/Makefile b/board/ar7240/mi93/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/mi93/Makefile
 @@ -0,0 +1,18 @@
@@ -33932,7 +33932,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/mi93/config.mk b/board/ar7240/mi93/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/mi93/config.mk
 @@ -0,0 +1,5 @@
@@ -33943,7 +33943,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/mi93/flash.c b/board/ar7240/mi93/flash.c
 new file mode 100644
-index 0000000..3884a2e
+index 0000000000..130ea081d8
 --- /dev/null
 +++ b/board/ar7240/mi93/flash.c
 @@ -0,0 +1,35 @@
@@ -33984,7 +33984,7 @@ index 0000000..3884a2e
 +}
 diff --git a/board/ar7240/mi93/mi93.c b/board/ar7240/mi93/mi93.c
 new file mode 100644
-index 0000000..d5cd333
+index 0000000000..b08201a659
 --- /dev/null
 +++ b/board/ar7240/mi93/mi93.c
 @@ -0,0 +1,67 @@
@@ -34057,7 +34057,7 @@ index 0000000..d5cd333
 +}
 diff --git a/board/ar7240/mi93/u-boot.lds b/board/ar7240/mi93/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/mi93/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -34105,7 +34105,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/pb90/Makefile b/board/ar7240/pb90/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/pb90/Makefile
 @@ -0,0 +1,18 @@
@@ -34129,7 +34129,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/pb90/config.mk b/board/ar7240/pb90/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/pb90/config.mk
 @@ -0,0 +1,5 @@
@@ -34140,7 +34140,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/pb90/flash.c b/board/ar7240/pb90/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/pb90/flash.c
 @@ -0,0 +1,28 @@
@@ -34174,7 +34174,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/pb90/pb90.c b/board/ar7240/pb90/pb90.c
 new file mode 100644
-index 0000000..14ecbd2
+index 0000000000..14ecbd23e9
 --- /dev/null
 +++ b/board/ar7240/pb90/pb90.c
 @@ -0,0 +1,59 @@
@@ -34239,7 +34239,7 @@ index 0000000..14ecbd2
 +}
 diff --git a/board/ar7240/pb90/u-boot.lds b/board/ar7240/pb90/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/pb90/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -34287,7 +34287,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/pb92/Makefile b/board/ar7240/pb92/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/pb92/Makefile
 @@ -0,0 +1,18 @@
@@ -34311,7 +34311,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/pb92/config.mk b/board/ar7240/pb92/config.mk
 new file mode 100755
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/pb92/config.mk
 @@ -0,0 +1,10 @@
@@ -34327,7 +34327,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/pb92/flash.c b/board/ar7240/pb92/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/pb92/flash.c
 @@ -0,0 +1,28 @@
@@ -34361,7 +34361,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/pb92/pb92.c b/board/ar7240/pb92/pb92.c
 new file mode 100644
-index 0000000..d1368c7
+index 0000000000..d1368c752a
 --- /dev/null
 +++ b/board/ar7240/pb92/pb92.c
 @@ -0,0 +1,75 @@
@@ -34442,7 +34442,7 @@ index 0000000..d1368c7
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/pb92/u-boot-bootstrap.lds b/board/ar7240/pb92/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/pb92/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -34510,7 +34510,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/pb92/u-boot.lds b/board/ar7240/pb92/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/pb92/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -34558,7 +34558,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/pb93/Makefile b/board/ar7240/pb93/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/pb93/Makefile
 @@ -0,0 +1,18 @@
@@ -34582,7 +34582,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/pb93/config.mk b/board/ar7240/pb93/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/pb93/config.mk
 @@ -0,0 +1,5 @@
@@ -34593,7 +34593,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/pb93/flash.c b/board/ar7240/pb93/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/pb93/flash.c
 @@ -0,0 +1,28 @@
@@ -34627,7 +34627,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/pb93/pb93.c b/board/ar7240/pb93/pb93.c
 new file mode 100644
-index 0000000..9f1729f
+index 0000000000..7cff566cc4
 --- /dev/null
 +++ b/board/ar7240/pb93/pb93.c
 @@ -0,0 +1,72 @@
@@ -34705,7 +34705,7 @@ index 0000000..9f1729f
 +}
 diff --git a/board/ar7240/pb93/u-boot.lds b/board/ar7240/pb93/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/pb93/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -34753,7 +34753,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/pb9x-2.6.31/Makefile b/board/ar7240/pb9x-2.6.31/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/pb9x-2.6.31/Makefile
 @@ -0,0 +1,18 @@
@@ -34777,7 +34777,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/pb9x-2.6.31/config.mk b/board/ar7240/pb9x-2.6.31/config.mk
 new file mode 100644
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/pb9x-2.6.31/config.mk
 @@ -0,0 +1,10 @@
@@ -34793,7 +34793,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/pb9x-2.6.31/flash.c b/board/ar7240/pb9x-2.6.31/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/pb9x-2.6.31/flash.c
 @@ -0,0 +1,28 @@
@@ -34827,7 +34827,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/pb9x-2.6.31/pb9x-2.6.31.c b/board/ar7240/pb9x-2.6.31/pb9x-2.6.31.c
 new file mode 100644
-index 0000000..0406602
+index 0000000000..1e801de240
 --- /dev/null
 +++ b/board/ar7240/pb9x-2.6.31/pb9x-2.6.31.c
 @@ -0,0 +1,86 @@
@@ -34919,7 +34919,7 @@ index 0000000..0406602
 +#endif
 diff --git a/board/ar7240/pb9x-2.6.31/u-boot-bootstrap.lds b/board/ar7240/pb9x-2.6.31/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/pb9x-2.6.31/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -34987,7 +34987,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/pb9x-2.6.31/u-boot.lds b/board/ar7240/pb9x-2.6.31/u-boot.lds
 new file mode 100644
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/pb9x-2.6.31/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -35035,7 +35035,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/pb9x-2x8/Makefile b/board/ar7240/pb9x-2x8/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/pb9x-2x8/Makefile
 @@ -0,0 +1,18 @@
@@ -35059,7 +35059,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/pb9x-2x8/config.mk b/board/ar7240/pb9x-2x8/config.mk
 new file mode 100755
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/pb9x-2x8/config.mk
 @@ -0,0 +1,10 @@
@@ -35075,7 +35075,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/pb9x-2x8/flash.c b/board/ar7240/pb9x-2x8/flash.c
 new file mode 100644
-index 0000000..e1b30b5
+index 0000000000..f890bb23ec
 --- /dev/null
 +++ b/board/ar7240/pb9x-2x8/flash.c
 @@ -0,0 +1,28 @@
@@ -35109,7 +35109,7 @@ index 0000000..e1b30b5
 +}
 diff --git a/board/ar7240/pb9x-2x8/pb9x-2x8.c b/board/ar7240/pb9x-2x8/pb9x-2x8.c
 new file mode 100644
-index 0000000..d1368c7
+index 0000000000..d1368c752a
 --- /dev/null
 +++ b/board/ar7240/pb9x-2x8/pb9x-2x8.c
 @@ -0,0 +1,75 @@
@@ -35190,7 +35190,7 @@ index 0000000..d1368c7
 +#endif /* #ifdef COMPRESSED_UBOOT */
 diff --git a/board/ar7240/pb9x-2x8/u-boot-bootstrap.lds b/board/ar7240/pb9x-2x8/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/pb9x-2x8/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -35258,7 +35258,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/pb9x-2x8/u-boot.lds b/board/ar7240/pb9x-2x8/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/pb9x-2x8/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -35306,7 +35306,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/pb9x/Makefile b/board/ar7240/pb9x/Makefile
 new file mode 100644
-index 0000000..0a4d419
+index 0000000000..0a4d419b24
 --- /dev/null
 +++ b/board/ar7240/pb9x/Makefile
 @@ -0,0 +1,18 @@
@@ -35330,7 +35330,7 @@ index 0000000..0a4d419
 +#########################################################################
 diff --git a/board/ar7240/pb9x/config.mk b/board/ar7240/pb9x/config.mk
 new file mode 100644
-index 0000000..4e9c48e
+index 0000000000..4e9c48e5e6
 --- /dev/null
 +++ b/board/ar7240/pb9x/config.mk
 @@ -0,0 +1,10 @@
@@ -35346,7 +35346,7 @@ index 0000000..4e9c48e
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/pb9x/flash.c b/board/ar7240/pb9x/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/pb9x/flash.c
 @@ -0,0 +1,28 @@
@@ -35380,7 +35380,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/pb9x/pb9x.c b/board/ar7240/pb9x/pb9x.c
 new file mode 100644
-index 0000000..0406602
+index 0000000000..1e801de240
 --- /dev/null
 +++ b/board/ar7240/pb9x/pb9x.c
 @@ -0,0 +1,86 @@
@@ -35472,7 +35472,7 @@ index 0000000..0406602
 +#endif
 diff --git a/board/ar7240/pb9x/u-boot-bootstrap.lds b/board/ar7240/pb9x/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..1f1f757
+index 0000000000..1f1f757c86
 --- /dev/null
 +++ b/board/ar7240/pb9x/u-boot-bootstrap.lds
 @@ -0,0 +1,62 @@
@@ -35540,7 +35540,7 @@ index 0000000..1f1f757
 +}
 diff --git a/board/ar7240/pb9x/u-boot.lds b/board/ar7240/pb9x/u-boot.lds
 new file mode 100644
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/pb9x/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -35588,7 +35588,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/reh132/Makefile b/board/ar7240/reh132/Makefile
 new file mode 100644
-index 0000000..6898bc0
+index 0000000000..dd3465eba2
 --- /dev/null
 +++ b/board/ar7240/reh132/Makefile
 @@ -0,0 +1,62 @@
@@ -35656,7 +35656,7 @@ index 0000000..6898bc0
 +#########################################################################
 diff --git a/board/ar7240/reh132/config.mk b/board/ar7240/reh132/config.mk
 new file mode 100644
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/ar7240/reh132/config.mk
 @@ -0,0 +1,19 @@
@@ -35681,7 +35681,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/reh132/flash.c b/board/ar7240/reh132/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/reh132/flash.c
 @@ -0,0 +1,28 @@
@@ -35715,7 +35715,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/reh132/reh132.c b/board/ar7240/reh132/reh132.c
 new file mode 100644
-index 0000000..2c955ce
+index 0000000000..f2b865b724
 --- /dev/null
 +++ b/board/ar7240/reh132/reh132.c
 @@ -0,0 +1,176 @@
@@ -35897,7 +35897,7 @@ index 0000000..2c955ce
 +}
 diff --git a/board/ar7240/reh132/u-boot-bootstrap.lds b/board/ar7240/reh132/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/ar7240/reh132/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -35964,7 +35964,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/ar7240/reh132/u-boot.lds b/board/ar7240/reh132/u-boot.lds
 new file mode 100644
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/ar7240/reh132/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -36012,7 +36012,7 @@ index 0000000..c255264
 +}
 diff --git a/board/ar7240/tb327/Makefile b/board/ar7240/tb327/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/tb327/Makefile
 @@ -0,0 +1,18 @@
@@ -36036,7 +36036,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/tb327/config.mk b/board/ar7240/tb327/config.mk
 new file mode 100755
-index 0000000..f110fcb
+index 0000000000..f110fcb6ff
 --- /dev/null
 +++ b/board/ar7240/tb327/config.mk
 @@ -0,0 +1,5 @@
@@ -36047,7 +36047,7 @@ index 0000000..f110fcb
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/tb327/flash.c b/board/ar7240/tb327/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/tb327/flash.c
 @@ -0,0 +1,28 @@
@@ -36081,7 +36081,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/tb327/tb327.c b/board/ar7240/tb327/tb327.c
 new file mode 100644
-index 0000000..6546139
+index 0000000000..65461399c3
 --- /dev/null
 +++ b/board/ar7240/tb327/tb327.c
 @@ -0,0 +1,52 @@
@@ -36139,7 +36139,7 @@ index 0000000..6546139
 +}
 diff --git a/board/ar7240/tb327/u-boot.lds b/board/ar7240/tb327/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/tb327/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -36187,7 +36187,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/wasp_emu/Makefile b/board/ar7240/wasp_emu/Makefile
 new file mode 100644
-index 0000000..8ed365c
+index 0000000000..8ed365cbcc
 --- /dev/null
 +++ b/board/ar7240/wasp_emu/Makefile
 @@ -0,0 +1,18 @@
@@ -36211,7 +36211,7 @@ index 0000000..8ed365c
 +#########################################################################
 diff --git a/board/ar7240/wasp_emu/config.mk b/board/ar7240/wasp_emu/config.mk
 new file mode 100755
-index 0000000..15c64df
+index 0000000000..15c64df10c
 --- /dev/null
 +++ b/board/ar7240/wasp_emu/config.mk
 @@ -0,0 +1,9 @@
@@ -36226,7 +36226,7 @@ index 0000000..15c64df
 +TEXT_BASE = 0x80100000
 diff --git a/board/ar7240/wasp_emu/flash.c b/board/ar7240/wasp_emu/flash.c
 new file mode 100644
-index 0000000..48f3df0
+index 0000000000..8369fd8b4d
 --- /dev/null
 +++ b/board/ar7240/wasp_emu/flash.c
 @@ -0,0 +1,28 @@
@@ -36260,7 +36260,7 @@ index 0000000..48f3df0
 +}
 diff --git a/board/ar7240/wasp_emu/u-boot.lds b/board/ar7240/wasp_emu/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/wasp_emu/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -36308,7 +36308,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/wasp_emu/wasp_emu.c b/board/ar7240/wasp_emu/wasp_emu.c
 new file mode 100644
-index 0000000..8bc8d2b
+index 0000000000..3b59730f8d
 --- /dev/null
 +++ b/board/ar7240/wasp_emu/wasp_emu.c
 @@ -0,0 +1,69 @@
@@ -36383,7 +36383,7 @@ index 0000000..8bc8d2b
 +}
 diff --git a/board/ar7240/wrt54g/Makefile b/board/ar7240/wrt54g/Makefile
 new file mode 100644
-index 0000000..df215e9
+index 0000000000..df215e93f7
 --- /dev/null
 +++ b/board/ar7240/wrt54g/Makefile
 @@ -0,0 +1,18 @@
@@ -36407,7 +36407,7 @@ index 0000000..df215e9
 +#########################################################################
 diff --git a/board/ar7240/wrt54g/config.mk b/board/ar7240/wrt54g/config.mk
 new file mode 100755
-index 0000000..a1ae880
+index 0000000000..a1ae880417
 --- /dev/null
 +++ b/board/ar7240/wrt54g/config.mk
 @@ -0,0 +1,5 @@
@@ -36418,7 +36418,7 @@ index 0000000..a1ae880
 +#TEXT_BASE = 0x80000000
 diff --git a/board/ar7240/wrt54g/flash.c b/board/ar7240/wrt54g/flash.c
 new file mode 100644
-index 0000000..8840bda
+index 0000000000..722e63baa6
 --- /dev/null
 +++ b/board/ar7240/wrt54g/flash.c
 @@ -0,0 +1,42 @@
@@ -36466,7 +36466,7 @@ index 0000000..8840bda
 +}
 diff --git a/board/ar7240/wrt54g/u-boot.lds b/board/ar7240/wrt54g/u-boot.lds
 new file mode 100755
-index 0000000..8dc2b76
+index 0000000000..8dc2b764c7
 --- /dev/null
 +++ b/board/ar7240/wrt54g/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -36514,7 +36514,7 @@ index 0000000..8dc2b76
 +}
 diff --git a/board/ar7240/wrt54g/wrt54g.c b/board/ar7240/wrt54g/wrt54g.c
 new file mode 100644
-index 0000000..e7041a4
+index 0000000000..c55c6c1581
 --- /dev/null
 +++ b/board/ar7240/wrt54g/wrt54g.c
 @@ -0,0 +1,73 @@
@@ -36593,7 +36593,7 @@ index 0000000..e7041a4
 +}
 diff --git a/board/atheros/aph131/Makefile b/board/atheros/aph131/Makefile
 new file mode 100644
-index 0000000..cde476d
+index 0000000000..8d89fc2154
 --- /dev/null
 +++ b/board/atheros/aph131/Makefile
 @@ -0,0 +1,58 @@
@@ -36657,7 +36657,7 @@ index 0000000..cde476d
 +#########################################################################
 diff --git a/board/atheros/aph131/aph131.c b/board/atheros/aph131/aph131.c
 new file mode 100644
-index 0000000..0bfb6ef
+index 0000000000..0bfb6efe6d
 --- /dev/null
 +++ b/board/atheros/aph131/aph131.c
 @@ -0,0 +1,143 @@
@@ -36806,7 +36806,7 @@ index 0000000..0bfb6ef
 +}
 diff --git a/board/atheros/aph131/config.mk b/board/atheros/aph131/config.mk
 new file mode 100755
-index 0000000..df2665e
+index 0000000000..df2665e385
 --- /dev/null
 +++ b/board/atheros/aph131/config.mk
 @@ -0,0 +1,35 @@
@@ -36847,7 +36847,7 @@ index 0000000..df2665e
 +endif
 diff --git a/board/atheros/aph131/extra.c b/board/atheros/aph131/extra.c
 new file mode 100644
-index 0000000..a14942d
+index 0000000000..a14942daf5
 --- /dev/null
 +++ b/board/atheros/aph131/extra.c
 @@ -0,0 +1,103 @@
@@ -36956,7 +36956,7 @@ index 0000000..a14942d
 +}
 diff --git a/board/atheros/aph131/flash.c b/board/atheros/aph131/flash.c
 new file mode 100644
-index 0000000..ffcbf7f
+index 0000000000..ffcbf7fe4f
 --- /dev/null
 +++ b/board/atheros/aph131/flash.c
 @@ -0,0 +1,32 @@
@@ -36994,7 +36994,7 @@ index 0000000..ffcbf7f
 +#endif /* CONFIG_ATH_NAND_BR */
 diff --git a/board/atheros/aph131/u-boot-bootstrap.lds b/board/atheros/aph131/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/atheros/aph131/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -37061,7 +37061,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/atheros/aph131/u-boot.lds b/board/atheros/aph131/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/atheros/aph131/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -37109,7 +37109,7 @@ index 0000000..c255264
 +}
 diff --git a/board/atheros/board953x/Makefile b/board/atheros/board953x/Makefile
 new file mode 100755
-index 0000000..cb2d46c
+index 0000000000..9c624b7adb
 --- /dev/null
 +++ b/board/atheros/board953x/Makefile
 @@ -0,0 +1,68 @@
@@ -37183,7 +37183,7 @@ index 0000000..cb2d46c
 +#########################################################################
 diff --git a/board/atheros/board953x/board953x.c b/board/atheros/board953x/board953x.c
 new file mode 100755
-index 0000000..7f1d20d
+index 0000000000..7f1d20d863
 --- /dev/null
 +++ b/board/atheros/board953x/board953x.c
 @@ -0,0 +1,145 @@
@@ -37334,7 +37334,7 @@ index 0000000..7f1d20d
 +}
 diff --git a/board/atheros/board953x/config.mk b/board/atheros/board953x/config.mk
 new file mode 100755
-index 0000000..0240aa8
+index 0000000000..0240aa8c1b
 --- /dev/null
 +++ b/board/atheros/board953x/config.mk
 @@ -0,0 +1,23 @@
@@ -37363,7 +37363,7 @@ index 0000000..0240aa8
 +endif
 diff --git a/board/atheros/board953x/extra.c b/board/atheros/board953x/extra.c
 new file mode 100755
-index 0000000..b27bcc1
+index 0000000000..b27bcc1d7c
 --- /dev/null
 +++ b/board/atheros/board953x/extra.c
 @@ -0,0 +1,55 @@
@@ -37424,7 +37424,7 @@ index 0000000..b27bcc1
 +}
 diff --git a/board/atheros/board953x/flash.c b/board/atheros/board953x/flash.c
 new file mode 100755
-index 0000000..cf16d62
+index 0000000000..cf16d62ec1
 --- /dev/null
 +++ b/board/atheros/board953x/flash.c
 @@ -0,0 +1,30 @@
@@ -37460,7 +37460,7 @@ index 0000000..cf16d62
 +}
 diff --git a/board/atheros/board953x/u-boot-bootstrap.lds b/board/atheros/board953x/u-boot-bootstrap.lds
 new file mode 100755
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/atheros/board953x/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -37527,7 +37527,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/atheros/board953x/u-boot.lds b/board/atheros/board953x/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/atheros/board953x/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -37575,7 +37575,7 @@ index 0000000..c255264
 +}
 diff --git a/board/atheros/board955x/Makefile b/board/atheros/board955x/Makefile
 new file mode 100644
-index 0000000..3d1fa24
+index 0000000000..54b1da2730
 --- /dev/null
 +++ b/board/atheros/board955x/Makefile
 @@ -0,0 +1,97 @@
@@ -37678,7 +37678,7 @@ index 0000000..3d1fa24
 +#########################################################################
 diff --git a/board/atheros/board955x/board955x.c b/board/atheros/board955x/board955x.c
 new file mode 100644
-index 0000000..0bfb6ef
+index 0000000000..0bfb6efe6d
 --- /dev/null
 +++ b/board/atheros/board955x/board955x.c
 @@ -0,0 +1,143 @@
@@ -37827,7 +37827,7 @@ index 0000000..0bfb6ef
 +}
 diff --git a/board/atheros/board955x/config.mk b/board/atheros/board955x/config.mk
 new file mode 100755
-index 0000000..df2665e
+index 0000000000..df2665e385
 --- /dev/null
 +++ b/board/atheros/board955x/config.mk
 @@ -0,0 +1,35 @@
@@ -37868,7 +37868,7 @@ index 0000000..df2665e
 +endif
 diff --git a/board/atheros/board955x/extra.c b/board/atheros/board955x/extra.c
 new file mode 100644
-index 0000000..a14942d
+index 0000000000..a14942daf5
 --- /dev/null
 +++ b/board/atheros/board955x/extra.c
 @@ -0,0 +1,103 @@
@@ -37977,7 +37977,7 @@ index 0000000..a14942d
 +}
 diff --git a/board/atheros/board955x/flash.c b/board/atheros/board955x/flash.c
 new file mode 100644
-index 0000000..ffcbf7f
+index 0000000000..ffcbf7fe4f
 --- /dev/null
 +++ b/board/atheros/board955x/flash.c
 @@ -0,0 +1,32 @@
@@ -38015,7 +38015,7 @@ index 0000000..ffcbf7f
 +#endif /* CONFIG_ATH_NAND_BR */
 diff --git a/board/atheros/board955x/u-boot-bootstrap.lds b/board/atheros/board955x/u-boot-bootstrap.lds
 new file mode 100644
-index 0000000..e628df2
+index 0000000000..e628df2e7c
 --- /dev/null
 +++ b/board/atheros/board955x/u-boot-bootstrap.lds
 @@ -0,0 +1,61 @@
@@ -38082,7 +38082,7 @@ index 0000000..e628df2
 +}
 diff --git a/board/atheros/board955x/u-boot.lds b/board/atheros/board955x/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/atheros/board955x/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -38130,7 +38130,7 @@ index 0000000..c255264
 +}
 diff --git a/board/atheros/common/953x.S b/board/atheros/common/953x.S
 new file mode 100755
-index 0000000..5eb9d26
+index 0000000000..676dfe21ea
 --- /dev/null
 +++ b/board/atheros/common/953x.S
 @@ -0,0 +1,153 @@
@@ -38289,7 +38289,7 @@ index 0000000..5eb9d26
 + /* end of file */
 diff --git a/board/atheros/common/955x.S b/board/atheros/common/955x.S
 new file mode 100644
-index 0000000..9421036
+index 0000000000..133a4463e3
 --- /dev/null
 +++ b/board/atheros/common/955x.S
 @@ -0,0 +1,155 @@
@@ -38450,7 +38450,7 @@ index 0000000..9421036
 + /* end of file */
 diff --git a/board/atheros/common/ath_flash.c b/board/atheros/common/ath_flash.c
 new file mode 100644
-index 0000000..9a90666
+index 0000000000..ff10da1f28
 --- /dev/null
 +++ b/board/atheros/common/ath_flash.c
 @@ -0,0 +1,322 @@
@@ -38778,7 +38778,7 @@ index 0000000..9a90666
 +#endif
 diff --git a/board/atheros/common/ath_flash.h b/board/atheros/common/ath_flash.h
 new file mode 100644
-index 0000000..3afabc5
+index 0000000000..19cb60f2f6
 --- /dev/null
 +++ b/board/atheros/common/ath_flash.h
 @@ -0,0 +1,53 @@
@@ -38837,7 +38837,7 @@ index 0000000..3afabc5
 +#endif /* _ATH_FLASH_H */
 diff --git a/board/atheros/common/ath_nand.c b/board/atheros/common/ath_nand.c
 new file mode 100644
-index 0000000..388b82d
+index 0000000000..f5ef9526ca
 --- /dev/null
 +++ b/board/atheros/common/ath_nand.c
 @@ -0,0 +1,1593 @@
@@ -40436,7 +40436,7 @@ index 0000000..388b82d
 +}
 diff --git a/board/atheros/common/ath_pci.c b/board/atheros/common/ath_pci.c
 new file mode 100644
-index 0000000..51757e6
+index 0000000000..71c49d6001
 --- /dev/null
 +++ b/board/atheros/common/ath_pci.c
 @@ -0,0 +1,421 @@
@@ -40863,7 +40863,7 @@ index 0000000..51757e6
 +#endif
 diff --git a/board/atheros/common/athr_ar8033_phy.c b/board/atheros/common/athr_ar8033_phy.c
 new file mode 100644
-index 0000000..37162f5
+index 0000000000..4ae169b1b2
 --- /dev/null
 +++ b/board/atheros/common/athr_ar8033_phy.c
 @@ -0,0 +1,155 @@
@@ -41024,7 +41024,7 @@ index 0000000..37162f5
 +}
 diff --git a/board/atheros/common/athr_s27_phy.c b/board/atheros/common/athr_s27_phy.c
 new file mode 100755
-index 0000000..4ab143f
+index 0000000000..e1cc56080c
 --- /dev/null
 +++ b/board/atheros/common/athr_s27_phy.c
 @@ -0,0 +1,877 @@
@@ -41907,7 +41907,7 @@ index 0000000..4ab143f
 +}
 diff --git a/board/atheros/common/athr_s27_phy.h b/board/atheros/common/athr_s27_phy.h
 new file mode 100755
-index 0000000..9846a4f
+index 0000000000..69540189db
 --- /dev/null
 +++ b/board/atheros/common/athr_s27_phy.h
 @@ -0,0 +1,208 @@
@@ -42121,7 +42121,7 @@ index 0000000..9846a4f
 +#endif
 diff --git a/board/atheros/common/athrs17_lpbk.c b/board/atheros/common/athrs17_lpbk.c
 new file mode 100644
-index 0000000..ef1dcdf
+index 0000000000..81e0e17d82
 --- /dev/null
 +++ b/board/atheros/common/athrs17_lpbk.c
 @@ -0,0 +1,290 @@
@@ -42417,7 +42417,7 @@ index 0000000..ef1dcdf
 +#endif /* #ifdef RGMII_CAL */
 diff --git a/board/atheros/common/athrs17_phy.c b/board/atheros/common/athrs17_phy.c
 new file mode 100644
-index 0000000..2a7e852
+index 0000000000..e64aa7c1b1
 --- /dev/null
 +++ b/board/atheros/common/athrs17_phy.c
 @@ -0,0 +1,713 @@
@@ -43136,7 +43136,7 @@ index 0000000..2a7e852
 +}
 diff --git a/board/atheros/common/athrs17_phy.h b/board/atheros/common/athrs17_phy.h
 new file mode 100644
-index 0000000..c3fc3df
+index 0000000000..8ffe6136b7
 --- /dev/null
 +++ b/board/atheros/common/athrs17_phy.h
 @@ -0,0 +1,553 @@
@@ -43695,7 +43695,7 @@ index 0000000..c3fc3df
 +#endif
 diff --git a/board/atheros/common/athrs_ar8033_phy.h b/board/atheros/common/athrs_ar8033_phy.h
 new file mode 100644
-index 0000000..99bbc17
+index 0000000000..8d9b383b21
 --- /dev/null
 +++ b/board/atheros/common/athrs_ar8033_phy.h
 @@ -0,0 +1,87 @@
@@ -43788,7 +43788,7 @@ index 0000000..99bbc17
 +#endif
 diff --git a/board/atheros/common/athrs_vir_phy.c b/board/atheros/common/athrs_vir_phy.c
 new file mode 100644
-index 0000000..c0f2026
+index 0000000000..b2f9b5e317
 --- /dev/null
 +++ b/board/atheros/common/athrs_vir_phy.c
 @@ -0,0 +1,122 @@
@@ -43916,7 +43916,7 @@ index 0000000..c0f2026
 +}
 diff --git a/board/atheros/common/athrsf1_phy.c b/board/atheros/common/athrsf1_phy.c
 new file mode 100755
-index 0000000..2f58e61
+index 0000000000..598fc91123
 --- /dev/null
 +++ b/board/atheros/common/athrsf1_phy.c
 @@ -0,0 +1,433 @@
@@ -44355,7 +44355,7 @@ index 0000000..2f58e61
 +}
 diff --git a/board/atheros/common/athrsf1_phy.h b/board/atheros/common/athrsf1_phy.h
 new file mode 100755
-index 0000000..4495d94
+index 0000000000..4495d94f76
 --- /dev/null
 +++ b/board/atheros/common/athrsf1_phy.h
 @@ -0,0 +1,26 @@
@@ -44387,7 +44387,7 @@ index 0000000..4495d94
 +#endif
 diff --git a/board/atheros/common/init-953x.c b/board/atheros/common/init-953x.c
 new file mode 100755
-index 0000000..dad7892
+index 0000000000..4f06ae3c27
 --- /dev/null
 +++ b/board/atheros/common/init-953x.c
 @@ -0,0 +1,381 @@
@@ -44774,7 +44774,7 @@ index 0000000..dad7892
 +}
 diff --git a/board/atheros/common/init-955x.c b/board/atheros/common/init-955x.c
 new file mode 100644
-index 0000000..1d6d64e
+index 0000000000..93b2c1b0e5
 --- /dev/null
 +++ b/board/atheros/common/init-955x.c
 @@ -0,0 +1,458 @@
@@ -45238,7 +45238,7 @@ index 0000000..1d6d64e
 +}
 diff --git a/board/atheros/common/phy.h b/board/atheros/common/phy.h
 new file mode 100644
-index 0000000..b285078
+index 0000000000..b285078e1e
 --- /dev/null
 +++ b/board/atheros/common/phy.h
 @@ -0,0 +1,17 @@
@@ -45261,7 +45261,7 @@ index 0000000..b285078
 +#endif
 diff --git a/board/atheros/common/qca-eth-953x.c b/board/atheros/common/qca-eth-953x.c
 new file mode 100755
-index 0000000..c8a449c
+index 0000000000..b81d0c4ea1
 --- /dev/null
 +++ b/board/atheros/common/qca-eth-953x.c
 @@ -0,0 +1,681 @@
@@ -45948,7 +45948,7 @@ index 0000000..c8a449c
 +#endif		/* CONFIG_CMD_MII */
 diff --git a/board/atheros/common/qca-eth-953x.h b/board/atheros/common/qca-eth-953x.h
 new file mode 100755
-index 0000000..8cd29cc
+index 0000000000..8cd29cc507
 --- /dev/null
 +++ b/board/atheros/common/qca-eth-953x.h
 @@ -0,0 +1,349 @@
@@ -46303,7 +46303,7 @@ index 0000000..8cd29cc
 +#endif /* __QCA_ETH_953X_H */
 diff --git a/board/atheros/common/qca-eth-953x_phy.h b/board/atheros/common/qca-eth-953x_phy.h
 new file mode 100755
-index 0000000..f30d1f7
+index 0000000000..f30d1f7be3
 --- /dev/null
 +++ b/board/atheros/common/qca-eth-953x_phy.h
 @@ -0,0 +1,73 @@
@@ -46382,7 +46382,7 @@ index 0000000..f30d1f7
 +#endif /* _QCA_ETH_953x_PHY_H */
 diff --git a/board/atheros/common/qca-eth-955x.c b/board/atheros/common/qca-eth-955x.c
 new file mode 100644
-index 0000000..62366ca
+index 0000000000..2aaa570669
 --- /dev/null
 +++ b/board/atheros/common/qca-eth-955x.c
 @@ -0,0 +1,977 @@
@@ -47365,7 +47365,7 @@ index 0000000..62366ca
 +#endif		/* CONFIG_CMD_MII */
 diff --git a/board/atheros/common/qca-eth-955x.h b/board/atheros/common/qca-eth-955x.h
 new file mode 100644
-index 0000000..86821f4
+index 0000000000..0a86c1c496
 --- /dev/null
 +++ b/board/atheros/common/qca-eth-955x.h
 @@ -0,0 +1,407 @@
@@ -47778,7 +47778,7 @@ index 0000000..86821f4
 +#endif
 diff --git a/board/atheros/common/qca-eth-955x_phy.h b/board/atheros/common/qca-eth-955x_phy.h
 new file mode 100644
-index 0000000..3f498aa
+index 0000000000..3f498aa732
 --- /dev/null
 +++ b/board/atheros/common/qca-eth-955x_phy.h
 @@ -0,0 +1,102 @@
@@ -47886,7 +47886,7 @@ index 0000000..3f498aa
 +#endif /* _QCA_ETH_955x_PHY_H */
 diff --git a/board/atheros/common/rgmii-cal-955x.c b/board/atheros/common/rgmii-cal-955x.c
 new file mode 100644
-index 0000000..c2d2d39
+index 0000000000..0ffcf782f6
 --- /dev/null
 +++ b/board/atheros/common/rgmii-cal-955x.c
 @@ -0,0 +1,600 @@
@@ -48492,7 +48492,7 @@ index 0000000..c2d2d39
 +#endif /* #ifdef RGMII_CAL */
 diff --git a/board/atheros/common/serial.c b/board/atheros/common/serial.c
 new file mode 100644
-index 0000000..ae58e18
+index 0000000000..f33a572cc6
 --- /dev/null
 +++ b/board/atheros/common/serial.c
 @@ -0,0 +1,88 @@
@@ -48586,7 +48586,7 @@ index 0000000..ae58e18
 +}
 diff --git a/board/atheros/common/tap-953x.S b/board/atheros/common/tap-953x.S
 new file mode 100755
-index 0000000..a1e24d6
+index 0000000000..d0aad027d8
 --- /dev/null
 +++ b/board/atheros/common/tap-953x.S
 @@ -0,0 +1,183 @@
@@ -48775,7 +48775,7 @@ index 0000000..a1e24d6
 + /* end of file */
 diff --git a/board/atheros/common/tap-955x.S b/board/atheros/common/tap-955x.S
 new file mode 100644
-index 0000000..30f7954
+index 0000000000..65179f055d
 --- /dev/null
 +++ b/board/atheros/common/tap-955x.S
 @@ -0,0 +1,185 @@
@@ -48966,7 +48966,7 @@ index 0000000..30f7954
 + /* end of file */
 diff --git a/board/atheros/scoemu/Makefile b/board/atheros/scoemu/Makefile
 new file mode 100644
-index 0000000..7bb150b
+index 0000000000..7bb150b1b0
 --- /dev/null
 +++ b/board/atheros/scoemu/Makefile
 @@ -0,0 +1,73 @@
@@ -49045,7 +49045,7 @@ index 0000000..7bb150b
 +#########################################################################
 diff --git a/board/atheros/scoemu/config.mk b/board/atheros/scoemu/config.mk
 new file mode 100755
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/atheros/scoemu/config.mk
 @@ -0,0 +1,19 @@
@@ -49070,7 +49070,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/atheros/scoemu/flash.c b/board/atheros/scoemu/flash.c
 new file mode 100644
-index 0000000..ffcbf7f
+index 0000000000..ffcbf7fe4f
 --- /dev/null
 +++ b/board/atheros/scoemu/flash.c
 @@ -0,0 +1,32 @@
@@ -49108,7 +49108,7 @@ index 0000000..ffcbf7f
 +#endif /* CONFIG_ATH_NAND_BR */
 diff --git a/board/atheros/scoemu/scoemu.c b/board/atheros/scoemu/scoemu.c
 new file mode 100644
-index 0000000..7ac5b6c
+index 0000000000..7ac5b6ca4c
 --- /dev/null
 +++ b/board/atheros/scoemu/scoemu.c
 @@ -0,0 +1,121 @@
@@ -49235,7 +49235,7 @@ index 0000000..7ac5b6c
 +}
 diff --git a/board/atheros/scoemu/u-boot.lds b/board/atheros/scoemu/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/atheros/scoemu/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -49283,7 +49283,7 @@ index 0000000..c255264
 +}
 diff --git a/board/atheros/tb6xx/Makefile b/board/atheros/tb6xx/Makefile
 new file mode 100644
-index 0000000..057f11e
+index 0000000000..057f11eac1
 --- /dev/null
 +++ b/board/atheros/tb6xx/Makefile
 @@ -0,0 +1,73 @@
@@ -49362,7 +49362,7 @@ index 0000000..057f11e
 +#########################################################################
 diff --git a/board/atheros/tb6xx/config.mk b/board/atheros/tb6xx/config.mk
 new file mode 100755
-index 0000000..38e0f11
+index 0000000000..38e0f11ed0
 --- /dev/null
 +++ b/board/atheros/tb6xx/config.mk
 @@ -0,0 +1,19 @@
@@ -49387,7 +49387,7 @@ index 0000000..38e0f11
 +# TEXT_BASE = 0x80100000
 diff --git a/board/atheros/tb6xx/flash.c b/board/atheros/tb6xx/flash.c
 new file mode 100644
-index 0000000..ffcbf7f
+index 0000000000..ffcbf7fe4f
 --- /dev/null
 +++ b/board/atheros/tb6xx/flash.c
 @@ -0,0 +1,32 @@
@@ -49425,7 +49425,7 @@ index 0000000..ffcbf7f
 +#endif /* CONFIG_ATH_NAND_BR */
 diff --git a/board/atheros/tb6xx/tb6xx.c b/board/atheros/tb6xx/tb6xx.c
 new file mode 100644
-index 0000000..6e1995a
+index 0000000000..6e1995a6bf
 --- /dev/null
 +++ b/board/atheros/tb6xx/tb6xx.c
 @@ -0,0 +1,126 @@
@@ -49557,7 +49557,7 @@ index 0000000..6e1995a
 +}
 diff --git a/board/atheros/tb6xx/u-boot.lds b/board/atheros/tb6xx/u-boot.lds
 new file mode 100755
-index 0000000..c255264
+index 0000000000..c255264a5c
 --- /dev/null
 +++ b/board/atheros/tb6xx/u-boot.lds
 @@ -0,0 +1,42 @@
@@ -49603,6 +49603,6 @@ index 0000000..c255264
 +	.bss  : { *(.bss) }
 +	uboot_end = .;
 +}
---
-2.17.1
+-- 
+2.24.0
 

@@ -1,7 +1,7 @@
-From b8227f6f43a91c4c34f73534204f47c2f52e82a7 Mon Sep 17 00:00:00 2001
+From 474d7342135a7ba932b3175dbec2e7ee23877df2 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Thu, 5 Dec 2019 16:59:56 +0000
-Subject: [PATCH] test1
+Date: Tue, 10 Dec 2019 17:01:06 +0000
+Subject: [PATCH] Add ./include/configs/ Atheros files from WR841N(D)v9 u-boot
 
 ---
  include/configs/ap101-2.6.31.h   | 257 ++++++++++++++++
@@ -9,9 +9,9 @@ Subject: [PATCH] test1
  include/configs/ap101.h          | 257 ++++++++++++++++
  include/configs/ap111-2.6.31.h   | 258 ++++++++++++++++
  include/configs/ap111.h          | 257 ++++++++++++++++
- include/configs/ap120.h          | 470 +++++++++++++++++++++++++++++
+ include/configs/ap120.h          | 469 +++++++++++++++++++++++++++++
  include/configs/ap121.h          | 353 ++++++++++++++++++++++
- include/configs/ap123.h          | 468 +++++++++++++++++++++++++++++
+ include/configs/ap123.h          | 467 +++++++++++++++++++++++++++++
  include/configs/ap81.h           | 199 +++++++++++++
  include/configs/ap83.h           | 198 +++++++++++++
  include/configs/ap91-2MB.h       | 227 ++++++++++++++
@@ -31,17 +31,17 @@ Subject: [PATCH] test1
  include/configs/ap99.h           | 294 +++++++++++++++++++
  include/configs/aph126.h         | 437 +++++++++++++++++++++++++++
  include/configs/aph128.h         | 437 +++++++++++++++++++++++++++
- include/configs/aph131.h         | 306 +++++++++++++++++++
+ include/configs/aph131.h         | 305 +++++++++++++++++++
  include/configs/ar7100.h         | 100 +++++++
  include/configs/ar7240.h         | 153 ++++++++++
  include/configs/ar7240_emu.h     | 185 ++++++++++++
- include/configs/board953x.h      | 344 ++++++++++++++++++++++
- include/configs/board955x.h      | 295 +++++++++++++++++++
+ include/configs/board953x.h      | 343 ++++++++++++++++++++++
+ include/configs/board955x.h      | 294 +++++++++++++++++++
  include/configs/cus136.h         | 213 ++++++++++++++
  include/configs/cus97.h          | 155 ++++++++++
  include/configs/db12x-extender.h | 436 +++++++++++++++++++++++++++
- include/configs/db12x-hybrid.h   | 489 +++++++++++++++++++++++++++++++
- include/configs/db12x.h          | 469 +++++++++++++++++++++++++++++
+ include/configs/db12x-hybrid.h   | 488 +++++++++++++++++++++++++++++++
+ include/configs/db12x.h          | 468 +++++++++++++++++++++++++++++
  include/configs/dhp1565.h        | 436 +++++++++++++++++++++++++++
  include/configs/hornet_emu.h     | 270 +++++++++++++++++
  include/configs/mi93.h           | 262 +++++++++++++++++
@@ -55,16 +55,16 @@ Subject: [PATCH] test1
  include/configs/pb9x-2.6.31.h    | 301 +++++++++++++++++++
  include/configs/pb9x-2x8.h       | 225 ++++++++++++++
  include/configs/pb9x.h           | 297 +++++++++++++++++++
- include/configs/reh132.h         | 440 +++++++++++++++++++++++++++
- include/configs/scoemu.h         | 433 +++++++++++++++++++++++++++
+ include/configs/reh132.h         | 440 ++++++++++++++++++++++++++++
+ include/configs/scoemu.h         | 432 +++++++++++++++++++++++++++
  include/configs/tb225.h          |  91 ++++++
  include/configs/tb243.h          | 132 +++++++++
  include/configs/tb327.h          | 166 +++++++++++
- include/configs/tb6xx.h          | 336 +++++++++++++++++++++
+ include/configs/tb6xx.h          | 335 +++++++++++++++++++++
  include/configs/wah132.h         | 438 +++++++++++++++++++++++++++
  include/configs/wasp_emu.h       | 187 ++++++++++++
  include/configs/wrt54g.h         | 180 ++++++++++++
- 60 files changed, 16185 insertions(+)
+ 60 files changed, 16176 insertions(+)
  create mode 100644 include/configs/ap101-2.6.31.h
  create mode 100644 include/configs/ap101-small.h
  create mode 100644 include/configs/ap101.h
@@ -128,7 +128,7 @@ Subject: [PATCH] test1
 
 diff --git a/include/configs/ap101-2.6.31.h b/include/configs/ap101-2.6.31.h
 new file mode 100644
-index 0000000000..58cd138765
+index 0000000000..0b9ab8f28f
 --- /dev/null
 +++ b/include/configs/ap101-2.6.31.h
 @@ -0,0 +1,257 @@
@@ -391,7 +391,7 @@ index 0000000000..58cd138765
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap101-small.h b/include/configs/ap101-small.h
 new file mode 100644
-index 0000000000..b01d63e7b4
+index 0000000000..9ba08592fa
 --- /dev/null
 +++ b/include/configs/ap101-small.h
 @@ -0,0 +1,257 @@
@@ -654,7 +654,7 @@ index 0000000000..b01d63e7b4
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap101.h b/include/configs/ap101.h
 new file mode 100644
-index 0000000000..b01d63e7b4
+index 0000000000..9ba08592fa
 --- /dev/null
 +++ b/include/configs/ap101.h
 @@ -0,0 +1,257 @@
@@ -917,7 +917,7 @@ index 0000000000..b01d63e7b4
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap111-2.6.31.h b/include/configs/ap111-2.6.31.h
 new file mode 100644
-index 0000000000..3717d9d920
+index 0000000000..3e026f0b5c
 --- /dev/null
 +++ b/include/configs/ap111-2.6.31.h
 @@ -0,0 +1,258 @@
@@ -1181,7 +1181,7 @@ index 0000000000..3717d9d920
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap111.h b/include/configs/ap111.h
 new file mode 100644
-index 0000000000..1c312a582b
+index 0000000000..2f22eef79b
 --- /dev/null
 +++ b/include/configs/ap111.h
 @@ -0,0 +1,257 @@
@@ -1444,7 +1444,7 @@ index 0000000000..1c312a582b
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap120.h b/include/configs/ap120.h
 new file mode 100644
-index 0000000000..384339eba1
+index 0000000000..d3e650012d
 --- /dev/null
 +++ b/include/configs/ap120.h
 @@ -0,0 +1,469 @@
@@ -1919,7 +1919,7 @@ index 0000000000..384339eba1
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap121.h b/include/configs/ap121.h
 new file mode 100644
-index 0000000000..ed38a287d5
+index 0000000000..bae67d9a07
 --- /dev/null
 +++ b/include/configs/ap121.h
 @@ -0,0 +1,353 @@
@@ -2278,7 +2278,7 @@ index 0000000000..ed38a287d5
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap123.h b/include/configs/ap123.h
 new file mode 100644
-index 0000000000..478508e110
+index 0000000000..a683db8c02
 --- /dev/null
 +++ b/include/configs/ap123.h
 @@ -0,0 +1,467 @@
@@ -2751,7 +2751,7 @@ index 0000000000..478508e110
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap81.h b/include/configs/ap81.h
 new file mode 100644
-index 0000000000..76c568bd9c
+index 0000000000..e1c51ead7c
 --- /dev/null
 +++ b/include/configs/ap81.h
 @@ -0,0 +1,199 @@
@@ -2956,7 +2956,7 @@ index 0000000000..76c568bd9c
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap83.h b/include/configs/ap83.h
 new file mode 100644
-index 0000000000..3f90251449
+index 0000000000..189e6e1752
 --- /dev/null
 +++ b/include/configs/ap83.h
 @@ -0,0 +1,198 @@
@@ -3160,7 +3160,7 @@ index 0000000000..3f90251449
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91-2MB.h b/include/configs/ap91-2MB.h
 new file mode 100644
-index 0000000000..49feaf2619
+index 0000000000..e153fb7f75
 --- /dev/null
 +++ b/include/configs/ap91-2MB.h
 @@ -0,0 +1,227 @@
@@ -3393,7 +3393,7 @@ index 0000000000..49feaf2619
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91-2x8.h b/include/configs/ap91-2x8.h
 new file mode 100644
-index 0000000000..222bb65124
+index 0000000000..01e0f8c862
 --- /dev/null
 +++ b/include/configs/ap91-2x8.h
 @@ -0,0 +1,227 @@
@@ -3626,7 +3626,7 @@ index 0000000000..222bb65124
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91-router.h b/include/configs/ap91-router.h
 new file mode 100644
-index 0000000000..bd83308ba4
+index 0000000000..f00f4df9b0
 --- /dev/null
 +++ b/include/configs/ap91-router.h
 @@ -0,0 +1,208 @@
@@ -3840,7 +3840,7 @@ index 0000000000..bd83308ba4
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap91.h b/include/configs/ap91.h
 new file mode 100644
-index 0000000000..60b1f2594f
+index 0000000000..923f025bad
 --- /dev/null
 +++ b/include/configs/ap91.h
 @@ -0,0 +1,253 @@
@@ -4099,7 +4099,7 @@ index 0000000000..60b1f2594f
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap93-hgw.h b/include/configs/ap93-hgw.h
 new file mode 100644
-index 0000000000..404ab08a6e
+index 0000000000..f15208edee
 --- /dev/null
 +++ b/include/configs/ap93-hgw.h
 @@ -0,0 +1,183 @@
@@ -4288,7 +4288,7 @@ index 0000000000..404ab08a6e
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap93.h b/include/configs/ap93.h
 new file mode 100644
-index 0000000000..d09121f777
+index 0000000000..c1789e3508
 --- /dev/null
 +++ b/include/configs/ap93.h
 @@ -0,0 +1,177 @@
@@ -4471,7 +4471,7 @@ index 0000000000..d09121f777
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap94.h b/include/configs/ap94.h
 new file mode 100644
-index 0000000000..2c759ad46a
+index 0000000000..c1d780a1f4
 --- /dev/null
 +++ b/include/configs/ap94.h
 @@ -0,0 +1,191 @@
@@ -4668,7 +4668,7 @@ index 0000000000..2c759ad46a
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/ap94min.h b/include/configs/ap94min.h
 new file mode 100644
-index 0000000000..78a308cfd4
+index 0000000000..d08d8d09a6
 --- /dev/null
 +++ b/include/configs/ap94min.h
 @@ -0,0 +1,176 @@
@@ -4850,7 +4850,7 @@ index 0000000000..78a308cfd4
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/ap96.h b/include/configs/ap96.h
 new file mode 100644
-index 0000000000..bf373bb2b8
+index 0000000000..78a7e5eaf8
 --- /dev/null
 +++ b/include/configs/ap96.h
 @@ -0,0 +1,186 @@
@@ -5042,7 +5042,7 @@ index 0000000000..bf373bb2b8
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/ap98.h b/include/configs/ap98.h
 new file mode 100644
-index 0000000000..8dee354615
+index 0000000000..6853e00ef0
 --- /dev/null
 +++ b/include/configs/ap98.h
 @@ -0,0 +1,294 @@
@@ -5342,7 +5342,7 @@ index 0000000000..8dee354615
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-2.6.31.h b/include/configs/ap99-2.6.31.h
 new file mode 100644
-index 0000000000..4530553d18
+index 0000000000..76efdb3f8e
 --- /dev/null
 +++ b/include/configs/ap99-2.6.31.h
 @@ -0,0 +1,273 @@
@@ -5621,7 +5621,7 @@ index 0000000000..4530553d18
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-hgw.h b/include/configs/ap99-hgw.h
 new file mode 100644
-index 0000000000..759afa201e
+index 0000000000..1d325b3d60
 --- /dev/null
 +++ b/include/configs/ap99-hgw.h
 @@ -0,0 +1,290 @@
@@ -5917,7 +5917,7 @@ index 0000000000..759afa201e
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-ivi.h b/include/configs/ap99-ivi.h
 new file mode 100644
-index 0000000000..4f67ccb865
+index 0000000000..37061c8ddd
 --- /dev/null
 +++ b/include/configs/ap99-ivi.h
 @@ -0,0 +1,288 @@
@@ -6211,7 +6211,7 @@ index 0000000000..4f67ccb865
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99-small.h b/include/configs/ap99-small.h
 new file mode 100644
-index 0000000000..1131c26e6b
+index 0000000000..5aff3829c1
 --- /dev/null
 +++ b/include/configs/ap99-small.h
 @@ -0,0 +1,261 @@
@@ -6478,7 +6478,7 @@ index 0000000000..1131c26e6b
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ap99.h b/include/configs/ap99.h
 new file mode 100644
-index 0000000000..9c2aeaa257
+index 0000000000..108d69e6d8
 --- /dev/null
 +++ b/include/configs/ap99.h
 @@ -0,0 +1,294 @@
@@ -6778,7 +6778,7 @@ index 0000000000..9c2aeaa257
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/aph126.h b/include/configs/aph126.h
 new file mode 100644
-index 0000000000..09c90e67b3
+index 0000000000..d2796383d8
 --- /dev/null
 +++ b/include/configs/aph126.h
 @@ -0,0 +1,437 @@
@@ -7221,7 +7221,7 @@ index 0000000000..09c90e67b3
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/aph128.h b/include/configs/aph128.h
 new file mode 100644
-index 0000000000..09c90e67b3
+index 0000000000..d2796383d8
 --- /dev/null
 +++ b/include/configs/aph128.h
 @@ -0,0 +1,437 @@
@@ -7664,7 +7664,7 @@ index 0000000000..09c90e67b3
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/aph131.h b/include/configs/aph131.h
 new file mode 100644
-index 0000000000..8316a90865
+index 0000000000..1bc64d82ab
 --- /dev/null
 +++ b/include/configs/aph131.h
 @@ -0,0 +1,305 @@
@@ -8081,7 +8081,7 @@ index 0000000000..8f472d0030
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ar7240.h b/include/configs/ar7240.h
 new file mode 100644
-index 0000000000..d29cc33500
+index 0000000000..f6cfa445c9
 --- /dev/null
 +++ b/include/configs/ar7240.h
 @@ -0,0 +1,153 @@
@@ -8240,7 +8240,7 @@ index 0000000000..d29cc33500
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/ar7240_emu.h b/include/configs/ar7240_emu.h
 new file mode 100644
-index 0000000000..6bb10cf221
+index 0000000000..bbfa538b39
 --- /dev/null
 +++ b/include/configs/ar7240_emu.h
 @@ -0,0 +1,185 @@
@@ -8431,7 +8431,7 @@ index 0000000000..6bb10cf221
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/board953x.h b/include/configs/board953x.h
 new file mode 100755
-index 0000000000..5e49bbc04e
+index 0000000000..0ad02a6159
 --- /dev/null
 +++ b/include/configs/board953x.h
 @@ -0,0 +1,343 @@
@@ -8780,7 +8780,7 @@ index 0000000000..5e49bbc04e
 +#endif	/* __BOARD_955X_H */
 diff --git a/include/configs/board955x.h b/include/configs/board955x.h
 new file mode 100644
-index 0000000000..1a541cfdea
+index 0000000000..b902bd9fb7
 --- /dev/null
 +++ b/include/configs/board955x.h
 @@ -0,0 +1,294 @@
@@ -9080,7 +9080,7 @@ index 0000000000..1a541cfdea
 +#endif	/* __BOARD_955X_H */
 diff --git a/include/configs/cus136.h b/include/configs/cus136.h
 new file mode 100644
-index 0000000000..3286f762a0
+index 0000000000..cac17c5fe5
 --- /dev/null
 +++ b/include/configs/cus136.h
 @@ -0,0 +1,213 @@
@@ -9299,7 +9299,7 @@ index 0000000000..3286f762a0
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/cus97.h b/include/configs/cus97.h
 new file mode 100644
-index 0000000000..43aa858dcf
+index 0000000000..41e27f963e
 --- /dev/null
 +++ b/include/configs/cus97.h
 @@ -0,0 +1,155 @@
@@ -9460,7 +9460,7 @@ index 0000000000..43aa858dcf
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/db12x-extender.h b/include/configs/db12x-extender.h
 new file mode 100644
-index 0000000000..b2b275627f
+index 0000000000..ee572b851e
 --- /dev/null
 +++ b/include/configs/db12x-extender.h
 @@ -0,0 +1,436 @@
@@ -9902,7 +9902,7 @@ index 0000000000..b2b275627f
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/db12x-hybrid.h b/include/configs/db12x-hybrid.h
 new file mode 100644
-index 0000000000..38c7950cef
+index 0000000000..e8d8940842
 --- /dev/null
 +++ b/include/configs/db12x-hybrid.h
 @@ -0,0 +1,488 @@
@@ -10396,7 +10396,7 @@ index 0000000000..38c7950cef
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/db12x.h b/include/configs/db12x.h
 new file mode 100644
-index 0000000000..8ed1f4f2e6
+index 0000000000..bcdaae125a
 --- /dev/null
 +++ b/include/configs/db12x.h
 @@ -0,0 +1,468 @@
@@ -10870,7 +10870,7 @@ index 0000000000..8ed1f4f2e6
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/dhp1565.h b/include/configs/dhp1565.h
 new file mode 100644
-index 0000000000..bd332a9a92
+index 0000000000..17a3cc2449
 --- /dev/null
 +++ b/include/configs/dhp1565.h
 @@ -0,0 +1,436 @@
@@ -11312,7 +11312,7 @@ index 0000000000..bd332a9a92
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/hornet_emu.h b/include/configs/hornet_emu.h
 new file mode 100644
-index 0000000000..3e560c480b
+index 0000000000..01bcc5931a
 --- /dev/null
 +++ b/include/configs/hornet_emu.h
 @@ -0,0 +1,270 @@
@@ -11588,7 +11588,7 @@ index 0000000000..3e560c480b
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/mi93.h b/include/configs/mi93.h
 new file mode 100644
-index 0000000000..9f894906b8
+index 0000000000..96b4fc76ec
 --- /dev/null
 +++ b/include/configs/mi93.h
 @@ -0,0 +1,262 @@
@@ -11856,7 +11856,7 @@ index 0000000000..9f894906b8
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb42.h b/include/configs/pb42.h
 new file mode 100644
-index 0000000000..170024e4bf
+index 0000000000..c61245b573
 --- /dev/null
 +++ b/include/configs/pb42.h
 @@ -0,0 +1,123 @@
@@ -11985,7 +11985,7 @@ index 0000000000..170024e4bf
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb44.h b/include/configs/pb44.h
 new file mode 100644
-index 0000000000..f0d5c38a13
+index 0000000000..fc858ddb1a
 --- /dev/null
 +++ b/include/configs/pb44.h
 @@ -0,0 +1,241 @@
@@ -12232,7 +12232,7 @@ index 0000000000..f0d5c38a13
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/pb45.h b/include/configs/pb45.h
 new file mode 100644
-index 0000000000..8ebae9190f
+index 0000000000..5ceb71a339
 --- /dev/null
 +++ b/include/configs/pb45.h
 @@ -0,0 +1,171 @@
@@ -12409,7 +12409,7 @@ index 0000000000..8ebae9190f
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/pb47.h b/include/configs/pb47.h
 new file mode 100644
-index 0000000000..687a1c72db
+index 0000000000..c6ff30e8bb
 --- /dev/null
 +++ b/include/configs/pb47.h
 @@ -0,0 +1,169 @@
@@ -12584,7 +12584,7 @@ index 0000000000..687a1c72db
 +#endif  /* __CONFIG_H */
 diff --git a/include/configs/pb90.h b/include/configs/pb90.h
 new file mode 100644
-index 0000000000..eb33cb25cf
+index 0000000000..c1e8cefdc9
 --- /dev/null
 +++ b/include/configs/pb90.h
 @@ -0,0 +1,177 @@
@@ -12767,7 +12767,7 @@ index 0000000000..eb33cb25cf
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb92.h b/include/configs/pb92.h
 new file mode 100644
-index 0000000000..995026f2b4
+index 0000000000..aa2e39df25
 --- /dev/null
 +++ b/include/configs/pb92.h
 @@ -0,0 +1,347 @@
@@ -13120,7 +13120,7 @@ index 0000000000..995026f2b4
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb93.h b/include/configs/pb93.h
 new file mode 100644
-index 0000000000..58700cdc7a
+index 0000000000..79ef124739
 --- /dev/null
 +++ b/include/configs/pb93.h
 @@ -0,0 +1,242 @@
@@ -13368,7 +13368,7 @@ index 0000000000..58700cdc7a
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb9x-2.6.31.h b/include/configs/pb9x-2.6.31.h
 new file mode 100644
-index 0000000000..0b2c9e4110
+index 0000000000..e230e6c0b2
 --- /dev/null
 +++ b/include/configs/pb9x-2.6.31.h
 @@ -0,0 +1,301 @@
@@ -13675,7 +13675,7 @@ index 0000000000..0b2c9e4110
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb9x-2x8.h b/include/configs/pb9x-2x8.h
 new file mode 100644
-index 0000000000..c04b1675b9
+index 0000000000..f5163d9a28
 --- /dev/null
 +++ b/include/configs/pb9x-2x8.h
 @@ -0,0 +1,225 @@
@@ -13906,7 +13906,7 @@ index 0000000000..c04b1675b9
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/pb9x.h b/include/configs/pb9x.h
 new file mode 100644
-index 0000000000..c1091b596f
+index 0000000000..21d5323dd6
 --- /dev/null
 +++ b/include/configs/pb9x.h
 @@ -0,0 +1,297 @@
@@ -14209,7 +14209,7 @@ index 0000000000..c1091b596f
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/reh132.h b/include/configs/reh132.h
 new file mode 100644
-index 0000000000..6029ae2e53
+index 0000000000..6f5c6f5a01
 --- /dev/null
 +++ b/include/configs/reh132.h
 @@ -0,0 +1,440 @@
@@ -14655,7 +14655,7 @@ index 0000000000..6029ae2e53
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/scoemu.h b/include/configs/scoemu.h
 new file mode 100644
-index 0000000000..6181045e29
+index 0000000000..0bbc869e74
 --- /dev/null
 +++ b/include/configs/scoemu.h
 @@ -0,0 +1,432 @@
@@ -15093,7 +15093,7 @@ index 0000000000..6181045e29
 +#endif	/* __SCOEMU_H */
 diff --git a/include/configs/tb225.h b/include/configs/tb225.h
 new file mode 100644
-index 0000000000..6187e8a171
+index 0000000000..1881bbed4b
 --- /dev/null
 +++ b/include/configs/tb225.h
 @@ -0,0 +1,91 @@
@@ -15190,7 +15190,7 @@ index 0000000000..6187e8a171
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/tb243.h b/include/configs/tb243.h
 new file mode 100644
-index 0000000000..8811e658a4
+index 0000000000..d77d2102ae
 --- /dev/null
 +++ b/include/configs/tb243.h
 @@ -0,0 +1,132 @@
@@ -15328,7 +15328,7 @@ index 0000000000..8811e658a4
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/tb327.h b/include/configs/tb327.h
 new file mode 100644
-index 0000000000..1f108444ca
+index 0000000000..c78a170362
 --- /dev/null
 +++ b/include/configs/tb327.h
 @@ -0,0 +1,166 @@
@@ -15500,7 +15500,7 @@ index 0000000000..1f108444ca
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/tb6xx.h b/include/configs/tb6xx.h
 new file mode 100644
-index 0000000000..b79009d3e6
+index 0000000000..1c9309b728
 --- /dev/null
 +++ b/include/configs/tb6xx.h
 @@ -0,0 +1,335 @@
@@ -15841,7 +15841,7 @@ index 0000000000..b79009d3e6
 +#endif	/* __TB6XX_H */
 diff --git a/include/configs/wah132.h b/include/configs/wah132.h
 new file mode 100644
-index 0000000000..08a1f7c054
+index 0000000000..2f14d34fb4
 --- /dev/null
 +++ b/include/configs/wah132.h
 @@ -0,0 +1,438 @@
@@ -16285,7 +16285,7 @@ index 0000000000..08a1f7c054
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/wasp_emu.h b/include/configs/wasp_emu.h
 new file mode 100644
-index 0000000000..e0a9899929
+index 0000000000..8ee0e2f328
 --- /dev/null
 +++ b/include/configs/wasp_emu.h
 @@ -0,0 +1,187 @@
@@ -16478,7 +16478,7 @@ index 0000000000..e0a9899929
 +#endif	/* __CONFIG_H */
 diff --git a/include/configs/wrt54g.h b/include/configs/wrt54g.h
 new file mode 100644
-index 0000000000..d187ab4364
+index 0000000000..5cf57c87b7
 --- /dev/null
 +++ b/include/configs/wrt54g.h
 @@ -0,0 +1,180 @@
@@ -16662,6 +16662,6 @@ index 0000000000..d187ab4364
 +#include <config_cmd_default.h>
 +
 +#endif	/* __CONFIG_H */
---
+-- 
 2.24.0
 

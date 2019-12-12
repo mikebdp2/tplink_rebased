@@ -1,21 +1,57 @@
-From 21e360e8335e089946ce2e0f4ed3ee5e3d4cc4a8 Mon Sep 17 00:00:00 2001
+From bf999024a8cae8b75148d21f001ca7d0a585c2e8 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:56:15 +0000
+Date: Tue, 10 Dec 2019 17:02:37 +0000
 Subject: [PATCH] Modify ./include/ files according to WR841N(D)v9 u-boot
 
 ---
- include/config_cmd_all.h     | 2 ++
- include/config_cmd_default.h | 4 +++
- include/common.h             | 9 ++++++
- include/flash.h              | 2 ++
- include/image.h              | 1 +
- include/net.h                | 8 +++++
- include/pci.h                | 6 ++--
- include/version.h            | 1 +
- 8 files changed, 33 insertions(+), 2 deletions(-)
+ include/common.h             |  9 +++++++++
+ include/config_cmd_all.h     |  2 ++
+ include/config_cmd_default.h | 25 ++++++++++++++++---------
+ include/flash.h              |  2 ++
+ include/image.h              |  1 +
+ include/net.h                |  8 ++++++++
+ include/pci.h                |  6 ++++--
+ include/version.h            |  1 +
+ 8 files changed, 43 insertions(+), 11 deletions(-)
 
+diff --git a/include/common.h b/include/common.h
+index 673afdd150..d5d2006e10 100644
+--- a/include/common.h
++++ b/include/common.h
+@@ -208,7 +208,11 @@ void	reset_cmd_timeout(void);
+ /* lib_$(ARCH)/board.c */
+ void	board_init_f  (ulong) __attribute__ ((noreturn));
+ void	board_init_r  (gd_t *, ulong) __attribute__ ((noreturn));
++#ifdef COMPRESSED_UBOOT /* cu570m condition branch */
++int	checkboard    (char *);
++#else /* old default path */
+ int	checkboard    (void);
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ int	checkflash    (void);
+ int	checkdram     (void);
+ char *	strmhz(char *buf, long hz);
+@@ -258,7 +262,11 @@ int env_complete(char *var, int maxv, char *cmdv[], int maxsz, char *buf);
+ #endif
+ 
+ void	pci_init      (void);
++#ifdef  COMPRESSED_UBOOT /* cu570m condition branch */
++int	pci_init_board(void);
++#else /* old default path */
+ void	pci_init_board(void);
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ void	pciinfo	      (int, int);
+ 
+ #if defined(CONFIG_PCI) && (defined(CONFIG_4xx) && !defined(CONFIG_AP1000))
+@@ -394,6 +402,7 @@ int	dcache_status (void);
+ void	dcache_enable (void);
+ void	dcache_disable(void);
+ void	relocate_code (ulong, gd_t *, ulong) __attribute__ ((noreturn));
++void 	ar7240_ddr_tap_init(void); /* cu570m */
+ ulong	get_endaddr   (void);
+ void	trap_init     (ulong);
+ #if defined (CONFIG_4xx)	|| \
 diff --git a/include/config_cmd_all.h b/include/config_cmd_all.h
-index 14801b565c..cfb1770ea2 100644
+index 69276a3894..12520b9e22 100644
 --- a/include/config_cmd_all.h
 +++ b/include/config_cmd_all.h
 @@ -33,6 +33,7 @@
@@ -26,7 +62,7 @@ index 14801b565c..cfb1770ea2 100644
  #define CONFIG_CMD_EXT2		/* EXT2 Support			*/
  #define CONFIG_CMD_FAT		/* FAT support			*/
  #define CONFIG_CMD_FDC		/* Floppy Disk Support		*/
-@@ -62,6 +63,7 @@
+@@ -63,6 +64,7 @@
  #define CONFIG_CMD_PCI		/* pciinfo			*/
  #define CONFIG_CMD_PCMCIA	/* PCMCIA support		*/
  #define CONFIG_CMD_PING		/* ping support			*/
@@ -80,47 +116,11 @@ index f61cfc9368..d8542fced6 100644
 +#define CONFIG_CMD_RUN		/* run command in env variable	*/
  
  #endif	/* _CONFIG_CMD_DEFAULT_H */
-diff --git a/include/common.h b/include/common.h
-index 349d5cf..ce8f73b 100644
---- a/include/common.h
-+++ b/include/common.h
-@@ -198,7 +198,11 @@ void	reset_cmd_timeout(void);
- /* lib_$(ARCH)/board.c */
- void	board_init_f  (ulong) __attribute__ ((noreturn));
- void	board_init_r  (gd_t *, ulong) __attribute__ ((noreturn));
-+#ifdef COMPRESSED_UBOOT /* cu570m condition branch */
-+int	checkboard    (char *);
-+#else /* old default path */
- int	checkboard    (void);
-+#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
- int	checkflash    (void);
- int	checkdram     (void);
- char *	strmhz(char *buf, long hz);
-@@ -244,7 +248,11 @@ int env_complete(char *var, int maxv, char *cmdv[], int maxsz, char *buf);
- #endif
- 
- void	pci_init      (void);
-+#ifdef  COMPRESSED_UBOOT /* cu570m condition branch */
-+int	pci_init_board(void);
-+#else /* old default path */
- void	pci_init_board(void);
-+#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
- void	pciinfo	      (int, int);
- 
- #if defined(CONFIG_PCI) && (defined(CONFIG_4xx) && !defined(CONFIG_AP1000))
-@@ -374,6 +382,7 @@ int	dcache_status (void);
- void	dcache_enable (void);
- void	dcache_disable(void);
- void	relocate_code (ulong, gd_t *, ulong) __attribute__ ((noreturn));
-+void 	ar7240_ddr_tap_init(void); /* cu570m */
- ulong	get_endaddr   (void);
- void	trap_init     (ulong);
- #if defined (CONFIG_4xx)	|| \
 diff --git a/include/flash.h b/include/flash.h
-index d91589a..fe50741 100644
+index 2ed1e20fd2..cc7cd15e78 100644
 --- a/include/flash.h
 +++ b/include/flash.h
-@@ -422,6 +422,8 @@ extern void flash_read_factory_serial(flash_info_t * info, void * buffer, int of
+@@ -447,6 +447,8 @@ extern int jedec_flash_match(flash_info_t *info, ulong base);
  #define FLASH_S29GL064M 0x00F0		/* Spansion S29GL064M-R6		*/
  #define FLASH_S29GL128N 0x00F1		/* Spansion S29GL128N			*/
  
@@ -130,10 +130,10 @@ index d91589a..fe50741 100644
  
  
 diff --git a/include/image.h b/include/image.h
-index 2f575fd..a3187b5 100644
+index 432fa22393..c3354e33b2 100644
 --- a/include/image.h
 +++ b/include/image.h
-@@ -133,6 +133,7 @@
+@@ -134,6 +134,7 @@
  #define IH_COMP_NONE		0	/*  No	 Compression Used	*/
  #define IH_COMP_GZIP		1	/* gzip	 Compression Used	*/
  #define IH_COMP_BZIP2		2	/* bzip2 Compression Used	*/
@@ -142,10 +142,10 @@ index 2f575fd..a3187b5 100644
  #define IH_MAGIC	0x27051956	/* Image Magic Number		*/
  #define IH_NMLEN		32	/* Image Name Length		*/
 diff --git a/include/net.h b/include/net.h
-index 461e038..b115486 100644
+index f6decdca88..34b1fa70d2 100644
 --- a/include/net.h
 +++ b/include/net.h
-@@ -268,7 +268,11 @@ typedef struct icmphdr {
+@@ -278,7 +278,11 @@ typedef struct icmphdr {
   * maximum packet size =  1518
   * maximum packet size and multiple of 32 bytes =  1536
   */
@@ -157,7 +157,7 @@ index 461e038..b115486 100644
  #define PKTSIZE_ALIGN		1536
  /*#define PKTSIZE		608*/
  
-@@ -336,7 +340,11 @@ extern int		NetState;		/* Network loop state		*/
+@@ -346,7 +350,11 @@ extern int		NetState;		/* Network loop state		*/
  extern int		NetRestartWrap;		/* Tried all network devices	*/
  #endif
  
@@ -170,7 +170,7 @@ index 461e038..b115486 100644
  /* from net/net.c */
  extern char	BootFile[128];			/* Boot File name		*/
 diff --git a/include/pci.h b/include/pci.h
-index 7c9a0e3..454963d 100644
+index 8e5dacc0df..18944ffaf7 100644
 --- a/include/pci.h
 +++ b/include/pci.h
 @@ -24,6 +24,8 @@
@@ -182,7 +182,7 @@ index 7c9a0e3..454963d 100644
  #ifndef _PCI_H
  #define _PCI_H
  
-@@ -323,7 +325,7 @@ struct pci_region {
+@@ -329,7 +331,7 @@ struct pci_region {
  #define PCI_REGION_MEMORY	0x00000100	/* System memory */
  #define PCI_REGION_RO		0x00000200	/* Read-only memory */
  
@@ -191,7 +191,7 @@ index 7c9a0e3..454963d 100644
  				      unsigned long bus_start,
  				      unsigned long phys_start,
  				      unsigned long size,
-@@ -403,7 +405,7 @@ struct pci_controller {
+@@ -409,7 +411,7 @@ struct pci_controller {
  	int current_busno;
  };
  
@@ -201,7 +201,7 @@ index 7c9a0e3..454963d 100644
  						    pci_dev_t, int where, u8 *),
  				   int (*read_word)(struct pci_controller*,
 diff --git a/include/version.h b/include/version.h
-index b56d2e9..b332371 100644
+index b56d2e9900..b332371b07 100644
 --- a/include/version.h
 +++ b/include/version.h
 @@ -25,5 +25,6 @@
@@ -212,5 +212,5 @@ index b56d2e9..b332371 100644
  
  #endif	/* __VERSION_H__ */
 -- 
-2.17.1
+2.24.0
 

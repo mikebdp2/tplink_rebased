@@ -1,25 +1,25 @@
-From 6beedd7b4996d22bbb37c24f58f417804086bd2c Mon Sep 17 00:00:00 2001
+From fc91f30e4e8dd2e359bb08a313b98c1827309dfd Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:44:10 +0000
+Date: Tue, 10 Dec 2019 16:49:17 +0000
 Subject: [PATCH] Modify ./common/ files according to WR841N(D)v9 u-boot
 
 ---
- common/Makefile    |  42 +++++++
+ common/Makefile    |  65 +++++++++++
  common/cmd_boot.c  |  23 +++-
  common/cmd_bootm.c | 192 ++++++++++++++++++++++++++++++-
  common/cmd_elf.c   |   8 ++
  common/cmd_flash.c |  23 +++-
  common/cmd_load.c  |   3 +-
  common/cmd_mem.c   |  13 ++-
- common/cmd_mii.c   | 274 +++++++++++++++++++++++++++++++++++++++++++++
+ common/cmd_mii.c   | 276 +++++++++++++++++++++++++++++++++++++++++++++
  common/cmd_nand.c  |  26 ++++-
  common/cmd_net.c   |  33 +++++-
  common/command.c   |   2 +
  common/main.c      | 204 ++++++++++++++++++++++++++++++++-
- 12 files changed, 830 insertions(+), 13 deletions(-)
+ 12 files changed, 855 insertions(+), 13 deletions(-)
 
 diff --git a/common/Makefile b/common/Makefile
-index ace8cc7edc..b3f9bfb287 100644
+index 56176ca2af..c8f3a959fb 100644
 --- a/common/Makefile
 +++ b/common/Makefile
 @@ -27,6 +27,49 @@ LIB	= $(obj)libcommon.a
@@ -72,7 +72,7 @@ index ace8cc7edc..b3f9bfb287 100644
  COBJS-y += main.o
  COBJS-y += ACEX1K.o
  COBJS-y += altera.o
-@@ -132,6 +177,21 @@ COBJS-y += crc16.o
+@@ -137,6 +180,21 @@ COBJS-y += crc16.o
  COBJS-y += xyzModem.o
  COBJS-y += cmd_mac.o
  COBJS-$(CONFIG_CMD_MFSL) += cmd_mfsl.o
@@ -94,7 +94,7 @@ index ace8cc7edc..b3f9bfb287 100644
  
  COBJS	:= $(COBJS-y)
  SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)
-@@ -139,6 +199,13 @@ OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
+@@ -144,6 +202,13 @@ OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
  
  CPPFLAGS += -I..
  
@@ -109,7 +109,7 @@ index ace8cc7edc..b3f9bfb287 100644
  
  $(LIB): $(obj).depend $(OBJS)
 diff --git a/common/cmd_boot.c b/common/cmd_boot.c
-index 182e2ab..57a709a 100644
+index e68f16f9da..d843c6df22 100644
 --- a/common/cmd_boot.c
 +++ b/common/cmd_boot.c
 @@ -28,10 +28,12 @@
@@ -167,7 +167,7 @@ index 182e2ab..57a709a 100644
  
  U_BOOT_CMD(
 diff --git a/common/cmd_bootm.c b/common/cmd_bootm.c
-index 3091a58..971f0da 100644
+index 5a8572602c..2f6edbffc9 100644
 --- a/common/cmd_bootm.c
 +++ b/common/cmd_bootm.c
 @@ -31,6 +31,7 @@
@@ -178,7 +178,7 @@ index 3091a58..971f0da 100644
  #include <environment.h>
  #include <asm/byteorder.h>
  
-@@ -150,6 +151,15 @@ image_header_t header;
+@@ -148,6 +149,15 @@ image_header_t header;
  
  ulong load_addr = CFG_LOAD_ADDR;		/* Default Load Address */
  
@@ -194,7 +194,7 @@ index 3091a58..971f0da 100644
  int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	ulong	iflag;
-@@ -230,7 +240,7 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -228,7 +238,7 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  	len  = ntohl(hdr->ih_size);
  
  	if (verify) {
@@ -232,7 +232,7 @@ index 3091a58..971f0da 100644
  	case IH_COMP_GZIP:
  		printf ("   Uncompressing %s ... ", name);
  		if (gunzip ((void *)ntohl(hdr->ih_load), unc_len,
-@@ -369,6 +394,21 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -368,6 +393,21 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  		}
  		break;
  #endif /* CONFIG_BZIP2 */
@@ -254,7 +254,7 @@ index 3091a58..971f0da 100644
  	default:
  		if (iflag)
  			enable_interrupts();
-@@ -461,6 +501,151 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -460,6 +500,151 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  	return 1;
  }
  
@@ -406,7 +406,7 @@ index 3091a58..971f0da 100644
  U_BOOT_CMD(
   	bootm,	CFG_MAXARGS,	1,	do_bootm,
   	"bootm   - boot application image from memory\n",
-@@ -1396,6 +1581,7 @@ print_type (image_header_t *hdr)
+@@ -1482,6 +1667,7 @@ print_type (image_header_t *hdr)
  	case IH_COMP_NONE:	comp = "uncompressed";		break;
  	case IH_COMP_GZIP:	comp = "gzip compressed";	break;
  	case IH_COMP_BZIP2:	comp = "bzip2 compressed";	break;
@@ -414,7 +414,7 @@ index 3091a58..971f0da 100644
  	default:		comp = "unknown compression";	break;
  	}
  
-@@ -1429,6 +1615,8 @@ static void zfree(void *x, void *addr, unsigned nb)
+@@ -1515,6 +1701,8 @@ static void zfree(void *x, void *addr, unsigned nb)
  
  #define DEFLATED	8
  
@@ -423,7 +423,7 @@ index 3091a58..971f0da 100644
  int gunzip(void *dst, int dstlen, unsigned char *src, unsigned long *lenp)
  {
  	z_stream s;
-@@ -1491,6 +1679,8 @@ void bz_internal_error(int errcode)
+@@ -1577,6 +1765,8 @@ void bz_internal_error(int errcode)
  }
  #endif /* CONFIG_BZIP2 */
  
@@ -433,10 +433,10 @@ index 3091a58..971f0da 100644
  do_bootm_rtems (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[],
  		ulong addr, ulong *len_ptr, int verify)
 diff --git a/common/cmd_elf.c b/common/cmd_elf.c
-index 1d92bb3..994cbfd 100644
+index 2eb7453156..7bfff45012 100644
 --- a/common/cmd_elf.c
 +++ b/common/cmd_elf.c
-@@ -215,6 +215,14 @@ int do_bootvx ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -211,6 +211,14 @@ int do_bootvx (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  			(char *) bootaddr);
  	printf ("## Starting vxWorks at 0x%08lx ...\n", addr);
  
@@ -452,10 +452,10 @@ index 1d92bb3..994cbfd 100644
  
  	puts ("## vxWorks terminated\n");
 diff --git a/common/cmd_flash.c b/common/cmd_flash.c
-index cb1c5bb..d5bb37f 100644
+index f56443e25e..22c34b547b 100644
 --- a/common/cmd_flash.c
 +++ b/common/cmd_flash.c
-@@ -278,6 +278,7 @@ flash_fill_sect_ranges (ulong addr_first, ulong addr_last,
+@@ -276,6 +276,7 @@ flash_fill_sect_ranges (ulong addr_first, ulong addr_last,
  	return rcode;
  }
  
@@ -463,7 +463,7 @@ index cb1c5bb..d5bb37f 100644
  int do_flinfo ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	ulong bank;
-@@ -305,6 +306,7 @@ int do_flinfo ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -303,6 +304,7 @@ int do_flinfo ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  	flash_print_info (&flash_info[bank-1]);
  	return 0;
  }
@@ -471,7 +471,7 @@ index cb1c5bb..d5bb37f 100644
  
  int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
-@@ -325,7 +327,9 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -323,7 +325,9 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  
  	if (strcmp(argv[1], "all") == 0) {
  		for (bank=1; bank<=CFG_MAX_FLASH_BANKS; ++bank) {
@@ -481,7 +481,7 @@ index cb1c5bb..d5bb37f 100644
  			info = &flash_info[bank-1];
  			rcode = flash_erase (info, 0, info->sector_count-1);
  		}
-@@ -337,8 +341,10 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -335,8 +339,10 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  			puts ("Bad sector specification\n");
  			return 1;
  		}
@@ -492,7 +492,7 @@ index cb1c5bb..d5bb37f 100644
  		rcode = flash_erase(info, sect_first, sect_last);
  		return rcode;
  	}
-@@ -353,12 +359,12 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -351,12 +357,12 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  				info = &flash_info[bank];
  				addr_first = part->offset + info->start[0];
  				addr_last = addr_first + part->size - 1;
@@ -507,7 +507,7 @@ index cb1c5bb..d5bb37f 100644
  				rcode = flash_sect_erase(addr_first, addr_last);
  				return rcode;
  			}
-@@ -381,7 +387,9 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -379,7 +385,9 @@ int do_flerase (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  				CFG_MAX_FLASH_BANKS);
  			return 1;
  		}
@@ -517,7 +517,7 @@ index cb1c5bb..d5bb37f 100644
  		info = &flash_info[bank-1];
  		rcode = flash_erase (info, 0, info->sector_count-1);
  		return rcode;
-@@ -423,6 +431,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
+@@ -421,6 +429,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
  		     ++bank, ++info) {
  			if (s_first[bank]>=0) {
  				erased += s_last[bank] - s_first[bank] + 1;
@@ -525,7 +525,7 @@ index cb1c5bb..d5bb37f 100644
  				debug ("Erase Flash from 0x%08lx to 0x%08lx "
  					"in Bank # %ld ",
  					info->start[s_first[bank]],
-@@ -430,6 +439,9 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
+@@ -428,6 +437,9 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
  						info->start[0] + info->size - 1:
  						info->start[s_last[bank]+1] - 1,
  					bank+1);
@@ -535,7 +535,7 @@ index cb1c5bb..d5bb37f 100644
  				rcode = flash_erase (info, s_first[bank], s_last[bank]);
  			}
  		}
-@@ -442,6 +454,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
+@@ -440,6 +452,7 @@ int flash_sect_erase (ulong addr_first, ulong addr_last)
  	return rcode;
  }
  
@@ -543,7 +543,7 @@ index cb1c5bb..d5bb37f 100644
  int do_protect (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	flash_info_t *info;
-@@ -669,7 +682,7 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
+@@ -667,7 +680,7 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
  	}
  	return rcode;
  }
@@ -552,7 +552,7 @@ index cb1c5bb..d5bb37f 100644
  
  /**************************************************/
  #if defined(CONFIG_CMD_JFFS2) && defined(CONFIG_JFFS2_CMDLINE)
-@@ -682,12 +695,14 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
+@@ -680,12 +693,14 @@ int flash_sect_protect (int p, ulong addr_first, ulong addr_last)
  # define TMP_PROT_OFF	/* empty */
  #endif
  
@@ -567,7 +567,7 @@ index cb1c5bb..d5bb37f 100644
  
  U_BOOT_CMD(
  	erase,   3,   0,  do_flerase,
-@@ -703,6 +718,7 @@ U_BOOT_CMD(
+@@ -701,6 +716,7 @@ U_BOOT_CMD(
  	"erase all\n    - erase all FLASH banks\n"
  );
  
@@ -575,7 +575,7 @@ index cb1c5bb..d5bb37f 100644
  U_BOOT_CMD(
  	protect,  4,  0,   do_protect,
  	"protect - enable or disable FLASH write protection\n",
-@@ -727,6 +743,7 @@ U_BOOT_CMD(
+@@ -725,6 +741,7 @@ U_BOOT_CMD(
  	TMP_PROT_OFF
  	"protect off all\n    - make all FLASH banks writable\n"
  );
@@ -584,10 +584,10 @@ index cb1c5bb..d5bb37f 100644
  #undef	TMP_ERASE
  #undef	TMP_PROT_ON
 diff --git a/common/cmd_load.c b/common/cmd_load.c
-index f63b8e8..3804abd 100644
+index 204c3ebf19..baf89d82c9 100644
 --- a/common/cmd_load.c
 +++ b/common/cmd_load.c
-@@ -434,6 +434,7 @@ int  his_pad_count;  /* number of pad chars he needs */
+@@ -436,6 +436,7 @@ int  his_pad_count;  /* number of pad chars he needs */
  char his_pad_char;   /* pad chars he needs */
  char his_quote;      /* quote chars he'll use */
  
@@ -595,7 +595,7 @@ index f63b8e8..3804abd 100644
  int do_load_serial_bin (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	ulong offset = 0;
-@@ -526,7 +527,7 @@ int do_load_serial_bin (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -528,7 +529,7 @@ int do_load_serial_bin (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  #endif
  	return rcode;
  }
@@ -605,10 +605,10 @@ index f63b8e8..3804abd 100644
  static ulong load_serial_bin (ulong offset)
  {
 diff --git a/common/cmd_mem.c b/common/cmd_mem.c
-index d0fae6b..3458307 100644
+index 4262e26a61..ea1b9a125b 100644
 --- a/common/cmd_mem.c
 +++ b/common/cmd_mem.c
-@@ -313,6 +313,7 @@ int do_mem_mwc ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -300,6 +300,7 @@ int do_mem_mwc ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  }
  #endif /* CONFIG_MX_CYCLIC */
  
@@ -616,7 +616,7 @@ index d0fae6b..3458307 100644
  int do_mem_cmp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	ulong	addr1, addr2, count, ngood;
-@@ -390,6 +391,7 @@ int do_mem_cmp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -384,6 +385,7 @@ int do_mem_cmp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  		ngood == 1 ? "" : "s");
  	return rcode;
  }
@@ -624,7 +624,7 @@ index d0fae6b..3458307 100644
  
  int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
-@@ -419,7 +421,8 @@ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -413,7 +415,8 @@ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  		return 1;
  	}
  
@@ -634,7 +634,7 @@ index d0fae6b..3458307 100644
  	/* check if we are copying to Flash */
  	if ( (addr2info(dest) != NULL)
  #ifdef CONFIG_HAS_DATAFLASH
-@@ -527,6 +530,7 @@ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -529,6 +532,7 @@ int do_mem_cp ( cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  	return 0;
  }
  
@@ -642,7 +642,7 @@ index d0fae6b..3458307 100644
  int do_mem_base (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	if (argc > 1) {
-@@ -684,6 +688,7 @@ int do_mem_loopw (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -686,6 +690,7 @@ int do_mem_loopw (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  	}
  }
  #endif /* CONFIG_LOOPW */
@@ -650,7 +650,7 @@ index d0fae6b..3458307 100644
  
  /*
   * Perform a memory test. A more complete alternative test can be
-@@ -1098,6 +1103,7 @@ mod_mem(cmd_tbl_t *cmdtp, int incrflag, int flag, int argc, char *argv[])
+@@ -1100,6 +1105,7 @@ mod_mem(cmd_tbl_t *cmdtp, int incrflag, int flag, int argc, char *argv[])
  	return 0;
  }
  
@@ -658,7 +658,7 @@ index d0fae6b..3458307 100644
  #ifndef CONFIG_CRC32_VERIFY
  
  int do_mem_crc (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
-@@ -1184,6 +1190,7 @@ int do_mem_crc (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+@@ -1186,6 +1192,7 @@ int do_mem_crc (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  
  }
  #endif	/* CONFIG_CRC32_VERIFY */
@@ -666,7 +666,7 @@ index d0fae6b..3458307 100644
  
  /**************************************************/
  #if defined(CONFIG_CMD_MEMORY)
-@@ -1219,6 +1226,7 @@ U_BOOT_CMD(
+@@ -1221,6 +1228,7 @@ U_BOOT_CMD(
  	"[.b, .w, .l] source target count\n    - copy memory\n"
  );
  
@@ -674,7 +674,7 @@ index d0fae6b..3458307 100644
  U_BOOT_CMD(
  	cmp,    4,     1,     do_mem_cmp,
  	"cmp     - memory compare\n",
-@@ -1266,6 +1274,7 @@ U_BOOT_CMD(
+@@ -1268,6 +1276,7 @@ U_BOOT_CMD(
  	"    - loop on a set of addresses\n"
  );
  #endif /* CONFIG_LOOPW */
@@ -682,7 +682,7 @@ index d0fae6b..3458307 100644
  
  U_BOOT_CMD(
  	mtest,    4,    1,     do_mem_mtest,
-@@ -1274,6 +1283,7 @@ U_BOOT_CMD(
+@@ -1276,6 +1285,7 @@ U_BOOT_CMD(
  	"    - simple RAM read/write test\n"
  );
  
@@ -690,7 +690,7 @@ index d0fae6b..3458307 100644
  #ifdef CONFIG_MX_CYCLIC
  U_BOOT_CMD(
  	mdc,     4,     1,      do_mem_mdc,
-@@ -1287,6 +1297,7 @@ U_BOOT_CMD(
+@@ -1289,6 +1299,7 @@ U_BOOT_CMD(
  	"[.b, .w, .l] address value delay(ms)\n    - memory write cyclic\n"
  );
  #endif /* CONFIG_MX_CYCLIC */
@@ -699,10 +699,10 @@ index d0fae6b..3458307 100644
  #endif
  #endif
 diff --git a/common/cmd_mii.c b/common/cmd_mii.c
-index e659536..eef5b24 100644
+index 31ac43db58..b958338f14 100644
 --- a/common/cmd_mii.c
 +++ b/common/cmd_mii.c
-@@ -28,6 +28,15 @@
+@@ -27,6 +27,15 @@
  
  #include <common.h>
  #include <command.h>
@@ -718,7 +718,7 @@ index e659536..eef5b24 100644
  #include <miiphy.h>
  
  typedef struct _MII_reg_desc_t {
-@@ -596,3 +603,270 @@ U_BOOT_CMD(
+@@ -462,3 +471,270 @@ U_BOOT_CMD(
  	"mii dump   <addr> <reg>        - pretty-print <addr> <reg> (0-5 only)\n"
  	"Addr and/or reg may be ranges, e.g. 2-7.\n"
  );
@@ -990,10 +990,10 @@ index e659536..eef5b24 100644
 +#endif /* BOARDCAL */
 +/* cu570m end */
 diff --git a/common/cmd_nand.c b/common/cmd_nand.c
-index 7286726..f1dad02 100644
+index 8d6c959584..6044908aa3 100644
 --- a/common/cmd_nand.c
 +++ b/common/cmd_nand.c
-@@ -47,12 +47,14 @@ int find_dev_and_part(const char *id, struct mtd_device **dev,
+@@ -39,12 +39,14 @@ int find_dev_and_part(const char *id, struct mtd_device **dev,
  
  extern nand_info_t nand_info[];       /* info for NAND chips */
  
@@ -1009,7 +1009,7 @@ index 7286726..f1dad02 100644
  {
  	int i;
  	u_char *buf, *p;
-@@ -72,10 +74,12 @@ static int nand_dump(nand_info_t *nand, ulong off)
+@@ -64,10 +66,12 @@ static int nand_dump(nand_info_t *nand, ulong off)
  	printf("Page %08x dump:\n", off);
  	i = nand->oobblock >> 4; p = buf;
  	while (i--) {
@@ -1022,7 +1022,7 @@ index 7286726..f1dad02 100644
  		p += 16;
  	}
  	puts("OOB:\n");
-@@ -90,6 +94,18 @@ static int nand_dump(nand_info_t *nand, ulong off)
+@@ -82,6 +86,18 @@ static int nand_dump(nand_info_t *nand, ulong off)
  	return 0;
  }
  
@@ -1041,7 +1041,7 @@ index 7286726..f1dad02 100644
  /* ------------------------------------------------------------------------- */
  
  static inline int str2long(char *p, ulong *num)
-@@ -291,7 +307,7 @@ int do_nand(cmd_tbl_t * cmdtp, int flag, int argc, char *argv[])
+@@ -287,7 +303,7 @@ int do_nand(cmd_tbl_t * cmdtp, int flag, int argc, char *argv[])
  			}
  		}
  		ret = nand_erase_opts(nand, &opts);
@@ -1050,7 +1050,7 @@ index 7286726..f1dad02 100644
  
  		return ret == 0 ? 0 : 1;
  	}
-@@ -513,19 +529,25 @@ static int nand_load_image(cmd_tbl_t *cmdtp, nand_info_t *nand,
+@@ -547,19 +563,25 @@ static int nand_load_image(cmd_tbl_t *cmdtp, nand_info_t *nand,
  
  	load_addr = addr;
  
@@ -1077,10 +1077,10 @@ index 7286726..f1dad02 100644
  }
  
 diff --git a/common/cmd_net.c b/common/cmd_net.c
-index 2cb2c5d..f6db97e 100644
+index dbf6b861b1..f3dd90db76 100644
 --- a/common/cmd_net.c
 +++ b/common/cmd_net.c
-@@ -32,9 +32,15 @@
+@@ -29,9 +29,15 @@
  #include <net.h>
  
  extern int do_bootm (cmd_tbl_t *, int, int, char *[]);
@@ -1096,7 +1096,7 @@ index 2cb2c5d..f6db97e 100644
  int do_bootp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	return netboot_common (BOOTP, cmdtp, argc, argv);
-@@ -45,6 +51,7 @@ U_BOOT_CMD(
+@@ -42,6 +48,7 @@ U_BOOT_CMD(
  	"bootp\t- boot image via network using BootP/TFTP protocol\n",
  	"[loadAddress] [bootfilename]\n"
  );
@@ -1104,7 +1104,7 @@ index 2cb2c5d..f6db97e 100644
  
  int do_tftpb (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
-@@ -57,6 +64,7 @@ U_BOOT_CMD(
+@@ -54,6 +61,7 @@ U_BOOT_CMD(
  	"[loadAddress] [[hostIPaddr:]bootfilename]\n"
  );
  
@@ -1112,7 +1112,7 @@ index 2cb2c5d..f6db97e 100644
  int do_rarpb (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  {
  	return netboot_common (RARP, cmdtp, argc, argv);
-@@ -67,6 +75,7 @@ U_BOOT_CMD(
+@@ -64,6 +72,7 @@ U_BOOT_CMD(
  	"rarpboot- boot image via network using RARP/TFTP protocol\n",
  	"[loadAddress] [bootfilename]\n"
  );
@@ -1120,7 +1120,7 @@ index 2cb2c5d..f6db97e 100644
  
  #if defined(CONFIG_CMD_DHCP)
  int do_dhcp (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
-@@ -183,7 +192,7 @@ netboot_common (proto_t proto, cmd_tbl_t *cmdtp, int argc, char *argv[])
+@@ -182,7 +191,7 @@ netboot_common (proto_t proto, cmd_tbl_t *cmdtp, int argc, char *argv[])
  
  		break;
  
@@ -1129,7 +1129,7 @@ index 2cb2c5d..f6db97e 100644
  		show_boot_progress (-80);
  		return 1;
  	}
-@@ -247,6 +256,28 @@ U_BOOT_CMD(
+@@ -259,6 +268,28 @@ U_BOOT_CMD(
  	"ping\t- send ICMP ECHO_REQUEST to network host\n",
  	"pingAddress\n"
  );
@@ -1159,7 +1159,7 @@ index 2cb2c5d..f6db97e 100644
  
  #if defined(CONFIG_CMD_CDP)
 diff --git a/common/command.c b/common/command.c
-index e917975..9e7ad7c 100644
+index af2f8cbf7b..3839e4a2d6 100644
 --- a/common/command.c
 +++ b/common/command.c
 @@ -78,6 +78,7 @@ U_BOOT_CMD(
@@ -1179,7 +1179,7 @@ index e917975..9e7ad7c 100644
  /*
   * Use puts() instead of printf() to avoid printf buffer overflow
 diff --git a/common/main.c b/common/main.c
-index cc4b50f..b13bf54 100644
+index 21e7afab61..647165c3de 100644
 --- a/common/main.c
 +++ b/common/main.c
 @@ -38,12 +38,24 @@
@@ -1194,7 +1194,7 @@ index cc4b50f..b13bf54 100644
 +
  #include <post.h>
  
- #ifdef CONFIG_SILENT_CONSOLE
+ #if defined(CONFIG_SILENT_CONSOLE) || defined(CONFIG_POST)
  DECLARE_GLOBAL_DATA_PTR;
  #endif
  
@@ -1207,7 +1207,7 @@ index cc4b50f..b13bf54 100644
  /*
   * Board-specific Platform code can reimplement show_boot_progress () if needed
   */
-@@ -292,6 +304,18 @@ static __inline__ int abortboot(int bootdelay)
+@@ -269,6 +281,18 @@ static __inline__ int abortboot(int bootdelay)
  
  /****************************************************************************/
  
@@ -1226,7 +1226,7 @@ index cc4b50f..b13bf54 100644
  void main_loop (void)
  {
  #ifndef CFG_HUSH_PARSER
-@@ -386,7 +410,7 @@ void main_loop (void)
+@@ -363,7 +387,7 @@ void main_loop (void)
  	s = getenv ("bootdelay");
  	bootdelay = s ? (int)simple_strtol(s, NULL, 10) : CONFIG_BOOTDELAY;
  
@@ -1235,7 +1235,7 @@ index cc4b50f..b13bf54 100644
  
  # ifdef CONFIG_BOOT_RETRY_TIME
  	init_cmd_timeout ();
-@@ -402,7 +426,183 @@ void main_loop (void)
+@@ -385,7 +409,183 @@ void main_loop (void)
  #endif /* CONFIG_BOOTCOUNT_LIMIT */
  		s = getenv ("bootcmd");
  
@@ -1421,5 +1421,5 @@ index cc4b50f..b13bf54 100644
  	if (bootdelay >= 0 && s && !abortboot (bootdelay)) {
  # ifdef CONFIG_AUTOBOOT_KEYED
 -- 
-2.17.1
+2.24.0
 

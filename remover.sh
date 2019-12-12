@@ -15,6 +15,8 @@ rm -f ./common/cmd_autoscript.c
 rm -f ./common/cmd_bdinfo.c
 rm -f ./common/cmd_bedbug.c
 rm -f ./common/cmd_bmp.c
+rm -f ./common/cmd_bootldr.c
+rm -f ./common/cmd_cplbinfo.c
 rm -f ./common/cmd_diag.c
 rm -f ./common/cmd_dtt.c
 rm -f ./common/cmd_ext2.c
@@ -38,6 +40,7 @@ rm -f ./common/cmd_portio.c
 rm -f ./common/cmd_reiser.c
 rm -f ./common/cmd_sata.c
 rm -f ./common/cmd_scsi.c
+rm -f ./common/cmd_setexpr.c
 rm -f ./common/cmd_strings.c
 rm -f ./common/cmd_terminal.c
 rm -f ./common/cmd_universe.c

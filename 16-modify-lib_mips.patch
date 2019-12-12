@@ -1,6 +1,6 @@
-From c72249ee2a3943ec57192a58c7f89c40d894440a Mon Sep 17 00:00:00 2001
+From ac474ff9c35a67817fe6d4dc330428b380b40340 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:59:55 +0000
+Date: Tue, 10 Dec 2019 17:09:29 +0000
 Subject: [PATCH] Modify ./lib_mips/ according to WR841N(D)v9 u-boot
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Modify ./lib_mips/ according to WR841N(D)v9 u-boot
  2 files changed, 141 insertions(+), 1 deletion(-)
 
 diff --git a/lib_mips/board.c b/lib_mips/board.c
-index b7d3356..37c193a 100644
+index 1645f2c7e0..deb5f08215 100644
 --- a/lib_mips/board.c
 +++ b/lib_mips/board.c
 @@ -45,13 +45,27 @@ extern int timer_init(void);
@@ -40,7 +40,7 @@ index b7d3356..37c193a 100644
  
  static char *failed = "*** failed ***\n";
  
-@@ -159,17 +173,23 @@ static int init_baudrate (void)
+@@ -165,17 +179,23 @@ static int init_baudrate (void)
  typedef int (init_fnc_t) (void);
  
  init_fnc_t *init_sequence[] = {
@@ -64,7 +64,7 @@ index b7d3356..37c193a 100644
  	NULL,
  };
  
-@@ -181,6 +201,11 @@ void board_init_f(ulong bootflag)
+@@ -187,6 +207,11 @@ void board_init_f(ulong bootflag)
  	init_fnc_t **init_fnc_ptr;
  	ulong addr, addr_sp, len = (ulong)&uboot_end - CFG_MONITOR_BASE;
  	ulong *s;
@@ -76,7 +76,7 @@ index b7d3356..37c193a 100644
  #ifdef CONFIG_PURPLE
  	void copy_code (ulong);
  #endif
-@@ -199,6 +224,16 @@ void board_init_f(ulong bootflag)
+@@ -205,6 +230,16 @@ void board_init_f(ulong bootflag)
  		}
  	}
  
@@ -93,7 +93,7 @@ index b7d3356..37c193a 100644
  	/*
  	 * Now that we have DRAM mapped and working, we can
  	 * relocate the code and continue running from DRAM.
-@@ -301,6 +336,11 @@ void board_init_r (gd_t *id, ulong dest_addr)
+@@ -309,6 +344,11 @@ void board_init_r (gd_t *id, ulong dest_addr)
  #ifndef CFG_ENV_IS_NOWHERE
  	extern char * env_name_spec;
  #endif
@@ -105,7 +105,7 @@ index b7d3356..37c193a 100644
  	char *s, *e;
  	bd_t *bd;
  	int i;
-@@ -347,12 +387,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
+@@ -357,12 +397,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
  
  	bd = gd->bd;
  
@@ -120,7 +120,7 @@ index b7d3356..37c193a 100644
  
  	bd->bi_flashstart = CFG_FLASH_BASE;
  #if CFG_MONITOR_BASE == CFG_FLASH_BASE
-@@ -364,6 +406,12 @@ void board_init_r (gd_t *id, ulong dest_addr)
+@@ -375,6 +417,12 @@ void board_init_r (gd_t *id, ulong dest_addr)
  	mem_malloc_init();
  	malloc_bin_reloc();
  
@@ -133,7 +133,7 @@ index b7d3356..37c193a 100644
  	/* relocate environment function pointers etc. */
  	env_relocate();
  
-@@ -417,6 +465,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
+@@ -428,6 +476,14 @@ void board_init_r (gd_t *id, ulong dest_addr)
  	eth_initialize(gd->bd);
  #endif
  
@@ -149,7 +149,7 @@ index b7d3356..37c193a 100644
  	for (;;) {
  		main_loop ();
 diff --git a/lib_mips/mips_linux.c b/lib_mips/mips_linux.c
-index 952d5a9..9af0785 100644
+index 556b1804e0..48b3cef942 100644
 --- a/lib_mips/mips_linux.c
 +++ b/lib_mips/mips_linux.c
 @@ -28,6 +28,12 @@
@@ -165,7 +165,7 @@ index 952d5a9..9af0785 100644
  DECLARE_GLOBAL_DATA_PTR;
  
  #define	LINUX_MAX_ENVS		256
-@@ -54,6 +60,20 @@ static int	linux_env_idx;
+@@ -47,6 +53,20 @@ static int	linux_env_idx;
  static void linux_params_init (ulong start, char * commandline);
  static void linux_env_set (char * env_name, char * env_val);
  
@@ -186,7 +186,7 @@ index 952d5a9..9af0785 100644
  
  void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
  		     ulong addr, ulong * len_ptr, int verify)
-@@ -61,13 +81,25 @@ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
+@@ -54,13 +74,25 @@ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
  	ulong len = 0, checksum;
  	ulong initrd_start, initrd_end;
  	ulong data;
@@ -213,7 +213,7 @@ index 952d5a9..9af0785 100644
  
  	/*
  	 * Check if there is an initrd image
-@@ -213,12 +245,29 @@ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
+@@ -206,12 +238,29 @@ void do_bootm_linux (cmd_tbl_t * cmdtp, int flag, int argc, char *argv[],
  	/* we assume that the kernel is in place */
  	printf ("\nStarting kernel ...\n\n");
  
@@ -243,7 +243,7 @@ index 952d5a9..9af0785 100644
  
  	linux_argc = 1;
  	linux_argv = (char **) start;
-@@ -227,6 +276,14 @@ static void linux_params_init (ulong start, char *line)
+@@ -220,6 +269,14 @@ static void linux_params_init (ulong start, char *line)
  
  	next = line;
  
@@ -258,7 +258,7 @@ index 952d5a9..9af0785 100644
  	while (line && *line && linux_argc < LINUX_MAX_ARGS) {
  		quote = strchr (line, '"');
  		next = strchr (line, ' ');
-@@ -249,6 +306,20 @@ static void linux_params_init (ulong start, char *line)
+@@ -242,6 +299,20 @@ static void linux_params_init (ulong start, char *line)
  		linux_argv[linux_argc] = argp;
  		memcpy (argp, line, next - line);
  		argp[next - line] = 0;
@@ -279,7 +279,7 @@ index 952d5a9..9af0785 100644
  
  		argp += next - line + 1;
  		linux_argc++;
-@@ -259,6 +330,19 @@ static void linux_params_init (ulong start, char *line)
+@@ -252,6 +323,19 @@ static void linux_params_init (ulong start, char *line)
  		line = next;
  	}
  
@@ -300,5 +300,5 @@ index 952d5a9..9af0785 100644
  	linux_env[0] = 0;
  	linux_env_p = (char *) (linux_env + LINUX_MAX_ENVS);
 -- 
-2.17.1
+2.24.0
 

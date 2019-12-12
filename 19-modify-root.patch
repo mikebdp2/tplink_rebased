@@ -1,20 +1,20 @@
-From a63c0b78f9c88cf17633a6b527cd78f68a91f73a Mon Sep 17 00:00:00 2001
+From 343ecb3b6dba73ba14fb6574101c11c03b2e0658 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 18:04:20 +0000
+Date: Tue, 10 Dec 2019 17:13:15 +0000
 Subject: [PATCH] Modify ./ files according to WR841N(D)v9 u-boot
 
 ---
- MAKEALL        |    4 +-
- Makefile       | 1619 ++++++++++++++++++++++++++++++++++++++++++++++--
+ MAKEALL        |    4 +
+ Makefile       | 1634 ++++++++++++++++++++++++++++++++++++++++++++++--
  config.mk      |   97 ++-
  mips_config.mk |    6 +
- 4 files changed, 1688 insertions(+), 38 deletions(-)
+ 4 files changed, 1691 insertions(+), 50 deletions(-)
 
 diff --git a/MAKEALL b/MAKEALL
-index 1219fb373f..89d74a37e8 100755
+index 01573da6f8..f486a0a1a8 100755
 --- a/MAKEALL
 +++ b/MAKEALL
-@@ -528,11 +528,15 @@ LIST_au1xx0="		\
+@@ -569,11 +569,15 @@ LIST_au1xx0="		\
  	gth2		\
  "
  
@@ -31,7 +31,7 @@ index 1219fb373f..89d74a37e8 100755
  #########################################################################
  ## MIPS Systems		(little endian)
 diff --git a/Makefile b/Makefile
-index 90198f6583..0247898703 100644
+index 4796f45fc6..c6885e1a34 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -45,6 +45,14 @@ export	HOSTARCH HOSTOS
@@ -246,9 +246,9 @@ index 90198f6583..0247898703 100644
  			--start-group $(__LIBS) --end-group $(PLATFORM_LIBS) \
  			-Map u-boot.map -o u-boot
  
-@@ -344,6 +386,38 @@ $(ONENAND_IPL):	$(VERSION_FILE)	$(obj)include/autoconf.mk
- $(U_BOOT_ONENAND):	$(ONENAND_IPL) $(obj)u-boot.bin $(obj)include/autoconf.mk
+@@ -346,6 +388,38 @@ $(U_BOOT_ONENAND):	$(ONENAND_IPL) $(obj)u-boot.bin $(obj)include/autoconf.mk
  		cat $(obj)onenand_ipl/onenand-ipl-2k.bin $(obj)u-boot.bin > $(obj)u-boot-onenand.bin
+ 		cat $(obj)onenand_ipl/onenand-ipl-4k.bin $(obj)u-boot.bin > $(obj)u-boot-flexonenand.bin
  
 +# cu570m start
 +ifeq ($(COMPRESSED_UBOOT),1)
@@ -285,7 +285,7 @@ index 90198f6583..0247898703 100644
  $(VERSION_FILE):
  		@( echo -n "#define U_BOOT_VERSION \"U-Boot " ; \
  		echo -n "$(U_BOOT_VERSION)" ; \
-@@ -2674,6 +2748,1459 @@ qemu_mips_config: unconfig
+@@ -2691,6 +2765,1459 @@ qemu_mips_config: unconfig
  purple_config :		unconfig
  	@$(MKCONFIG) $(@:_config=) mips mips purple
  
@@ -1745,7 +1745,7 @@ index 90198f6583..0247898703 100644
  #========================================================================
  # Nios
  #========================================================================
-@@ -2839,7 +4366,9 @@ ms7722se_config :	unconfig
+@@ -2856,7 +4383,9 @@ ms7722se_config :	unconfig
  #########################################################################
  #########################################################################
  
@@ -1755,7 +1755,7 @@ index 90198f6583..0247898703 100644
  	@rm -f $(obj)examples/82559_eeprom $(obj)examples/eepro100_eeprom \
  	       $(obj)examples/hello_world  $(obj)examples/interrupt	  \
  	       $(obj)examples/mem_to_mem_idma2intr			  \
-@@ -2864,8 +4393,15 @@ clean:
+@@ -2881,8 +4410,15 @@ clean:
  		\( -name 'core' -o -name '*.bak' -o -name '*~' \
  		-o -name '*.o'	-o -name '*.a'	\) -print \
  		| xargs rm -f
@@ -1772,10 +1772,10 @@ index 90198f6583..0247898703 100644
  		-o -name '*.srec' -o -name '*.bin' -o -name u-boot.img \) \
  		-print0 \
 diff --git a/config.mk b/config.mk
-index 6e280bc..a37c983 100644
+index 22d3398ca4..8ed731e6db 100644
 --- a/config.mk
 +++ b/config.mk
-@@ -105,6 +105,9 @@ endif
+@@ -104,6 +104,9 @@ endif
  HOSTCFLAGS	= -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer
  HOSTSTRIP	= strip
  
@@ -1816,7 +1816,7 @@ index 6e280bc..a37c983 100644
  gccincdir := $(shell $(CC) -print-file-name=include)
  
  CPPFLAGS := $(DBGFLAGS) $(OPTFLAGS) $(RELFLAGS)		\
-@@ -158,13 +169,46 @@ CPPFLAGS += -I$(TOPDIR)/include
+@@ -161,13 +172,46 @@ CPPFLAGS += -I$(TOPDIR)/include
  CPPFLAGS += -fno-builtin -ffreestanding -nostdinc 	\
  	-isystem $(gccincdir) -pipe $(PLATFORM_CPPFLAGS)
  
@@ -1863,7 +1863,7 @@ index 6e280bc..a37c983 100644
  # avoid trigraph warnings while parsing pci.h (produced by NIOS gcc-2.9)
  # this option have to be placed behind -Wall -- that's why it is here
  ifeq ($(ARCH),nios)
-@@ -186,11 +230,23 @@ endif
+@@ -189,11 +233,23 @@ endif
  
  AFLAGS := $(AFLAGS_DEBUG) -D__ASSEMBLY__ $(CPPFLAGS)
  
@@ -1887,7 +1887,7 @@ index 6e280bc..a37c983 100644
  # Location of a usable BFD library, where we define "usable" as
  # "built for ${HOST}, supports ${TARGET}".  Sensible values are
  # - When cross-compiling: the root of the cross-environment
-@@ -215,6 +271,10 @@ ifeq ($(PCI_CLOCK),PCI_66M)
+@@ -221,6 +277,10 @@ ifeq ($(PCI_CLOCK),PCI_66M)
  CFLAGS := $(CFLAGS) -DPCI_66M
  endif
  
@@ -1898,7 +1898,7 @@ index 6e280bc..a37c983 100644
  #########################################################################
  
  export	CONFIG_SHELL HPATH HOSTCC HOSTCFLAGS CROSS_COMPILE \
-@@ -224,23 +284,58 @@ export	TEXT_BASE PLATFORM_CPPFLAGS PLATFORM_RELFLAGS CPPFLAGS CFLAGS AFLAGS
+@@ -230,23 +290,58 @@ export	TEXT_BASE PLATFORM_CPPFLAGS PLATFORM_RELFLAGS CPPFLAGS CFLAGS AFLAGS
  
  #########################################################################
  
@@ -1958,22 +1958,22 @@ index 6e280bc..a37c983 100644
  
  #########################################################################
 diff --git a/mips_config.mk b/mips_config.mk
-index d8aa5fa..9d7a109 100644
+index 67fb67d291..8af42d7e3e 100644
 --- a/mips_config.mk
 +++ b/mips_config.mk
-@@ -22,6 +22,12 @@
- #
+@@ -23,6 +23,12 @@
  
  PLATFORM_CPPFLAGS += -DCONFIG_MIPS -D__MIPS__
-+
+ 
 +# cu570m start
 +ifeq ($(FLASH_TYPE),S25FL128P)
 +   PLATFORM_CPPFLAGS += -D$(FLASH_TYPE)
 +endif
 +# cu570m end
- 
++
  #
  # From Linux arch/mips/Makefile
+ #
 -- 
-2.17.1
+2.24.0
 

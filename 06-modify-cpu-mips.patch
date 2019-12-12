@@ -1,18 +1,18 @@
-From b8df4995a3713bbac379f747db413cd597b99b1d Mon Sep 17 00:00:00 2001
+From 2fa60b3d2da4b20c6513848e3854c8f1dbac0d88 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:49:01 +0000
+Date: Tue, 10 Dec 2019 16:55:00 +0000
 Subject: [PATCH] Modify ./cpu/mips/ files according to WR841N(D)v9 u-boot
 
 ---
  cpu/mips/Makefile  |   19 +-
- cpu/mips/cache.S   |  182 +-
+ cpu/mips/cache.S   |  181 +-
  cpu/mips/config.mk |   12 +-
- cpu/mips/cpu.c     |   67 +-
+ cpu/mips/cpu.c     |   68 +-
  cpu/mips/start.S   | 4750 +++++++++++++++++++++++++++++++++++++++++++-
- 5 files changed, 5007 insertions(+), 23 deletions(-)
+ 5 files changed, 5010 insertions(+), 20 deletions(-)
 
 diff --git a/cpu/mips/Makefile b/cpu/mips/Makefile
-index 92dcc16..457307e 100644
+index 92dcc167e8..457307e472 100644
 --- a/cpu/mips/Makefile
 +++ b/cpu/mips/Makefile
 @@ -25,10 +25,23 @@ include $(TOPDIR)/config.mk
@@ -43,10 +43,10 @@ index 92dcc16..457307e 100644
  SRCS	:= $(START:.o=.S) $(SOBJS:.o=.S) $(COBJS:.o=.c)
  OBJS	:= $(addprefix $(obj),$(SOBJS) $(COBJS))
 diff --git a/cpu/mips/cache.S b/cpu/mips/cache.S
-index aad76e0..a3cab29 100644
+index 443240e540..9ea69fcc69 100644
 --- a/cpu/mips/cache.S
 +++ b/cpu/mips/cache.S
-@@ -30,9 +30,10 @@
+@@ -29,10 +29,11 @@
  #include <asm/addrspace.h>
  #include <asm/cacheops.h>
  
@@ -60,7 +60,8 @@ index aad76e0..a3cab29 100644
 +#define MIPS_MAX_CACHE_SIZE	0x10000
  
  /*
-@@ -106,6 +106,41 @@
+  * cacheop macro to automate cache operations
+@@ -103,6 +104,41 @@
  #define icacheop(kva, n, cacheSize, cacheLineSize, op) \
     icacheopn(kva, n, cacheSize, cacheLineSize, 1, (op))
  
@@ -102,7 +103,7 @@ index aad76e0..a3cab29 100644
  /*******************************************************************************
  *
  * mips_cache_reset - low level initialisation of the primary caches
-@@ -156,6 +191,14 @@ mips_cache_reset:
+@@ -152,6 +188,14 @@ mips_cache_reset:
  
  	mtc0	zero, CP0_TAGLO
  
@@ -117,7 +118,7 @@ index aad76e0..a3cab29 100644
  	/*
  	 * The caches are probably in an indeterminate state,
  	 * so we force good parity into them by doing an
-@@ -267,3 +310,134 @@ mips_cache_lock:
+@@ -263,3 +307,134 @@ mips_cache_lock:
  	j	ra
  
  	.end	mips_cache_lock
@@ -253,7 +254,7 @@ index aad76e0..a3cab29 100644
 +
 +/* cu570m end */
 diff --git a/cpu/mips/config.mk b/cpu/mips/config.mk
-index b29986e..81e8668 100644
+index b505a42550..1c472594d5 100644
 --- a/cpu/mips/config.mk
 +++ b/cpu/mips/config.mk
 @@ -20,8 +20,9 @@
@@ -267,7 +268,7 @@ index b29986e..81e8668 100644
  if [ "$v" -lt "14" ]; then \
  	echo "-mcpu=4kc"; \
  else \
-@@ -31,10 +32,13 @@ fi)
+@@ -30,10 +31,13 @@ fi)
  
  ifneq (,$(findstring 4KCle,$(CROSS_COMPILE)))
  ENDIANNESS = -EL
@@ -285,7 +286,7 @@ index b29986e..81e8668 100644
  
  PLATFORM_CPPFLAGS += $(MIPSFLAGS)
 diff --git a/cpu/mips/cpu.c b/cpu/mips/cpu.c
-index f48675e..5c5ecca 100644
+index 7559ac657f..daf2a34986 100644
 --- a/cpu/mips/cpu.c
 +++ b/cpu/mips/cpu.c
 @@ -26,21 +26,87 @@
@@ -352,10 +353,10 @@ index f48675e..5c5ecca 100644
 +#else
 +		ar7240_reg_wr(AR7240_RESET,
 +			(AR7240_RESET_FULL_CHIP | AR7240_RESET_DDR));
- #endif
++#endif
 +	}
 +/* cu570m end */
-+#endif
+ #endif
 +#ifndef COMPRESSED_UBOOT /* cu570m */
  	fprintf(stderr, "*** reset failed ***\n");
 +#endif  /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
@@ -378,10 +379,10 @@ index f48675e..5c5ecca 100644
  
  void write_one_tlb(int index, u32 pagemask, u32 hi, u32 low0, u32 low1)
 diff --git a/cpu/mips/start.S b/cpu/mips/start.S
-index e91e213..e9deedd 100644
+index c92b162782..7e351503fe 100644
 --- a/cpu/mips/start.S
 +++ b/cpu/mips/start.S
-@@ -27,6 +27,15 @@
+@@ -26,6 +26,15 @@
  #include <version.h>
  #include <asm/regdef.h>
  #include <asm/mipsregs.h>
@@ -397,7 +398,7 @@ index e91e213..e9deedd 100644
  
  #define RVECENT(f,n) \
     b f; nop
-@@ -36,10 +44,16 @@
+@@ -34,10 +43,16 @@
     li k0,bev
  
  	.set noreorder
@@ -414,7 +415,7 @@ index e91e213..e9deedd 100644
  	RVECENT(reset,0)	/* U-boot entry point */
  	RVECENT(reset,1)	/* software reboot */
  #if defined(CONFIG_INCA_IP)
-@@ -207,6 +221,104 @@ _start:
+@@ -205,6 +220,104 @@ _start:
  #endif /* CONFIG_PURPLE */
  	.align 4
  reset:
@@ -519,7 +520,7 @@ index e91e213..e9deedd 100644
  
  	/* Clear watch registers.
  	 */
-@@ -221,6 +333,7 @@ reset:
+@@ -219,6 +332,7 @@ reset:
  #endif
  	li	k1, ~ST0_IE
  	and	k0, k1
@@ -527,7 +528,7 @@ index e91e213..e9deedd 100644
  	mtc0	k0, CP0_STATUS
  
  	/* CAUSE register */
-@@ -233,6 +346,19 @@ reset:
+@@ -231,6 +345,19 @@ reset:
  	/* CONFIG0 register */
  	li	t0, CONF_CM_UNCACHED
  	mtc0	t0, CP0_CONFIG
@@ -547,7 +548,7 @@ index e91e213..e9deedd 100644
  
  	/* Initialize $gp.
  	 */
-@@ -244,6 +370,60 @@ reset:
+@@ -240,6 +367,60 @@ reset:
  1:
  	lw	gp, 0(ra)
  
@@ -608,7 +609,7 @@ index e91e213..e9deedd 100644
  #ifdef CONFIG_INCA_IP
  	/* Disable INCA-IP Watchdog.
  	 */
-@@ -254,35 +434,111 @@ reset:
+@@ -250,29 +431,105 @@ reset:
  
  	/* Initialize any external memory.
  	 */
@@ -717,13 +718,7 @@ index e91e213..e9deedd 100644
  	la	sp, 0(t0)
  
  	la	t9, board_init_f
- 	j	t9
- 	nop
- 
- /*
-  * void relocate_code (addr_sp, gd, addr_moni)
-  *
-@@ -334,6 +588,10 @@ relocate_code:
+@@ -328,6 +585,10 @@ relocate_code:
  
  	/* If caches were enabled, we would have to flush them here.
  	 */
@@ -734,16 +729,18 @@ index e91e213..e9deedd 100644
  
  	/* Jump to where we've relocated ourselves.
  	 */
-@@ -380,10 +638,4481 @@ in_ram:
+@@ -382,10 +643,4481 @@ in_ram:
  
  	.end	relocate_code
  
-+/* cu570m huge start */
-+
 -	/* Exception handlers.
 -	 */
 -romReserved:
 -	b	romReserved
++/* cu570m huge start */
+ 
+-romExcHandle:
+-	b	romExcHandle
 +#if !defined(CONFIG_MACH_QCA955x) && !defined(CONFIG_MACH_QCA953x)
 +#if !defined(CONFIG_WASP_SUPPORT) && defined(CONFIG_AR7240)
 +/*
@@ -756,9 +753,7 @@ index e91e213..e9deedd 100644
 +ar7240_ddr_tap_init: /* { */
 +	li	t1,0x80500000
 +	li	t0,0xffffffff
- 
--romExcHandle:
--	b	romExcHandle
++
 +	sw	t0,0x0(t1)
 +	sw	t0,0x4(t1)
 +	sw	t0,0x8(t1)
@@ -5223,5 +5218,5 @@ index e91e213..e9deedd 100644
 +
 +/* cu570m huge end */
 -- 
-2.17.1
+2.24.0
 

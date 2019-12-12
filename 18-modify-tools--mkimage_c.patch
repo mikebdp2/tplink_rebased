@@ -1,6 +1,6 @@
-From 60c8fb818a5a58e0b1973f20b0104e7b4d524aed Mon Sep 17 00:00:00 2001
+From 607c410071c161900c8edfab8cc25b8a029dd675 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 18:01:18 +0000
+Date: Tue, 10 Dec 2019 17:12:40 +0000
 Subject: [PATCH] Modify ./tools/mkimage.c according to WR841N(D)v9 u-boot
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] Modify ./tools/mkimage.c according to WR841N(D)v9 u-boot
  1 file changed, 1 insertion(+)
 
 diff --git a/tools/mkimage.c b/tools/mkimage.c
-index 416e658..afe48cf 100644
+index 21251306ac..35359fb7d6 100644
 --- a/tools/mkimage.c
 +++ b/tools/mkimage.c
 @@ -139,6 +139,7 @@ table_entry_t comp_name[] = {
@@ -20,5 +20,5 @@ index 416e658..afe48cf 100644
  };
  
 -- 
-2.17.1
+2.24.0
 

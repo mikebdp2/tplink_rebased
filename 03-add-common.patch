@@ -1,14 +1,14 @@
-From d14dc596e3d0ef3ecd26b392349c3fef39430892 Mon Sep 17 00:00:00 2001
+From 02bad5ae7ab2ecde013dd5805d05889f1125890c Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:41:43 +0000
+Date: Tue, 10 Dec 2019 16:48:25 +0000
 Subject: [PATCH] Add ./common/ Atheros files from WR841N(D)v9 u-boot
 
 ---
- common/cmd_bdr.c    | 427 ++++++++++++++++++++++++++++++++++++++++++++
+ common/cmd_bdr.c    | 425 ++++++++++++++++++++++++++++++++++++++++++++
  common/cmd_ddr.c    | 117 ++++++++++++
  common/cmd_ethreg.c | 197 ++++++++++++++++++++
  common/cmd_pll.c    | 309 ++++++++++++++++++++++++++++++++
- 4 files changed, 1050 insertions(+)
+ 4 files changed, 1048 insertions(+)
  create mode 100644 common/cmd_bdr.c
  create mode 100644 common/cmd_ddr.c
  create mode 100644 common/cmd_ethreg.c
@@ -16,7 +16,7 @@ Subject: [PATCH] Add ./common/ Atheros files from WR841N(D)v9 u-boot
 
 diff --git a/common/cmd_bdr.c b/common/cmd_bdr.c
 new file mode 100644
-index 0000000..c673a71
+index 0000000000..4cb1c92c15
 --- /dev/null
 +++ b/common/cmd_bdr.c
 @@ -0,0 +1,425 @@
@@ -447,7 +447,7 @@ index 0000000..c673a71
 +);
 diff --git a/common/cmd_ddr.c b/common/cmd_ddr.c
 new file mode 100644
-index 0000000..a050c6a
+index 0000000000..bfd516dc55
 --- /dev/null
 +++ b/common/cmd_ddr.c
 @@ -0,0 +1,117 @@
@@ -570,7 +570,7 @@ index 0000000..a050c6a
 +#endif	/* CONFIG_CMD_SPI */
 diff --git a/common/cmd_ethreg.c b/common/cmd_ethreg.c
 new file mode 100644
-index 0000000..6bda1fe
+index 0000000000..484218ce8a
 --- /dev/null
 +++ b/common/cmd_ethreg.c
 @@ -0,0 +1,197 @@
@@ -773,7 +773,7 @@ index 0000000..6bda1fe
 +#endif	/* CONFIG_CMD_SPI */
 diff --git a/common/cmd_pll.c b/common/cmd_pll.c
 new file mode 100644
-index 0000000..72724b2
+index 0000000000..17621f4706
 --- /dev/null
 +++ b/common/cmd_pll.c
 @@ -0,0 +1,309 @@
@@ -1086,6 +1086,6 @@ index 0000000..72724b2
 +
 +#endif	/* CONFIG_CMD_SPI */
 +#endif // CONFIG_ATH_EMULATION
---
-2.17.1
+-- 
+2.24.0
 

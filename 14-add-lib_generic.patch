@@ -1,6 +1,6 @@
-From 53def9642b2213617f9f101493aaeedc6b19a7d6 Mon Sep 17 00:00:00 2001
+From d6c4c8895e86c59fc8de25fb6073dc4f3c48f607 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:57:55 +0000
+Date: Tue, 10 Dec 2019 17:07:12 +0000
 Subject: [PATCH] Add ./lib_generic/ Atheros files from WR841N(D)v9 u-boot
 
 ---
@@ -16,7 +16,7 @@ Subject: [PATCH] Add ./lib_generic/ Atheros files from WR841N(D)v9 u-boot
 
 diff --git a/lib_generic/LzmaDecode.c b/lib_generic/LzmaDecode.c
 new file mode 100644
-index 0000000..99d1117
+index 0000000000..0de9759fa8
 --- /dev/null
 +++ b/lib_generic/LzmaDecode.c
 @@ -0,0 +1,600 @@
@@ -622,7 +622,7 @@ index 0000000..99d1117
 +#endif /* CONFIG_LZMA */
 diff --git a/lib_generic/LzmaDecode.h b/lib_generic/LzmaDecode.h
 new file mode 100644
-index 0000000..2870eeb
+index 0000000000..bd75525aed
 --- /dev/null
 +++ b/lib_generic/LzmaDecode.h
 @@ -0,0 +1,113 @@
@@ -741,7 +741,7 @@ index 0000000..2870eeb
 +#endif
 diff --git a/lib_generic/LzmaTypes.h b/lib_generic/LzmaTypes.h
 new file mode 100644
-index 0000000..288c5e4
+index 0000000000..0072d99b68
 --- /dev/null
 +++ b/lib_generic/LzmaTypes.h
 @@ -0,0 +1,45 @@
@@ -792,7 +792,7 @@ index 0000000..288c5e4
 +#endif
 diff --git a/lib_generic/LzmaWrapper.c b/lib_generic/LzmaWrapper.c
 new file mode 100644
-index 0000000..6c3d702
+index 0000000000..b8f62e63c5
 --- /dev/null
 +++ b/lib_generic/LzmaWrapper.c
 @@ -0,0 +1,197 @@
@@ -993,6 +993,6 @@ index 0000000..6c3d702
 +}
 +
 +#endif /* CONFIG_LZMA */
---
-2.17.1
+-- 
+2.24.0
 

@@ -1,6 +1,6 @@
-From 2d9e2a1a89661ed7c481cdeb0a5086d9f12ec13a Mon Sep 17 00:00:00 2001
+From 3c2cb5576820c1ee31df78701e885d51306da776 Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:57:02 +0000
+Date: Tue, 10 Dec 2019 17:06:29 +0000
 Subject: [PATCH] Add ./lib_bootstrap/ Atheros files from WR841N(D)v9 u-boot
 
 ---
@@ -38,7 +38,7 @@ Subject: [PATCH] Add ./lib_bootstrap/ Atheros files from WR841N(D)v9 u-boot
 
 diff --git a/lib_bootstrap/LzmaDecode.c b/lib_bootstrap/LzmaDecode.c
 new file mode 100644
-index 0000000..28263e6
+index 0000000000..cebdbf0f7e
 --- /dev/null
 +++ b/lib_bootstrap/LzmaDecode.c
 @@ -0,0 +1,622 @@
@@ -666,7 +666,7 @@ index 0000000..28263e6
 +#endif /* CONFIG_LZMA */
 diff --git a/lib_bootstrap/LzmaDecode.h b/lib_bootstrap/LzmaDecode.h
 new file mode 100644
-index 0000000..2870eeb
+index 0000000000..bd75525aed
 --- /dev/null
 +++ b/lib_bootstrap/LzmaDecode.h
 @@ -0,0 +1,113 @@
@@ -785,7 +785,7 @@ index 0000000..2870eeb
 +#endif
 diff --git a/lib_bootstrap/LzmaTypes.h b/lib_bootstrap/LzmaTypes.h
 new file mode 100644
-index 0000000..288c5e4
+index 0000000000..0072d99b68
 --- /dev/null
 +++ b/lib_bootstrap/LzmaTypes.h
 @@ -0,0 +1,45 @@
@@ -836,7 +836,7 @@ index 0000000..288c5e4
 +#endif
 diff --git a/lib_bootstrap/LzmaWrapper.c b/lib_bootstrap/LzmaWrapper.c
 new file mode 100644
-index 0000000..955b911
+index 0000000000..11f8f10eaf
 --- /dev/null
 +++ b/lib_bootstrap/LzmaWrapper.c
 @@ -0,0 +1,223 @@
@@ -1065,7 +1065,7 @@ index 0000000..955b911
 +#endif /* CONFIG_LZMA */
 diff --git a/lib_bootstrap/Makefile b/lib_bootstrap/Makefile
 new file mode 100644
-index 0000000..ce46c80
+index 0000000000..ce46c80972
 --- /dev/null
 +++ b/lib_bootstrap/Makefile
 @@ -0,0 +1,54 @@
@@ -1125,7 +1125,7 @@ index 0000000..ce46c80
 +#########################################################################
 diff --git a/lib_bootstrap/bootstrap_board.c b/lib_bootstrap/bootstrap_board.c
 new file mode 100644
-index 0000000..1f6e3cb
+index 0000000000..d7f9b8dafb
 --- /dev/null
 +++ b/lib_bootstrap/bootstrap_board.c
 @@ -0,0 +1,480 @@
@@ -1611,7 +1611,7 @@ index 0000000..1f6e3cb
 +}
 diff --git a/lib_bootstrap/console.c b/lib_bootstrap/console.c
 new file mode 100644
-index 0000000..a8fcd2a
+index 0000000000..a8fcd2a53f
 --- /dev/null
 +++ b/lib_bootstrap/console.c
 @@ -0,0 +1,573 @@
@@ -2190,7 +2190,7 @@ index 0000000..a8fcd2a
 +#endif /* CFG_CONSOLE_IS_IN_ENV */
 diff --git a/lib_bootstrap/crc32.c b/lib_bootstrap/crc32.c
 new file mode 100644
-index 0000000..50ca4ff
+index 0000000000..9c5444351d
 --- /dev/null
 +++ b/lib_bootstrap/crc32.c
 @@ -0,0 +1,197 @@
@@ -2393,7 +2393,7 @@ index 0000000..50ca4ff
 +#endif	/* CONFIG_CMD_JFFS2 */
 diff --git a/lib_bootstrap/ctype.c b/lib_bootstrap/ctype.c
 new file mode 100644
-index 0000000..6ed0468
+index 0000000000..6ed0468a21
 --- /dev/null
 +++ b/lib_bootstrap/ctype.c
 @@ -0,0 +1,56 @@
@@ -2455,7 +2455,7 @@ index 0000000..6ed0468
 +_L,_L,_L,_L,_L,_L,_L,_P,_L,_L,_L,_L,_L,_L,_L,_L};      /* 240-255 */
 diff --git a/lib_bootstrap/devices.c b/lib_bootstrap/devices.c
 new file mode 100644
-index 0000000..ddf8f8e
+index 0000000000..ddf8f8ee2d
 --- /dev/null
 +++ b/lib_bootstrap/devices.c
 @@ -0,0 +1,216 @@
@@ -2677,7 +2677,7 @@ index 0000000..ddf8f8e
 +}
 diff --git a/lib_bootstrap/display_options.c b/lib_bootstrap/display_options.c
 new file mode 100644
-index 0000000..512e898
+index 0000000000..512e8980d9
 --- /dev/null
 +++ b/lib_bootstrap/display_options.c
 @@ -0,0 +1,67 @@
@@ -2750,7 +2750,7 @@ index 0000000..512e898
 +}
 diff --git a/lib_bootstrap/lists.c b/lib_bootstrap/lists.c
 new file mode 100644
-index 0000000..3f117b5
+index 0000000000..3f117b568e
 --- /dev/null
 +++ b/lib_bootstrap/lists.c
 @@ -0,0 +1,734 @@
@@ -3490,7 +3490,7 @@ index 0000000..3f117b5
 +#endif /* CFG_ALL_LIST_FUNCTIONS */
 diff --git a/lib_bootstrap/string.c b/lib_bootstrap/string.c
 new file mode 100644
-index 0000000..e0b793a
+index 0000000000..e0b793abbe
 --- /dev/null
 +++ b/lib_bootstrap/string.c
 @@ -0,0 +1,578 @@
@@ -4074,7 +4074,7 @@ index 0000000..e0b793a
 +#endif
 diff --git a/lib_bootstrap/time.c b/lib_bootstrap/time.c
 new file mode 100644
-index 0000000..cd8dc72
+index 0000000000..cd8dc721e2
 --- /dev/null
 +++ b/lib_bootstrap/time.c
 @@ -0,0 +1,99 @@
@@ -4179,7 +4179,7 @@ index 0000000..cd8dc72
 +}
 diff --git a/lib_bootstrap/vsprintf.c b/lib_bootstrap/vsprintf.c
 new file mode 100644
-index 0000000..2740f2e
+index 0000000000..2740f2e769
 --- /dev/null
 +++ b/lib_bootstrap/vsprintf.c
 @@ -0,0 +1,385 @@
@@ -4568,6 +4568,6 @@ index 0000000..2740f2e
 +	do_reset (NULL, 0, 0, NULL);
 +#endif
 +}
---
-2.17.1
+-- 
+2.24.0
 

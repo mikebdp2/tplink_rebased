@@ -1,6 +1,6 @@
-From c91da2d8069a3b4b0bb9429a451c2aa0188c8f92 Mon Sep 17 00:00:00 2001
+From 855639332b97e206c9db35d202e13044319ebe9b Mon Sep 17 00:00:00 2001
 From: Mike Banon <mikebdp2@gmail.com>
-Date: Fri, 29 Nov 2019 17:55:23 +0000
+Date: Tue, 10 Dec 2019 17:01:57 +0000
 Subject: [PATCH] Add ./include/ Atheros files from WR841N(D)v9 u-boot
 
 ---
@@ -13,8 +13,8 @@ Subject: [PATCH] Add ./include/ Atheros files from WR841N(D)v9 u-boot
  include/atheros.h     |  325 +++
  include/athversion.h  |    8 +
  include/hornet_soc.h  |  293 +++
- include/tpLinuxTag.h  |   45 +
- 10 files changed, 13182 insertions(+)
+ include/tpLinuxTag.h  |   44 +
+ 10 files changed, 13181 insertions(+)
  create mode 100755 include/953x.h
  create mode 100644 include/955x.h
  create mode 100644 include/LzmaWrapper.h
@@ -28,7 +28,7 @@ Subject: [PATCH] Add ./include/ Atheros files from WR841N(D)v9 u-boot
 
 diff --git a/include/953x.h b/include/953x.h
 new file mode 100755
-index 0000000..f323218
+index 0000000000..bd3dcee124
 --- /dev/null
 +++ b/include/953x.h
 @@ -0,0 +1,4472 @@
@@ -4506,7 +4506,7 @@ index 0000000..f323218
 +#endif /* _QCA953X_H */
 diff --git a/include/955x.h b/include/955x.h
 new file mode 100644
-index 0000000..9602dee
+index 0000000000..9602dee1a8
 --- /dev/null
 +++ b/include/955x.h
 @@ -0,0 +1,3484 @@
@@ -7996,7 +7996,7 @@ index 0000000..9602dee
 +#endif /* _QCA955X_H */
 diff --git a/include/LzmaWrapper.h b/include/LzmaWrapper.h
 new file mode 100644
-index 0000000..2f9a3ff
+index 0000000000..2f9a3ffbbb
 --- /dev/null
 +++ b/include/LzmaWrapper.h
 @@ -0,0 +1,36 @@
@@ -8038,7 +8038,7 @@ index 0000000..2f9a3ff
 +#endif /*__LZMA_WRAPPER_H__*/
 diff --git a/include/ar7100_soc.h b/include/ar7100_soc.h
 new file mode 100644
-index 0000000..0d2f5a0
+index 0000000000..0d2f5a043b
 --- /dev/null
 +++ b/include/ar7100_soc.h
 @@ -0,0 +1,603 @@
@@ -8647,7 +8647,7 @@ index 0000000..0d2f5a0
 +#endif
 diff --git a/include/ar7240_soc.h b/include/ar7240_soc.h
 new file mode 100644
-index 0000000..f33c4f1
+index 0000000000..d65b3d5438
 --- /dev/null
 +++ b/include/ar7240_soc.h
 @@ -0,0 +1,768 @@
@@ -9421,7 +9421,7 @@ index 0000000..f33c4f1
 +#endif
 diff --git a/include/ar934x_soc.h b/include/ar934x_soc.h
 new file mode 100644
-index 0000000..23b44c3
+index 0000000000..23b44c3c51
 --- /dev/null
 +++ b/include/ar934x_soc.h
 @@ -0,0 +1,3148 @@
@@ -12575,7 +12575,7 @@ index 0000000..23b44c3
 +#endif /* _AR934X_SOC_H */
 diff --git a/include/atheros.h b/include/atheros.h
 new file mode 100644
-index 0000000..fa258e2
+index 0000000000..fa258e2191
 --- /dev/null
 +++ b/include/atheros.h
 @@ -0,0 +1,325 @@
@@ -12906,7 +12906,7 @@ index 0000000..fa258e2
 +#endif /* _ATHEROS_H */
 diff --git a/include/athversion.h b/include/athversion.h
 new file mode 100644
-index 0000000..22e6005
+index 0000000000..22e6005d22
 --- /dev/null
 +++ b/include/athversion.h
 @@ -0,0 +1,8 @@
@@ -12920,7 +12920,7 @@ index 0000000..22e6005
 +#endif /* __ATHVERSION_H_ */
 diff --git a/include/hornet_soc.h b/include/hornet_soc.h
 new file mode 100644
-index 0000000..b57e820
+index 0000000000..b57e8203e3
 --- /dev/null
 +++ b/include/hornet_soc.h
 @@ -0,0 +1,293 @@
@@ -13219,7 +13219,7 @@ index 0000000..b57e820
 +#endif
 diff --git a/include/tpLinuxTag.h b/include/tpLinuxTag.h
 new file mode 100755
-index 0000000..a027d16
+index 0000000000..df5ea0b1af
 --- /dev/null
 +++ b/include/tpLinuxTag.h
 @@ -0,0 +1,44 @@
@@ -13267,6 +13267,6 @@ index 0000000..a027d16
 +int getElfInfo(char *elfFile, Elf32_Addr *eEntry, Elf32_Addr *pVaddr);
 +
 +#endif // _TP_LINUX_TAG_H_
---
-2.17.1
+-- 
+2.24.0
 
