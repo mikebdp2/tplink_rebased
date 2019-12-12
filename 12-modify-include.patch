@@ -1,0 +1,259 @@
+From 21e360e8335e089946ce2e0f4ed3ee5e3d4cc4a8 Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Fri, 29 Nov 2019 17:56:15 +0000
+Subject: [PATCH] Modify ./include/ files according to WR841N(D)v9 u-boot
+
+---
+ include/cmd_confdefs.h | 71 ++++++++++++++++++++++++++++++++++++++++--
+ include/common.h       |  9 ++++++
+ include/flash.h        |  2 ++
+ include/image.h        |  1 +
+ include/net.h          |  8 +++++
+ include/pci.h          |  6 ++--
+ include/version.h      |  1 +
+ 7 files changed, 94 insertions(+), 4 deletions(-)
+
+diff --git a/include/cmd_confdefs.h b/include/cmd_confdefs.h
+index cf36583..cd02561 100644
+--- a/include/cmd_confdefs.h
++++ b/include/cmd_confdefs.h
+@@ -76,7 +76,8 @@
+ #define CFG_CMD_HWFLOW	0x0000020000000000ULL	/* RTS/CTS hw flow control	*/
+ #define CFG_CMD_SAVES	0x0000040000000000ULL	/* save S record dump		*/
+ #define CFG_CMD_SPI	0x0000100000000000ULL	/* SPI utility			*/
+-#define CFG_CMD_FDOS	0x0000200000000000ULL	/* Floppy DOS support		*/
++// #define CFG_CMD_FDOS	0x0000200000000000ULL	/* Floppy DOS support		*/ /* cu570m */
++#define CFG_CMD_PLL	0x0000200000000000ULL   /* Change CPU clock speeds      */ /* cu570m */
+ #define CFG_CMD_VFD	0x0000400000000000ULL	/* VFD support (TRAB)		*/
+ #define CFG_CMD_NAND	0x0000800000000000ULL	/* NAND support			*/
+ #define CFG_CMD_BMP	0x0001000000000000ULL	/* BMP support			*/
+@@ -94,12 +95,17 @@
+ #define CFG_CMD_EXT2	0x1000000000000000ULL	/* EXT2 Support			*/
+ #define CFG_CMD_SNTP	0x2000000000000000ULL	/* SNTP support			*/
+ #define CFG_CMD_DISPLAY	0x4000000000000000ULL	/* Display support		*/
++#define CFG_CMD_ETHREG	0x8000000000000000ULL	/* S26 Reg RD/WR utility	*/ /* cu570m */
++
+ 
+ #define CFG_CMD_ALL	0xFFFFFFFFFFFFFFFFULL	/* ALL commands			*/
+ 
+ /* Commands that are considered "non-standard" for some reason
+  * (memory hogs, requires special hardware, not fully tested, etc.)
+  */
++#ifndef COMPRESSED_UBOOT /* cu570m */
++/* CFG_CMD_FAT, CFG_CMD_FDOS, CFG_CMD_HWFLOW -> CFG_CMD_FAT, CFG_CMD_HWFLOW - cu570m */
++/* cu570m insertion between CFG_CMD_USB and CFG_CMD_VFD */
+ #define CFG_CMD_NONSTD (CFG_CMD_ASKENV	| \
+ 			CFG_CMD_BEDBUG	| \
+ 			CFG_CMD_BMP	| \
+@@ -117,7 +123,6 @@
+ 			CFG_CMD_EXT2	| \
+ 			CFG_CMD_FDC	| \
+ 			CFG_CMD_FAT	| \
+-			CFG_CMD_FDOS	| \
+ 			CFG_CMD_HWFLOW	| \
+ 			CFG_CMD_I2C	| \
+ 			CFG_CMD_IDE	| \
+@@ -141,7 +146,69 @@
+ 			CFG_CMD_SPI	| \
+ 			CFG_CMD_UNIVERSE | \
+ 			CFG_CMD_USB	| \
++			CFG_CMD_ETHREG  | \
++			CFG_CMD_PLL     | \
++			CFG_CMD_LOADB	| \
++			CFG_CMD_LOADS	| \
++			CFG_CMD_VFD	)
++#else /* cu570m condition branch */
++#define CFG_CMD_NONSTD (CFG_CMD_ASKENV	| \
++			CFG_CMD_BEDBUG	| \
++			CFG_CMD_BDI	| \
++			CFG_CMD_BMP	| \
++			CFG_CMD_BSP	| \
++			CFG_CMD_CACHE	| \
++			CFG_CMD_CDP	| \
++			CFG_CMD_CONSOLE	| \
++			CFG_CMD_DATE	| \
++			CFG_CMD_DHCP	| \
++			CFG_CMD_DIAG	| \
++			CFG_CMD_DISPLAY	| \
++			CFG_CMD_DOC	| \
++			CFG_CMD_DTT	| \
++			CFG_CMD_ECHO	| \
++			CFG_CMD_EEPROM	| \
++			CFG_CMD_ELF	| \
++			CFG_CMD_ENV	| \
++			CFG_CMD_EXT2	| \
++			CFG_CMD_FDC	| \
++			CFG_CMD_FAT	| \
++			CFG_CMD_FPGA	| \
++			CFG_CMD_HWFLOW	| \
++			CFG_CMD_I2C	| \
++			CFG_CMD_IDE	| \
++			CFG_CMD_IMI	| \
++			CFG_CMD_IMLS	| \
++			CFG_CMD_IMMAP	| \
++			CFG_CMD_IRQ	| \
++			CFG_CMD_ITEST	| \
++			CFG_CMD_JFFS2	| \
++			CFG_CMD_KGDB	| \
++			CFG_CMD_LOADB	| \
++			CFG_CMD_LOADS	| \
++			CFG_CMD_MISC	| \
++			CFG_CMD_MMC	| \
++			CFG_CMD_NAND	| \
++			CFG_CMD_NFS	| \
++			CFG_CMD_PCI	| \
++			CFG_CMD_PCMCIA	| \
++			CFG_CMD_PING	| \
++			CFG_CMD_PORTIO	| \
++			CFG_CMD_REGINFO	| \
++			CFG_CMD_REISER	| \
++			CFG_CMD_SAVES	| \
++			CFG_CMD_SCSI	| \
++			CFG_CMD_SETGETDCR	|\
++			CFG_CMD_SDRAM	| \
++			CFG_CMD_SNTP	| \
++			CFG_CMD_SPI	| \
++			CFG_CMD_UNIVERSE	 | \
++			CFG_CMD_USB	| \
++			CFG_CMD_XIMG	| \
++			CFG_CMD_ETHREG	| \
++			CFG_CMD_PLL     | \
+ 			CFG_CMD_VFD	)
++#endif /* cu570m */
+ 
+ /* Default configuration
+  */
+diff --git a/include/common.h b/include/common.h
+index 349d5cf..ce8f73b 100644
+--- a/include/common.h
++++ b/include/common.h
+@@ -198,7 +198,11 @@ void	reset_cmd_timeout(void);
+ /* lib_$(ARCH)/board.c */
+ void	board_init_f  (ulong);
+ void	board_init_r  (gd_t *, ulong);
++#ifdef COMPRESSED_UBOOT /* cu570m condition branch */
++int	checkboard    (char *);
++#else /* old default path */
+ int	checkboard    (void);
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ int	checkflash    (void);
+ int	checkdram     (void);
+ char *	strmhz(char *buf, long hz);
+@@ -244,7 +248,11 @@ int env_complete(char *var, int maxv, char *cmdv[], int maxsz, char *buf);
+ #endif
+ 
+ void	pci_init      (void);
++#ifdef  COMPRESSED_UBOOT /* cu570m condition branch */
++int	pci_init_board(void);
++#else /* old default path */
+ void	pci_init_board(void);
++#endif /* #ifdef COMPRESSED_UBOOT */ /* cu570m */
+ void	pciinfo	      (int, int);
+ 
+ #if defined(CONFIG_PCI) && defined(CONFIG_440)
+@@ -374,6 +382,7 @@ int	dcache_status (void);
+ void	dcache_enable (void);
+ void	dcache_disable(void);
+ void	relocate_code (ulong, gd_t *, ulong);
++void 	ar7240_ddr_tap_init(void); /* cu570m */
+ ulong	get_endaddr   (void);
+ void	trap_init     (ulong);
+ #if defined (CONFIG_4xx)	|| \
+diff --git a/include/flash.h b/include/flash.h
+index d91589a..fe50741 100644
+--- a/include/flash.h
++++ b/include/flash.h
+@@ -422,6 +422,8 @@ extern void flash_read_factory_serial(flash_info_t * info, void * buffer, int of
+ #define FLASH_S29GL064M 0x00F0		/* Spansion S29GL064M-R6		*/
+ #define FLASH_S29GL128N 0x00F1		/* Spansion S29GL128N			*/
+ 
++#define FLASH_M25P64    0x00F2 /* cu570m */
++
+ #define FLASH_UNKNOWN	0xFFFF		/* unknown flash type			*/
+ 
+ 
+diff --git a/include/image.h b/include/image.h
+index 2f575fd..a3187b5 100644
+--- a/include/image.h
++++ b/include/image.h
+@@ -133,6 +133,7 @@
+ #define IH_COMP_NONE		0	/*  No	 Compression Used	*/
+ #define IH_COMP_GZIP		1	/* gzip	 Compression Used	*/
+ #define IH_COMP_BZIP2		2	/* bzip2 Compression Used	*/
++#define IH_COMP_LZMA		3	/* lzma  Compression Used	*/ /* cu570m */
+ 
+ #define IH_MAGIC	0x27051956	/* Image Magic Number		*/
+ #define IH_NMLEN		32	/* Image Name Length		*/
+diff --git a/include/net.h b/include/net.h
+index 461e038..b115486 100644
+--- a/include/net.h
++++ b/include/net.h
+@@ -268,7 +268,11 @@ typedef struct icmphdr {
+  * maximum packet size =  1518
+  * maximum packet size and multiple of 32 bytes =  1536
+  */
++#ifdef CFG_ATHRHDR_EN /* cu570m condition branch */
++#define PKTSIZE			1520
++#else /* old default path */
+ #define PKTSIZE			1518
++#endif /* cu570m */
+ #define PKTSIZE_ALIGN		1536
+ /*#define PKTSIZE		608*/
+ 
+@@ -336,7 +340,11 @@ extern int		NetState;		/* Network loop state		*/
+ extern int		NetRestartWrap;		/* Tried all network devices	*/
+ #endif
+ 
++#if defined(CFG_ATHRS26_PHY) && defined(CFG_ATHRHDR_EN) /* cu570m condition branch */
++typedef enum { BOOTP, RARP, ARP, TFTP, DHCP, PING, DNS, NFS, CDP, NETCONS, SNTP, ATHRHDR } proto_t;
++#else /* old default path */
+ typedef enum { BOOTP, RARP, ARP, TFTP, DHCP, PING, DNS, NFS, CDP, NETCONS, SNTP } proto_t;
++#endif /* cu570m */
+ 
+ /* from net/net.c */
+ extern char	BootFile[128];			/* Boot File name		*/
+diff --git a/include/pci.h b/include/pci.h
+index 7c9a0e3..454963d 100644
+--- a/include/pci.h
++++ b/include/pci.h
+@@ -24,6 +24,8 @@
+  * MA 02111-1307 USA
+  */
+ 
++/* extern -> static - cu570m */
++
+ #ifndef _PCI_H
+ #define _PCI_H
+ 
+@@ -323,7 +325,7 @@ struct pci_region {
+ #define PCI_REGION_MEMORY	0x00000100	/* System memory */
+ #define PCI_REGION_RO		0x00000200	/* Read-only memory */
+ 
+-extern __inline__ void pci_set_region(struct pci_region *reg,
++static __inline__ void pci_set_region(struct pci_region *reg,
+ 				      unsigned long bus_start,
+ 				      unsigned long phys_start,
+ 				      unsigned long size,
+@@ -403,7 +405,7 @@ struct pci_controller {
+ 	int current_busno;
+ };
+ 
+-extern __inline__ void pci_set_ops(struct pci_controller *hose,
++static __inline__ void pci_set_ops(struct pci_controller *hose,
+ 				   int (*read_byte)(struct pci_controller*,
+ 						    pci_dev_t, int where, u8 *),
+ 				   int (*read_word)(struct pci_controller*,
+diff --git a/include/version.h b/include/version.h
+index b56d2e9..b332371 100644
+--- a/include/version.h
++++ b/include/version.h
+@@ -25,5 +25,6 @@
+ #define	__VERSION_H__
+ 
+ #include "version_autogenerated.h"
++#include "athversion.h" /* cu570m */
+ 
+ #endif	/* __VERSION_H__ */
+-- 
+2.17.1
+

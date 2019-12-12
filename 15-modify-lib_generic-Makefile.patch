@@ -1,0 +1,38 @@
+From 48e68056c4f770936f3fda249755e0563508f7e8 Mon Sep 17 00:00:00 2001
+From: Mike Banon <mikebdp2@gmail.com>
+Date: Fri, 29 Nov 2019 17:58:55 +0000
+Subject: [PATCH] Modify ./lib_generic/Makefile according to WR841N(D)v9 u-boot
+
+---
+ lib_generic/Makefile | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/lib_generic/Makefile b/lib_generic/Makefile
+index f012cab..870d470 100644
+--- a/lib_generic/Makefile
++++ b/lib_generic/Makefile
+@@ -25,10 +25,20 @@ include $(TOPDIR)/config.mk
+ 
+ LIB	= $(obj)libgeneric.a
+ 
++ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
++COBJS    = crc32.o ctype.o display_options.o ldiv.o \
++			string.o vsprintf.o LzmaWrapper.o LzmaDecode.o
++else # old default path
++# LzmaDecode.o LzmaWrapper.o - cu570m
+ COBJS	= bzlib.o bzlib_crctable.o bzlib_decompress.o \
+ 	  bzlib_randtable.o bzlib_huffman.o \
+ 	  crc32.o ctype.o display_options.o ldiv.o \
+-	  string.o vsprintf.o zlib.o
++	  string.o vsprintf.o zlib.o \
++	  LzmaDecode.o LzmaWrapper.o
++endif # cu570m
++
++# cu570m
++CFLAGS += -DCONFIG_LZMA=1
+ 
+ SRCS 	:= $(COBJS:.o=.c)
+ OBJS	:= $(addprefix $(obj),$(COBJS))
+-- 
+2.17.1
+
