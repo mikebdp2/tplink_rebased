@@ -55,8 +55,8 @@ index a282342..63fe227 100644
  SRCTREE		:= $(CURDIR)
  TOPDIR		:= $(SRCTREE)
  LNDIR		:= $(OBJTREE)
-@@ -135,7 +145,9 @@ CROSS_COMPILE = i386-linux-
- endif
+@@ -131,7 +141,9 @@ ifeq ($(ARCH),i386)
+ CROSS_COMPILE = i386-linux-
  endif
  ifeq ($(ARCH),mips)
 -CROSS_COMPILE = mips_4KC-
@@ -66,7 +66,7 @@ index a282342..63fe227 100644
  endif
  ifeq ($(ARCH),nios)
  CROSS_COMPILE = nios-elf-
-@@ -167,6 +179,13 @@ include $(TOPDIR)/config.mk
+@@ -163,6 +175,13 @@ include $(TOPDIR)/config.mk
  # U-Boot objects....order is important (i.e. start must be first)
  
  OBJS  = cpu/$(CPU)/start.o
@@ -80,7 +80,7 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -190,40 +209,69 @@ endif
+@@ -190,52 +209,82 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
@@ -92,9 +92,15 @@ index a282342..63fe227 100644
  ifdef SOC
  LIBS += cpu/$(CPU)/$(SOC)/lib$(SOC).a
  endif
+-ifeq ($(CPU),ixp)
+-LIBS += cpu/ixp/npe/libnpe.a
+-endif
++# ifeq ($(CPU),ixp)
++# LIBS += cpu/ixp/npe/libnpe.a
++# endif
  LIBS += lib_$(ARCH)/lib$(ARCH).a
 -LIBS += fs/cramfs/libcramfs.a fs/fat/libfat.a fs/fdos/libfdos.a fs/jffs2/libjffs2.a \
--	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
+-	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a fs/romfs/libromfs.a
 +
 +# ifeq ($(KERNELVER),2.6.31)
 +LIBS += drivers/libdrivers.a
@@ -102,7 +108,7 @@ index a282342..63fe227 100644
 +# ifeq ($(COMPRESSED_UBOOT),0)
 +
 +# LIBS += fs/cramfs/libcramfs.a fs/fat/libfat.a fs/fdos/libfdos.a fs/jffs2/libjffs2.a \
-+# 	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
++# 	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a fs/romfs/libromfs.a
  LIBS += net/libnet.a
 -LIBS += disk/libdisk.a
 +# LIBS += disk/libdisk.a
@@ -111,12 +117,22 @@ index a282342..63fe227 100644
 -LIBS += drivers/libdrivers.a
 -LIBS += drivers/nand/libnand.a
 -LIBS += drivers/nand_legacy/libnand_legacy.a
+-LIBS += drivers/net/libnetdrv.a
 -ifeq ($(CPU),mpc83xx)
 -LIBS += drivers/qe/qe.a
 -endif
 -LIBS += drivers/sk98lin/libsk98lin.a
--LIBS += post/libpost.a post/cpu/libcpu.a
+-LIBS += post/libpost.a post/drivers/libpostdrivers.a
+-LIBS += $(shell if [ -d post/lib_$(ARCH) ]; then echo \
+-	"post/lib_$(ARCH)/libpost$(ARCH).a"; fi)
+-LIBS += $(shell if [ -d post/lib_$(ARCH)/fpu ]; then echo \
+-	"post/lib_$(ARCH)/fpu/libpost$(ARCH)fpu.a"; fi)
+-LIBS += $(shell if [ -d post/cpu/$(CPU) ]; then echo \
+-	"post/cpu/$(CPU)/libpost$(CPU).a"; fi)
+-LIBS += $(shell if [ -d post/board/$(BOARDDIR) ]; then echo \
+-	"post/board/$(BOARDDIR)/libpost$(BOARD).a"; fi)
 -LIBS += common/libcommon.a
+-LIBS += libfdt/libfdt.a
 +# LIBS += dtt/libdtt.a
 +
 +# ifneq ($(KERNELVER),2.6.31)
@@ -125,13 +141,23 @@ index a282342..63fe227 100644
 +
 +# LIBS += drivers/nand/libnand.a
 +# LIBS += drivers/nand_legacy/libnand_legacy.a
++# LIBS += drivers/net/libnetdrv.a
 +# ifeq ($(CPU),mpc83xx)
 +# LIBS += drivers/qe/qe.a
 +# endif
 +# LIBS += drivers/sk98lin/libsk98lin.a
-+# LIBS += post/libpost.a post/cpu/libcpu.a
++#LIBS += post/libpost.a post/drivers/libpostdrivers.a
++#LIBS += $(shell if [ -d post/lib_$(ARCH) ]; then echo \
++#	"post/lib_$(ARCH)/libpost$(ARCH).a"; fi)
++#LIBS += $(shell if [ -d post/lib_$(ARCH)/fpu ]; then echo \
++#	"post/lib_$(ARCH)/fpu/libpost$(ARCH)fpu.a"; fi)
++#LIBS += $(shell if [ -d post/cpu/$(CPU) ]; then echo \
++#	"post/cpu/$(CPU)/libpost$(CPU).a"; fi)
++#LIBS += $(shell if [ -d post/board/$(BOARDDIR) ]; then echo \
++#	"post/board/$(BOARDDIR)/libpost$(BOARD).a"; fi)
 +# LIBS += common/libcommon.a
- LIBS += $(BOARDLIBS)
++# LIBS += libfdt/libfdt.a
++LIBS += $(BOARDLIBS)
 +# LIBS - cu570m end
  
  LIBS := $(addprefix $(obj),$(LIBS))
@@ -158,15 +184,16 @@ index a282342..63fe227 100644
  
  # The "tools" are needed early, so put this first
  # Don't include stuff already done in $(LIBS)
-+# SUBDIRS tools,examples,post,... -> tools,post,... - cu570m
- SUBDIRS	= tools \
--	  examples \
- 	  post \
- 	  post/cpu
- .PHONY : $(SUBDIRS)
-@@ -241,7 +289,11 @@ __LIBS := $(subst $(obj),,$(LIBS))
++# SUBDIRS tools,examples,... -> tools,... - cu570m
+-SUBDIRS	= tools \
+-	  examples
++SUBDIRS	= tools
  
- ALL = $(obj)u-boot.srec $(obj)u-boot.bin $(obj)System.map $(U_BOOT_NAND)
+ .PHONY : $(SUBDIRS)
+ 
+@@ -250,7 +269,11 @@ __LIBS := $(subst $(obj),,$(LIBS))
+ 
+ ALL += $(obj)u-boot.srec $(obj)u-boot.bin $(obj)System.map $(U_BOOT_NAND)
  
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m condition branch
 +all:		$(ALL) $(obj)tuboot.bin
@@ -176,7 +203,7 @@ index a282342..63fe227 100644
  
  $(obj)u-boot.hex:	$(obj)u-boot
  		$(OBJCOPY) ${OBJCFLAGS} -O ihex $< $@
-@@ -262,9 +314,10 @@ $(obj)u-boot.img:	$(obj)u-boot.bin
+@@ -271,9 +294,10 @@ $(obj)u-boot.img:	$(obj)u-boot.bin
  $(obj)u-boot.dis:	$(obj)u-boot
  		$(OBJDUMP) -d $< > $@
  
@@ -188,7 +215,7 @@ index a282342..63fe227 100644
  			--start-group $(__LIBS) --end-group $(PLATFORM_LIBS) \
  			-Map u-boot.map -o u-boot
  
-@@ -283,6 +336,38 @@ $(NAND_SPL):	version
+@@ -292,6 +316,38 @@ $(NAND_SPL):	version
  $(U_BOOT_NAND):	$(NAND_SPL) $(obj)u-boot.bin
  		cat $(obj)nand_spl/u-boot-spl-16k.bin $(obj)u-boot.bin > $(obj)u-boot-nand.bin
  
@@ -227,7 +254,7 @@ index a282342..63fe227 100644
  version:
  		@echo -n "#define U_BOOT_VERSION \"U-Boot " > $(VERSION_FILE); \
  		echo -n "$(U_BOOT_VERSION)" >> $(VERSION_FILE); \
-@@ -2133,6 +2218,1459 @@ pb1000_config		: 	unconfig
+@@ -2279,6 +2335,1459 @@ pb1000_config		:	unconfig
  purple_config :		unconfig
  	@$(MKCONFIG) $(@:_config=) mips mips purple
  
@@ -1687,7 +1714,7 @@ index a282342..63fe227 100644
  #========================================================================
  # Nios
  #========================================================================
-@@ -2259,42 +3797,51 @@ atstk1002_config	:	unconfig
+@@ -2418,44 +3927,53 @@ atstk1002_config	:	unconfig
  #########################################################################
  #########################################################################
  
@@ -1707,7 +1734,7 @@ index a282342..63fe227 100644
  	      $(obj)examples/test_burst
 -	rm -f $(obj)tools/img2srec $(obj)tools/mkimage $(obj)tools/envcrc \
 +	@rm -f $(obj)tools/img2srec $(obj)tools/mkimage $(obj)tools/envcrc \
- 		$(obj)tools/gen_eth_addr
+ 		$(obj)tools/gen_eth_addr $(obj)tools/ubsha1
 -	rm -f $(obj)tools/mpc86x_clk $(obj)tools/ncb
 -	rm -f $(obj)tools/easylogo/easylogo $(obj)tools/bmp_logo
 -	rm -f $(obj)tools/gdb/astest $(obj)tools/gdb/gdbcont $(obj)tools/gdb/gdbsend
@@ -1717,6 +1744,8 @@ index a282342..63fe227 100644
 -	rm -f $(obj)board/netstar/*.srec $(obj)board/netstar/*.bin
 -	rm -f $(obj)board/trab/trab_fkt $(obj)board/voiceblue/eeprom
 -	rm -f $(obj)board/integratorap/u-boot.lds $(obj)board/integratorcp/u-boot.lds
+-	rm -f $(obj)board/bf533-ezkit/u-boot.lds $(obj)board/bf533-stamp/u-boot.lds
+-	rm -f $(obj)board/bf537-stamp/u-boot.lds $(obj)board/bf561-ezkit/u-boot.lds
 -	rm -f $(obj)include/bmp_logo.h
 -	rm -f $(obj)nand_spl/u-boot-spl $(obj)nand_spl/u-boot-spl.map
 +	@rm -f $(obj)tools/mpc86x_clk $(obj)tools/ncb
@@ -1728,6 +1757,8 @@ index a282342..63fe227 100644
 +	@rm -f $(obj)board/netstar/*.srec $(obj)board/netstar/*.bin
 +	@rm -f $(obj)board/trab/trab_fkt $(obj)board/voiceblue/eeprom
 +	@rm -f $(obj)board/integratorap/u-boot.lds $(obj)board/integratorcp/u-boot.lds
++	@rm -f $(obj)board/bf533-ezkit/u-boot.lds $(obj)board/bf533-stamp/u-boot.lds
++	@rm -f $(obj)board/bf537-stamp/u-boot.lds $(obj)board/bf561-ezkit/u-boot.lds
 +	@rm -f $(obj)include/bmp_logo.h
 +	@rm -f $(obj)nand_spl/u-boot-spl $(obj)nand_spl/u-boot-spl.map
 +ifeq ($(COMPRESSED_UBOOT),1) # cu570m start
@@ -1746,14 +1777,14 @@ index a282342..63fe227 100644
 -	rm -f $(OBJS) $(obj)*.bak $(obj)ctags $(obj)etags $(obj)TAGS $(obj)include/version_autogenerated.h
 -	rm -fr $(obj)*.*~
 -	rm -f $(obj)u-boot $(obj)u-boot.map $(obj)u-boot.hex $(ALL)
--	rm -f $(obj)tools/crc32.c $(obj)tools/environment.c $(obj)tools/env/crc32.c
+-	rm -f $(obj)tools/crc32.c $(obj)tools/environment.c $(obj)tools/env/crc32.c $(obj)tools/sha1.c
 -	rm -f $(obj)tools/inca-swap-bytes $(obj)cpu/mpc824x/bedbug_603e.c
 -	rm -f $(obj)include/asm/proc $(obj)include/asm/arch $(obj)include/asm
 -	[ ! -d $(OBJTREE)/nand_spl ] || find $(obj)nand_spl -lname "*" -print | xargs rm -f
 +	@rm -f $(OBJS) $(obj)*.bak $(obj)ctags $(obj)etags $(obj)TAGS $(obj)include/version_autogenerated.h
 +	@rm -fr $(obj)*.*~
 +	@rm -f $(obj)u-boot $(obj)u-boot.map $(obj)u-boot.hex $(ALL)
-+	@rm -f $(obj)tools/crc32.c $(obj)tools/environment.c $(obj)tools/env/crc32.c
++	@rm -f $(obj)tools/crc32.c $(obj)tools/environment.c $(obj)tools/env/crc32.c $(obj)tools/sha1.c
 +	@rm -f $(obj)tools/inca-swap-bytes $(obj)cpu/mpc824x/bedbug_603e.c
 +	@rm -f $(obj)include/asm/proc $(obj)include/asm/arch $(obj)include/asm
 +	@[ ! -d $(OBJTREE)/nand_spl ] || find $(obj)nand_spl -lname "*" -print | xargs rm -f

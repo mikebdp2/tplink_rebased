@@ -18,6 +18,7 @@ rm -f ./common/cmd_dtt.c
 rm -f ./common/cmd_ext2.c
 rm -f ./common/cmd_fat.c
 rm -f ./common/cmd_fdc.c
+rm -f ./common/cmd_fdt.c
 rm -f ./common/cmd_fdos.c
 rm -f ./common/cmd_fpga.c
 rm -f ./common/cmd_i2c.c
@@ -25,11 +26,13 @@ rm -f ./common/cmd_ide.c
 rm -f ./common/cmd_jffs2.c
 rm -f ./common/cmd_log.c
 rm -f ./common/cmd_mac.c
+rm -f ./common/cmd_mfsl.c
 rm -f ./common/cmd_mmc.c
 rm -f ./common/cmd_pci.c
 rm -f ./common/cmd_pcmcia.c
 rm -f ./common/cmd_portio.c
 rm -f ./common/cmd_reiser.c
+rm -f ./common/cmd_sata.c
 rm -f ./common/cmd_scsi.c
 rm -f ./common/cmd_universe.c
 rm -f ./common/cmd_usb.c
@@ -42,6 +45,7 @@ rm -f ./common/env_eeprom.c
 rm -f ./common/env_flash.c
 rm -f ./common/env_nand.c
 rm -f ./common/env_nvram.c
+rm -f ./common/fdt_support.c
 rm -f ./common/fpga.c
 rm -f ./common/ft_build.c
 rm -f ./common/kgdb.c
@@ -82,6 +86,7 @@ rm -f ./include/405_mal.h
 rm -f ./include/405gp_i2c.h
 rm -f ./include/405gp_pci.h
 rm -f ./include/440_i2c.h
+rm -f ./include/4xx_i2c.h
 rm -f ./include/74xx_7xx.h
 rm -f ./include/ACEX1K.h
 rm -f ./include/ahci.h
@@ -115,6 +120,8 @@ rm -f ./include/elf.h
 rm -f ./include/ext2fs.h
 rm -f ./include/fat.h
 rm -f ./include/fdc.h
+rm -f ./include/fdt.h
+rm -f ./include/fdt_support.h
 rm -f ./include/fpga.h
 rm -f ./include/ft_build.h
 rm -rf ./include/galileo/
@@ -128,6 +135,8 @@ rm -f ./include/lcdvideo.h
 rm -f ./include/lh7a400.h
 rm -f ./include/lh7a404.h
 rm -f ./include/lh7a40x.h
+rm -f ./include/libfdt.h
+rm -f ./include/libfdt_env.h
 rm -f ./include/linux/byteorder/little_endian.h
 rm -f ./include/linux/mc146818rtc.h
 rm -rf ./include/linux/mtd/
@@ -141,6 +150,7 @@ rm -f ./include/lynxkdi.h
 rm -f ./include/mii_phy.h
 rm -f ./include/mmc.h
 rm -f ./include/mpc106.h
+rm -f ./include/mpc512x.h
 rm -f ./include/mpc5xx.h
 rm -f ./include/mpc5xxx.h
 rm -f ./include/mpc8220.h
@@ -182,6 +192,7 @@ rm -f ./include/s3c24x0.h
 rm -f ./include/s_record.h
 rm -f ./include/SA-1100.h
 rm -f ./include/sa1100.h
+rm -f ./include/sata.h
 rm -f ./include/scsi.h
 rm -f ./include/sed13806.h
 rm -f ./include/sed156x.h
@@ -194,6 +205,7 @@ rm -f ./include/spd_sdram.h
 rm -f ./include/status_led.h
 rm -f ./include/sym53c8xx.h
 rm -f ./include/systemace.h
+rm -f ./include/tsi108.h
 rm -f ./include/universe.h
 rm -f ./include/usb.h
 rm -f ./include/usb_defs.h
@@ -227,9 +239,13 @@ rm -f ./lib_generic/bzlib_huffman.c
 rm -f ./lib_generic/bzlib_private.h
 rm -f ./lib_generic/bzlib_randtable.c
 rm -f ./lib_generic/zlib.c
+rm -rf ./libfdt/
 rm -rf ./nand_spl/
 rm -f ./net/sntp.c
 rm -f ./net/sntp.h
+rm -rf ./post/lib_ppc/
+rm -rf ./post/cpu/mpc8xx/
+rm -rf ./post/cpu/ppc4xx/
 rm -rf ./tools/bddb/
 rm -rf ./tools/easylogo/
 rm -rf ./tools/env/

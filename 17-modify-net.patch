@@ -31,8 +31,8 @@ index e8ac251..36d9376 100644
 --- a/net/eth.c
 +++ b/net/eth.c
 @@ -251,6 +251,17 @@ int eth_initialize(bd_t *bis)
- #if defined(CONFIG_RTL8169)
- 	rtl8169_initialize(bis);
+ #if defined(CONFIG_ATSTK1000)
+ 	atstk1000_eth_initialize(bis);
  #endif
 +/* cu570m start */
 +#if defined(CONFIG_AR7100)

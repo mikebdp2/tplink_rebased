@@ -46,13 +46,13 @@ index 07ddc95..0448522 100644
 +	  memsize.o miiphybb.o miiphyutil.o \
 +	  serial.o crc16.o
 +else # old default path
- COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o \
- 	  cmd_ace.o cmd_autoscript.o \
+ COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o cmd_autoscript.o \
  	  cmd_bdinfo.o cmd_bedbug.o cmd_bmp.o cmd_boot.o cmd_bootm.o \
-@@ -52,12 +72,34 @@ COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o \
+ 	  cmd_cache.o cmd_console.o \
+@@ -51,12 +71,34 @@ COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o \
  	  s_record.o serial.o soft_i2c.o soft_spi.o spartan2.o spartan3.o \
  	  usb.o usb_kbd.o usb_storage.o \
- 	  virtex2.o xilinx.o crc16.o xyzModem.o cmd_mac.o
+ 	  virtex2.o xilinx.o crc16.o xyzModem.o cmd_mac.o cmd_mfsl.o
 +endif # cu570m
 +
 +# cu570m start
@@ -178,7 +178,7 @@ index 3091a58..971f0da 100644
 +		printf("   Verifying Checksum at 0x%p ...", data); /* cu570m */
  		if (crc32 (0, (uchar *)data, len) != ntohl(hdr->ih_dcrc)) {
  			printf ("Bad Data CRC\n");
- 			SHOW_BOOT_PROGRESS (-3);
+ 			show_boot_progress (-3);
 @@ -316,6 +326,19 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
  	dcache_disable();
  #endif
@@ -220,7 +220,7 @@ index 3091a58..971f0da 100644
 +		i = lzma_inflate ((unsigned char *)data, len, (unsigned char*)ntohl(hdr->ih_load), &unc_len);
 +		if (i != LZMA_RESULT_OK) {
 +			printf ("LZMA ERROR %d - must RESET board to recover\n", i);
-+			SHOW_BOOT_PROGRESS (-6);
++			show_boot_progress (-6);
 +			udelay(100000);
 +			do_reset (cmdtp, flag, argc, argv);
 +		}
@@ -297,7 +297,7 @@ index 3091a58..971f0da 100644
 +		addr = simple_strtoul(argv[1], NULL, 16);
 +	}
 +
-+	SHOW_BOOT_PROGRESS (1);
++	show_boot_progress (1);
 +	printf ("## Booting image at %08lx ...\n", addr);
 +
 +    name = (char *) addr;
@@ -312,10 +312,10 @@ index 3091a58..971f0da 100644
 +	len  = ntohl(hdr->ih_size);
 +
 +	/* TODO ??? fileTag ??? magic number ??? checksum */
-+	SHOW_BOOT_PROGRESS (2);
++	show_boot_progress (2);
 +
 +	name = "Kernel Image";
-+	SHOW_BOOT_PROGRESS (6);
++	show_boot_progress (6);
 +
 +	/*
 +	 * We have reached the point of no return: we are going to
@@ -353,14 +353,14 @@ index 3091a58..971f0da 100644
 +		i = lzma_inflate ((unsigned char *)data, len, (unsigned char*)ntohl(hdr->ih_load), &unc_len);
 +		if (i != LZMA_RESULT_OK) {
 +			printf ("LZMA ERROR %d - must RESET board to recover\n", i);
-+			SHOW_BOOT_PROGRESS (-6);
++			show_boot_progress (-6);
 +			//udelay(100000);
 +			do_reset (cmdtp, flag, argc, argv);
 +		}
 +/*		break;*/
 +#endif /* CONFIG_LZMA */
 +	puts ("OK\n");
-+	SHOW_BOOT_PROGRESS (7);
++	show_boot_progress (7);
 +
 +/*	case IH_OS_LINUX: */
 +#ifdef CONFIG_SILENT_CONSOLE
@@ -369,7 +369,7 @@ index 3091a58..971f0da 100644
 +	    do_bootm_linux  (cmdtp, flag, argc, argv,
 +			     addr, len_ptr, verify);
 +
-+	SHOW_BOOT_PROGRESS (-9);
++	show_boot_progress (-9);
 +#ifdef DEBUG
 +	puts ("\n## Control returned to monitor - resetting...\n");
 +	do_reset (cmdtp, flag, argc, argv);
@@ -542,14 +542,14 @@ index cb1c5bb..d5bb37f 100644
 +#endif /* #ifndef COMPRESSED_UBOOT */ /* cu570m */
  
  U_BOOT_CMD(
- 	erase,   3,   1,  do_flerase,
+ 	erase,   3,   0,  do_flerase,
 @@ -703,6 +718,7 @@ U_BOOT_CMD(
  	"erase all\n    - erase all FLASH banks\n"
  );
  
 +#ifndef COMPRESSED_UBOOT /* cu570m */
  U_BOOT_CMD(
- 	protect,  4,  1,   do_protect,
+ 	protect,  4,  0,   do_protect,
  	"protect - enable or disable FLASH write protection\n",
 @@ -727,6 +743,7 @@ U_BOOT_CMD(
  	TMP_PROT_OFF
@@ -1055,7 +1055,7 @@ index 2cb2c5d..f6db97e 100644
 --- a/common/cmd_net.c
 +++ b/common/cmd_net.c
 @@ -32,9 +32,15 @@
- 
+ #if (CONFIG_COMMANDS & CFG_CMD_NET)
  
  extern int do_bootm (cmd_tbl_t *, int, int, char *[]);
 +/* cu570m start */
@@ -1100,9 +1100,9 @@ index 2cb2c5d..f6db97e 100644
  
 -	default: printf ("Usage:\n%s\n", cmdtp->usage);
 +	default: printf ("Usage(%d):\n%s\n", argc, cmdtp->usage); /* d, argc - cu570m */
+ 		show_boot_progress (-80);
  		return 1;
  	}
- 
 @@ -247,6 +256,28 @@ U_BOOT_CMD(
  	"ping\t- send ICMP ECHO_REQUEST to network host\n",
  	"pingAddress\n"
@@ -1178,9 +1178,9 @@ index cc4b50f..b13bf54 100644
 +#endif
 +/* cu570m end */
 +
- #if defined(CONFIG_BOOT_RETRY_TIME) && defined(CONFIG_RESET_TO_RETRY)
- extern int do_reset (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]);		/* for do_reset() prototype */
- #endif
+ /*
+  * Board-specific Platform code can reimplement show_boot_progress () if needed
+  */
 @@ -292,6 +304,18 @@ static __inline__ int abortboot(int bootdelay)
  
  /****************************************************************************/
