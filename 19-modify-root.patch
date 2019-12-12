@@ -11,17 +11,22 @@ Subject: [PATCH] Modify ./ files according to WR841N(D)v9 u-boot
  4 files changed, 1688 insertions(+), 38 deletions(-)
 
 diff --git a/MAKEALL b/MAKEALL
-index 879a17f..9e4eab5 100755
+index 1219fb373f..89d74a37e8 100755
 --- a/MAKEALL
 +++ b/MAKEALL
-@@ -242,7 +242,9 @@ LIST_mips5kc="purple"
+@@ -528,11 +528,15 @@ LIST_au1xx0="		\
+ 	gth2		\
+ "
  
- LIST_au1xx0="dbau1000 dbau1100 dbau1500 dbau1550 dbau1550_el gth2"
- 
--LIST_mips="${LIST_mips4kc} ${LIST_mips5kc} ${LIST_au1xx0}"
 +LIST_mips24k="ar7100" # cu570m
 +
-+LIST_mips="${LIST_mips4kc} ${LIST_mips5kc} ${LIST_au1xx0} ${LIST_mips24k}" # ${LIST_mips24k} - cu570m
+ LIST_mips="		\
+ 	${LIST_mips4kc}	\
+ 	${LIST_mips5kc}	\
+ 	${LIST_au1xx0}	\
++	${LIST_mips24k}	\
+ "
++# ${LIST_mips24k} - cu570m
  
  #########################################################################
  ## MIPS Systems		(little endian)
@@ -80,7 +85,7 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -190,54 +209,84 @@ endif
+@@ -190,55 +209,85 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
@@ -99,18 +104,16 @@ index a282342..63fe227 100644
 +# LIBS += cpu/ixp/npe/libnpe.a
 +# endif
  LIBS += lib_$(ARCH)/lib$(ARCH).a
--LIBS += fs/cramfs/libcramfs.a fs/ext2/libext2fs.a fs/fat/libfat.a \
--	fs/fdos/libfdos.a fs/jffs2/libjffs2.a fs/reiserfs/libreiserfs.a \
--	fs/romfs/libromfs.a
+-LIBS += fs/cramfs/libcramfs.a fs/fat/libfat.a fs/fdos/libfdos.a fs/jffs2/libjffs2.a \
+-	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
 +
 +# ifeq ($(KERNELVER),2.6.31)
 +LIBS += drivers/libdrivers.a
 +# endif
 +# ifeq ($(COMPRESSED_UBOOT),0)
 +
-+# LIBS += fs/cramfs/libcramfs.a fs/ext2/libext2fs.a fs/fat/libfat.a \
-+# 	fs/fdos/libfdos.a fs/jffs2/libjffs2.a fs/reiserfs/libreiserfs.a \
-+# 	fs/romfs/libromfs.a
++# LIBS += fs/cramfs/libcramfs.a fs/fat/libfat.a fs/fdos/libfdos.a fs/jffs2/libjffs2.a \
++# 	fs/reiserfs/libreiserfs.a fs/ext2/libext2fs.a
  LIBS += net/libnet.a
 -LIBS += disk/libdisk.a
 +# LIBS += disk/libdisk.a
@@ -120,8 +123,10 @@ index a282342..63fe227 100644
 -LIBS += drivers/bios_emulator/libatibiosemu.a
 -LIBS += drivers/nand/libnand.a
 -LIBS += drivers/nand_legacy/libnand_legacy.a
--LIBS += drivers/net/libnetdrv.a
 -ifeq ($(CPU),mpc83xx)
+-LIBS += drivers/qe/qe.a
+-endif
+-ifeq ($(CPU),mpc85xx)
 -LIBS += drivers/qe/qe.a
 -endif
 -LIBS += drivers/sk98lin/libsk98lin.a
@@ -145,8 +150,10 @@ index a282342..63fe227 100644
 +# LIBS += drivers/bios_emulator/libatibiosemu.a
 +# LIBS += drivers/nand/libnand.a
 +# LIBS += drivers/nand_legacy/libnand_legacy.a
-+# LIBS += drivers/net/libnetdrv.a
 +# ifeq ($(CPU),mpc83xx)
++# LIBS += drivers/qe/qe.a
++# endif
++# ifeq ($(CPU),mpc85xx)
 +# LIBS += drivers/qe/qe.a
 +# endif
 +# LIBS += drivers/sk98lin/libsk98lin.a

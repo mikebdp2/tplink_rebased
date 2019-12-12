@@ -339,7 +339,7 @@ index f3a5471..e4f239c 100644
  
  		store_block (TftpBlock - 1, pkt + 2, len);
  
-@@ -295,12 +299,27 @@ TftpHandler (uchar * pkt, unsigned dest, unsigned src, unsigned len)
+@@ -295,15 +299,30 @@ TftpHandler (uchar * pkt, unsigned dest, unsigned src, unsigned len)
  	}
  }
  
@@ -356,6 +356,9 @@ index f3a5471..e4f239c 100644
  {
  	if (++TftpTimeoutCount > TIMEOUT_COUNT) {
  		puts ("\nRetry count exceeded; starting again\n");
+ #ifdef CONFIG_MCAST_TFTP
+ 		mcast_cleanup();
+ #endif
 +/* cu570m start */
 +#ifdef FW_RECOVERY
 +		if(fw_recovery) {
