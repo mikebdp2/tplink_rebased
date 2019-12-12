@@ -80,7 +80,7 @@ index a282342..63fe227 100644
  ifeq ($(CPU),i386)
  OBJS += cpu/$(CPU)/start16.o
  OBJS += cpu/$(CPU)/reset.o
-@@ -190,37 +209,66 @@ endif
+@@ -190,40 +209,69 @@ endif
  
  OBJS := $(addprefix $(obj),$(OBJS))
  
@@ -111,6 +111,9 @@ index a282342..63fe227 100644
 -LIBS += drivers/libdrivers.a
 -LIBS += drivers/nand/libnand.a
 -LIBS += drivers/nand_legacy/libnand_legacy.a
+-ifeq ($(CPU),mpc83xx)
+-LIBS += drivers/qe/qe.a
+-endif
 -LIBS += drivers/sk98lin/libsk98lin.a
 -LIBS += post/libpost.a post/cpu/libcpu.a
 -LIBS += common/libcommon.a
@@ -122,6 +125,9 @@ index a282342..63fe227 100644
 +
 +# LIBS += drivers/nand/libnand.a
 +# LIBS += drivers/nand_legacy/libnand_legacy.a
++# ifeq ($(CPU),mpc83xx)
++# LIBS += drivers/qe/qe.a
++# endif
 +# LIBS += drivers/sk98lin/libsk98lin.a
 +# LIBS += post/libpost.a post/cpu/libcpu.a
 +# LIBS += common/libcommon.a
@@ -158,7 +164,7 @@ index a282342..63fe227 100644
  	  post \
  	  post/cpu
  .PHONY : $(SUBDIRS)
-@@ -238,7 +286,11 @@ __LIBS := $(subst $(obj),,$(LIBS))
+@@ -241,7 +289,11 @@ __LIBS := $(subst $(obj),,$(LIBS))
  
  ALL = $(obj)u-boot.srec $(obj)u-boot.bin $(obj)System.map $(U_BOOT_NAND)
  
@@ -170,7 +176,7 @@ index a282342..63fe227 100644
  
  $(obj)u-boot.hex:	$(obj)u-boot
  		$(OBJCOPY) ${OBJCFLAGS} -O ihex $< $@
-@@ -259,9 +311,10 @@ $(obj)u-boot.img:	$(obj)u-boot.bin
+@@ -262,9 +314,10 @@ $(obj)u-boot.img:	$(obj)u-boot.bin
  $(obj)u-boot.dis:	$(obj)u-boot
  		$(OBJDUMP) -d $< > $@
  
@@ -182,7 +188,7 @@ index a282342..63fe227 100644
  			--start-group $(__LIBS) --end-group $(PLATFORM_LIBS) \
  			-Map u-boot.map -o u-boot
  
-@@ -280,6 +333,38 @@ $(NAND_SPL):	version
+@@ -283,6 +336,38 @@ $(NAND_SPL):	version
  $(U_BOOT_NAND):	$(NAND_SPL) $(obj)u-boot.bin
  		cat $(obj)nand_spl/u-boot-spl-16k.bin $(obj)u-boot.bin > $(obj)u-boot-nand.bin
  
@@ -221,7 +227,7 @@ index a282342..63fe227 100644
  version:
  		@echo -n "#define U_BOOT_VERSION \"U-Boot " > $(VERSION_FILE); \
  		echo -n "$(U_BOOT_VERSION)" >> $(VERSION_FILE); \
-@@ -2130,6 +2215,1459 @@ pb1000_config		: 	unconfig
+@@ -2133,6 +2218,1459 @@ pb1000_config		: 	unconfig
  purple_config :		unconfig
  	@$(MKCONFIG) $(@:_config=) mips mips purple
  
@@ -1681,7 +1687,7 @@ index a282342..63fe227 100644
  #========================================================================
  # Nios
  #========================================================================
-@@ -2256,42 +3794,51 @@ atstk1002_config	:	unconfig
+@@ -2259,42 +3797,51 @@ atstk1002_config	:	unconfig
  #########################################################################
  #########################################################################
  

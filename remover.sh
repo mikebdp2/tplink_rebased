@@ -35,6 +35,7 @@ rm -f ./common/cmd_universe.c
 rm -f ./common/cmd_usb.c
 rm -f ./common/cmd_vfd.c
 rm -f ./common/cmd_ximg.c
+rm -f ./common/cyclon2.c
 rm -f ./common/dlmalloc.src
 rm -f ./common/env_dataflash.c
 rm -f ./common/env_eeprom.c
